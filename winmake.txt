@@ -1,1 +1,0 @@
-WINEPATH=c:\borland\bcc55\bin;c:\qt\3.2.1noncommercial\bin QTDIR=c:\qt\3.2.1noncommercial QMAKESPEC=c:\qt\3.2.1noncommercial\mkspecs\win32-borland wine make

@@ -1,0 +1,241 @@
+Account	include/accountsData.h	/^        \/\/\/ Holds all data for one account$/
+AccountsData	src/accountsData.cpp	/^AccountsData::~AccountsData()$/
+Client	src/client.cpp	/^Client::~Client()$/
+DataCategory	include/importExport.h	/^        enum DataCategory { Accounts, JournalTmp }/
+Editor	include/reportsEditor.h	/^        \/\/\/ The different editor groups$/
+Entity	include/reportsEditor.h	/^        struct Entity {$/
+ImportExport	src/importExport.cpp	/^ImportExport::ImportExport() {}$/
+JournalData	src/journalData.cpp	/^JournalData::~JournalData()$/
+JournalEditCurrencyValidator	src/journalEditCurrencyValidator.cpp	/^JournalEditCurrencyValidator::~JournalEditCurrency/
+JournalRecord	include/journalData.h	/^        \/\/\/ Holds all data for one journal reco/
+JournalSummary	src/journalSummary.cpp	/^JournalSummary::~JournalSummary()$/
+Mmain.cpp	src/main.cpp	/^int main(int argc, char *argv[])$/
+QDialog	src/globalCloseDialog.cpp	/^GlobalCloseDialog::GlobalCloseDialog(QWidget *pare/
+QHBox	src/globalGoBackLabel.cpp	/^    : QHBox(parent,name)$/
+QObject	src/accountsData.cpp	/^AccountsData::AccountsData() : QObject(0, "Account/
+QPrinter	src/reportsPrint.cpp	/^ReportsPrint::ReportsPrint() : QPrinter(QPrinter::/
+QTabWidget	src/globalTabs.cpp	/^    : QTabWidget(0, name)$/
+QTable	src/accountsTable.cpp	/^    : QTable(parent,name)  $/
+QValidator	src/journalEditCurrencyValidator.cpp	/^    : QValidator(parent,name)$/
+QWidget	src/accountsTab.cpp	/^    : QWidget(parent,name)$/
+QWidgetStack	src/homeTab.cpp	/^    : QWidgetStack(parent,name)$/
+ReportsEditor	src/reportsEditor.cpp	/^ReportsEditor::~ReportsEditor()$/
+ReportsGenerator	src/reportsGenerator.cpp	/^ReportsGenerator::ReportsGenerator()$/
+ReportsPrint	src/reportsPrint.cpp	/^ReportsPrint::~ReportsPrint()$/
+ReportsTab	src/reportsTab.cpp	/^ReportsTab::~ReportsTab()$/
+Section	include/reportsEditor.h	/^        \/\/\/ This covers all the types for the t/
+Settings	src/settings.cpp	/^Settings::Settings()$/
+SortField	include/journalData.h	/^        \/\/\/ Sorting types for getJournalRecords/
+accountHasEntries	src/accountsData.cpp	/^bool AccountsData::accountHasEntries(const QString/
+accountIdExists	src/accountsData.cpp	/^bool AccountsData::accountIdExists(const QString i/
+addEntity	src/reportsEditor.cpp	/^void ReportsEditor::addEntity(ReportsEditor::Entit/
+balanceReport	src/reportsTab.cpp	/^void ReportsTab::balanceReport()$/
+changePath	src/homeTab.cpp	/^void HomeTab::changePath()$/
+changed	src/journalEditAccountList.cpp	/^void JournalEditAccountList::changed(const QString/
+chartAccountsReport	src/reportsTab.cpp	/^void ReportsTab::chartAccountsReport()$/
+chooseREAccount	src/accountsTab.cpp	/^void AccountsTab::chooseREAccount()$/
+clearData	src/accountsData.cpp	/^void AccountsData::clearData()$/
+clientClosed	src/globalTabs.cpp	/^\/\/\/ \\note$/
+clientNameChanged	src/globalTabs.cpp	/^\/\/\/ \\note$/
+clientOpened	src/globalTabs.cpp	/^\/\/\/ \\note$/
+close	src/client.cpp	/^void Client::close()$/
+closeClient	src/homeTab.cpp	/^void HomeTab::closeClient()$/
+closeEvent	src/globalTabs.cpp	/^void GlobalTabs::closeEvent(QCloseEvent *event)$/
+convertCurrency	src/journalData.cpp	/^QString JournalData::convertCurrency(const Q_INT64/
+create	src/client.cpp	/^void Client::create(QString newClientName, int new/
+createEditor	src/accountsEditId.cpp	/^QWidget* AccountsEditId::createEditor() const$/
+createNewDialog	src/homeTab.cpp	/^void HomeTab::createNewDialog()$/
+curText	src/journalEditAccountList.cpp	/^    : QComboBox(TRUE, parent), accounts(newAccount/
+currentText	src/journalEditAccountList.cpp	/^QString JournalEditAccountList::currentText() cons/
+data	src/reportsEditorEntityWidget.cpp	/^    : QWidget(parent,name), data(newData)$/
+date	src/journalEditDate.cpp	/^QDate JournalEditDate::date() const$/
+defaultClientExists	src/client.cpp	/^bool Client::defaultClientExists() const$/
+defaultClientId	src/client.cpp	/^QString Client::defaultClientId() const$/
+deleteAccount	src/accountsData.cpp	/^void AccountsData::deleteAccount(const Q_UINT16 ke/
+deleteTmpRecord	src/journalData.cpp	/^void JournalData::deleteTmpRecord(const Q_UINT16 k/
+destroy	src/accountsData.cpp	/^void AccountsData::destroy()$/
+detailAccountsAllChanged	src/reportsTab.cpp	/^void ReportsTab::detailAccountsAllChanged(bool on)/
+dontSave	src/globalCloseDialog.cpp	/^void GlobalCloseDialog::dontSave()$/
+editName	src/homeTab.cpp	/^void HomeTab::editName()$/
+entityExists	src/reportsEditor.cpp	/^bool ReportsEditor::entityExists($/
+eventFilter	src/accountsTab.cpp	/^bool AccountsTab::eventFilter(QObject *target, QEv/
+exec	src/reportsPDFDialog.cpp	/^QString ReportsPDFDialog::exec()$/
+exportCSV	src/accountsData.cpp	/^void AccountsData::exportCSV(QTextStream &out)$/
+exportPDF	src/importExport.cpp	/^void ImportExport::exportPDF(const QString &text)$/
+fixup	src/journalEditCurrencyValidator.cpp	/^void JournalEditCurrencyValidator::fixup(QString &/
+focusInEvent	src/journalEditAccountList.cpp	/^void JournalEditAccountList::focusInEvent(QFocusEv/
+focusOutEvent	src/journalEditAccountList.cpp	/^void JournalEditAccountList::focusOutEvent(QFocusE/
+formatCurrency	src/main.cpp	/^QString formatCurrency(Q_INT64 amount, bool commas/
+genBalanceSheetReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genBalanceSheetReport(QDate/
+genChartOfAccountsReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genChartOfAccountsReport()$/
+genGeneralDetailReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genGeneralDetailReport($/
+genGeneralTrialReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genGeneralTrialReport($/
+genIncomeRetailReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genIncomeRetailReport(QDate/
+genIncomeSvcReport	src/reportsGenerator.cpp	/^void ReportsGenerator::genIncomeSvcReport(QDate pe/
+generalDetailReport	src/reportsTab.cpp	/^void ReportsTab::generalDetailReport()$/
+generalTrialReport	src/reportsTab.cpp	/^void ReportsTab::generalTrialReport()$/
+getAccountBegin	src/reportsEditorDialog.cpp	/^QString ReportsEditorDialog::getAccountBegin() con/
+getAccountCount	src/accountsData.cpp	/^Q_UINT16 AccountsData::getAccountCount() const$/
+getAccountEnd	src/reportsEditorDialog.cpp	/^QString ReportsEditorDialog::getAccountEnd() const/
+getAccounts	src/accountsData.cpp	/^vector<AccountsData::Account*> AccountsData::getAc/
+getAllClients	src/client.cpp	/^QStringList Client::getAllClients() const$/
+getClientName	src/client.cpp	/^QString Client::getClientName() const$/
+getClientPath	src/settings.cpp	/^QString Settings::getClientPath() const$/
+getCurrentPeriod	src/client.cpp	/^int Client::getCurrentPeriod() const$/
+getDefaultClientId	src/settings.cpp	/^QString Settings::getDefaultClientId() const$/
+getDefaultClientName	src/settings.cpp	/^QString Settings::getDefaultClientName() const$/
+getDefaultHeight	src/settings.cpp	/^int Settings::getDefaultHeight() const$/
+getDefaultWidth	src/settings.cpp	/^int Settings::getDefaultWidth() const$/
+getDefaultX	src/settings.cpp	/^int Settings::getDefaultX() const$/
+getDefaultY	src/settings.cpp	/^int Settings::getDefaultY() const$/
+getDesc	src/reportsEditorDialog.cpp	/^QString ReportsEditorDialog::getDesc() const$/
+getDescription	src/accountsData.cpp	/^QString AccountsData::getDescription(const QString/
+getDocName	src/reportsGenerator.cpp	/^QString ReportsGenerator::getDocName() const$/
+getEditorEntityCount	src/reportsEditor.cpp	/^Q_UINT16 ReportsEditor::getEditorEntityCount() con/
+getEntities	src/reportsEditor.cpp	/^vector<ReportsEditor::Entity*> ReportsEditor::getE/
+getExportPath	src/settings.cpp	/^QString Settings::getExportPath() const$/
+getFirstIndex	src/reportsEditor.cpp	/^Q_UINT16 ReportsEditor::getFirstIndex($/
+getFormattedList	src/accountsData.cpp	/^QStringList AccountsData::getFormattedList(bool wi/
+getImportPath	src/settings.cpp	/^QString Settings::getImportPath() const$/
+getJournalCount	src/journalData.cpp	/^Q_UINT32 JournalData::getJournalCount() const$/
+getJournalRecords	src/journalData.cpp	/^vector<JournalData::JournalRecord*> JournalData::g/
+getJournalTmpCount	src/journalData.cpp	/^Q_UINT16 JournalData::getJournalTmpCount() const$/
+getJournalTmpRecords	src/journalData.cpp	/^vector<JournalData::JournalRecord*> JournalData::g/
+getKey	src/accountsEditId.cpp	/^Q_UINT16 AccountsEditId::getKey() const$/
+getLastIndex	src/reportsEditor.cpp	/^Q_UINT16 ReportsEditor::getLastIndex($/
+getNextAccountKey	src/accountsData.cpp	/^Q_UINT16 AccountsData::getNextAccountKey() const$/
+getNextIndex	src/reportsEditor.cpp	/^Q_UINT16 ReportsEditor::getNextIndex($/
+getNextTmpRecordKey	src/journalData.cpp	/^Q_UINT16 JournalData::getNextTmpRecordKey() const$/
+getPDFExportPath	src/settings.cpp	/^QString Settings::getPDFExportPath() const$/
+getPDFPaperSizeHeight	src/settings.cpp	/^QString Settings::getPDFPaperSizeHeight() const$/
+getPDFPaperSizeInt	src/settings.cpp	/^int Settings::getPDFPaperSizeInt() const$/
+getPDFPaperSizeString	src/settings.cpp	/^QString Settings::getPDFPaperSizeString() const$/
+getPDFPaperSizeUnits	src/settings.cpp	/^int Settings::getPDFPaperSizeUnits() const$/
+getPDFPaperSizeWidth	src/settings.cpp	/^QString Settings::getPDFPaperSizeWidth() const$/
+getPDFPasswordBool	src/settings.cpp	/^bool Settings::getPDFPasswordBool() const$/
+getPDFPasswordString	src/settings.cpp	/^QString Settings::getPDFPasswordString() const$/
+getPDFPermissionsNoAnnotate	src/settings.cpp	/^bool Settings::getPDFPermissionsNoAnnotate() const/
+getPDFPermissionsNoCopy	src/settings.cpp	/^bool Settings::getPDFPermissionsNoCopy() const$/
+getPDFPermissionsNoModify	src/settings.cpp	/^bool Settings::getPDFPermissionsNoModify() const$/
+getPDFPermissionsNoPrint	src/settings.cpp	/^bool Settings::getPDFPermissionsNoPrint() const$/
+getPDFPermissionsString	src/settings.cpp	/^QString Settings::getPDFPermissionsString() const$/
+getPeriodDate	src/client.cpp	/^QDate Client::getPeriodDate(int period, bool endOf/
+getPeriodList	src/client.cpp	/^QStringList Client::getPeriodList(bool begin) cons/
+getPrinterColorMode	src/settings.cpp	/^QPrinter::ColorMode Settings::getPrinterColorMode(/
+getPrinterOrientation	src/settings.cpp	/^QPrinter::Orientation Settings::getPrinterOrientat/
+getPrinterOutputFileName	src/settings.cpp	/^QString Settings::getPrinterOutputFileName() const/
+getPrinterOutputToFile	src/settings.cpp	/^bool Settings::getPrinterOutputToFile() const$/
+getPrinterPageOrder	src/settings.cpp	/^QPrinter::PageOrder Settings::getPrinterPageOrder(/
+getPrinterPageSize	src/settings.cpp	/^QPrinter::PageSize Settings::getPrinterPageSize() /
+getPrinterPaperSource	src/settings.cpp	/^QPrinter::PaperSource Settings::getPrinterPaperSou/
+getPrinterPrintProgram	src/settings.cpp	/^QString Settings::getPrinterPrintProgram() const$/
+getPrinterPrinterName	src/settings.cpp	/^QString Settings::getPrinterPrinterName() const$/
+getREAccountDesc	src/accountsData.cpp	/^QString AccountsData::getREAccountDesc() const$/
+getREAccountId	src/accountsData.cpp	/^QString AccountsData::getREAccountId() const$/
+getReportCSV	src/reportsGenerator.cpp	/^const QString& ReportsGenerator::getReportCSV() co/
+getReportHTML	src/reportsGenerator.cpp	/^const QString& ReportsGenerator::getReportHTML() c/
+getReportHeader	src/reportsGenerator.cpp	/^const QString& ReportsGenerator::getReportHeader()/
+helpContents	src/helpTab.cpp	/^void HelpTab::helpContents()$/
+importCSV	src/accountsData.cpp	/^void AccountsData::importCSV(QTextStream &in)$/
+incomeRetailReport	src/reportsTab.cpp	/^void ReportsTab::incomeRetailReport()$/
+incomeSvcReport	src/reportsTab.cpp	/^void ReportsTab::incomeSvcReport()$/
+initiate	src/accountsData.cpp	/^void AccountsData::initiate()$/
+insert	src/accountsTable.cpp	/^void AccountsTable::insert()$/
+instance	src/accountsData.cpp	/^AccountsData* AccountsData::instance()$/
+isInserting	src/journalTable.cpp	/^bool JournalTable::isInserting() const$/
+isOpen	src/client.cpp	/^bool Client::isOpen()$/
+itemKey	src/accountsEditId.cpp	/^    : QTableItem(table, QTableItem::OnTyping), ite/
+journalTable	src/journalEditDesc.cpp	/^    : QTableItem(table, QTableItem::OnTyping, cont/
+journalTmpBalance	src/journalData.cpp	/^QString JournalData::journalTmpBalance() const$/
+journalTmpCredit	src/journalData.cpp	/^QString JournalData::journalTmpCredit() const$/
+journalTmpDebit	src/journalData.cpp	/^QString JournalData::journalTmpDebit() const$/
+journalTmpEmpty	src/journalData.cpp	/^bool JournalData::journalTmpEmpty() const$/
+keyPressEvent	src/accountsTable.cpp	/^void AccountsTable::keyPressEvent(QKeyEvent *event/
+listSection	src/reportsEditorSection.cpp	/^void ReportsEditorSection::listSection()$/
+mousePressEvent	src/globalGoBackLabel.cpp	/^void GlobalGoBackLabel::mousePressEvent(QMouseEven/
+moveDown	src/reportsEditorEntityWidget.cpp	/^void ReportsEditorEntityWidget::moveDown()$/
+moveEntityDown	src/reportsEditor.cpp	/^void ReportsEditor::moveEntityDown(ReportsEditor::/
+moveEntityUp	src/reportsEditor.cpp	/^void ReportsEditor::moveEntityUp(ReportsEditor::En/
+moveUp	src/reportsEditorEntityWidget.cpp	/^void ReportsEditorEntityWidget::moveUp()$/
+numberToString	src/reportsGenerator.cpp	/^QString ReportsGenerator::numberToString(int numbe/
+oneAccountToggled	src/reportsEditorDialog.cpp	/^void ReportsEditorDialog::oneAccountToggled()$/
+open	src/client.cpp	/^\/\/\/ \\todo Add encryption$/
+openDefault	src/homeTab.cpp	/^void HomeTab::openDefault()$/
+openNewDialog	src/homeTab.cpp	/^void HomeTab::openNewDialog()$/
+overwriteDialog	src/importExport.cpp	/^bool ImportExport::overwriteDialog()$/
+paperSizeChanged	src/reportsPDFDialog.cpp	/^void ReportsPDFDialog::paperSizeChanged(int index)/
+passwordNoClicked	src/reportsPDFDialog.cpp	/^void ReportsPDFDialog::passwordNoClicked()$/
+passwordYesClicked	src/reportsPDFDialog.cpp	/^void ReportsPDFDialog::passwordYesClicked()$/
+populate	src/accountsTable.cpp	/^void AccountsTable::populate()$/
+prepareQuit	src/homeTab.cpp	/^void HomeTab::prepareQuit()$/
+print	src/reportsTab.cpp	/^void ReportsTab::print()$/
+printAndSave	src/saveAndClearDialog.cpp	/^void SaveAndClearDialog::printAndSave()$/
+printJournal	src/journalTab.cpp	/^void JournalTab::printJournal()$/
+printJournalEntryReport	src/reportsGenerator.cpp	/^bool ReportsGenerator::printJournalEntryReport()$/
+printReport	src/reportsPrint.cpp	/^bool ReportsPrint::printReport(const QString &head/
+quit	src/globalTabs.cpp	/^\/\/\/ \\note$/
+rangeAccountToggled	src/reportsEditorDialog.cpp	/^void ReportsEditorDialog::rangeAccountToggled()$/
+readStream	src/accountsData.cpp	/^void AccountsData::readStream(QIODevice *device, Q/
+remove	src/accountsTable.cpp	/^void AccountsTable::remove(int row)$/
+removeEntity	src/reportsEditor.cpp	/^void ReportsEditor::removeEntity(ReportsEditor::En/
+retToEntry	src/globalCloseDialog.cpp	/^void GlobalCloseDialog::retToEntry()$/
+saveAndClear	src/globalCloseDialog.cpp	/^void GlobalCloseDialog::saveAndClear()$/
+saveToDisk	src/client.cpp	/^void Client::saveToDisk()$/
+section	src/reportsEditorSection.cpp	/^    : QWidget(parent,name), title(newTitle), edito/
+setClientName	src/client.cpp	/^void Client::setClientName(QString newClientName)$/
+setClientPath	src/settings.cpp	/^void Settings::setClientPath(QString newClientPath/
+setContentFromEditor	src/accountsEditId.cpp	/^void AccountsEditId::setContentFromEditor(QWidget /
+setDefaultClientId	src/settings.cpp	/^void Settings::setDefaultClientId(QString newDefau/
+setDefaultClientName	src/settings.cpp	/^void Settings::setDefaultClientName(QString newDef/
+setDefaultHeight	src/settings.cpp	/^void Settings::setDefaultHeight(int newDefaultHeig/
+setDefaultWidth	src/settings.cpp	/^void Settings::setDefaultWidth(int newDefaultWidth/
+setDefaultX	src/settings.cpp	/^void Settings::setDefaultX(int newDefaultX)$/
+setDefaultY	src/settings.cpp	/^void Settings::setDefaultY(int newDefaultY)$/
+setDocName	src/reportsGenerator.cpp	/^void ReportsGenerator::setDocName(const QString ne/
+setExportPath	src/settings.cpp	/^void Settings::setExportPath(QString newExportPath/
+setImportPath	src/settings.cpp	/^void Settings::setImportPath(QString newImportPath/
+setPDFExportPath	src/settings.cpp	/^void Settings::setPDFExportPath(QString newPDFExpo/
+setPDFPaperSize	src/settings.cpp	/^void Settings::setPDFPaperSize(int newPDFPaperSize/
+setPDFPaperSizeHeight	src/settings.cpp	/^void Settings::setPDFPaperSizeHeight(QString newPD/
+setPDFPaperSizeUnits	src/settings.cpp	/^void Settings::setPDFPaperSizeUnits(int newPDFPape/
+setPDFPaperSizeWidth	src/settings.cpp	/^void Settings::setPDFPaperSizeWidth(QString newPDF/
+setPDFPassword	src/settings.cpp	/^void Settings::setPDFPassword(bool newPDFPassword)/
+setPDFPermissionsNoAnnotate	src/settings.cpp	/^void Settings::setPDFPermissionsNoAnnotate(bool ne/
+setPDFPermissionsNoCopy	src/settings.cpp	/^void Settings::setPDFPermissionsNoCopy(bool newPDF/
+setPDFPermissionsNoModify	src/settings.cpp	/^void Settings::setPDFPermissionsNoModify(bool newP/
+setPDFPermissionsNoPrint	src/settings.cpp	/^void Settings::setPDFPermissionsNoPrint(bool newPD/
+setPrinterColorMode	src/settings.cpp	/^void Settings::setPrinterColorMode(QPrinter::Color/
+setPrinterOrientation	src/settings.cpp	/^void Settings::setPrinterOrientation(QPrinter::Ori/
+setPrinterOutputFileName	src/settings.cpp	/^void Settings::setPrinterOutputFileName(QString ne/
+setPrinterOutputToFile	src/settings.cpp	/^void Settings::setPrinterOutputToFile(bool newPrin/
+setPrinterPageOrder	src/settings.cpp	/^void Settings::setPrinterPageOrder(QPrinter::PageO/
+setPrinterPageSize	src/settings.cpp	/^void Settings::setPrinterPageSize(QPrinter::PageSi/
+setPrinterPaperSource	src/settings.cpp	/^void Settings::setPrinterPaperSource(QPrinter::Pap/
+setPrinterPrintProgram	src/settings.cpp	/^void Settings::setPrinterPrintProgram(QString newP/
+setPrinterPrinterName	src/settings.cpp	/^void Settings::setPrinterPrinterName(QString newPr/
+setREAccountDesc	src/accountsData.cpp	/^void AccountsData::setREAccountDesc(const QString /
+setREAccountId	src/accountsData.cpp	/^void AccountsData::setREAccountId(const QString ne/
+showEvent	src/accountsTab.cpp	/^void AccountsTab::showEvent(QShowEvent*)$/
+switchToAccounts	src/globalTabs.cpp	/^\/\/\/ \\note$/
+switchToEditBalance	src/reportsTab.cpp	/^void ReportsTab::switchToEditBalance()$/
+switchToEditIncomeRetail	src/reportsTab.cpp	/^void ReportsTab::switchToEditIncomeRetail()$/
+switchToEditIncomeSvc	src/reportsTab.cpp	/^void ReportsTab::switchToEditIncomeSvc()$/
+switchToEditor	src/reportsTab.cpp	/^void ReportsTab::switchToEditor(ReportsEditor::Edi/
+switchToHelp	src/globalTabs.cpp	/^\/\/\/ \\note$/
+switchToHome	src/globalTabs.cpp	/^\/\/\/ \\note$/
+switchToJournal	src/globalTabs.cpp	/^\/\/\/ \\note$/
+switchToReports	src/globalTabs.cpp	/^\/\/\/ \\note$/
+switchWidget	src/homeTab.cpp	/^void HomeTab::switchWidget()$/
+text	src/accountsEditId.cpp	/^QString AccountsEditId::text() const$/
+trialAccountsAllChanged	src/reportsTab.cpp	/^void ReportsTab::trialAccountsAllChanged(bool on)$/
+unpopulate	src/accountsTable.cpp	/^void AccountsTable::unpopulate()$/
+update	src/reportsEditorSection.cpp	/^void ReportsEditorSection::update()$/
+updateAccount	src/accountsData.cpp	/^void AccountsData::updateAccount(Q_UINT16 key, con/
+updateAccounts	src/journalEditAccount.cpp	/^void JournalEditAccount::updateAccounts(QStringLis/
+updateDb	src/accountsTable.cpp	/^void AccountsTable::updateDb()$/
+updateSummary	src/journalSummary.cpp	/^void JournalSummary::updateSummary()$/
+updateTmpRecord	src/journalData.cpp	/^void JournalData::updateTmpRecord(const Q_UINT16 k/
+validate	src/journalEditCurrencyValidator.cpp	/^QValidator::State JournalEditCurrencyValidator::va/
+value	src/journalEditCurrency.cpp	/^Q_INT64 JournalEditCurrency::value() const$/
+viewReport	src/reportsTab.cpp	/^void ReportsTab::viewReport()$/
+writeStream	src/accountsData.cpp	/^void AccountsData::writeStream(QIODevice *device)$/

@@ -1,0 +1,51 @@
+/*!
+
+The General Ledger client database files (.glc extension) have the following format:
+
+out = file to be written
+
+out << Q_UINT32 MagicNumber (0x4AB298BC)
+    << Q_UINT8 version
+    << QString clientName (Q_UINT32 (string length, in bytes)
+       + string length * 8 bits (UTF-16))
+    << Q_UINT8 yearEndMonth
+    << QDate creationTime (Q_UINT32)
+    << QDate modifiedTime
+    << Q_UINT16 accountCount
+    << QString RetainedEarningsAccountId
+    << QString RetainedEarningsAccountDescription
+    << Q_UINT16 journalTmpCount
+    << Q_UINT32 journalCount
+    << Q_UINT16 editorEntityCount
+    
+    foreach account: (note: keys are assigned automatically)
+    << QString id
+    << QString desc
+
+    foreach journalTmp: (note: keys are assigned automatically)
+    << QDate date
+    << QString account
+    << QString reference
+    << QString desc
+    << Q_INT64 amount (debit < 0, credit > 0)
+
+    foreach journal:
+    << QDate date
+    << QString account
+    << QString reference
+    << QString desc
+    << Q_INT64 amount
+
+    foreach editorEntityCount:
+    << Q_UINT8 editor
+    << Q_UINT8 section
+    << Q_UINT16 index
+    << QString accountBegin
+    << QString accountEnd
+    << QString desc
+
+With 50 accounts, 30 journalTmp entries, 10000 journal entries,
+and 45 editor fields, the total is about 7 MB (1024 * 1024 = MB).
+
+*/
+
