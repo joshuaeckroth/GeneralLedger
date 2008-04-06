@@ -8,6 +8,7 @@ class QBoxLayout;
 class QPushButton;
 class QTextBrowser;
 class QLabel;
+class QEvent;
 
 class GoBackLabel;
 
@@ -19,12 +20,13 @@ class HelpStack : public QWidget
         ~HelpStack();
         
     signals:
-        void goBack();
+        void goToMain();
         
     private slots:
         void helpContents();
         
     private:
+        bool eventFilter(QObject *target, QEvent *event);
         
         struct {
             QVBoxLayout *vBoxLayout;

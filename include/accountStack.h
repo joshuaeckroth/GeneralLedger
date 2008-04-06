@@ -24,7 +24,10 @@ class AccountStack : public QWidget
         ~AccountStack();
         
     signals:
-        void goBack();
+        void goToMain();
+        void goToJournal();
+        void goToReports();
+        void goToHelp();
         
     private slots:
         void dbOpened();
@@ -33,6 +36,7 @@ class AccountStack : public QWidget
         
     private:
         bool eventFilter(QObject *target, QEvent *event);
+        void showEvent(QShowEvent*);
         
         bool active;
         Database *db;

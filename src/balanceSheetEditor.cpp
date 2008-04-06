@@ -12,7 +12,7 @@
 #include "balanceSheetEditor.h"
 #include "balanceElement.h"
 #include "database.h"
-#include "accountEdit.h"
+#include "accountEditList.h"
 
 BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     : QScrollView(parent,name)
@@ -21,6 +21,8 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     setMargins(5,5,5,5);
     
     db = new Database();
+    connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
+    accounts = db->getAccountsList();
    
     frame = new QFrame(viewport());
     vBoxLayout = new QVBoxLayout(frame);
@@ -201,8 +203,6 @@ void BalanceSheetEditor::addElement(int category)
             break;
     }
     
-    QStringList accountsList = db->getAccountsList();
-    
     dialog.vBoxLayout = new QVBoxLayout(dialog.main);
     dialog.vBoxLayout->setMargin(5);
     dialog.vBoxLayout->setSpacing(5);
@@ -217,7 +217,7 @@ void BalanceSheetEditor::addElement(int category)
     dialog.oneAccountHBoxLayout->addSpacing(5);
     dialog.oneAccountLabel = new QLabel("Account:", dialog.oneAccountFrame);
     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountLabel);
-    dialog.oneAccountEdit = new AccountEdit(dialog.oneAccountFrame, 0, accountsList);
+    dialog.oneAccountEdit = new AccountEditList(dialog.oneAccountFrame, 0, accounts, "");
     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountEdit);
     dialog.oneAccountHBoxLayout->addStretch();
        
@@ -238,11 +238,11 @@ void BalanceSheetEditor::addElement(int category)
     
     dialog.rangeBegin = new QLabel("Begin:", dialog.rangeBeginEndFrame);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBegin);
-    dialog.rangeBeginEdit = new AccountEdit(dialog.rangeBeginEndFrame, 0, accountsList);
+    dialog.rangeBeginEdit = new AccountEditList(dialog.rangeBeginEndFrame, 0, accounts, "");
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBeginEdit);
     dialog.rangeBetween = new QLabel("to", dialog.rangeBeginEndFrame);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBetween);
-    dialog.rangeEndEdit = new AccountEdit(dialog.rangeBeginEndFrame, 0, accountsList);
+    dialog.rangeEndEdit = new AccountEditList(dialog.rangeBeginEndFrame, 0, accounts, "");
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeEndEdit);
     dialog.rangeBeginEndHBoxLayout->addStretch();
     
@@ -345,3 +345,7 @@ void BalanceSheetEditor::addEquities()
     updateSection(&equities);
 }
 
+void BalanceSheetEditor::updateAccounts()
+{
+    accounts = db->getAccountsList();
+}

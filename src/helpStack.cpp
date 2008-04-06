@@ -5,6 +5,7 @@
 #include <qstringlist.h>
 #include <qmime.h>
 #include <qlabel.h>
+#include <qevent.h>
 
 #include "helpStack.h"
 #include "goBackLabel.h"
@@ -19,7 +20,7 @@ HelpStack::HelpStack(QWidget *parent, const char *name)
     main.labelLayout = new QBoxLayout(main.vBoxLayout, QBoxLayout::LeftToRight);
     
     main.topLabel = new GoBackLabel(this);
-    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
+    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     
     main.helpContentsButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/help.png") ),
@@ -35,6 +36,7 @@ HelpStack::HelpStack(QWidget *parent, const char *name)
     main.content->setVScrollBarMode(QScrollView::AlwaysOn);
     main.content->mimeSourceFactory()->addFilePath("/home/josh/projects/genledg/help");    
     main.content->setSource("contents.html");
+    main.content->installEventFilter(this);
     
     main.vBoxLayout->addWidget(main.content);
     
@@ -48,19 +50,30 @@ HelpStack::HelpStack(QWidget *parent, const char *name)
 }
 
 HelpStack::~HelpStack()
-{
-    /*
-    delete main.bottomLabel;
-    delete main.content;
-    delete main.topLabel;
-    delete main.helpContentsButton;
-    delete main.labelLayout;
-    delete main.vBoxLayout;
-    */
-}
+{}
 
 void HelpStack::helpContents()
 {
     main.content->home();
 }
+
+bool HelpStack::eventFilter(QObject *target, QEvent *event)
+{
+    if(event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = (QKeyEvent *)event;
+        if(keyEvent->key() == Key_Escape)
+        {
+            emit goToMain();
+            return true;
+        }
+        if(keyEvent->key() == Key_F8)
+        {
+            helpContents();
+            return true;
+        }
+    }
+    return QWidget::eventFilter(target,event);
+}
+
 

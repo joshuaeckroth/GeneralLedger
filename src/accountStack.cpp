@@ -24,22 +24,6 @@ AccountStack::AccountStack(QWidget *parent, const char *name)
 AccountStack::~AccountStack()
 {
     delete db;
-    /*
-    if(active)
-    {
-        delete main.exportButton;
-        delete main.importButton;
-        delete main.bottomRightBoxLayout;
-        delete main.bottomRightFrame;
-        delete main.bottomLabel;
-        delete main.bottomHBoxLayout;
-        delete main.bottomWidget;
-        delete main.dataTable;
-        delete main.topLabel;
-        delete main.labelLayout;
-        delete main.vBoxLayout;
-    }
-    */
 }
 
 void AccountStack::dbOpened()
@@ -65,11 +49,17 @@ void AccountStack::dbOpened()
     
     main.labelLayout = new QHBoxLayout(main.vBoxLayout);
     main.topLabel = new GoBackLabel(this);
-    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
+    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     main.labelLayout->addWidget(main.topLabel);
     main.labelLayout->addStretch();
     
     main.dataTable = new AccountTable(this);
+    connect(main.dataTable, SIGNAL(goToMain()), this, SIGNAL(goToMain()));
+    connect(main.dataTable, SIGNAL(goToJournal()), this, SIGNAL(goToJournal()));
+    connect(main.dataTable, SIGNAL(goToReports()), this, SIGNAL(goToReports()));
+    connect(main.dataTable, SIGNAL(goToHelp()), this, SIGNAL(goToHelp()));
+    main.dataTable->installEventFilter(this);
+    
     main.vBoxLayout->addWidget(main.dataTable);
     
     main.bottomWidget = new QWidget(this);
@@ -88,10 +78,14 @@ void AccountStack::dbOpened()
     main.importButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/import.png") ),
             "Import from CSV (F11)", main.bottomRightFrame);
+    main.importButton->setFocusPolicy(QWidget::NoFocus);
+    connect(main.importButton, SIGNAL(clicked()), this, SLOT(importCSV()));
     
     main.exportButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
             "Export to CSV (F12)", main.bottomRightFrame);
+    main.exportButton->setFocusPolicy(QWidget::NoFocus);
+    connect(main.exportButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
     
     main.bottomRightBoxLayout->addWidget(main.importButton, 0, Qt::AlignLeft | Qt::AlignTop);
     main.bottomRightBoxLayout->addWidget(main.exportButton, 0, Qt::AlignLeft | Qt::AlignTop);
@@ -113,8 +107,12 @@ void AccountStack::importCSV()
             this,
             0,
             "Import Accounts");
-
-    db->importCSV("accounts", file);    
+    
+    if(file != "")
+    {
+        db->importCSV("accounts", file);
+        main.dataTable->populate();
+    }
 }
 
 void AccountStack::exportCSV()
@@ -126,17 +124,23 @@ void AccountStack::exportCSV()
             0,
             "Export Accounts");
 
-    db->exportCSV("accounts", file);
+    if(file != "")
+        db->exportCSV("accounts", file);
 }
 
 bool AccountStack::eventFilter(QObject *target, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress)
     {
-        QKeyEvent *keyEvent = (QKeyEvent *)event;
-        if(keyEvent->key() == Key_Escape)
+        QKeyEvent *keyEvent = (QKeyEvent*)event;
+        if(keyEvent->key() == Key_F11)
         {
-            emit goBack();
+            importCSV();
+            return true;
+        }
+        if(keyEvent->key() == Key_F12)
+        {
+            exportCSV();
             return true;
         }
     }
@@ -144,4 +148,8 @@ bool AccountStack::eventFilter(QObject *target, QEvent *event)
     return QWidget::eventFilter(target,event);
 }  
 
+void AccountStack::showEvent(QShowEvent*)
+{
+    main.dataTable->setFocus();
+}
 

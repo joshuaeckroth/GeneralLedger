@@ -8,20 +8,24 @@
 class QEvent;
 class QVBoxLayout;
 class QHBoxLayout;
+class QGridLayout;
 class GoBackLabel;
 class QVGroupBox;
 class QVBox;
 class QFrame;
 class QComboBox;
+class QCheckBox;
 class QPushButton;
 class QLabel;
 class QLineEdit;
 class QRadioButton;
 class QBoxLayout;
 class QTextEdit;
+class QStringList;
 
 class BalanceSheetEditor;
 class Database;
+class AccountEditList;
 
 class ReportStack : public QWidgetStack
 {
@@ -31,12 +35,13 @@ class ReportStack : public QWidgetStack
         ~ReportStack();
         
     signals:
-        void goBack();
+        void goToMain();
         
     private slots:
-        void rangeToggled();
-        void allToggled();
+        void detailAccountsAllChanged(bool);
+        void trialAccountsAllChanged(bool);
         void dbOpened();
+        void updateAccounts();
         void viewReport(QString &text);
         void exportHTML();
         void exportCSV();
@@ -53,6 +58,7 @@ class ReportStack : public QWidgetStack
         
         int active;
         Database *db;
+        QStringList accounts;
         
         struct {
             QWidget *widget;
@@ -61,13 +67,71 @@ class ReportStack : public QWidgetStack
             GoBackLabel *topLabel;
             QHBoxLayout *hBoxLayout;
             QVBoxLayout *vBoxLayout;
-            QVGroupBox *generalGroup;
-            QPushButton *generalButton;
-            QPushButton *chartAccountsButton;
-            QVGroupBox *balanceGroup;
+            
+            QVGroupBox *reportsGroup;
+            QWidget *reportsWidget;
+            QGridLayout *reportsGridLayout;
+            
+            QVGroupBox *generalDetailVGroupBox;
+            QWidget *generalDetailDateRangeWidget;
+            QHBoxLayout *generalDetailDateRangeHBoxLayout;
+            QLabel *generalDetailDateRangeLabelBegin;
+            QComboBox *generalDetailDateRangeBegin;
+            QLabel *generalDetailDateRangeLabelBetween;
+            QComboBox *generalDetailDateRangeEnd;
+            QWidget *generalDetailAccountRangeWidget;
+            QHBoxLayout *generalDetailAccountRangeHBoxLayout;
+            QLabel *generalDetailAccountRangeLabel;
+            AccountEditList *generalDetailAccountRangeBegin;
+            QLabel *generalDetailAccountRangeLabelBetween;
+            AccountEditList *generalDetailAccountRangeEnd;
+            QCheckBox *generalDetailAccountRangeAll;
+            QVBoxLayout *generalDetailButtonVBoxLayout;
+            QPushButton *generalDetailButton;
+            
+            QVGroupBox *generalTrialVGroupBox;
+            QWidget *generalTrialMonthEndWidget;
+            QHBoxLayout *generalTrialMonthEndHBoxLayout;
+            QLabel *generalTrialMonthEndLabel;
+            QComboBox *generalTrialMonthEndList;
+            QWidget *generalTrialAccountRangeWidget;
+            QHBoxLayout *generalTrialAccountRangeHBoxLayout;
+            QLabel *generalTrialAccountRangeLabel;
+            AccountEditList *generalTrialAccountRangeBegin;
+            QLabel *generalTrialAccountRangeLabelBetween;
+            AccountEditList *generalTrialAccountRangeEnd;
+            QCheckBox *generalTrialAccountRangeAll;
+            QVBoxLayout *generalTrialButtonVBoxLayout;
+            QPushButton *generalTrialButton;
+            
+            QVGroupBox *balanceVGroupBox;
+            QWidget *balanceMonthEndWidget;
+            QHBoxLayout *balanceMonthEndHBoxLayout;
+            QLabel *balanceMonthEndLabel;
+            QComboBox *balanceMonthEndList;
+            QWidget *balanceModifyWidget;
+            QHBoxLayout *balanceModifyHBoxLayout;
             QPushButton *balanceModifyButton;
+            QVBoxLayout *balanceReportButtonVBoxLayout;
             QPushButton *balanceReportButton;
+            
+            QVGroupBox *incomeVGroupBox;
+            QWidget *incomeMonthEndWidget;
+            QHBoxLayout *incomeMonthEndHBoxLayout;
+            QLabel *incomeMonthEndLabel;
+            QComboBox *incomeMonthEndList;
+            QWidget *incomeModifyWidget;
+            QHBoxLayout *incomeModifyHBoxLayout;
+            QPushButton *incomeModifyButton;
+            QVBoxLayout *incomeButtonVBoxLayout;
+            QPushButton *incomeButton;
+            
+            QVBoxLayout *chartAccountsButtonVBoxLayout;
+            QPushButton *chartAccountsButton;
+            
             QVGroupBox *adminGroup;
+            QWidget *adminWidget;
+            QHBoxLayout *adminHBoxLayout;
             QPushButton *printerOptionsButton;
         } main;
         

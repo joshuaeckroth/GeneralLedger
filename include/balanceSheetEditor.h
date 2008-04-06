@@ -14,10 +14,11 @@ class QPushButton;
 class QDialog;
 class QRadioButton;
 class QLineEdit;
+class QStringList;
 
 class Database;
 class BalanceElement;
-class AccountEdit;
+class AccountEditList;
 
 class BalanceSheetEditor : public QScrollView
 {
@@ -34,9 +35,11 @@ class BalanceSheetEditor : public QScrollView
         void addEquities();
         void oneAccountToggled();
         void rangeAccountToggled();
+        void updateAccounts();
        
     private:
         Database *db;
+        QStringList accounts;
         
         QFrame *frame;
         QVBoxLayout *vBoxLayout;
@@ -63,7 +66,7 @@ class BalanceSheetEditor : public QScrollView
             QFrame *oneAccountFrame;
             QHBoxLayout *oneAccountHBoxLayout;
             QLabel *oneAccountLabel;
-            AccountEdit *oneAccountEdit;
+            AccountEditList *oneAccountEdit;
             QRadioButton *rangeAccount;
             QFrame *rangeAccountFrame;
             QHBoxLayout *rangeAccountHBoxLayout;
@@ -72,9 +75,9 @@ class BalanceSheetEditor : public QScrollView
             QFrame *rangeBeginEndFrame;
             QHBoxLayout *rangeBeginEndHBoxLayout;
             QLabel *rangeBegin;
-            AccountEdit *rangeBeginEdit;
+            AccountEditList *rangeBeginEdit;
             QLabel *rangeBetween;
-            AccountEdit *rangeEndEdit;
+            AccountEditList *rangeEndEdit;
             QFrame *rangeDescFrame;
             QHBoxLayout *rangeDescFrameHBoxLayout;
             QLabel *rangeDesc;

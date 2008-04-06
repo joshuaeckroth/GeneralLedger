@@ -4,6 +4,7 @@
 #include <qvbox.h>
 #include <qframe.h>
 #include <qcombobox.h>
+#include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>
@@ -13,16 +14,22 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qfiledialog.h>
+#include <qstringlist.h>
 
 #include "reportStack.h"
 #include "goBackLabel.h"
 #include "balanceSheetEditor.h"
 #include "database.h"
+#include "accountEditList.h"
 
 ReportStack::ReportStack(QWidget *parent, const char *name)
     : QWidgetStack(parent,name)
 {
     db = new Database();
+    connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
+    accounts = QStringList();
+
+    QStringList periodTmp("Period X (00/00/00)");  // placeholder for combobox sizes
     
     main.widget = new QWidget(this);
     
@@ -32,7 +39,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.hBoxLabel->setMargin(5);
     
     main.topLabel = new GoBackLabel(main.widget);
-    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
+    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     
     main.hBoxLabel->addWidget(main.topLabel);
     main.hBoxLabel->addStretch();
@@ -46,42 +53,201 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     
     main.vBoxLayout->addStretch();
     
-    main.generalGroup = new QVGroupBox("General Ledger and Account Reports", main.widget);
-    main.generalGroup->setInsideMargin(30);
-    main.generalGroup->setInsideSpacing(20);
     
-    main.vBoxLayout->add(main.generalGroup);
+    main.reportsGroup = new QVGroupBox("Reports", main.widget);
+    main.reportsGroup->setInsideMargin(30);
+    main.reportsGroup->setInsideSpacing(20);
     
-    main.generalButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/generalDetailReport.png") ),
-            "General Ledger Detail / Trial Balance", main.generalGroup);
-    connect(main.generalButton, SIGNAL(clicked()), this, SLOT(generalReport()));
-    main.generalButton->installEventFilter(this);
+    main.vBoxLayout->add(main.reportsGroup);
     
-    main.chartAccountsButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/chartOfAccounts.png") ),
-            "Chart of Accounts", main.generalGroup);
-    connect(main.chartAccountsButton, SIGNAL(clicked()), this, SLOT(chartAccountsReport()));
-    main.chartAccountsButton->installEventFilter(this);
+    main.reportsWidget = new QWidget(main.reportsGroup);
+    
+    main.reportsGridLayout = new QGridLayout(main.reportsWidget, 5, 2, 0, 15);  // rows, cols, margin, spacing
     
     
-    main.balanceGroup = new QVGroupBox("Balance Sheet Reports", main.widget);
-    main.balanceGroup->setInsideMargin(30);
-    main.balanceGroup->setInsideSpacing(20);
+    main.generalDetailVGroupBox = new QVGroupBox(main.reportsWidget);
+    main.generalDetailVGroupBox->setInsideSpacing(5);
     
-    main.vBoxLayout->add(main.balanceGroup);
+    main.generalDetailDateRangeWidget = new QWidget(main.generalDetailVGroupBox);
+    main.generalDetailDateRangeHBoxLayout = new QHBoxLayout(main.generalDetailDateRangeWidget);
+    main.generalDetailDateRangeHBoxLayout->setSpacing(5);
     
-    main.balanceModifyButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/balanceModify.png") ),
-            "Modify Balance Sheet", main.balanceGroup);
+    main.generalDetailDateRangeLabelBegin = new QLabel("Date Range:", main.generalDetailDateRangeWidget);
+    main.generalDetailDateRangeBegin = new QComboBox(main.generalDetailDateRangeWidget);
+    main.generalDetailDateRangeBegin->insertStringList(periodTmp);
+    main.generalDetailDateRangeLabelBetween = new QLabel("to", main.generalDetailDateRangeWidget);
+    main.generalDetailDateRangeEnd = new QComboBox(main.generalDetailDateRangeWidget);
+    main.generalDetailDateRangeEnd->insertStringList(periodTmp);
+    
+    main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeLabelBegin);
+    main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeBegin);
+    main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeLabelBetween);
+    main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeEnd);
+    main.generalDetailDateRangeHBoxLayout->addStretch();
+    
+    main.generalDetailAccountRangeWidget = new QWidget(main.generalDetailVGroupBox);
+    main.generalDetailAccountRangeHBoxLayout = new QHBoxLayout(main.generalDetailAccountRangeWidget);
+    main.generalDetailAccountRangeHBoxLayout->setSpacing(5);
+    
+    main.generalDetailAccountRangeLabel = new QLabel("Account Range:", main.generalDetailAccountRangeWidget);
+    main.generalDetailAccountRangeAll = new QCheckBox("All", main.generalDetailAccountRangeWidget);
+    main.generalDetailAccountRangeAll->setChecked(true);
+    connect(main.generalDetailAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(detailAccountsAllChanged(bool)));
+    main.generalDetailAccountRangeBegin = new AccountEditList(main.generalDetailAccountRangeWidget, 0, accounts, "");
+    main.generalDetailAccountRangeBegin->setEnabled(false);
+    main.generalDetailAccountRangeLabelBetween = new QLabel("to", main.generalDetailAccountRangeWidget);
+    main.generalDetailAccountRangeLabelBetween->setEnabled(false);
+    main.generalDetailAccountRangeEnd = new AccountEditList(main.generalDetailAccountRangeWidget, 0, accounts, "");
+    main.generalDetailAccountRangeEnd->setEnabled(false);
+
+    main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeLabel);    
+    main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeAll);
+    main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeBegin);
+    main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeLabelBetween);
+    main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeEnd);
+    main.generalDetailAccountRangeHBoxLayout->addStretch();
+    
+    main.generalDetailButtonVBoxLayout = new QVBoxLayout();
+    main.generalDetailButton = new QPushButton(QIconSet(QPixmap::fromMimeSource("icons/generalDetailReport.png")),
+                                               "General Ledger Detail", main.reportsWidget);
+    main.generalDetailButton->installEventFilter(this);
+    main.generalDetailButtonVBoxLayout->addWidget(main.generalDetailButton);
+    
+    main.reportsGridLayout->addWidget(main.generalDetailVGroupBox, 0, 0);
+    main.reportsGridLayout->addLayout(main.generalDetailButtonVBoxLayout, 0, 1);
+    
+    
+    main.generalTrialVGroupBox = new QVGroupBox(main.reportsWidget);
+    main.generalTrialVGroupBox->setInsideSpacing(5);
+    
+    main.generalTrialMonthEndWidget = new QWidget(main.generalTrialVGroupBox);
+    main.generalTrialMonthEndHBoxLayout = new QHBoxLayout(main.generalTrialMonthEndWidget);
+    main.generalTrialMonthEndHBoxLayout->setSpacing(5);
+    
+    main.generalTrialMonthEndLabel = new QLabel("Month-End:", main.generalTrialMonthEndWidget);
+    main.generalTrialMonthEndList = new QComboBox(main.generalTrialMonthEndWidget);
+    main.generalTrialMonthEndList->insertStringList(periodTmp);
+    
+    main.generalTrialMonthEndHBoxLayout->addWidget(main.generalTrialMonthEndLabel);
+    main.generalTrialMonthEndHBoxLayout->addWidget(main.generalTrialMonthEndList);
+    main.generalTrialMonthEndHBoxLayout->addStretch();
+    
+    main.generalTrialAccountRangeWidget = new QWidget(main.generalTrialVGroupBox);
+    main.generalTrialAccountRangeHBoxLayout = new QHBoxLayout(main.generalTrialAccountRangeWidget);
+    main.generalTrialAccountRangeHBoxLayout->setSpacing(5);
+    
+    main.generalTrialAccountRangeLabel = new QLabel("Account Range:", main.generalTrialAccountRangeWidget);
+    main.generalTrialAccountRangeAll = new QCheckBox("All", main.generalTrialAccountRangeWidget);
+    main.generalTrialAccountRangeAll->setChecked(true);
+    connect(main.generalTrialAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(trialAccountsAllChanged(bool)));
+    main.generalTrialAccountRangeBegin = new AccountEditList(main.generalTrialAccountRangeWidget, 0, accounts, "");
+    main.generalTrialAccountRangeBegin->setEnabled(false);
+    main.generalTrialAccountRangeLabelBetween = new QLabel("to", main.generalTrialAccountRangeWidget);
+    main.generalTrialAccountRangeLabelBetween->setEnabled(false);
+    main.generalTrialAccountRangeEnd = new AccountEditList(main.generalTrialAccountRangeWidget, 0, accounts, "");
+    main.generalTrialAccountRangeEnd->setEnabled(false);
+    
+    main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeLabel);
+    main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeAll);
+    main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeBegin);
+    main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeLabelBetween);
+    main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeEnd);
+    main.generalTrialAccountRangeHBoxLayout->addStretch();
+    
+    main.generalTrialButtonVBoxLayout = new QVBoxLayout();
+    main.generalTrialButton = new QPushButton(QIconSet(QPixmap::fromMimeSource("icons/generalTrialReport.png")),
+                                              "General Trial Balance", main.reportsWidget);
+    main.generalTrialButton->installEventFilter(this);
+    main.generalTrialButtonVBoxLayout->addWidget(main.generalTrialButton);
+    
+    main.reportsGridLayout->addWidget(main.generalTrialVGroupBox, 1, 0);
+    main.reportsGridLayout->addLayout(main.generalTrialButtonVBoxLayout, 1, 1);
+    
+    
+    main.balanceVGroupBox = new QVGroupBox(main.reportsWidget);
+    main.balanceVGroupBox->setInsideSpacing(5);
+    
+    main.balanceMonthEndWidget = new QWidget(main.balanceVGroupBox);
+    main.balanceMonthEndHBoxLayout = new QHBoxLayout(main.balanceMonthEndWidget);
+    main.balanceMonthEndHBoxLayout->setSpacing(5);
+    
+    main.balanceMonthEndLabel = new QLabel("Month-End:", main.balanceMonthEndWidget);
+    main.balanceMonthEndList = new QComboBox(main.balanceMonthEndWidget);
+    main.balanceMonthEndList->insertStringList(periodTmp);
+    
+    main.balanceMonthEndHBoxLayout->addWidget(main.balanceMonthEndLabel);
+    main.balanceMonthEndHBoxLayout->addWidget(main.balanceMonthEndList);
+    main.balanceMonthEndHBoxLayout->addStretch();
+    
+    main.balanceModifyWidget = new QWidget(main.balanceVGroupBox);
+    main.balanceModifyHBoxLayout = new QHBoxLayout(main.balanceModifyWidget);
+    
+    main.balanceModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/balanceModify.png") ),
+                                               "Modify Balance Sheet", main.balanceModifyWidget);
     connect(main.balanceModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditBalance()));
     main.balanceModifyButton->installEventFilter(this);
     
-    main.balanceReportButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/balanceReport.png") ),
-            "Balance Sheet Report", main.balanceGroup);
-    connect(main.balanceReportButton, SIGNAL(clicked()), this, SLOT(balanceReport()));
+    main.balanceModifyHBoxLayout->addWidget(main.balanceModifyButton);
+    main.balanceModifyHBoxLayout->addStretch();
+    
+    main.balanceReportButtonVBoxLayout = new QVBoxLayout();
+    main.balanceReportButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/balanceReport.png") ),
+                                               "Balance Sheet Report", main.reportsWidget);
     main.balanceReportButton->installEventFilter(this);
+    main.balanceReportButtonVBoxLayout->addWidget(main.balanceReportButton);
+        
+    
+    main.reportsGridLayout->addWidget(main.balanceVGroupBox, 2, 0);
+    main.reportsGridLayout->addLayout(main.balanceReportButtonVBoxLayout, 2, 1);
+    
+    
+    main.incomeVGroupBox = new QVGroupBox(main.reportsWidget);
+    main.incomeVGroupBox->setInsideSpacing(5);
+    
+    main.incomeMonthEndWidget = new QWidget(main.incomeVGroupBox);
+    main.incomeMonthEndHBoxLayout = new QHBoxLayout(main.incomeMonthEndWidget);
+    main.incomeMonthEndHBoxLayout->setSpacing(5);
+    
+    main.incomeMonthEndLabel = new QLabel("Month-End:", main.incomeMonthEndWidget);
+    main.incomeMonthEndList = new QComboBox(main.incomeMonthEndWidget);
+    main.incomeMonthEndList->insertStringList(periodTmp);
+    
+    main.incomeMonthEndHBoxLayout->addWidget(main.incomeMonthEndLabel);
+    main.incomeMonthEndHBoxLayout->addWidget(main.incomeMonthEndList);
+    main.incomeMonthEndHBoxLayout->addStretch();
+    
+    main.incomeModifyWidget = new QWidget(main.incomeVGroupBox);
+    main.incomeModifyHBoxLayout = new QHBoxLayout(main.incomeModifyWidget);
+    
+    main.incomeModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/incomeModify.png") ),
+                                               "Modify Income Statement", main.incomeModifyWidget);
+    connect(main.incomeModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditIncome()));
+    main.incomeModifyButton->installEventFilter(this);
+    
+    main.incomeModifyHBoxLayout->addWidget(main.incomeModifyButton);
+    main.incomeModifyHBoxLayout->addStretch();
+    
+    main.incomeButtonVBoxLayout = new QVBoxLayout();
+    main.incomeButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/incomeReport.png") ),
+                                        "Income Statement", main.reportsWidget);
+    main.incomeButton->installEventFilter(this);
+    main.incomeButtonVBoxLayout->addWidget(main.incomeButton);
+    
+    
+    main.reportsGridLayout->addWidget(main.incomeVGroupBox, 3, 0);
+    main.reportsGridLayout->addLayout(main.incomeButtonVBoxLayout, 3, 1);
+    
+    
+    main.chartAccountsButtonVBoxLayout = new QVBoxLayout();
+    main.chartAccountsButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/chartOfAccounts.png") ),
+                                               "Chart of Accounts", main.reportsWidget);
+    connect(main.chartAccountsButton, SIGNAL(clicked()), this, SLOT(chartAccountsReport()));
+    main.chartAccountsButton->installEventFilter(this);
+    main.chartAccountsButtonVBoxLayout->addWidget(main.chartAccountsButton);
+    
+    
+    main.reportsGridLayout->addLayout(main.chartAccountsButtonVBoxLayout, 4, 1);
+    
     
     
     main.adminGroup = new QVGroupBox("Administrative Options", main.widget);
@@ -89,15 +255,25 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     
     main.vBoxLayout->add(main.adminGroup);
     
+    main.adminWidget = new QWidget(main.adminGroup);
+    
+    main.adminHBoxLayout = new QHBoxLayout(main.adminWidget);
+    
     main.printerOptionsButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/printerOptionsButton.png") ),
-            "Printer Options", main.adminGroup);
+            "Printer Options", main.adminWidget);
     connect(main.printerOptionsButton, SIGNAL(clicked()), this, SLOT(printerOptions()));
     main.printerOptionsButton->installEventFilter(this);
+    
+    main.adminHBoxLayout->addStretch(1);
+    main.adminHBoxLayout->addWidget(main.printerOptionsButton);
+    main.adminHBoxLayout->setStretchFactor(main.printerOptionsButton, 2);
+    main.adminHBoxLayout->addStretch(1);
     
     main.vBoxLayout->addStretch();
     
     main.hBoxLayout->addStretch();
+    
     
     addWidget(main.widget, 0);
     
@@ -167,75 +343,57 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
 ReportStack::~ReportStack()
 {
     delete db;
-    
-    /*
-    removeWidget(report.widget);
-    delete report.exportCSVButton;
-    delete report.exportHTMLButton;
-    delete report.bottomRightBoxLayout;
-    delete report.bottomRightFrame;
-    delete report.bottomLabel;
-    delete report.bottomHBoxLayout;
-    delete report.bottomWidget;
-    delete report.view;
-    delete report.print;
-    delete report.topLabel;
-    delete report.labelLayout;
-    delete report.vBoxLayout;
-    delete report.widget;
-    
-    if(widget(2))
-    {
-        removeWidget(balance.widget);   
-        delete balance.editor;
-        delete balance.topLabel;
-        delete balance.labelLayout;
-        delete balance.vBoxLayout;
-        delete balance.widget;
-    }
-    
-    removeWidget(main.widget);
-    delete main.printerOptionsButton;
-    delete main.adminGroup;
-    delete main.balanceReportButton;
-    delete main.balanceModifyButton;
-    delete main.balanceGroup;
-    delete main.chartAccountsButton;
-    delete main.generalButton;
-    delete main.generalGroup;
-    delete main.vBoxLayout;
-    delete main.hBoxLayout;
-    delete main.topLabel;
-    delete main.hBoxLabel;
-    delete main.vBoxLabel;
-    delete main.widget;
-    */
 }
 
-void ReportStack::rangeToggled()
+void ReportStack::detailAccountsAllChanged(bool on)
 {
-    /*
-    main.accountRangeRadio->setChecked(true);
-    main.accountRangeAllRadio->setChecked(false);
-    main.accountRangeFirst->setEnabled(true);
-    main.accountRangeMiddleLabel->setEnabled(true);
-    main.accountRangeLast->setEnabled(true);
-    */
+    if(on)
+    {
+        main.generalDetailAccountRangeBegin->setEnabled(false);
+        main.generalDetailAccountRangeLabelBetween->setEnabled(false);
+        main.generalDetailAccountRangeEnd->setEnabled(false);
+    }
+    else
+    {
+        main.generalDetailAccountRangeBegin->setEnabled(true);
+        main.generalDetailAccountRangeLabelBetween->setEnabled(true);
+        main.generalDetailAccountRangeEnd->setEnabled(true);
+    }
 } 
         
-void ReportStack::allToggled()
+void ReportStack::trialAccountsAllChanged(bool on)
 {
-    /*
-    main.accountRangeAllRadio->setChecked(true);
-    main.accountRangeRadio->setChecked(false);
-    main.accountRangeFirst->setEnabled(false);
-    main.accountRangeMiddleLabel->setEnabled(false);
-    main.accountRangeLast->setEnabled(false);
-    */
+    if(on)
+    {
+        main.generalTrialAccountRangeBegin->setEnabled(false);
+        main.generalTrialAccountRangeLabelBetween->setEnabled(false);
+        main.generalTrialAccountRangeEnd->setEnabled(false);
+    }
+    else
+    {
+        main.generalTrialAccountRangeBegin->setEnabled(true);
+        main.generalTrialAccountRangeLabelBetween->setEnabled(true);
+        main.generalTrialAccountRangeEnd->setEnabled(true);
+    }
 }
 
 void ReportStack::dbOpened()
 {
+    updateAccounts();
+    
+    QStringList periodBegin = db->getPeriodBegin();
+    QStringList periodEnd = db->getPeriodEnd();
+    main.generalDetailDateRangeBegin->clear();
+    main.generalDetailDateRangeBegin->insertStringList(periodBegin);
+    main.generalDetailDateRangeEnd->clear();
+    main.generalDetailDateRangeEnd->insertStringList(periodEnd);
+    main.generalTrialMonthEndList->clear();
+    main.generalTrialMonthEndList->insertStringList(periodEnd);
+    main.balanceMonthEndList->clear();
+    main.balanceMonthEndList->insertStringList(periodEnd);
+    main.incomeMonthEndList->clear();
+    main.incomeMonthEndList->insertStringList(periodEnd);
+    
     if(widget(2))
         delete balance.widget;
     
@@ -256,6 +414,15 @@ void ReportStack::dbOpened()
     balance.vBoxLayout->addWidget(balance.editor);
     
     addWidget(balance.widget, 2);
+}
+
+void ReportStack::updateAccounts()
+{
+    accounts = db->getAccountsList();
+    main.generalDetailAccountRangeBegin->updateAccounts(accounts);
+    main.generalDetailAccountRangeEnd->updateAccounts(accounts);
+    main.generalTrialAccountRangeBegin->updateAccounts(accounts);
+    main.generalTrialAccountRangeEnd->updateAccounts(accounts);
 }
 
 void ReportStack::viewReport(QString &text)
@@ -335,7 +502,7 @@ void ReportStack::exportCSV()
 
 void ReportStack::switchToGeneralReport()
 {}
-        void switchToEditBalance();
+
 void ReportStack::switchToEditBalance()
 {
     raiseWidget(2);
@@ -349,7 +516,7 @@ bool ReportStack::eventFilter(QObject *target, QEvent *event)
         QKeyEvent *keyEvent = (QKeyEvent *)event;
         if(keyEvent->key() == Key_Escape)
         {
-            emit goBack();
+            emit goToMain();
             return true;
         }
     }

@@ -5,14 +5,15 @@ using std::vector;
 #include <qwidgetstack.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
-#include <qlayout.h>
 #include <qpushbutton.h>
 #include <qiconset.h>
 #include <qpixmap.h>
 #include <qdialog.h>
 #include <qinputdialog.h>
+#include <qlineedit.h>
 #include <qlabel.h>
 #include <qlistbox.h>
+#include <qcombobox.h>
 #include <qfiledialog.h>
 #include <qevent.h>
 #include <qregexp.h>
@@ -102,37 +103,6 @@ MainStack::MainStack(QWidget *parent, const char *name)
 MainStack::~MainStack()
 {
     delete db;
-    /*
-    if(widget(1))
-    {
-        removeWidget(tasks.widget);
-        delete tasks.cryptButton;
-        delete tasks.copyDatabaseButton;
-        delete tasks.editNameButton;
-        delete tasks.adminGroup;
-        delete tasks.reportButton;
-        delete tasks.journalButton;
-        delete tasks.accountsButton;
-        delete tasks.clientGroup;
-        delete tasks.vBoxLayout;
-        delete tasks.hBoxLayout;
-        delete tasks.closeButton;
-        delete tasks.hBoxLabel;
-        delete tasks.vBoxLabel;
-        delete tasks.widget;
-    }
-    removeWidget(main.widget);
-    delete main.quitButton;
-    delete main.importButton;
-    delete main.otherGroup;
-    delete main.createNewButton;
-    delete main.openNewButton;
-    delete main.openDefaultButton;
-    delete main.mainGroup;
-    delete main.vBoxLayout;
-    delete main.hBoxLayout;
-    delete main.widget;
-    */
 }
 
 void MainStack::clientOpened()
@@ -265,7 +235,7 @@ bool MainStack::eventFilter(QObject *target, QEvent *event)
     if(event->type() == QEvent::KeyPress)
     {
         QKeyEvent *keyEvent = (QKeyEvent *)event;
-        if(keyEvent->key() == Key_F8 && active == 0)
+        if(keyEvent->key() == Key_F8 && active == 1)
         {
             closeClient();
             return true;
@@ -317,24 +287,26 @@ void MainStack::openNewDialog()
     
     QListBox listBox(&dialog);
     listBox.setFocus();
-    
     listBox.insertStringList(db->getClientList());
+    listBox.setSelected(0, true);
+    connect(&listBox, SIGNAL(selected(QListBoxItem*)), &dialog, SLOT(accept()));
     
     vBoxLayout.addWidget(&listBox);
     
     QHBoxLayout hBoxLayout(&vBoxLayout);
     hBoxLayout.setSpacing(5);
     
-    QPushButton okButton("OK", &dialog);
+    QPushButton okButton(QIconSet(QPixmap::fromMimeSource("icons/openNewButton.png")), "Open", &dialog);
     okButton.setDefault(true);
     connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
-    QPushButton cancelButton("Cancel", &dialog);
+    
+    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource("icons/cancelButton.png")), "Cancel", &dialog);
     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+    
     hBoxLayout.addWidget(&okButton);
     hBoxLayout.addWidget(&cancelButton);
     
-    dialog.exec();
-    if(dialog.result() == QDialog::Accepted)
+    if(dialog.exec())
     {
         QString file = listBox.selectedItem()->text();
         file.remove(QRegExp(".+\\("));
@@ -349,14 +321,52 @@ void MainStack::openNewDialog()
 
 void MainStack::createNewDialog()
 {
-    bool ok;
-    QString name = QInputDialog::getText("Create a New Client",
-                                         "Input the Client's Name:",
-                                         QLineEdit::Normal,
-                                         QString::null, &ok, this);
-    if( ok && !name.isEmpty() )
+    QDialog dialog;
+    dialog.setCaption("Create a New Client");
+    
+    QVBoxLayout vBoxLayout(&dialog);
+    vBoxLayout.setMargin(5);
+    vBoxLayout.setSpacing(5);
+    
+    QLabel labelName("Input the Client's Name:", &dialog);
+    vBoxLayout.addWidget(&labelName);
+    
+    QLineEdit lineEdit(&dialog);
+    lineEdit.setMaxLength(50);
+    lineEdit.setFocus();
+    vBoxLayout.addWidget(&lineEdit);
+    
+    QHBoxLayout hBoxYearEnd(&vBoxLayout);
+    hBoxYearEnd.setSpacing(5);
+    
+    QLabel yearEndLabel("Year-End Date:", &dialog);
+    QComboBox yearEndList(false, &dialog);
+    QStringList yearEndStrings;
+    yearEndStrings << "January 31" << "February 28" << "March 31" << "April 30"
+            << "May 31" << "June 30" << "July 31" << "August 31" << "September 30"
+            << "October 31" << "November 30" << "December 31";
+    yearEndList.insertStringList(yearEndStrings);
+    
+    hBoxYearEnd.addWidget(&yearEndLabel);
+    hBoxYearEnd.addWidget(&yearEndList);
+    
+    QHBoxLayout hBoxButtons(&vBoxLayout);
+    hBoxButtons.setSpacing(5);
+    
+    QPushButton createButton(QIconSet(QPixmap::fromMimeSource("icons/createNewButton.png")), "Create", &dialog);
+    createButton.setDefault(true);
+    connect(&createButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+    
+    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource("icons/cancelButton.png")), "Cancel", &dialog);
+    connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+    
+    hBoxButtons.addStretch();
+    hBoxButtons.addWidget(&createButton);
+    hBoxButtons.addWidget(&cancelButton);
+    
+    if(dialog.exec() && !lineEdit.text().isEmpty())
     {
-        if(db->createNew(name))
+        if(db->createNew(lineEdit.text(), yearEndList.currentText()))
         {
             clientOpened();
             emit dbOpened();
@@ -394,7 +404,58 @@ void MainStack::import()
 {}
 
 void MainStack::encrypt()
-{}
+{
+    QDialog dialog;
+    dialog.setCaption("Encrypt Database");
+    
+    QVBoxLayout vBoxLayout(&dialog);
+    vBoxLayout.setMargin(5);
+    vBoxLayout.setSpacing(5);
+    
+    QHBoxLayout hBoxTop(&vBoxLayout);
+    hBoxTop.setSpacing(5);
+    
+    QLabel label1("Input a password:", &dialog);
+    QLineEdit password1(&dialog);
+    password1.setMaxLength(20);
+    password1.setEchoMode(QLineEdit::Password);
+    hBoxTop.addStretch();
+    hBoxTop.addWidget(&label1);
+    hBoxTop.addWidget(&password1);
+    
+    QHBoxLayout hBoxMiddle(&vBoxLayout);
+    hBoxMiddle.setSpacing(5);
+    
+    QLabel label2("Repeat:", &dialog);
+    QLineEdit password2(&dialog);
+    password2.setMaxLength(20);
+    password2.setEchoMode(QLineEdit::Password);
+    hBoxMiddle.addStretch();
+    hBoxMiddle.addWidget(&label2);
+    hBoxMiddle.addWidget(&password2);
+    
+    QHBoxLayout hBoxBottom(&vBoxLayout);
+    hBoxBottom.setSpacing(5);
+    
+    QPushButton encryptButton(QIconSet( QPixmap::fromMimeSource("icons/encryptButton.png") ),
+                              "Encrypt", &dialog);
+    connect(&encryptButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+    
+    QPushButton cancelButton(QIconSet( QPixmap::fromMimeSource("icons/cancelButton.png") ),
+                             "Cancel", &dialog);
+    connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+    
+    hBoxBottom.addStretch();
+    hBoxBottom.addWidget(&encryptButton);
+    hBoxBottom.addWidget(&cancelButton);
+    
+    if(dialog.exec())
+    {
+        if(password1.text() == password2.text())
+            ;
+//            db->encryptDb(password1.text());
+    }
+}
 
 void MainStack::closeClient()
 {

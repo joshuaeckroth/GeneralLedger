@@ -23,26 +23,6 @@ JournalStack::JournalStack(QWidget *parent, const char *name)
 JournalStack::~JournalStack()
 {
     delete db;
-    /*
-    if(active)
-    {
-        delete main.exportButton;
-        delete main.importButton;
-        delete main.bottomRightBoxLayout;
-        delete main.bottomRightFrame;
-        delete main.bottomLabel;
-        delete main.bottomHBoxLayout;
-        delete main.bottomWidget;
-        delete main.summary;
-        delete main.hr;
-        delete main.dataTable;
-        delete main.saveAndClose;
-        delete main.print;
-        delete main.topLabel;
-        delete main.labelLayout;
-        delete main.vBoxLayout;
-    }
-    */
 }
 
 void JournalStack::dbOpened()
@@ -72,7 +52,7 @@ void JournalStack::dbOpened()
     main.labelLayout = new QBoxLayout(main.vBoxLayout, QBoxLayout::LeftToRight);
     
     main.topLabel = new GoBackLabel(this);
-    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
+    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     
     main.saveAndClose = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/saveAndClear.png") ),
@@ -92,7 +72,11 @@ void JournalStack::dbOpened()
     main.labelLayout->addWidget(main.print);
     
     main.dataTable = new JournalTable(this);
-    main.dataTable->setFocus();
+    connect(main.dataTable, SIGNAL(goToMain()), this, SIGNAL(goToMain()));
+    connect(main.dataTable, SIGNAL(goToAccounts()), this, SIGNAL(goToAccounts()));
+    connect(main.dataTable, SIGNAL(goToReports()), this, SIGNAL(goToReports()));
+    connect(main.dataTable, SIGNAL(goToHelp()), this, SIGNAL(goToHelp()));
+    main.dataTable->installEventFilter(this);
     
     main.vBoxLayout->addSpacing(5);
     main.vBoxLayout->addWidget(main.dataTable);
@@ -120,10 +104,14 @@ void JournalStack::dbOpened()
     main.importButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/import.png") ),
             "Import from CSV (F11)", main.bottomRightFrame);
+    main.importButton->setFocusPolicy(QWidget::NoFocus);
+    connect(main.importButton, SIGNAL(clicked()), this, SLOT(importCSV()));
     
     main.exportButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
             "Export to CSV (F12)", main.bottomRightFrame);
+    main.exportButton->setFocusPolicy(QWidget::NoFocus);
+    connect(main.exportButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
     
     main.bottomRightBoxLayout->addWidget(main.importButton, 0, Qt::AlignLeft | Qt::AlignTop);
     main.bottomRightBoxLayout->addWidget(main.exportButton, 0, Qt::AlignLeft | Qt::AlignTop);
@@ -146,7 +134,11 @@ void JournalStack::importCSV()
             0,
             "Import Journal Entries");
     
-    db->importCSV("journal", file);
+    if(file != "")
+    {
+        db->importCSV("journalTmp", file);
+        main.dataTable->populate();
+    }
 }
 
 void JournalStack::exportCSV()
@@ -158,17 +150,23 @@ void JournalStack::exportCSV()
             0,
             "Export Journal Entries");
 
-    db->exportCSV("journal", file);    
+    if(file != "")
+        db->exportCSV("journalTmp", file);
 }
 
 bool JournalStack::eventFilter(QObject *target, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress)
     {
-        QKeyEvent *keyEvent = (QKeyEvent *)event;
-        if(keyEvent->key() == Key_Escape)
+        QKeyEvent *keyEvent = (QKeyEvent*)event;
+        if(keyEvent->key() == Key_F11)
         {
-            emit goBack();
+            importCSV();
+            return true;
+        }
+        if(keyEvent->key() == Key_F12)
+        {
+            exportCSV();
             return true;
         }
     }
@@ -184,5 +182,10 @@ void JournalStack::saveAndClose()
 void JournalStack::printJournal()
 {
     
+}
+
+void JournalStack::showEvent(QShowEvent*)
+{
+    main.dataTable->setFocus();
 }
 

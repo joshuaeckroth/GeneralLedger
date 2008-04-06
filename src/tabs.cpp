@@ -39,18 +39,24 @@ Tabs::Tabs(QApplication *parent, const char *name)
     
     accountStack = new AccountStack;
     connect(mainStack, SIGNAL(dbOpened()), accountStack, SLOT(dbOpened()));
-    connect(accountStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
+    connect(accountStack, SIGNAL(goToMain()), this, SLOT(switchToMain()));
+    connect(accountStack, SIGNAL(goToJournal()), this, SLOT(switchToJournal()));
+    connect(accountStack, SIGNAL(goToReports()), this, SLOT(switchToReports()));
+    connect(accountStack, SIGNAL(goToHelp()), this, SLOT(switchToHelp()));
     
     journalStack = new JournalStack;
     connect(mainStack, SIGNAL(dbOpened()), journalStack, SLOT(dbOpened()));
-    connect(journalStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
+    connect(journalStack, SIGNAL(goToMain()), this, SLOT(switchToMain()));
+    connect(journalStack, SIGNAL(goToAccounts()), this, SLOT(switchToAccounts()));
+    connect(journalStack, SIGNAL(goToReports()), this, SLOT(switchToReports()));
+    connect(journalStack, SIGNAL(goToHelp()), this, SLOT(switchToHelp()));
     
     reportStack = new ReportStack;
     connect(mainStack, SIGNAL(dbOpened()), reportStack, SLOT(dbOpened()));
-    connect(reportStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
+    connect(reportStack, SIGNAL(goToMain()), this, SLOT(switchToMain()));
     
     helpStack = new HelpStack;
-    connect(helpStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
+    connect(helpStack, SIGNAL(goToMain()), this, SLOT(switchToMain()));
     
     addTab( mainStack, QIconSet( QPixmap::fromMimeSource("icons/mainTab.png") ), "Main (F1)" );
     addTab( accountStack, QIconSet( QPixmap::fromMimeSource("icons/accountsTab.png") ), "Accounts (F2)" );
@@ -66,13 +72,6 @@ Tabs::Tabs(QApplication *parent, const char *name)
 Tabs::~Tabs()
 {
     delete db;
-    /*
-    delete mainStack;
-    delete accountStack;
-    delete journalStack;
-    delete reportStack;
-    delete helpStack;
-    */
 }
 
 void Tabs::dbOpened()
@@ -147,6 +146,11 @@ void Tabs::switchToJournal()
 void Tabs::switchToReports()
 {
     setCurrentPage(3);
+}
+
+void Tabs::switchToHelp()
+{
+    setCurrentPage(4);
 }
 
 void Tabs::quit()

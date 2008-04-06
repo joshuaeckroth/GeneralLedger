@@ -29,6 +29,7 @@ class Tabs : public QTabWidget
         void switchToAccounts();
         void switchToJournal();
         void switchToReports();
+        void switchToHelp();
         void quit();
         
     private:

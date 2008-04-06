@@ -25,7 +25,10 @@ class JournalStack : public QWidget
         ~JournalStack();
         
     signals:
-        void goBack();
+        void goToMain();
+        void goToAccounts();
+        void goToReports();
+        void goToHelp();
         
     private slots:
         void dbOpened();
@@ -36,6 +39,7 @@ class JournalStack : public QWidget
         
     private:
         bool eventFilter(QObject *target, QEvent *event);
+        void showEvent(QShowEvent*);
         
         bool active;
         Database *db;

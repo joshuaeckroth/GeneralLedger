@@ -19,7 +19,7 @@ class Database : public QObject
   
   bool openDefault();
   bool openNew(QString name);
-  bool createNew(QString name);
+  bool createNew(QString name, QString yearEnd);
   void closeDb();
   void copyDb(QString file) const;
   void editName(QString name);
@@ -28,6 +28,8 @@ class Database : public QObject
   QStringList getClientList() const;
   void exportCSV(QString table, QString file) const;
   void importCSV(QString table, QString file);
+  QStringList getPeriodBegin() const;
+  QStringList getPeriodEnd() const;
   
   enum balanceCategory {assets, liabilities, equities};
   
@@ -35,10 +37,8 @@ class Database : public QObject
   
   void createBalanceElement(balanceCategory category, QString type, QString desc, QString accountBegin,
                             QString accountEnd = "");
-  
-  void removeBalanceElement(balanceCategory category, QString id);
-  
-  void moveBalanceElement(balanceCategory category, QString id, bool up);
+  void removeBalanceElement(balanceCategory category, QString key);
+  void moveBalanceElement(balanceCategory category, QString key, bool up);
   
   Database* getChartAccounts();
   
@@ -47,9 +47,22 @@ class Database : public QObject
   QString& reportHTML();
   
   QStringList& getAccountsList();
+  QPtrList<QStringList> getAccountsData();
+  QPtrList<QStringList> getJournalTmpData();
+  
+  void updateAccount(QString key, QString id, QString desc, QString type);
+  void deleteAccount(QString key);
+  void updateJournalTmp(QString key, QString date, QString account,
+                        QString reference, QString desc, QString debit, QString credit);
+  void deleteJournalTmp(QString key);
+  QString nextAccountKey();
+  QString nextJournalTmpKey();
+  
+    signals:
+        void accountsChanged();
 
  private:
-     static int instances;
+  static int instances;
   static QSqlDatabase *db;
   static QString curClient;
   static QString curDb;
