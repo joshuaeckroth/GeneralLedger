@@ -1,8 +1,0 @@
-base referer
-rect $journalStack_8h.html 149,58 256,82
-rect $journalSummary_8h.html 137,106 268,130
-rect $database_8h.html 158,586 246,610
-rect $settings_8h.html 162,634 242,658
-rect $printer_8h.html 168,682 237,706
-rect $journalTable_8h.html 149,730 256,754
-rect $goBackLabel_8h.html 148,778 257,802

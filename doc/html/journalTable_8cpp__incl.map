@@ -1,7 +1,0 @@
-base referer
-rect $journalTable_8h.html 142,58 249,82
-rect $journalDescEdit_8h.html 132,106 260,130
-rect $accountEditItem_8h.html 132,154 260,178
-rect $dateEdit_8h.html 154,202 237,226
-rect $moneyEditItem_8h.html 134,250 257,274
-rect $database_8h.html 152,397 240,421

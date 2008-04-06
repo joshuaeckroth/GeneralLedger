@@ -1,8 +1,8 @@
 #ifndef Q_OS_WIN32
-#define ICON_PATH QString("/home/josh/projects/genledg/trunk/icons")
-#define CRYPT_PATH QString("/home/josh/projects/genledg/trunk/unix")
+#define ICON_PATH QString("/home/josh/generalledger/code/icons")
+#define CRYPT_PATH QString("/home/josh/generalledger/code/unix")
 #define HTMLDOC_PATH QString("/usr/bin")
-#define HELP_PATH QString("/home/josh/projects/genledg/trunk/help")
+#define HELP_PATH QString("/home/josh/generalledger/code/help")
 #else
 #include <qapplication.h>
 #define ICON_PATH (qApp->applicationDirPath() + "/icons")

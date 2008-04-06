@@ -1,7 +1,0 @@
-base referer
-rect $classAccountTable.html 78,190 182,214
-rect $classSettings.html 26,9 95,33
-rect $classDatabase.html 191,100 269,124
-rect $structDatabase_1_1ReportStruct.html 190,9 353,33
-rect $structDatabase_1_1JournalTmpReport.html 377,9 574,33
-rect $classGoBackLabel.html 270,190 371,214

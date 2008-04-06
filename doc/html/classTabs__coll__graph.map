@@ -1,8 +1,0 @@
-base referer
-rect $classJournalStack.html 70,190 169,214
-rect $classSettings.html 238,9 308,33
-rect $classDatabase.html 301,100 378,124
-rect $classReportStack.html 385,190 481,214
-rect $classMainStack.html 201,190 286,214
-rect $classAccountStack.html 505,190 609,214
-rect $classHelpStack.html 633,190 716,214

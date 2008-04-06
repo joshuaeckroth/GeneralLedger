@@ -1,6 +1,0 @@
-base referer
-rect $balanceSheetEditor_8cpp.html 8,9 170,33
-rect $database_8cpp.html 194,9 296,33
-rect $editorElement_8cpp.html 320,9 448,33
-rect $incomeRetailEditor_8cpp.html 472,9 632,33
-rect $incomeSvcEditor_8cpp.html 656,9 802,33

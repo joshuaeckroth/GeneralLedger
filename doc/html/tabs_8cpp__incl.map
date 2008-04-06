@@ -1,9 +1,0 @@
-base referer
-rect $tabs_8h.html 182,58 241,82
-rect $database_8h.html 168,202 256,226
-rect $settings_8h.html 172,250 252,274
-rect $mainStack_8h.html 164,298 260,322
-rect $accountStack_8h.html 156,346 268,370
-rect $journalStack_8h.html 158,394 265,418
-rect $reportStack_8h.html 161,442 262,466
-rect $helpStack_8h.html 166,490 257,514
