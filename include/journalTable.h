@@ -17,6 +17,7 @@ class JournalTable : public QTable
         int debitColWidth();
         int creditColWidth();
         void populate();
+        void clearTable();
         
     signals:
         void goToMain();
@@ -34,6 +35,7 @@ class JournalTable : public QTable
         void keyPressEvent(QKeyEvent *event);
         
         Database *db;
+        
         QStringList accounts;
 };
 

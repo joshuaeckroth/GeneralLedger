@@ -2,12 +2,16 @@
 #include <qlayout.h>
 #include <qlabel.h>
 
+#include "database.h"
 #include "journalSummary.h"
 #include "journalTable.h"
 
 JournalSummary::JournalSummary(QWidget *parent, const char *name, JournalTable *table)
     : QWidget(parent,name)
 {
+    db = Database::instance();
+    connect(db, SIGNAL(journalTmpChanged()), this, SLOT(updateSummary()));
+    
     int debitColWidth = table->debitColWidth();
     int creditColWidth = table->creditColWidth();
     int scrollBarWidth = (table->verticalScrollBar()->width() + 5);
@@ -17,21 +21,21 @@ JournalSummary::JournalSummary(QWidget *parent, const char *name, JournalTable *
     debitLabel = new QLabel("Debit:", this);
     debitLabel->setAlignment(Qt::AlignRight);
     
-    debitValue = new QLabel(tr("<tt>37263.34</tt>"), this);
+    debitValue = new QLabel("<tt>" + db->journalTmpDebit() + "</tt>", this);
     debitValue->setFixedWidth(debitColWidth);
     debitValue->setAlignment(Qt::AlignRight);
     
     creditLabel = new QLabel("Credit:", this);
     creditLabel->setAlignment(Qt::AlignRight);
     
-    creditValue = new QLabel(tr("<tt>111.31</tt>"), this);
+    creditValue = new QLabel("<tt>" + db->journalTmpCredit() + "</tt>", this);
     creditValue->setFixedWidth(creditColWidth);
     creditValue->setAlignment(Qt::AlignRight);
     
     balanceLabel = new QLabel(tr("<b>Balance:</b>"), this);
     balanceLabel->setAlignment(Qt::AlignRight);
     
-    balanceValue = new QLabel(tr("<b><tt>234.23</tt></b>"), this);
+    balanceValue = new QLabel("<b><tt>" + db->journalTmpBalance() + "</tt></b>", this);
     balanceValue->setAlignment(Qt::AlignRight);
     
     debitWidth = new QSpacerItem(debitColWidth, 1);
@@ -79,5 +83,10 @@ JournalSummary::~JournalSummary()
     delete grid;
 }
 
-
+void JournalSummary::updateSummary()
+{
+    debitValue->setText("<tt>" + db->journalTmpDebit() + "</tt>");
+    creditValue->setText("<tt>" + db->journalTmpCredit() + "</tt>");
+    balanceValue->setText("<tt>" + db->journalTmpBalance() + "</tt>");
+}
 

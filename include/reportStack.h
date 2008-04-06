@@ -24,8 +24,9 @@ class QTextEdit;
 class QStringList;
 
 class BalanceSheetEditor;
-class Database;
 class AccountEditList;
+class Database;
+class Printer;
 
 class ReportStack : public QWidgetStack
 {
@@ -47,17 +48,20 @@ class ReportStack : public QWidgetStack
         void exportCSV();
         void switchWidget();
         void switchToEditBalance();
-        void generalReport();
+        void generalDetailReport();
+        void generalTrialReport();
         void chartAccountsReport();
         void balanceReport();
         void printerOptions();
+        void print();
         
     private:
-        void switchToGeneralReport();
         bool eventFilter(QObject *target, QEvent *event);
         
-        int active;
         Database *db;
+        Printer *printer;
+        
+        int active;
         QStringList accounts;
         
         struct {

@@ -7,12 +7,13 @@ class QApplication;
 class QKeyEvent;
 class QCloseEvent;
 
-class Database;
 class MainStack;
 class AccountStack;
 class JournalStack;
 class ReportStack;
 class HelpStack;
+class Database;
+class Settings;
 
 class Tabs : public QTabWidget
 {
@@ -36,8 +37,10 @@ class Tabs : public QTabWidget
         void keyPressEvent(QKeyEvent *event);
         void closeEvent(QCloseEvent *event);
         
-        QApplication *app;
         Database *db;
+        Settings *settings;
+        
+        QApplication *app;
         MainStack *mainStack;
         AccountStack *accountStack;        
         JournalStack *journalStack;

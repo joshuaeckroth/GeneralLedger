@@ -7,23 +7,22 @@
 #include <qevent.h>
 #include <qframe.h>
 
+#include "database.h"
 #include "journalStack.h"
 #include "journalTable.h"
 #include "journalSummary.h"
 #include "goBackLabel.h"
-#include "database.h"
 
 JournalStack::JournalStack(QWidget *parent, const char *name)
     : QWidget(parent,name)
 {
-    db = new Database;
+    db = Database::instance();
+    
     active = false;
 }
 
 JournalStack::~JournalStack()
-{
-    delete db;
-}
+{}
 
 void JournalStack::dbOpened()
 {
@@ -62,13 +61,14 @@ void JournalStack::dbOpened()
     
     main.print = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/print.png") ),
-            "Print Journal Entries (F9)", this);
+            "Create Journal Entry Report (F9)", this);
     main.print->setFocusPolicy(QWidget::NoFocus);
     connect(main.print, SIGNAL(clicked()), this, SLOT(printJournal()));
     
     main.labelLayout->addWidget(main.topLabel, 0, Qt::AlignLeft | Qt::AlignTop);
     main.labelLayout->addStretch();
     main.labelLayout->addWidget(main.saveAndClose);
+    main.labelLayout->addSpacing(5);
     main.labelLayout->addWidget(main.print);
     
     main.dataTable = new JournalTable(this);
@@ -176,7 +176,8 @@ bool JournalStack::eventFilter(QObject *target, QEvent *event)
 
 void JournalStack::saveAndClose()
 {
-    
+    db->commitJournalTmp();
+    main.dataTable->clearTable();
 }
 
 void JournalStack::printJournal()

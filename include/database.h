@@ -9,13 +9,15 @@ class QStringList;
 class QSqlDatabase;
 
 class BalanceElement;
+class Settings;
 
 class Database : public QObject
 {
     Q_OBJECT
  public:
-  Database();
-  ~Database();
+  static Database* instance();
+  
+  void destroy();
   
   bool openDefault();
   bool openNew(QString name);
@@ -40,8 +42,14 @@ class Database : public QObject
   void removeBalanceElement(balanceCategory category, QString key);
   void moveBalanceElement(balanceCategory category, QString key, bool up);
   
+  Database* getGeneralDetail(QString periodBegin, QString periodEnd, QString accountBegin, QString accountEnd);
+  Database* getGeneralTrialBalance(QString periodEnd, QString accountBegin, QString accountEnd);
+  Database* getBalanceReport(QString periodEnd);
   Database* getChartAccounts();
   
+  QString& reportHeader();
+  QString& reportData();
+
   QString& reportString();
   QString& reportCSV();
   QString& reportHTML();
@@ -55,26 +63,43 @@ class Database : public QObject
   void updateJournalTmp(QString key, QString date, QString account,
                         QString reference, QString desc, QString debit, QString credit);
   void deleteJournalTmp(QString key);
+  
+  QString journalTmpDebit();
+  QString journalTmpCredit();
+  QString journalTmpBalance();
+  QString addCurrency(QString base, QString add);
+  
+  void commitJournalTmp();
+  
   QString nextAccountKey();
   QString nextJournalTmpKey();
   
     signals:
         void accountsChanged();
+        void journalTmpChanged();
 
  private:
-  static int instances;
-  static QSqlDatabase *db;
-  static QString curClient;
-  static QString curDb;
+  Database();
+  ~Database();
+  
+  static Database *db;
+
+  Settings *settings;
+     
+  QSqlDatabase *connection;
+  QString curClient;
+  QString curDb;
   
   struct ReportStruct {
+      QString header;
+      QString data;
       QString string;
       QString csv;
       QString html;
   };
-  static ReportStruct *report;
+  ReportStruct *report;
   
-  static QStringList *accountsList;
+  QStringList *accountsList;
   
 };
 

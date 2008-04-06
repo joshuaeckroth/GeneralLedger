@@ -8,6 +8,7 @@ class QLabel;
 class QSpacerItem;
 
 class JournalTable;
+class Database;
 
 class JournalSummary : public QWidget
 {
@@ -16,7 +17,12 @@ class JournalSummary : public QWidget
         JournalSummary(QWidget *parent = 0, const char *name = 0, JournalTable *table = 0);
         ~JournalSummary();
         
+    private slots:
+        void updateSummary();
+        
     private:
+        Database *db;
+        
         QGridLayout *grid;
         QLabel *debitLabel;
         QLabel *debitValue;

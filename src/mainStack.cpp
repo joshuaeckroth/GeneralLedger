@@ -1,5 +1,3 @@
-#include <vector>
-using std::vector;
 #include <typeinfo>
 
 #include <qwidgetstack.h>
@@ -18,12 +16,14 @@ using std::vector;
 #include <qevent.h>
 #include <qregexp.h>
 
-#include "mainStack.h"
 #include "database.h"
+#include "mainStack.h"
 
 MainStack::MainStack(QWidget *parent, const char *name)
     : QWidgetStack(parent,name)
-{   
+{
+    db = Database::instance();
+    
     main.widget = new QWidget(this);
     
     main.hBoxLayout = new QHBoxLayout(main.widget);
@@ -40,7 +40,6 @@ MainStack::MainStack(QWidget *parent, const char *name)
     
     main.vBoxLayout->add(main.mainGroup);
     
-    db = new Database();
     if(db->getCurClient() != "")
     {
         main.openDefaultButton = new QPushButton(
@@ -101,9 +100,7 @@ MainStack::MainStack(QWidget *parent, const char *name)
 }
 
 MainStack::~MainStack()
-{
-    delete db;
-}
+{}
 
 void MainStack::clientOpened()
 {

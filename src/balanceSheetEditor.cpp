@@ -9,18 +9,19 @@
 #include <qptrlist.h>
 #include <qstringlist.h>
 
+#include "database.h"
 #include "balanceSheetEditor.h"
 #include "balanceElement.h"
-#include "database.h"
 #include "accountEditList.h"
 
 BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     : QScrollView(parent,name)
 {
+    db = Database::instance();
+    
     setResizePolicy(QScrollView::AutoOneFit);
     setMargins(5,5,5,5);
     
-    db = new Database();
     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
     accounts = db->getAccountsList();
    
@@ -30,12 +31,13 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     assets.topFrame = new QFrame(frame);
     assets.topHBoxLayout = new QHBoxLayout(assets.topFrame);
     
+    
     assets.label = new QLabel("<b>Assets:</b>", assets.topFrame);
     assets.addButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/addBalanceElement.png") ),
             "Add to Assets", assets.topFrame);
     connect(assets.addButton, SIGNAL(clicked()), this, SLOT(addAssets()));
-    
+
     assets.topHBoxLayout->addWidget(assets.label);
     assets.topHBoxLayout->addStretch();
     assets.topHBoxLayout->addWidget(assets.addButton);
@@ -49,9 +51,11 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     
     vBoxLayout->addWidget(assets.topFrame);
     vBoxLayout->addSpacing(5);
+
     vBoxLayout->addWidget(assets.bottomFrame);
     vBoxLayout->addSpacing(10);
    
+
     liabilities.topFrame = new QFrame(frame);
     liabilities.topHBoxLayout = new QHBoxLayout(liabilities.topFrame);
     
@@ -108,8 +112,6 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
 
 BalanceSheetEditor::~BalanceSheetEditor()
 {
-    delete db;
-    
     for(unsigned int i = 0; i < assets.elements.size(); i++)
         delete assets.elements[i];
     assets.elements.clear();

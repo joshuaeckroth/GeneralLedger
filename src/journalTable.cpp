@@ -4,17 +4,18 @@
 #include <qevent.h>
 #include <qmessagebox.h>
 
+#include "database.h"
 #include "journalTable.h"
 #include "accountEditItem.h"
 #include "basicEdit.h"
 #include "dateEdit.h"
 #include "moneyEdit.h"
-#include "database.h"
 
 JournalTable::JournalTable(QWidget *parent, const char *name)
     : QTable(parent,name)  
 {
-    db = new Database;
+    db = Database::instance();
+    
     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
         
     setLeftMargin(0);
@@ -40,13 +41,12 @@ JournalTable::JournalTable(QWidget *parent, const char *name)
 }
 
 JournalTable::~JournalTable()
-{
-    delete db;
-}
+{}
 
 void JournalTable::populate()
 {
-    for(int row = 0; row < numRows(); row++)
+    int rows = numRows();
+    for(int row = 0; row <= rows; row++)
         removeRow(0);
     
     QPtrList<QStringList> data = db->getJournalTmpData();
@@ -107,6 +107,13 @@ void JournalTable::updateDb(int row, int)
     QString debit = text(row, 4);
     QString credit = text(row, 5);
     db->updateJournalTmp(key, date, account, reference, desc, debit, credit);
+}
+
+void JournalTable::clearTable()
+{
+    int rows = numRows();
+    for(int row = 0; row <= rows; row++)
+        removeRow(0);
 }
 
 void JournalTable::keyPressEvent(QKeyEvent *event)

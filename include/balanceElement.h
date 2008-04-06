@@ -11,6 +11,8 @@ class QHBoxLayout;
 class QLabel;
 class QPushButton;
 
+class Database;
+
 class BalanceElement : public QObject
 {
     Q_OBJECT
@@ -31,9 +33,10 @@ class BalanceElement : public QObject
         void removeElement();
      
     private:
-        Database *db;
         Database::balanceCategory category;        
         void *section;
+        
+        Database *db;
         
         QString id;
      QString type;

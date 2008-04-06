@@ -16,9 +16,9 @@ class QRadioButton;
 class QLineEdit;
 class QStringList;
 
-class Database;
 class BalanceElement;
 class AccountEditList;
+class Database;
 
 class BalanceSheetEditor : public QScrollView
 {
@@ -39,6 +39,7 @@ class BalanceSheetEditor : public QScrollView
        
     private:
         Database *db;
+        
         QStringList accounts;
         
         QFrame *frame;

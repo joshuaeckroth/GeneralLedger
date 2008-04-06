@@ -1,7 +1,6 @@
 #ifndef MAIN_STACK_H
 #define MAIN_STACK_H
 
-#include <vector>
 #include <qwidgetstack.h>
 
 class QEvent;
@@ -44,8 +43,9 @@ class MainStack : public QWidgetStack
         void switchWidget();
         bool eventFilter(QObject *target, QEvent *event);
         
-        int active;
         Database *db;
+        
+        int active;
         
         struct {
             QWidget *widget;

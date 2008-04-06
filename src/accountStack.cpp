@@ -9,22 +9,20 @@
 #include <qfiledialog.h>
 #include <qevent.h>
 
+#include "database.h"
 #include "accountStack.h"
 #include "accountTable.h"
 #include "goBackLabel.h"
-#include "database.h"
 
 AccountStack::AccountStack(QWidget *parent, const char *name)
     : QWidget(parent,name)
 {
-    db = new Database;
+    db = Database::instance();
     active = false;
 }
 
 AccountStack::~AccountStack()
-{
-    delete db;
-}
+{}
 
 void AccountStack::dbOpened()
 {

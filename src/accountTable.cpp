@@ -4,8 +4,8 @@
 #include <qevent.h>
 #include <qmessagebox.h>
 
-#include "accountTable.h"
 #include "database.h"
+#include "accountTable.h"
 #include "accountEditItem.h"
 #include "accountEditSimple.h"
 #include "accountEditType.h"
@@ -14,7 +14,7 @@
 AccountTable::AccountTable(QWidget *parent, const char *name)
     : QTable(parent,name)  
 {
-    db = new Database;
+    db = Database::instance();
     
     setLeftMargin(0);
     setVScrollBarMode(QScrollView::AlwaysOn);
@@ -41,9 +41,7 @@ AccountTable::AccountTable(QWidget *parent, const char *name)
 }
 
 AccountTable::~AccountTable()
-{
-    delete db;
-}
+{}
 
 void AccountTable::populate()
 {

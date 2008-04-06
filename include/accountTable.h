@@ -26,7 +26,8 @@ class AccountTable : public QTable
         void edittingChanged(int, int);
         
     private:
-        Database *db;  
+        Database *db;
+        
         bool editting;
         int edittingRow;
         int edittingCol;

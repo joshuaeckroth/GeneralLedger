@@ -9,7 +9,6 @@ using std::ostringstream;
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qptrlist.h>
-#include <qsettings.h>
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
@@ -22,46 +21,45 @@ using std::ostringstream;
 #include <qregexp.h>
 
 #include "database.h"
+#include "settings.h"
 #include "balanceElement.h"
 
 Database::Database() : QObject()
 {
-    instances++;
-    
-    if(db == 0)
-    {
 #ifdef Q_WS_WIN
-        db = QSqlDatabase::addDatabase("QSQLITEX");
+    connection = QSqlDatabase::addDatabase("QSQLITEX");
 #else
-        db = QSqlDatabase::addDatabase("QSQLITE");
+    connection = QSqlDatabase::addDatabase("QSQLITE");
 #endif
-    }
+    report = new ReportStruct;
+    accountsList = new QStringList;
+
+    settings = Settings::instance();
     
-    if(!report)
-        report = new ReportStruct;
-    if(!accountsList)
-        accountsList = new QStringList;
-    
-    if(curDb == "" || curClient == "")
-    {
-        QSettings settings;
-        settings.setPath("eckroth.net", "GeneralLedger");
-        settings.beginGroup("/GeneralLedger");
-        curDb = settings.readEntry("/database/defaultDb", "");
-        curClient = settings.readEntry("/database/defaultClient", "");
-        settings.endGroup();
-    }
+    curDb = settings->getDefaultDb();
+    curClient = settings->getDefaultClient();
 }
 
 Database::~Database()
 {
-    if(instances == 1)
-    {
-        delete report;
-        delete accountsList;
-    }
-    
-    instances--;
+    delete report;
+    delete accountsList;
+
+    settings->setDefaultDb(curDb);
+    settings->setDefaultClient(curClient);
+}
+
+Database* Database::instance()
+{
+    if(db == 0)
+        db = new Database;
+    return db;
+}
+
+void Database::destroy()
+{
+    if(db != 0)
+        delete db;
 }
 
 bool Database::openDefault()
@@ -71,12 +69,12 @@ bool Database::openDefault()
     
     
     
-    if(db->isOpen()) db->close();
-    db->setDatabaseName("data/" + curDb);
+    if(connection->isOpen()) connection->close();
+    connection->setDatabaseName("data/" + curDb);
   
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return false;
     }
     return true;
@@ -91,11 +89,11 @@ bool Database::openNew(QString name)
     file.replace(QChar('\\'), "-");
     file.append(".db");
     
-    if(db->isOpen()) db->close();
-    db->setDatabaseName("data/" + file);
-    if(!db->open())
+    if(connection->isOpen()) connection->close();
+    connection->setDatabaseName("data/" + file);
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return false;
     }
     
@@ -119,35 +117,35 @@ bool Database::createNew(QString name, QString yearEnd)
     file.replace(QChar('\\'), "-");
     file.append(".db");
     
-    if(db->isOpen()) db->close();
-    db->setDatabaseName("data/" + file);
-    if (!db->open())
+    if(connection->isOpen()) connection->close();
+    connection->setDatabaseName("data/" + file);
+    if (!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return false;
     }
     
     curDb = file;
     curClient = name;
         
-    QSqlQuery createMain("CREATE TABLE main (name, yearEnd)", db);
-    QSqlQuery createAccounts("CREATE TABLE accounts (key, id, desc, type, PRIMARY KEY (key))", db);
+    QSqlQuery createMain("CREATE TABLE main (name, yearEnd)", connection);
+    QSqlQuery createAccounts("CREATE TABLE accounts (key, id, desc, type, PRIMARY KEY (key))", connection);
     QSqlQuery createJournal("CREATE TABLE journal (date, account, reference, "
-            "desc, debit, credit)", db);
+            "desc, debit, credit)", connection);
     QSqlQuery createJournalTmp("CREATE TABLE journalTmp (key, date, account, reference, "
-            "desc, debit, credit)", db);
-    QSqlQuery createBalanceAssets("CREATE TABLE balanceAssets (key, type, desc, begin, end)", db);
-    QSqlQuery createBalanceLiabilities("CREATE TABLE balanceLiabilities (key, type, desc, begin, end)", db);
-    QSqlQuery createBalanceEquities("CREATE TABLE balanceEquities (key, type, desc, begin, end)", db);
+            "desc, debit, credit)", connection);
+    QSqlQuery createBalanceAssets("CREATE TABLE balanceAssets (key, type, desc, begin, end)", connection);
+    QSqlQuery createBalanceLiabilities("CREATE TABLE balanceLiabilities (key, type, desc, begin, end)", connection);
+    QSqlQuery createBalanceEquities("CREATE TABLE balanceEquities (key, type, desc, begin, end)", connection);
     
-    QSqlQuery("INSERT INTO main VALUES(\"" + name + "\", \"" + yearEnd + "\")", db);
+    QSqlQuery("INSERT INTO main VALUES(\"" + name + "\", \"" + yearEnd + "\")", connection);
     
     return true;
 }
 
 void Database::closeDb()
 {
-  if(db->isOpen()) db->close();
+  if(connection->isOpen()) connection->close();
 }
 
 void Database::copyDb(QString file) const
@@ -181,13 +179,13 @@ void Database::copyDb(QString file) const
 
 void Database::editName(QString name)
 {
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return;
     }
     
-    QSqlQuery update("UPDATE main SET name = '" + name + "'", db);
+    QSqlQuery update("UPDATE main SET name = '" + name + "'", connection);
     curClient = name;
 }
 
@@ -206,9 +204,9 @@ QStringList Database::getClientList() const
     QStringList list;
     
 #ifdef Q_WS_WIN
-        QSqlDatabase *dbTemp = QSqlDatabase::addDatabase("QSQLITEX", "temp");
+        QSqlDatabase *connectionTemp = QSqlDatabase::addDatabase("QSQLITEX", "temp");
 #else
-        QSqlDatabase *dbTemp = QSqlDatabase::addDatabase("QSQLITE", "temp");
+        QSqlDatabase *connectionTemp = QSqlDatabase::addDatabase("QSQLITE", "temp");
 #endif 
     
     QDir dir("data");
@@ -217,13 +215,13 @@ QStringList Database::getClientList() const
     it = files.begin();
     while(it != files.end())
     {
-        dbTemp->setDatabaseName("data/" + *it);
-        if(dbTemp->open())
+        connectionTemp->setDatabaseName("data/" + *it);
+        if(connectionTemp->open())
         {
-            QSqlQuery query("SELECT name FROM main", dbTemp);
+            QSqlQuery query("SELECT name FROM main", connectionTemp);
             if(query.next())
                 list << QString(query.value(0).toString() + "    (" + *it + ")");
-            dbTemp->close();
+            connectionTemp->close();
         }
         ++it;
     }
@@ -348,7 +346,7 @@ void Database::importCSV(QString table, QString file)
             
             if(dialog.exec())
             {
-                QSqlQuery query("SELECT key FROM " + table, db);
+                QSqlQuery query("SELECT key FROM " + table, connection);
                 int key = 0;
                 while(query.next())
                 {
@@ -429,7 +427,7 @@ QStringList Database::getPeriodBegin() const
     QDate date(QDate().currentDate());
     QString curYear = date.toString("yy");
     
-    QSqlQuery query("SELECT yearEnd FROM main", db);
+    QSqlQuery query("SELECT yearEnd FROM main", connection);
     if(query.next())
         yearEnd = query.value(0).toString();
     
@@ -507,7 +505,7 @@ QStringList Database::getPeriodEnd() const
     
     QDate date(QDate().currentDate());
     
-    QRegExp regexp("^(Period \\d+ )\\((\\d\\d)/\\d\\d/(\\d\\d)\\)");
+    QRegExp regexp("^(Period \\d+ \\()(\\d\\d)/\\d\\d/(\\d\\d)\\)");
     
     for(QStringList::Iterator it = periodBegin.begin(); it != periodBegin.end(); ++it)
     {
@@ -564,13 +562,13 @@ QPtrList<BalanceElement> Database::getBalanceElements(balanceCategory category)
 {
     QPtrList<BalanceElement> tmpList;
 
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return tmpList;
     }
     
-    QSqlQuery query(QString::null, db);
+    QSqlQuery query(QString::null, connection);
     
     switch(category)
     {
@@ -604,9 +602,9 @@ QPtrList<BalanceElement> Database::getBalanceElements(balanceCategory category)
 void Database::createBalanceElement(balanceCategory category, QString type,
                                     QString desc, QString accountBegin, QString accountEnd)
 {
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return;
     }
     
@@ -634,24 +632,24 @@ void Database::createBalanceElement(balanceCategory category, QString type,
     
     if(type == "0")
     {
-        QSqlQuery queryDesc("SELECT desc FROM accounts WHERE id = \"" + accountBegin + "\"", db);
+        QSqlQuery queryDesc("SELECT desc FROM accounts WHERE id = \"" + accountBegin + "\"", connection);
         if(queryDesc.next())
             desc = queryDesc.value(0).toString();
     }
     
     QSqlQuery queryInsert("INSERT INTO " + table + " VALUES( \"" + oneUp + "\", \"" +
-            type + "\", \"" + desc + "\", \"" + accountBegin + "\", \"" + accountEnd + "\")", db);
+            type + "\", \"" + desc + "\", \"" + accountBegin + "\", \"" + accountEnd + "\")", connection);
 }
 
 void Database::removeBalanceElement(balanceCategory category, QString key)
 {
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return;
     }
     
-    QSqlQuery query(QString::null, db);
+    QSqlQuery query(QString::null, connection);
     switch(category)
     {
         case assets:
@@ -671,9 +669,9 @@ void Database::moveBalanceElement(balanceCategory category, QString key, bool up
 {
     if(key == "1" && up) return;
     
-    if(!db->open())
+    if(!connection->open())
     {
-        db->lastError().showMessage();
+        connection->lastError().showMessage();
         return;
     }
     
@@ -700,7 +698,7 @@ void Database::moveBalanceElement(balanceCategory category, QString key, bool up
     }
 
     queryLastString += table + " ORDER BY key";
-    QSqlQuery queryLast(queryLastString, db);
+    QSqlQuery queryLast(queryLastString, connection);
     queryLast.last();
     if(queryLast.value(0).toString() == key && !up) return;
     
@@ -714,40 +712,715 @@ void Database::moveBalanceElement(balanceCategory category, QString key, bool up
     queryUpdateString += "0 WHERE key = ";
     queryUpdateString += key;
 
-    QSqlQuery queryUpdate(queryUpdateString, db);
+    QSqlQuery queryUpdate(queryUpdateString, connection);
     
-    QSqlQuery queryUpdate2("UPDATE " + table + " SET key = " + key + " WHERE key = " + upOrDown, db);
-    QSqlQuery queryUpdate3("UPDATE " + table + " SET key = " + upOrDown + " WHERE key = 0", db);
+    QSqlQuery queryUpdate2("UPDATE " + table + " SET key = " + key + " WHERE key = " + upOrDown, connection);
+    QSqlQuery queryUpdate3("UPDATE " + table + " SET key = " + upOrDown + " WHERE key = 0", connection);
+}
+
+Database* Database::getGeneralDetail(QString periodBegin, QString periodEnd,
+                                     QString accountBegin, QString accountEnd)
+{
+    QStringList accounts;
+    
+    bool allAccounts = false;
+    if(accountBegin == "" && accountEnd == "")
+        allAccounts = true;
+    
+    QSqlQuery query("SELECT * FROM accounts", connection);
+    while(query.next())
+    {
+        if(!allAccounts)
+        {
+            if(query.value(1).toInt() < accountBegin.toInt()
+               || query.value(1).toInt() > accountEnd.toInt())
+                continue;
+        }
+        
+        accounts << query.value(1).toString() + "," + query.value(2).toString();
+    }
+    accounts.sort();
+    
+    QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+    
+    dateRegexp.search(periodBegin);
+    QDate periodBeginDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+    
+    dateRegexp.search(periodEnd);
+    QDate periodEndDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+    
+    report->csv = "Account ID,Account Description,Date,Reference,Description,Debit Amt,Credit Amt,Balance\n";
+    report->header = "<center><h1>";
+    report->header += curClient;
+    report->header += "</h1></center>\n";
+    report->header += "<center><h2>General Ledger Detail</h2></center>\n";
+    report->header += "<center><h3>For the Period From " + periodBeginDate.toString("MMM d, yyyy")
+            + " to " + periodEndDate.toString("MMM d, yyyy") + "</h3></center>\n";
+    
+    if(allAccounts)
+        report->header += "<center><h4>All Accounts</h4></center>\n";
+    else
+        report->header += "<center><h4>Account Range: " + accountBegin + " to " + accountEnd + "</h4></center>\n";
+    
+    report->data = "<table><tr>"
+            "<td><b>Account ID<br>Account Description</b></td>"
+            "<td><b>Date</b></td>"
+            "<td><b>Reference</b></td>"
+            "<td><b>Description</b></td>"
+            "<td align=\"right\"><b>Debit Amt</b></td>"
+            "<td align=\"right\"><b>Credit Amt</b></td>"
+            "<td align=\"right\"><b>Balance</b></td></tr>\n";
+    
+    QString beginningBalance;
+    QString periodChangeBalance;
+    QString endingBalance;
+    QString debitBalance;
+    QString creditBalance;
+    
+    QString entryYear;
+    QString entryMonth;
+    QString entryDay;
+    QDate entryDate;
+    
+    bool inDateRange;
+    
+    QDate curDate(QDate().currentDate());
+    
+    for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+    {
+        query.prepare("SELECT date, reference, desc, debit, credit FROM journal WHERE account = " + (*it).left(4));
+        query.exec();
+        
+        report->data += "<tr><td>" + (*it).left(4) + "</td><td>" + periodBeginDate.toString("MM/dd/yy") +
+                "</td><td> </td><td>Beginning Balance</td><td> </td><td> </td><td align=\"right\">(BALANCE)</td></tr>";
+        
+        bool accountDescDisplayed = false;
+        
+        report->csv += (*it).left(4) + "," + (*it).mid(5) + "," + periodBeginDate.toString("MM/dd/yy") +
+                ",,Beginning Balance,,,(BALANCE)\n";
+        
+        beginningBalance = "0.00";
+        periodChangeBalance = "0.00";
+        endingBalance = "0.00";
+        debitBalance = "0.00";
+        creditBalance = "0.00";
+        
+        if(query.first())
+        {
+            query.seek(-1);
+            
+            inDateRange = false;
+            
+            while(query.next())
+            {
+                QString entryYear = query.value(0).toString().right(2);
+                    
+                if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                    entryYear.insert(0, "20");
+                else
+                    entryYear.insert(0, "19");
+                
+                QString entryMonth = query.value(0).toString().left(2);
+                QString entryDay = query.value(0).toString().mid(3,2);
+                
+                entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                
+                if(entryDate >= periodBeginDate && entryDate <= periodEndDate)
+                {
+                    inDateRange = true;
+                    
+                    if(!accountDescDisplayed)
+                    {
+                        report->data += "<tr><td>" + (*it).mid(5) + "</td>";
+                        accountDescDisplayed = true;
+                    }
+                    else
+                        report->data += "<tr><td> </td>";
+                    
+                    report->data += "<td>" + query.value(0).toString() + "</td><td>"
+                            + query.value(1).toString() + "</td><td>" + query.value(2).toString()
+                            + "</td><td align=\"right\">" + query.value(3).toString() + "</td><td align=\"right\">"
+                            + query.value(4).toString() + "</td><td> </td></tr>\n";
+                    
+                    report->csv += (*it).left(4) + "," + (*it).mid(5) + ","
+                            + query.value(0).toString() + "," + query.value(1).toString()
+                            + "," + query.value(2).toString() + "," + query.value(3).toString()
+                            + "," + query.value(4).toString() + ",\n";
+                    
+                    debitBalance = addCurrency(debitBalance, query.value(3).toString());
+                    creditBalance = addCurrency(creditBalance, query.value(4).toString());
+                    
+                    periodChangeBalance = addCurrency(debitBalance, QString(creditBalance).insert(0,"-"));
+            
+                }
+                if(entryDate < periodBeginDate)
+                {
+                    beginningBalance = addCurrency(beginningBalance, query.value(3).toString());
+                    beginningBalance = addCurrency(beginningBalance, QString("-" + query.value(4).toString()));
+                }
+            }
+            
+            if(inDateRange)
+            {   
+                report->data += "<tr><td> </td><td> </td><td> </td>"
+                        "<td>Current Period Change</td><td align=\"right\">"
+                        + debitBalance + "</td><td align=\"right\">"
+                        + creditBalance + "</td><td align=\"right\">" + periodChangeBalance + "</td></tr>\n";
+                
+                report->csv += ",,,Current Period Change," + debitBalance + "," + creditBalance
+                        + "," + periodChangeBalance + "\n";
+            }
+        }
+        else
+        {
+            report->data += "<tr><td>" + (*it).mid(5) + "</td></tr>\n";
+            accountDescDisplayed = true;
+        }
+        
+        if(!accountDescDisplayed)
+            report->data += "<tr><td>" + (*it).mid(5) + "</td></tr>";
+        
+        if(beginningBalance == "0.00" && debitBalance == "0.00" && creditBalance == "0.00")
+            endingBalance = "";
+        else
+            endingBalance = addCurrency(beginningBalance, periodChangeBalance);
+        
+        if(beginningBalance == "0.00")
+            beginningBalance = "";
+        
+        report->data = (report->data).replace("(BALANCE)", beginningBalance);
+        report->csv = (report->csv).replace("(BALANCE)", beginningBalance);
+        
+        report->data += "<tr><td> </td><td><b>" + periodEndDate.toString("MM/dd/yy") + "</b></td>"
+                "<td> </td><td><b>Ending Balance</b></td><td> </td><td> </td><td align=\"right\"><b>"
+                + endingBalance + "</b></td></tr><tr><td> </td></tr><tr><td> </td></tr>\n";
+        
+        report->csv += "," + periodEndDate.toString("MM/dd/yy") + ",,Ending Balance,,,"
+                + endingBalance + "\n";
+        
+    }
+
+    report->data += "</table>";
+    
+    report->string = "<qt>" + report->header + report->data + "</qt>";
+    
+    report->html = report->string.replace(
+            "<qt>", "<html><head><title>" + curClient +
+            " - General Ledger Detail</title></head><body>\n").replace(
+                    "</qt>", "</body></html>");
+    
+    return this;
+}
+
+Database* Database::getGeneralTrialBalance(QString periodEnd, QString accountBegin, QString accountEnd)
+{
+    QStringList accounts;
+    
+    bool allAccounts = false;
+    if(accountBegin == "" && accountEnd == "")
+        allAccounts = true;
+    
+    QSqlQuery query("SELECT * FROM accounts", connection);
+    while(query.next())
+    {
+        if(!allAccounts)
+        {
+            if(query.value(1).toInt() < accountBegin.toInt()
+                || query.value(1).toInt() > accountEnd.toInt())
+                continue;
+        }
+        
+        accounts << query.value(1).toString() + "," + query.value(2).toString();
+    }
+    accounts.sort();
+    
+    QDate curDate(QDate().currentDate());
+    
+    QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+    dateRegexp.search(periodEnd);
+    
+    QDate periodDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+    
+    report->csv = "Account ID,Account Description,Debit Amt,Credit Amt\n";
+    report->header = "<center><h1>";
+    report->header += curClient;
+    report->header += "</h1></center>\n";
+    report->header += "<center><h2>General Ledger Trial Balance</h2></center>\n";
+    report->header += "<center><h3>As of " + periodDate.toString("MMM d, yyyy") + "</h3></center>\n";
+    
+    if(allAccounts)
+        report->header += "<center><h4>All Accounts</h4></center>\n";
+    else
+        report->header += "<center><h4>Account Range: " + accountBegin + " to " + accountEnd + "</h4></center>\n";
+    
+    report->data = "<table><tr><td><b>Account ID</b></td>"
+            "<td><b>Account Description</b></td>"
+            "<td align=\"right\"><b>Debit Amt</b></td><td align=\"right\"><b>Credit Amt</b></td></tr>\n";
+    
+    QString debit = "0.00";
+    QString credit = "0.00";
+    QString totalDebit = "0.00";
+    QString totalCredit = "0.00";
+    
+    QString entryYear;
+    QString entryMonth;
+    QString entryDay;
+    QDate entryDate;
+    
+    for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+    {
+        query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + (*it).left(4));
+        query.exec();
+        
+        report->data += "<tr><td>" + (*it).left(4) + "</td><td>" + (*it).mid(5)
+                + "</td><td align=\"right\">";
+        report->csv += (*it).left(4) + "," + (*it).mid(5) + ",";
+        
+        if(query.first())
+        {
+            debit = "0.00";
+            credit = "0.00";
+            
+            query.seek(-1);
+            while(query.next())
+            {
+                QString entryYear = query.value(0).toString().right(2);
+                
+                if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                    entryYear.insert(0, "20");
+                else
+                    entryYear.insert(0, "19");
+                
+                QString entryMonth = query.value(0).toString().left(2);
+                QString entryDay = query.value(0).toString().mid(3,2);
+                
+                entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                if(entryDate > periodDate)
+                    continue;
+                
+                debit = addCurrency(debit, query.value(1).toString());
+                credit = addCurrency(credit, query.value(2).toString());
+            }
+            
+            totalDebit = addCurrency(totalDebit, debit);
+            totalCredit = addCurrency(totalCredit, credit);
+            
+            if(debit != "0.00")
+                report->data += debit;
+            report->data += "</td><td align=\"right\">";
+            if(credit != "0.00")
+                report->data += credit;
+            report->data += "</td></tr>\n";
+            
+            report->csv += debit + "," + credit + "\n";
+        }
+        else
+        {
+            report->data += "</td><td> </td></tr>\n";
+            report->csv += ",\n";
+        }
+    }
+    
+    report->data += "<tr><td> </td><td> </td><td> </td><td> </td>"
+            "</tr><tr><td> </td><td><b>Total:</b></td><td align=\"right\"><b>" + totalDebit
+            + "</b></td><td align=\"right\"><b>" + totalCredit + "</b></td></tr>\n</table>";
+    
+    
+    report->string = "<qt>" + report->header + report->data + "</qt>";
+    
+    report->html = report->string.replace(
+            "<qt>", "<html><head><title>" + curClient +
+            " - General Ledger Trial Balance</title></head><body>\n").replace(
+            "</qt>", "</body></html>");
+    
+    return this;
+}
+
+Database* Database::getBalanceReport(QString periodEnd)
+{
+
+    QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+    dateRegexp.search(periodEnd);
+    
+    QDate curDate(QDate().currentDate());
+    QDate periodDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+    QString entryYear;
+    QString entryMonth;
+    QString entryDay;
+    QDate entryDate;
+
+    report->csv = "Account Description,Balance\n";
+    report->header = "<center><h1>";
+    report->header += curClient;
+    report->header += "</h1></center>\n";
+    report->header += "<center><h2>Balance Sheet</h2></center>\n";
+    report->header += "<center><h3>For the Period Ending " + periodDate.toString("MMM d, yyyy") + "</h3></center>\n";
+
+    report->data = "<table><tr><td align=\"center\"><b>Account Description</b></td>"
+            "<td align=\"right\"><b>Balance</b></td></tr>\n";
+
+    QPtrList<QStringList> assetsList;
+    QPtrList<QStringList> liabilitiesList;
+    QPtrList<QStringList> equitiesList;
+
+    QSqlQuery query("SELECT * FROM balanceAssets", connection);
+    while(query.next())
+    {
+        QStringList *list = new QStringList;
+        *list << query.value(1).toString() << query.value(2).toString()
+                << query.value(3).toString() << query.value(4).toString();
+        assetsList.append(list);
+    }
+
+    query.prepare("SELECT * FROM balanceLiabilities");
+    query.exec();
+    while(query.next())
+    {
+        QStringList *list = new QStringList;
+        *list << query.value(1).toString() << query.value(2).toString()
+                << query.value(3).toString() << query.value(4).toString();
+        liabilitiesList.append(list);
+    }
+
+    query.prepare("SELECT * FROM balanceEquities");
+    query.exec();
+    while(query.next())
+    {
+        QStringList *list = new QStringList;
+        *list << query.value(1).toString() << query.value(2).toString()
+                << query.value(3).toString() << query.value(4).toString();
+        equitiesList.append(list);
+    }
+
+
+    QString sectionBalance;
+    QString accountBalance;
+
+    QStringList *list;
+    sectionBalance = "0.00";
+    for(list = assetsList.first(); list; list = assetsList.next())
+    {
+
+        accountBalance = "0.00";
+        if(list->operator[](0) == "0")  // one account
+        {
+            query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + list->operator[](2));
+            query.exec();
+            while(query.next())
+            {
+                QString entryYear = query.value(0).toString().right(2);
+                
+                if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                    entryYear.insert(0, "20");
+                else
+                    entryYear.insert(0, "19");
+                
+                QString entryMonth = query.value(0).toString().left(2);
+                QString entryDay = query.value(0).toString().mid(3,2);
+                
+                entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                if(entryDate > periodDate)
+                    continue;
+
+                if(query.value(1).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                }
+                if(query.value(2).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+        else  // begin and end accounts
+        {
+            QStringList accounts;
+
+            query.prepare("SELECT id FROM accounts");
+            query.exec();
+            while(query.next())
+            {
+                if(query.value(0).toInt() >= (list->operator[](2)).toInt()
+                   && query.value(0).toInt() <= (list->operator[](3)).toInt())
+                    accounts << query.value(0).toString();
+            }
+
+            for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+            {
+                query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+                query.exec();
+                while(query.next())
+                {
+                    QString entryYear = query.value(0).toString().right(2);
+                
+                    if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                        entryYear.insert(0, "20");
+                    else
+                        entryYear.insert(0, "19");
+                
+                    QString entryMonth = query.value(0).toString().left(2);
+                    QString entryDay = query.value(0).toString().mid(3,2);
+                
+                    entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                    if(entryDate > periodDate)
+                        continue;
+
+                    if(query.value(1).toString() != "")
+                        accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                    if(query.value(2).toString() != "")
+                        accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+
+        sectionBalance = addCurrency(sectionBalance, accountBalance);
+
+        report->data += "<tr><td>" + list->operator[](1) + "</td><td align=\"right\">" + accountBalance + "</td></tr>\n";
+        report->csv += list->operator[](1) + "," + accountBalance + "\n";
+    }
+
+    report->data += "<tr><td> </td></tr>\n";
+    report->data += "<tr><td><b>Total Assets</b></td><td align=\"right\"><b>" + sectionBalance + "</b></td></tr>\n";
+    report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+    report->csv += "Total Assets," + sectionBalance + "\n";
+
+
+    sectionBalance = "0.00";
+    for(list = liabilitiesList.first(); list; list = liabilitiesList.next())
+    {
+
+        accountBalance = "0.00";
+        if(list->operator[](0) == "0")  // one account
+        {
+            query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + list->operator[](2));
+            query.exec();
+            while(query.next())
+            {
+                QString entryYear = query.value(0).toString().right(2);
+                
+                if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                    entryYear.insert(0, "20");
+                else
+                    entryYear.insert(0, "19");
+                
+                QString entryMonth = query.value(0).toString().left(2);
+                QString entryDay = query.value(0).toString().mid(3,2);
+
+                entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                if(entryDate > periodDate)
+                    continue;
+
+                if(query.value(1).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                }
+                if(query.value(2).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+        else  // begin and end accounts
+        {
+            QStringList accounts;
+
+            query.prepare("SELECT id FROM accounts");
+            query.exec();
+            while(query.next())
+            {
+                if(query.value(0).toInt() >= (list->operator[](2)).toInt()
+                   && query.value(0).toInt() <= (list->operator[](3)).toInt())
+                    accounts << query.value(0).toString();
+            }
+
+            for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+            {
+                query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+                query.exec();
+                while(query.next())
+                {
+                    QString entryYear = query.value(0).toString().right(2);
+                
+                    if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                        entryYear.insert(0, "20");
+                    else
+                        entryYear.insert(0, "19");
+                
+                    QString entryMonth = query.value(0).toString().left(2);
+                    QString entryDay = query.value(0).toString().mid(3,2);
+
+                    entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                    if(entryDate > periodDate)
+                        continue;
+
+                    if(query.value(1).toString() != "")
+                        accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                    if(query.value(2).toString() != "")
+                        accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+
+        sectionBalance = addCurrency(sectionBalance, accountBalance);
+
+        report->data += "<tr><td>" + list->operator[](1) + "</td><td align=\"right\">" + accountBalance + "</td></tr>\n";
+        report->csv += list->operator[](1) + "," + accountBalance + "\n";
+    }
+
+    report->data += "<tr><td> </td></tr>\n";
+    report->data += "<tr><td><b>Total Liabilities</b></td><td align=\"right\"><b>" + sectionBalance + "</b></td></tr>\n";
+    report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+    report->csv += "Total Liabilities," + sectionBalance + "\n";
+
+
+    sectionBalance = "0.00";
+    for(list = equitiesList.first(); list; list = equitiesList.next())
+    {
+
+        accountBalance = "0.00";
+        if(list->operator[](0) == "0")  // one account
+        {
+            query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + list->operator[](2));
+            query.exec();
+            while(query.next())
+            {
+                QString entryYear = query.value(0).toString().right(2);
+                
+                if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                    entryYear.insert(0, "20");
+                else
+                    entryYear.insert(0, "19");
+                
+                QString entryMonth = query.value(0).toString().left(2);
+                QString entryDay = query.value(0).toString().mid(3,2);
+                
+                entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                if(entryDate > periodDate)
+                    continue;
+
+                if(query.value(1).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                }
+                if(query.value(2).toString() != "")
+                {
+                    accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+        else  // begin and end accounts
+        {
+            QStringList accounts;
+
+            query.prepare("SELECT id FROM accounts");
+            query.exec();
+            while(query.next())
+            {
+                if(query.value(0).toInt() >= (list->operator[](2)).toInt()
+                   && query.value(0).toInt() <= (list->operator[](3)).toInt())
+                    accounts << query.value(0).toString();
+            }
+
+            for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+            {
+                query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+                query.exec();
+                while(query.next())
+                {
+                    QString entryYear = query.value(0).toString().right(2);
+                
+                    if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+                        entryYear.insert(0, "20");
+                    else
+                        entryYear.insert(0, "19");
+                
+                    QString entryMonth = query.value(0).toString().left(2);
+                    QString entryDay = query.value(0).toString().mid(3,2);
+                
+                    entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+                    if(entryDate > periodDate)
+                        continue;
+
+                    if(query.value(1).toString() != "")
+                        accountBalance = addCurrency(accountBalance, query.value(1).toString());
+                    if(query.value(2).toString() != "")
+                        accountBalance = addCurrency(accountBalance, QString("-" + query.value(2).toString()));
+                }
+            }
+        }
+
+        sectionBalance = addCurrency(sectionBalance, accountBalance);
+
+        report->data += "<tr><td>" + list->operator[](1) + "</td><td align=\"right\">" + accountBalance + "</td></tr>\n";
+        report->csv += list->operator[](1) + "," + accountBalance + "\n";
+    }
+    
+    report->data += "<tr><td> </td></tr>\n";
+    report->data += "<tr><td><b>Total Equities</b></td><td align=\"right\"><b>" + sectionBalance + "</b></td></tr>\n";
+    report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+    report->csv += "Total Equities," + sectionBalance + "\n";
+
+    report->data += "</table>";
+
+    report->string = "<qt>" + report->header + report->data + "</qt>";
+    
+    report->html = report->string.replace(
+            "<qt>", "<html><head><title>" + curClient +
+            " - Balance Sheet</title></head><body>\n").replace(
+                    "</qt>", "</body></html>");
+
+    return this;
 }
 
 Database* Database::getChartAccounts()
 {
-    QSqlQuery query("SELECT * FROM accounts", db);
+    QSqlQuery query("SELECT * FROM accounts", connection);
     
     QDate date(QDate().currentDate());
     
     report->csv = "Account ID,Account Description\n";
-    report->string = "<qt>\n";
-    report->string += "<center><h1>";
-    report->string += curClient;
-    report->string += "</h1></center>\n";
-    report->string += "<center><h2>Chart of Accounts</h2></center>\n";
-    report->string += "<center><h3>As of " + date.toString("MMM d, yyyy") + "</h3></center>\n";
-    report->string += "<table><tr><th>Account ID</th><th>Account Description</th></tr>\n";
+    report->header = "<center><h1>";
+    report->header += curClient;
+    report->header += "</h1></center>\n";
+    report->header += "<center><h2>Chart of Accounts</h2></center>\n";
+    report->header += "<center><h3>As of " + date.toString("MMM d, yyyy") + "</h3></center>\n";
+
+    report->data = "<table><tr><td align=\"center\"><b>Account ID</b></td>"
+            "<td align=\"center\"><b>Account Description</b></td></tr>\n";
+    
+    QStringList reportString;
+    QStringList reportCSV;
     
     while(query.next())
     {
-        report->csv += query.value(1).toString() + "," + query.value(2).toString() + "\n";
-        report->string += "<tr><td>" + query.value(1).toString() + "</td><td>" + query.value(2).toString() + "</td></tr>\n";
+        reportCSV << query.value(1).toString() + "," + query.value(2).toString() + "\n";
+        reportString << "<tr><td>" + query.value(1).toString() + "</td><td>" +
+                query.value(2).toString() + "</td></tr>\n";
     }
     
-    report->string += "</table></qt>";
+    reportString.sort();
+    reportCSV.sort();
+    
+    report->data += reportString.join("") + "</table>";
+    report->csv += reportCSV.join("");
+    
+    report->string = "<qt>" + report->header + report->data + "</qt>";
     
     report->html = report->string.replace(
-            "<qt>", "<html><head><title>Chart of Accounts</title></head><body>\n").replace(
+            "<qt>", "<html><head><title>" + curClient + " - Chart of Accounts</title></head><body>\n").replace(
             "</qt>", "</body></html>");
     
     return this;
+}
+
+QString& Database::reportHeader()
+{
+    return report->header;
+}
+
+QString& Database::reportData()
+{
+    return report->data;
 }
 
 QString& Database::reportString()
@@ -769,7 +1442,7 @@ QStringList& Database::getAccountsList()
 {
     accountsList->clear();
     
-    QSqlQuery query("SELECT * FROM accounts", db);
+    QSqlQuery query("SELECT * FROM accounts", connection);
     while(query.next())
         accountsList->append(query.value(1).toString() + " - " + query.value(2).toString());
     accountsList->sort();
@@ -782,11 +1455,12 @@ QPtrList<QStringList> Database::getAccountsData()
 {
     QPtrList<QStringList> data;
     
-    QSqlQuery query("SELECT * FROM accounts", db);
+    QSqlQuery query("SELECT * FROM accounts", connection);
     while(query.next())
     {
         QStringList *list = new QStringList;
-        *list << query.value(0).toString() << query.value(1).toString() << query.value(2).toString();
+        *list << query.value(0).toString() << query.value(1).toString()
+                << query.value(2).toString() << query.value(3).toString();
         data.append(list);
     }
     return data;
@@ -796,7 +1470,7 @@ QPtrList<QStringList> Database::getJournalTmpData()
 {
     QPtrList<QStringList> data;
     
-    QSqlQuery query("SELECT * FROM journalTmp", db);
+    QSqlQuery query("SELECT * FROM journalTmp", connection);
     while(query.next())
     {
         QStringList *list = new QStringList;
@@ -810,7 +1484,7 @@ QPtrList<QStringList> Database::getJournalTmpData()
 
 void Database::updateAccount(QString key, QString id, QString desc, QString type)
 {
-    QSqlQuery query("SELECT key FROM accounts", db);
+    QSqlQuery query("SELECT key FROM accounts", connection);
     
     QString queryString;
     
@@ -835,7 +1509,7 @@ void Database::updateAccount(QString key, QString id, QString desc, QString type
 
 void Database::deleteAccount(QString key)
 {
-    QSqlQuery query("DELETE FROM accounts WHERE key = \"" + key + "\"", db);
+    QSqlQuery query("DELETE FROM accounts WHERE key = \"" + key + "\"", connection);
     
     emit accountsChanged();
 }
@@ -843,7 +1517,7 @@ void Database::deleteAccount(QString key)
 void Database::updateJournalTmp(QString key, QString date, QString account,
                                 QString reference, QString desc, QString debit, QString credit)
 {
-    QSqlQuery query("SELECT key FROM journalTmp", db);
+    QSqlQuery query("SELECT key FROM journalTmp", connection);
     
     QString queryString;
     
@@ -865,16 +1539,150 @@ void Database::updateJournalTmp(QString key, QString date, QString account,
     
     query.prepare(queryString);
     query.exec();
+    
+    emit journalTmpChanged();
 }
 
 void Database::deleteJournalTmp(QString key)
 {
-    QSqlQuery query("DELETE FROM journalTmp WHERE key = " + key, db);
+    QSqlQuery query("DELETE FROM journalTmp WHERE key = " + key, connection);
+}
+
+QString Database::journalTmpDebit()
+{
+    QString debit("0.00");
+    
+    QSqlQuery query("SELECT debit FROM journalTmp", connection);
+    
+    while(query.next())
+        debit = addCurrency(debit, query.value(0).toString());
+    
+    return debit;
+}
+
+QString Database::journalTmpCredit()
+{
+    QString credit("0.00");
+    
+    QSqlQuery query("SELECT credit FROM journalTmp", connection);
+    
+    while(query.next())
+        credit = addCurrency(credit, query.value(0).toString());
+    
+    return credit;
+}
+
+QString Database::journalTmpBalance()
+{
+    QString balance;
+    
+    balance = addCurrency(journalTmpDebit(), journalTmpCredit().insert(0, "-"));
+    
+    return balance;
+}
+
+QString Database::addCurrency(QString base, QString add)
+{
+    // code adopted from "moncls.h" by donpa@linuxledgers.com
+    
+    QString resultCents;
+    QString resultDollars;
+    int cents;
+    int dollars;
+    
+    QString baseCents;
+    QString baseDollars;
+    QString addCents;
+    QString addDollars;
+    
+    baseCents = base.right(2);
+    base.truncate(base.length() - 3);
+    baseDollars = base;
+    
+    addCents = add.right(2);
+    add.truncate(add.length() - 3);
+    addDollars = add;
+    
+    if(baseDollars.left(1) == "-")
+    {
+        baseCents.setNum(baseCents.toInt() + 100);
+        baseCents.insert(0, "-");
+        baseDollars.setNum(baseDollars.toInt() + 1);
+    }
+    if(addDollars.left(1) == "-")
+    {
+        addCents.setNum(addCents.toInt() + 100);
+        addCents.insert(0, "-");
+        addDollars.setNum(addDollars.toInt() + 1);
+    }
+    
+    dollars = (baseDollars.toInt() + addDollars.toInt());
+    cents = (baseCents.toInt() + addCents.toInt());
+    
+    while(dollars > 0 && cents < 0)
+    {
+        dollars -= 1;
+        cents += 100;
+    }
+    while(cents >= 100)
+    {
+        dollars += 1;
+        cents -= 100;
+    }
+    while(cents <= -100)
+    {
+        dollars -= 1;
+        cents += 100;
+    }
+
+    resultDollars.setNum(dollars);
+
+    if(cents < 0)
+    {
+        cents = 0 - cents;
+        if(dollars >= 0)
+            resultDollars.insert(0, "-");
+    }
+
+    resultCents.setNum(cents);
+
+    if(cents < 10)
+        resultCents.insert(0, "0");
+    
+    return QString(resultDollars + "." + resultCents);   
+}
+
+void Database::commitJournalTmp()
+{
+    QStringList data;
+    
+    QSqlQuery query("SELECT * FROM journalTmp", connection);
+    while(query.next())
+    {
+        data << "\"" + query.value(1).toString() + "\", \"" + query.value(2).toString()
+                + "\", \"" + query.value(3).toString() + "\", \"" + query.value(4).toString()
+                + "\", \"" + query.value(5).toString() + "\", \"" + query.value(6).toString() + "\"";
+    }
+    
+    for(QStringList::Iterator it = data.begin(); it != data.end(); ++it)
+    {
+        query.prepare("INSERT INTO journal VALUES(" + *it + ")");
+        query.exec();
+    }
+    
+    query.prepare("DROP TABLE journalTmp");
+    query.exec();
+    
+    query.prepare("CREATE TABLE journalTmp (key, date, account, reference, "
+            "desc, debit, credit)");
+    query.exec();
+    
+    emit journalTmpChanged();
 }
 
 QString Database::nextAccountKey()
 {
-    QSqlQuery query("SELECT key FROM accounts", db);
+    QSqlQuery query("SELECT key FROM accounts", connection);
     
     int key = 0;
     while(query.next())
@@ -890,7 +1698,7 @@ QString Database::nextAccountKey()
 
 QString Database::nextJournalTmpKey()
 {
-    QSqlQuery query("SELECT key FROM journalTmp", db);
+    QSqlQuery query("SELECT key FROM journalTmp", connection);
     
     int key = 0;
     while(query.next())
@@ -904,12 +1712,5 @@ QString Database::nextJournalTmpKey()
     return keyString;
 }
 
-
-QSqlDatabase *Database::db = 0;
-QString Database::curClient = "";
-QString Database::curDb = "";
-Database::ReportStruct *Database::report = 0;
-int Database::instances = 0;
-QStringList *Database::accountsList = 0;
-
+Database *Database::db = 0;
 

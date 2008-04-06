@@ -1,9 +1,9 @@
 #include <qtabwidget.h>
 #include <qapplication.h>
-#include <qsettings.h>
 
-#include "tabs.h"
 #include "database.h"
+#include "settings.h"
+#include "tabs.h"
 #include "mainStack.h"
 #include "accountStack.h"
 #include "journalStack.h"
@@ -13,18 +13,15 @@
 Tabs::Tabs(QApplication *parent, const char *name)
     : QTabWidget(0,name)
 {
+    db = Database::instance();
+    settings = Settings::instance();
+    
     app = parent;
     
     setFocusPolicy(QWidget::NoFocus);
     
-    db = new Database();
- 
-    QSettings settings;
-    settings.setPath("eckroth.net", "GeneralLedger");
-    settings.beginGroup("/GeneralLedger");
-    move(settings.readNumEntry("/geometry/x", 0), settings.readNumEntry("/geometry/y", 0));
-    resize(settings.readNumEntry("/geometry/width", 550), settings.readNumEntry("/geometry/height", 700));
-    settings.endGroup();
+    move(settings->getDefaultX(), settings->getDefaultY());
+    resize(settings->getDefaultWidth(), settings->getDefaultHeight());
     
     setCaption("General Ledger");
     
@@ -70,9 +67,7 @@ Tabs::Tabs(QApplication *parent, const char *name)
 }
 
 Tabs::~Tabs()
-{
-    delete db;
-}
+{}
 
 void Tabs::dbOpened()
 {
@@ -155,16 +150,10 @@ void Tabs::switchToHelp()
 
 void Tabs::quit()
 {
-    QSettings settings;
-    settings.setPath("eckroth.net", "GeneralLedger");
-    settings.beginGroup("/GeneralLedger");
-    settings.writeEntry("/geometry/x", x());
-    settings.writeEntry("/geometry/y", y());
-    settings.writeEntry("/geometry/width", width());
-    settings.writeEntry("/geometry/height", height());
-    settings.writeEntry("/database/defaultDb", db->getCurDb());
-    settings.writeEntry("/database/defaultClient", db->getCurClient());
-    settings.endGroup();
+    settings->setDefaultX(x());
+    settings->setDefaultY(y());
+    settings->setDefaultWidth(width());
+    settings->setDefaultHeight(height());
     
     app->quit();
 }

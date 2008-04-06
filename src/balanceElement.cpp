@@ -5,21 +5,19 @@
 #include <qpushbutton.h>
 #include <qstring.h>
 
-#include "balanceElement.h"
 #include "database.h"
+#include "balanceElement.h"
 
 BalanceElement::BalanceElement(Database::balanceCategory newCategory, QString newId, QString newType,
     QString newDesc, QString newAccountBegin, QString newAccountEnd)
     : QObject(), category(newCategory), id(newId), type(newType), desc(newDesc),
       accountBegin(newAccountBegin), accountEnd(newAccountEnd)
 {
-    db = new Database();
+    db = Database::instance();
 }
 
 BalanceElement::~BalanceElement()
-{
-    delete db;
-}
+{}
    
 QFrame* BalanceElement::getFrame(QWidget *parent, void *newSection)
 {

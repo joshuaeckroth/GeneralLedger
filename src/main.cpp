@@ -1,12 +1,24 @@
 #include <qapplication.h>
 
 #include "tabs.h"
+#include "database.h"
+#include "printer.h"
+#include "settings.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc,argv);
+    
+    Settings *settings = Settings::instance();
+    Database *db = Database::instance();
+    Printer *printer = Printer::instance();
+    
     Tabs tabs(&app);
     tabs.show();
     app.setMainWidget(&tabs);
-    return app.exec();
+    int retVal = app.exec();
+    settings->destroy();
+    db->destroy();
+    printer->destroy();
+    return retVal;
 }

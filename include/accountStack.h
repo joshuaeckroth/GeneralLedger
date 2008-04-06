@@ -38,8 +38,8 @@ class AccountStack : public QWidget
         bool eventFilter(QObject *target, QEvent *event);
         void showEvent(QShowEvent*);
         
-        bool active;
         Database *db;
+        bool active;
         
         struct {
             QVBoxLayout *vBoxLayout;

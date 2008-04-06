@@ -8,16 +8,14 @@
 
 AccountEditList::AccountEditList(QWidget *parent, const char *name,
                                 const QStringList &newAccounts, const QString &newText)
-    : QComboBox(TRUE, parent, name), accounts(newAccounts), text(newText)
+    : QComboBox(TRUE, parent, name), accounts(newAccounts), curText(newText)
 {
-    listbox = new QListBox(this);
-    listbox->setSelectionMode(QListBox::NoSelection);
-    listbox->setFocusPolicy(QWidget::NoFocus);
-    listbox->insertStringList(accounts);    // even though this is cleared on focusInEvent,
-                                            // it's necessary to create a listbox that's the full size
-    
-    setListBox(listbox);
-    
+    list = new QListBox(this);
+    connect(list, SIGNAL(selected(const QString&)), this, SLOT(setText(const QString&)));
+    setListBox(list);
+
+    list->insertStringList(accounts);    // even though this is cleared on focusInEvent,
+                                         // it's necessary to create a listbox that's the full size
     setSizeLimit(10);
     
     setInsertionPolicy(QComboBox::NoInsertion);
@@ -29,34 +27,34 @@ AccountEditList::AccountEditList(QWidget *parent, const char *name,
 void AccountEditList::updateAccounts(const QStringList &newAccounts)
 {
     accounts = newAccounts;
-    listbox->clear();
-    listbox->insertStringList(accounts);
+    list->clear();
+    list->insertStringList(accounts);
 }
 
 void AccountEditList::setText(const QString &newText)
 {
-    text = newText;
+    curText = newText.left(4);
+    lineEdit()->setText(curText);
 }
 
 void AccountEditList::changed(const QString &newText)
 {
-    text = newText;
-    listbox->clear();
+    curText = newText;
+    list->clear();
     
     for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); it++)
     {
-        if((*it).startsWith(text))
-            listbox->insertItem(*it);
+        if((*it).startsWith(curText))
+            list->insertItem(*it);
     }
     
     popup();
     lineEdit()->setFocus();
-    
 }
 
 QString AccountEditList::currentText() const
 {
-    return text;
+    return curText;
 }
 
 void AccountEditList::focusInEvent(QFocusEvent *event)
@@ -71,6 +69,6 @@ void AccountEditList::focusOutEvent(QFocusEvent *event)
     if(event->reason() == QFocusEvent::Mouse ||
        event->reason() == QFocusEvent::Tab ||
        event->reason() == QFocusEvent::Backtab)
-        listbox->hide();
+        list->hide();
 }
 
