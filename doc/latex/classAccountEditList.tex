@@ -1,0 +1,226 @@
+\hypertarget{classAccountEditList}{
+\section{Account\-Edit\-List Class Reference}
+\label{classAccountEditList}\index{AccountEditList@{AccountEditList}}
+}
+{\tt \#include $<$account\-Edit\-List.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classAccountEditList_a0}{Account\-Edit\-List} (QWidget $\ast$parent, const char $\ast$name, const QString\-List \&new\-Accounts, const QString \&text)
+\item 
+QString \hyperlink{classAccountEditList_a1}{current\-Text} () const
+\item 
+void \hyperlink{classAccountEditList_a2}{update\-Accounts} (const QString\-List \&new\-Accounts)
+\item 
+void \hyperlink{classAccountEditList_a3}{focus\-In\-Event} (QFocus\-Event $\ast$event)
+\item 
+void \hyperlink{classAccountEditList_a4}{focus\-Out\-Event} (QFocus\-Event $\ast$event)
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classAccountEditList_k0}{changed} (const QString \&)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+QString\-List \hyperlink{classAccountEditList_r0}{accounts}
+\item 
+QString \hyperlink{classAccountEditList_r1}{cur\-Text}
+\item 
+QList\-Box $\ast$ \hyperlink{classAccountEditList_r2}{list}
+\item 
+QLine\-Edit $\ast$ \hyperlink{classAccountEditList_r3}{editor}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAccountEditList_a0}{
+\index{AccountEditList@{Account\-Edit\-List}!AccountEditList@{AccountEditList}}
+\index{AccountEditList@{AccountEditList}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[AccountEditList]{\setlength{\rightskip}{0pt plus 5cm}Account\-Edit\-List::Account\-Edit\-List (QWidget $\ast$ {\em parent}, const char $\ast$ {\em name}, const QString\-List \& {\em new\-Accounts}, const QString \& {\em text})}}
+\label{classAccountEditList_a0}
+
+
+Definition at line 9 of file account\-Edit\-List.cpp.
+
+References accounts, changed(), cur\-Text, editor, and list.
+
+\footnotesize\begin{verbatim}11     : QComboBox(TRUE, parent, name), accounts(newAccounts), curText(newText)
+12 {
+13     list = new QListBox(this);
+14     setListBox(list);
+15     list->setSelectionMode(QListBox::NoSelection);
+16     list->setEnabled(false);
+17 
+18     editor = new QLineEdit(curText, this);
+19     setLineEdit(editor);
+20 
+21     setSizeLimit(10);
+22 
+23     insertStringList(accounts);    // even though this is cleared on focusInEvent,
+24                                    // it's necessary to create a listbox that's the full size
+25 
+26     editor->setText(curText);
+27     
+28     setInsertionPolicy(QComboBox::NoInsertion);
+29 
+30     connect(editor, SIGNAL(textChanged(const QString&)), this, SLOT(changed(const QString&)));
+31     
+32 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAccountEditList_k0}{
+\index{AccountEditList@{Account\-Edit\-List}!changed@{changed}}
+\index{changed@{changed}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[changed]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-List::changed (const QString \&)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classAccountEditList_k0}
+
+
+Definition at line 41 of file account\-Edit\-List.cpp.
+
+References accounts, cur\-Text, and list.
+
+Referenced by Account\-Edit\-List(), and focus\-In\-Event().
+
+\footnotesize\begin{verbatim}42 {
+43     curText = newText;
+44 
+45     list->clear();
+46 
+47     for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); it++)
+48     {
+49         if((*it).startsWith(curText))
+50             list->insertItem(*it);
+51     }
+52 
+53 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditList_a1}{
+\index{AccountEditList@{Account\-Edit\-List}!currentText@{currentText}}
+\index{currentText@{currentText}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[currentText]{\setlength{\rightskip}{0pt plus 5cm}QString Account\-Edit\-List::current\-Text () const}}
+\label{classAccountEditList_a1}
+
+
+Definition at line 55 of file account\-Edit\-List.cpp.
+
+References cur\-Text.
+
+\footnotesize\begin{verbatim}56 {
+57     return curText;
+58 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditList_a3}{
+\index{AccountEditList@{Account\-Edit\-List}!focusInEvent@{focusInEvent}}
+\index{focusInEvent@{focusInEvent}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[focusInEvent]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-List::focus\-In\-Event (QFocus\-Event $\ast$ {\em event})}}
+\label{classAccountEditList_a3}
+
+
+Definition at line 60 of file account\-Edit\-List.cpp.
+
+References changed(), and cur\-Text.
+
+\footnotesize\begin{verbatim}61 {
+62     QComboBox::focusInEvent(event);
+63     popup();
+64     changed(curText);
+65 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditList_a4}{
+\index{AccountEditList@{Account\-Edit\-List}!focusOutEvent@{focusOutEvent}}
+\index{focusOutEvent@{focusOutEvent}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[focusOutEvent]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-List::focus\-Out\-Event (QFocus\-Event $\ast$ {\em event})}}
+\label{classAccountEditList_a4}
+
+
+Definition at line 67 of file account\-Edit\-List.cpp.
+
+References list.
+
+\footnotesize\begin{verbatim}68 {
+69     QComboBox::focusOutEvent(event);
+70     if(event->reason() == QFocusEvent::Mouse ||
+71        event->reason() == QFocusEvent::Tab ||
+72        event->reason() == QFocusEvent::Backtab)
+73         list->hide();
+74 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditList_a2}{
+\index{AccountEditList@{Account\-Edit\-List}!updateAccounts@{updateAccounts}}
+\index{updateAccounts@{updateAccounts}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[updateAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-List::update\-Accounts (const QString\-List \& {\em new\-Accounts})}}
+\label{classAccountEditList_a2}
+
+
+Definition at line 34 of file account\-Edit\-List.cpp.
+
+References accounts, and list.
+
+\footnotesize\begin{verbatim}35 {
+36     accounts = newAccounts;
+37     list->clear();
+38     list->insertStringList(accounts);
+39 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classAccountEditList_r0}{
+\index{AccountEditList@{Account\-Edit\-List}!accounts@{accounts}}
+\index{accounts@{accounts}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[accounts]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \hyperlink{classAccountEditList_r0}{Account\-Edit\-List::accounts}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditList_r0}
+
+
+Definition at line 26 of file account\-Edit\-List.h.
+
+Referenced by Account\-Edit\-List(), changed(), and update\-Accounts().\hypertarget{classAccountEditList_r1}{
+\index{AccountEditList@{Account\-Edit\-List}!curText@{curText}}
+\index{curText@{curText}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[curText]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classAccountEditList_r1}{Account\-Edit\-List::cur\-Text}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditList_r1}
+
+
+Definition at line 27 of file account\-Edit\-List.h.
+
+Referenced by Account\-Edit\-List(), changed(), current\-Text(), and focus\-In\-Event().\hypertarget{classAccountEditList_r3}{
+\index{AccountEditList@{Account\-Edit\-List}!editor@{editor}}
+\index{editor@{editor}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[editor]{\setlength{\rightskip}{0pt plus 5cm}QLine\-Edit$\ast$ \hyperlink{classAccountEditList_r3}{Account\-Edit\-List::editor}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditList_r3}
+
+
+Definition at line 29 of file account\-Edit\-List.h.
+
+Referenced by Account\-Edit\-List().\hypertarget{classAccountEditList_r2}{
+\index{AccountEditList@{Account\-Edit\-List}!list@{list}}
+\index{list@{list}!AccountEditList@{Account\-Edit\-List}}
+\subsubsection[list]{\setlength{\rightskip}{0pt plus 5cm}QList\-Box$\ast$ \hyperlink{classAccountEditList_r2}{Account\-Edit\-List::list}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditList_r2}
+
+
+Definition at line 28 of file account\-Edit\-List.h.
+
+Referenced by Account\-Edit\-List(), changed(), focus\-Out\-Event(), and update\-Accounts().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{accountEditList_8h}{account\-Edit\-List.h}\item 
+\hyperlink{accountEditList_8cpp}{account\-Edit\-List.cpp}\end{CompactItemize}

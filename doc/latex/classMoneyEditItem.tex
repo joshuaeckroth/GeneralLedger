@@ -1,0 +1,56 @@
+\hypertarget{classMoneyEditItem}{
+\section{Money\-Edit\-Item Class Reference}
+\label{classMoneyEditItem}\index{MoneyEditItem@{MoneyEditItem}}
+}
+{\tt \#include $<$money\-Edit\-Item.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classMoneyEditItem_a0}{Money\-Edit\-Item} (QTable $\ast$table, const QString \&contents)
+\item 
+QWidget $\ast$ \hyperlink{classMoneyEditItem_a1}{create\-Editor} () const
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMoneyEditItem_a0}{
+\index{MoneyEditItem@{Money\-Edit\-Item}!MoneyEditItem@{MoneyEditItem}}
+\index{MoneyEditItem@{MoneyEditItem}!MoneyEditItem@{Money\-Edit\-Item}}
+\subsubsection[MoneyEditItem]{\setlength{\rightskip}{0pt plus 5cm}Money\-Edit\-Item::Money\-Edit\-Item (QTable $\ast$ {\em table}, const QString \& {\em contents})}}
+\label{classMoneyEditItem_a0}
+
+
+Definition at line 7 of file money\-Edit\-Item.cpp.
+
+\footnotesize\begin{verbatim}8     : QTableItem(table, QTableItem::OnTyping, contents)
+9 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMoneyEditItem_a1}{
+\index{MoneyEditItem@{Money\-Edit\-Item}!createEditor@{createEditor}}
+\index{createEditor@{createEditor}!MoneyEditItem@{Money\-Edit\-Item}}
+\subsubsection[createEditor]{\setlength{\rightskip}{0pt plus 5cm}QWidget $\ast$ Money\-Edit\-Item::create\-Editor () const}}
+\label{classMoneyEditItem_a1}
+
+
+Definition at line 11 of file money\-Edit\-Item.cpp.
+
+\footnotesize\begin{verbatim}12 {
+13     QLineEdit *lineEdit = new QLineEdit(text(), table()->viewport());
+14     lineEdit->setValidator(new MoneyValidator(lineEdit));
+15     return lineEdit;
+16 }
+\end{verbatim}\normalsize 
+
+
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{moneyEditItem_8h}{money\-Edit\-Item.h}\item 
+\hyperlink{moneyEditItem_8cpp}{money\-Edit\-Item.cpp}\end{CompactItemize}

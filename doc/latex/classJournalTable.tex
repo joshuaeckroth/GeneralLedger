@@ -1,0 +1,591 @@
+\hypertarget{classJournalTable}{
+\section{Journal\-Table Class Reference}
+\label{classJournalTable}\index{JournalTable@{JournalTable}}
+}
+{\tt \#include $<$journal\-Table.h$>$}
+
+Collaboration diagram for Journal\-Table:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classJournalTable__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classJournalTable_l0}{go\-To\-Main} ()
+\item 
+void \hyperlink{classJournalTable_l1}{go\-To\-Accounts} ()
+\item 
+void \hyperlink{classJournalTable_l2}{go\-To\-Reports} ()
+\item 
+void \hyperlink{classJournalTable_l3}{go\-To\-Help} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classJournalTable_a0}{Journal\-Table} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\item 
+\hyperlink{classJournalTable_a1}{$\sim$Journal\-Table} ()
+\item 
+bool \hyperlink{classJournalTable_a2}{is\-Inserting} () const
+\item 
+int \hyperlink{classJournalTable_a3}{debit\-Col\-Width} ()
+\item 
+int \hyperlink{classJournalTable_a4}{credit\-Col\-Width} ()
+\item 
+void \hyperlink{classJournalTable_a5}{populate} ()
+\item 
+void \hyperlink{classJournalTable_a6}{clear\-Table} ()
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classJournalTable_k0}{update\-Db} (int, int)
+\item 
+void \hyperlink{classJournalTable_k1}{editing\-Changed} (int, int)
+\item 
+void \hyperlink{classJournalTable_k2}{update\-Accounts} ()
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classJournalTable_d0}{insert} ()
+\item 
+void \hyperlink{classJournalTable_d1}{remove} (int row)
+\item 
+void \hyperlink{classJournalTable_d2}{key\-Press\-Event} (QKey\-Event $\ast$event)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classJournalTable_r0}{db}
+\item 
+bool \hyperlink{classJournalTable_r1}{editing}
+\item 
+int \hyperlink{classJournalTable_r2}{editing\-Row}
+\item 
+int \hyperlink{classJournalTable_r3}{editing\-Col}
+\item 
+bool \hyperlink{classJournalTable_r4}{inserting}
+\item 
+QString\-List \hyperlink{classJournalTable_r5}{accounts}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classJournalTable_a0}{
+\index{JournalTable@{Journal\-Table}!JournalTable@{JournalTable}}
+\index{JournalTable@{JournalTable}!JournalTable@{Journal\-Table}}
+\subsubsection[JournalTable]{\setlength{\rightskip}{0pt plus 5cm}Journal\-Table::Journal\-Table (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classJournalTable_a0}
+
+
+Definition at line 18 of file journal\-Table.cpp.
+
+References accounts, db, editing, editing\-Changed(), Database::get\-Accounts\-List(), inserting, Database::instance(), populate(), update\-Accounts(), and update\-Db().
+
+\footnotesize\begin{verbatim}19     : QTable(parent,name)  
+20 {
+21     db = Database::instance();
+22     
+23     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
+24         
+25     setLeftMargin(0);
+26     setVScrollBarMode(QScrollView::AlwaysOn);
+27     setSelectionMode(QTable::SingleRow);
+28     setFocusStyle(QTable::SpreadSheet);
+29     
+30     insertColumns(0,6);
+31     
+32     QStringList labels;
+33     labels << "Date" << "Account" << "Reference" << "Description" << "Debit" << "Credit";
+34     setColumnLabels(labels);
+35               
+36     setColumnStretchable(3, true);
+37     
+38     accounts = db->getAccountsList();
+39     
+40     populate();
+41     
+42     inserting = false;
+43     editing = false;
+44     
+45     connect(this, SIGNAL(currentChanged(int, int)), this, SLOT(editingChanged(int, int)));
+46     connect(this, SIGNAL(valueChanged(int, int)), this, SLOT(updateDb(int, int)));    
+47 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_a1}{
+\index{JournalTable@{Journal\-Table}!~JournalTable@{$\sim$JournalTable}}
+\index{~JournalTable@{$\sim$JournalTable}!JournalTable@{Journal\-Table}}
+\subsubsection[$\sim$JournalTable]{\setlength{\rightskip}{0pt plus 5cm}Journal\-Table::$\sim$\hyperlink{classJournalTable}{Journal\-Table} ()}}
+\label{classJournalTable_a1}
+
+
+Definition at line 49 of file journal\-Table.cpp.
+
+\footnotesize\begin{verbatim}50 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classJournalTable_a6}{
+\index{JournalTable@{Journal\-Table}!clearTable@{clearTable}}
+\index{clearTable@{clearTable}!JournalTable@{Journal\-Table}}
+\subsubsection[clearTable]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::clear\-Table ()}}
+\label{classJournalTable_a6}
+
+
+Definition at line 170 of file journal\-Table.cpp.
+
+\footnotesize\begin{verbatim}171 {
+172     int rows = numRows();
+173     for(int row = 0; row <= rows; row++)
+174         removeRow(0);
+175 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_a4}{
+\index{JournalTable@{Journal\-Table}!creditColWidth@{creditColWidth}}
+\index{creditColWidth@{creditColWidth}!JournalTable@{Journal\-Table}}
+\subsubsection[creditColWidth]{\setlength{\rightskip}{0pt plus 5cm}int Journal\-Table::credit\-Col\-Width ()}}
+\label{classJournalTable_a4}
+
+
+Definition at line 255 of file journal\-Table.cpp.
+
+Referenced by Journal\-Summary::Journal\-Summary().
+
+\footnotesize\begin{verbatim}256 {
+257     return columnWidth(5);
+258 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_a3}{
+\index{JournalTable@{Journal\-Table}!debitColWidth@{debitColWidth}}
+\index{debitColWidth@{debitColWidth}!JournalTable@{Journal\-Table}}
+\subsubsection[debitColWidth]{\setlength{\rightskip}{0pt plus 5cm}int Journal\-Table::debit\-Col\-Width ()}}
+\label{classJournalTable_a3}
+
+
+Definition at line 250 of file journal\-Table.cpp.
+
+Referenced by Journal\-Summary::Journal\-Summary().
+
+\footnotesize\begin{verbatim}251 {
+252     return columnWidth(4);
+253 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_k1}{
+\index{JournalTable@{Journal\-Table}!editingChanged@{editingChanged}}
+\index{editingChanged@{editingChanged}!JournalTable@{Journal\-Table}}
+\subsubsection[editingChanged]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::editing\-Changed (int, int)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classJournalTable_k1}
+
+
+Definition at line 177 of file journal\-Table.cpp.
+
+References editing\-Col, and editing\-Row.
+
+Referenced by Journal\-Table().
+
+\footnotesize\begin{verbatim}178 {
+179     editingRow = newRow;
+180     editingCol = newCol;
+181 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_l1}{
+\index{JournalTable@{Journal\-Table}!goToAccounts@{goToAccounts}}
+\index{goToAccounts@{goToAccounts}!JournalTable@{Journal\-Table}}
+\subsubsection[goToAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::go\-To\-Accounts ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classJournalTable_l1}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classJournalTable_l3}{
+\index{JournalTable@{Journal\-Table}!goToHelp@{goToHelp}}
+\index{goToHelp@{goToHelp}!JournalTable@{Journal\-Table}}
+\subsubsection[goToHelp]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::go\-To\-Help ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classJournalTable_l3}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classJournalTable_l0}{
+\index{JournalTable@{Journal\-Table}!goToMain@{goToMain}}
+\index{goToMain@{goToMain}!JournalTable@{Journal\-Table}}
+\subsubsection[goToMain]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::go\-To\-Main ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classJournalTable_l0}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classJournalTable_l2}{
+\index{JournalTable@{Journal\-Table}!goToReports@{goToReports}}
+\index{goToReports@{goToReports}!JournalTable@{Journal\-Table}}
+\subsubsection[goToReports]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::go\-To\-Reports ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classJournalTable_l2}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classJournalTable_d0}{
+\index{JournalTable@{Journal\-Table}!insert@{insert}}
+\index{insert@{insert}!JournalTable@{Journal\-Table}}
+\subsubsection[insert]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::insert ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_d0}
+
+
+Definition at line 84 of file journal\-Table.cpp.
+
+References accounts, db, editing, editing\-Col, editing\-Row, inserting, and Database::next\-Journal\-Tmp\-Key().
+
+Referenced by key\-Press\-Event().
+
+\footnotesize\begin{verbatim}85 {
+86     inserting = true;
+87 
+88     int newRow = numRows();
+89     insertRows(newRow);
+90 
+91     editing = true;
+92     editingRow = newRow;
+93     editingCol = 0;
+94 
+95     ensureCellVisible(newRow, 0);
+96     setItem(newRow, 0, new DateEdit(this, ""));
+97     setItem(newRow, 1, new AccountEditItem(this, accounts, "", db->nextJournalTmpKey()));
+98     setItem(newRow, 2, new QTableItem(this, QTableItem::OnTyping));
+99     setItem(newRow, 3, new JournalDescEdit(this, ""));
+100     setItem(newRow, 4, new MoneyEditItem(this, ""));
+101     setItem(newRow, 5, new MoneyEditItem(this, ""));
+102     setCurrentCell(newRow,0);
+103 
+104     beginEdit(newRow, 0, false);
+105 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_a2}{
+\index{JournalTable@{Journal\-Table}!isInserting@{isInserting}}
+\index{isInserting@{isInserting}!JournalTable@{Journal\-Table}}
+\subsubsection[isInserting]{\setlength{\rightskip}{0pt plus 5cm}bool Journal\-Table::is\-Inserting () const}}
+\label{classJournalTable_a2}
+
+
+Definition at line 107 of file journal\-Table.cpp.
+
+References inserting.
+
+Referenced by Journal\-Desc\-Edit::create\-Editor().
+
+\footnotesize\begin{verbatim}108 {
+109     return inserting;
+110 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_d2}{
+\index{JournalTable@{Journal\-Table}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!JournalTable@{Journal\-Table}}
+\subsubsection[keyPressEvent]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::key\-Press\-Event (QKey\-Event $\ast$ {\em event})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_d2}
+
+
+Definition at line 183 of file journal\-Table.cpp.
+
+References editing, editing\-Col, editing\-Row, go\-To\-Accounts(), go\-To\-Help(), go\-To\-Main(), go\-To\-Reports(), insert(), inserting, and remove().
+
+\footnotesize\begin{verbatim}184 {
+185     switch(event->key())
+186     {
+187         case Key_Insert:
+188             insert();
+189             break;
+190         case Key_Delete:
+191             remove(currentRow());
+192             break;
+193         case Key_Enter:
+194         case Key_Return:
+195         case Key_Tab:
+196             if(editing)
+197             {
+198                 endEdit(editingRow, editingCol, true, true);
+199                 if(editingCol == 5)
+200                 {
+201                     editingCol = 0;
+202                     if(editingRow == (numRows() - 1))
+203                     {
+204                         inserting = false;
+205                         editing = false;
+206                         setCurrentCell(editingRow, 0);
+207                         break;
+208                     }
+209                     editingRow++;
+210                 }
+211                 else
+212                 {
+213                     editingCol++;
+214                 }
+215             }
+216             setCurrentCell(editingRow, editingCol);
+217 
+218             beginEdit(editingRow, editingCol, false);
+219 
+220             editing = true;
+221             break;
+222         case Key_Escape:
+223             if(editing)
+224             {
+225                 endEdit(editingRow, editingCol, true, true);
+226                 editing = false;
+227             }
+228             else
+229                 emit goToMain();
+230             break;
+231         case Key_F1:
+232             emit goToMain();
+233             break;
+234         case Key_F2:
+235             emit goToAccounts();
+236             break;
+237         case Key_F3:
+238             break;
+239         case Key_F4:
+240             emit goToReports();
+241             break;
+242         case Key_F5:
+243             emit goToHelp();
+244             break;
+245         default:
+246             QTable::keyPressEvent(event);
+247     }
+248 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_a5}{
+\index{JournalTable@{Journal\-Table}!populate@{populate}}
+\index{populate@{populate}!JournalTable@{Journal\-Table}}
+\subsubsection[populate]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::populate ()}}
+\label{classJournalTable_a5}
+
+
+Definition at line 52 of file journal\-Table.cpp.
+
+References accounts, db, editing\-Col, editing\-Row, and Database::get\-Journal\-Tmp\-Data().
+
+Referenced by Journal\-Table().
+
+\footnotesize\begin{verbatim}53 {
+54     for(int row = 0; row <= numRows(); row++)
+55         removeRow(0);
+56     
+57     QPtrList<QStringList>* data = db->getJournalTmpData();
+58     QPtrListIterator<QStringList> it(*data);
+59     
+60     QStringList *stringList;
+61     while((stringList = it.current()) != 0)
+62     {
+63         ++it;
+64         insertRows(0);
+65         setItem(0, 0, new DateEdit(this, stringList->operator[](1)));
+66         setItem(0, 1, new AccountEditItem(this, accounts, stringList->operator[](2), stringList->operator[](0)));
+67         setItem(0, 2, new QTableItem(this, QTableItem::OnTyping, stringList->operator[](3)));
+68         setItem(0, 3, new JournalDescEdit(this, stringList->operator[](4)));
+69         setItem(0, 4, new MoneyEditItem(this, stringList->operator[](5)));
+70         setItem(0, 5, new MoneyEditItem(this, stringList->operator[](6)));
+71         delete stringList;
+72     }
+73 
+74     delete data;
+75 
+76     if(numRows())
+77     {
+78         setCurrentCell(0,0);
+79         editingRow = 0;
+80         editingCol = 0;
+81     }
+82 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_d1}{
+\index{JournalTable@{Journal\-Table}!remove@{remove}}
+\index{remove@{remove}!JournalTable@{Journal\-Table}}
+\subsubsection[remove]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::remove (int {\em row})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_d1}
+
+
+Definition at line 112 of file journal\-Table.cpp.
+
+References db, and Database::delete\-Journal\-Tmp().
+
+Referenced by key\-Press\-Event().
+
+\footnotesize\begin{verbatim}113 {
+114     QString key = ((AccountEditItem*)(item(row, 1)))->getKey();
+115     
+116     QDialog dialog;
+117     dialog.setCaption("Delete Record");
+118 
+119     QVBoxLayout vBoxLayout(&dialog);
+120     vBoxLayout.setMargin(5);
+121     vBoxLayout.setSpacing(5);
+122 
+123     QLabel label("<nobr>Are you sure you want to delete the selected record?</nobr>", &dialog);
+124 
+125     vBoxLayout.addWidget(&label);
+126 
+127     vBoxLayout.addSpacing(10);
+128 
+129     QHBoxLayout hBoxLayout(&vBoxLayout);
+130     hBoxLayout.setSpacing(5);
+131 
+132     QPushButton buttonDelete(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/deleteButton.png")),
+133                              "Delete", &dialog);
+134     connect(&buttonDelete, SIGNAL(clicked()), &dialog, SLOT(accept()));
+135 
+136     QPushButton buttonDontDelete(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/okButton.png")),
+137                                  "Don't Delete", &dialog);
+138     connect(&buttonDontDelete, SIGNAL(clicked()), &dialog, SLOT(reject()));
+139 
+140     buttonDontDelete.setDefault(true);
+141 
+142     hBoxLayout.addStretch();
+143     hBoxLayout.addWidget(&buttonDelete);
+144     hBoxLayout.addWidget(&buttonDontDelete);
+145 
+146     if(dialog.exec())
+147     {
+148         db->deleteJournalTmp(key);
+149         removeRow(row);
+150     }
+151     if(row > 0)
+152         setCurrentCell(row - 1, 0);
+153 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_k2}{
+\index{JournalTable@{Journal\-Table}!updateAccounts@{updateAccounts}}
+\index{updateAccounts@{updateAccounts}!JournalTable@{Journal\-Table}}
+\subsubsection[updateAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::update\-Accounts ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classJournalTable_k2}
+
+
+Definition at line 260 of file journal\-Table.cpp.
+
+References accounts, db, and Database::get\-Accounts\-List().
+
+Referenced by Journal\-Table().
+
+\footnotesize\begin{verbatim}261 {
+262     accounts = db->getAccountsList();
+263 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalTable_k0}{
+\index{JournalTable@{Journal\-Table}!updateDb@{updateDb}}
+\index{updateDb@{updateDb}!JournalTable@{Journal\-Table}}
+\subsubsection[updateDb]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Table::update\-Db (int, int)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classJournalTable_k0}
+
+
+Definition at line 155 of file journal\-Table.cpp.
+
+References db, Database::get\-Account\-Desc(), inserting, and Database::update\-Journal\-Tmp().
+
+Referenced by Journal\-Table().
+
+\footnotesize\begin{verbatim}156 {
+157     QString key = ((AccountEditItem*)(item(row, 1)))->getKey();
+158     QString date = text(row, 0);
+159     QString account = text(row, 1);
+160     QString reference = text(row, 2);
+161     QString desc = text(row, 3);
+162     QString debit = text(row, 4);
+163     QString credit = text(row, 5);
+164     db->updateJournalTmp(key, date, account, reference, desc, debit, credit);
+165 
+166     if(inserting && col == 1 && text(row, 3) == "")
+167         setText(row, 3, db->getAccountDesc(account));
+168 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classJournalTable_r5}{
+\index{JournalTable@{Journal\-Table}!accounts@{accounts}}
+\index{accounts@{accounts}!JournalTable@{Journal\-Table}}
+\subsubsection[accounts]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \hyperlink{classJournalTable_r5}{Journal\-Table::accounts}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r5}
+
+
+Definition at line 47 of file journal\-Table.h.
+
+Referenced by insert(), Journal\-Table(), populate(), and update\-Accounts().\hypertarget{classJournalTable_r0}{
+\index{JournalTable@{Journal\-Table}!db@{db}}
+\index{db@{db}!JournalTable@{Journal\-Table}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classJournalTable_r0}{Journal\-Table::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r0}
+
+
+Definition at line 39 of file journal\-Table.h.
+
+Referenced by insert(), Journal\-Table(), populate(), remove(), update\-Accounts(), and update\-Db().\hypertarget{classJournalTable_r1}{
+\index{JournalTable@{Journal\-Table}!editing@{editing}}
+\index{editing@{editing}!JournalTable@{Journal\-Table}}
+\subsubsection[editing]{\setlength{\rightskip}{0pt plus 5cm}bool \hyperlink{classJournalTable_r1}{Journal\-Table::editing}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r1}
+
+
+Definition at line 41 of file journal\-Table.h.
+
+Referenced by insert(), Journal\-Table(), and key\-Press\-Event().\hypertarget{classJournalTable_r3}{
+\index{JournalTable@{Journal\-Table}!editingCol@{editingCol}}
+\index{editingCol@{editingCol}!JournalTable@{Journal\-Table}}
+\subsubsection[editingCol]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classJournalTable_r3}{Journal\-Table::editing\-Col}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r3}
+
+
+Definition at line 43 of file journal\-Table.h.
+
+Referenced by editing\-Changed(), insert(), key\-Press\-Event(), and populate().\hypertarget{classJournalTable_r2}{
+\index{JournalTable@{Journal\-Table}!editingRow@{editingRow}}
+\index{editingRow@{editingRow}!JournalTable@{Journal\-Table}}
+\subsubsection[editingRow]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classJournalTable_r2}{Journal\-Table::editing\-Row}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r2}
+
+
+Definition at line 42 of file journal\-Table.h.
+
+Referenced by editing\-Changed(), insert(), key\-Press\-Event(), and populate().\hypertarget{classJournalTable_r4}{
+\index{JournalTable@{Journal\-Table}!inserting@{inserting}}
+\index{inserting@{inserting}!JournalTable@{Journal\-Table}}
+\subsubsection[inserting]{\setlength{\rightskip}{0pt plus 5cm}bool \hyperlink{classJournalTable_r4}{Journal\-Table::inserting}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalTable_r4}
+
+
+Definition at line 45 of file journal\-Table.h.
+
+Referenced by insert(), is\-Inserting(), Journal\-Table(), key\-Press\-Event(), and update\-Db().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{journalTable_8h}{journal\-Table.h}\item 
+\hyperlink{journalTable_8cpp}{journal\-Table.cpp}\end{CompactItemize}

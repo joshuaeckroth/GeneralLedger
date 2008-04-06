@@ -1,0 +1,6 @@
+base referer
+rect $accountList_8cpp.html 8,9 122,33
+rect $balanceSheetEditor_8cpp.html 146,9 309,33
+rect $incomeRetailEditor_8cpp.html 333,9 493,33
+rect $incomeSvcEditor_8cpp.html 517,9 664,33
+rect $reportStack_8cpp.html 688,9 802,33

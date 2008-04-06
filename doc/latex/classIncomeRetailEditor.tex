@@ -1,0 +1,868 @@
+\hypertarget{classIncomeRetailEditor}{
+\section{Income\-Retail\-Editor Class Reference}
+\label{classIncomeRetailEditor}\index{IncomeRetailEditor@{IncomeRetailEditor}}
+}
+{\tt \#include $<$income\-Retail\-Editor.h$>$}
+
+Collaboration diagram for Income\-Retail\-Editor:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{classIncomeRetailEditor__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classIncomeRetailEditor_a0}{Income\-Retail\-Editor} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\item 
+\hyperlink{classIncomeRetailEditor_a1}{$\sim$Income\-Retail\-Editor} ()
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classIncomeRetailEditor_k0}{update\-Section} (void $\ast$)
+\item 
+void \hyperlink{classIncomeRetailEditor_k1}{add\-Element} (int category)
+\item 
+void \hyperlink{classIncomeRetailEditor_k2}{add\-Income} ()
+\item 
+void \hyperlink{classIncomeRetailEditor_k3}{add\-COS} ()
+\item 
+void \hyperlink{classIncomeRetailEditor_k4}{add\-Expenses} ()
+\item 
+void \hyperlink{classIncomeRetailEditor_k5}{one\-Account\-Toggled} ()
+\item 
+void \hyperlink{classIncomeRetailEditor_k6}{range\-Account\-Toggled} ()
+\item 
+void \hyperlink{classIncomeRetailEditor_k7}{update\-Accounts} ()
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classIncomeRetailEditor_d0}{list\-Section} (\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Element\-Section} $\ast$section)
+\item 
+void \hyperlink{classIncomeRetailEditor_d1}{delete\-Section} (\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Element\-Section} $\ast$section)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classIncomeRetailEditor_r0}{db}
+\item 
+QString\-List \hyperlink{classIncomeRetailEditor_r1}{accounts}
+\item 
+QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r2}{frame}
+\item 
+QVBox\-Layout $\ast$ \hyperlink{classIncomeRetailEditor_r3}{v\-Box\-Layout}
+\item 
+\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section} \hyperlink{classIncomeRetailEditor_r4}{income}
+\item 
+\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section} \hyperlink{classIncomeRetailEditor_r5}{cos}
+\item 
+\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section} \hyperlink{classIncomeRetailEditor_r6}{expenses}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QDialog $\ast$ \hyperlink{classIncomeRetailEditor_r7}{main}\\
+\>QVBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r8}{vBoxLayout}\\
+\>QRadioButton $\ast$ \hyperlink{classIncomeRetailEditor_r9}{oneAccount}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r10}{oneAccountFrame}\\
+\>QHBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r11}{oneAccountHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classIncomeRetailEditor_r12}{oneAccountLabel}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classIncomeRetailEditor_r13}{oneAccountEdit}\\
+\>QRadioButton $\ast$ \hyperlink{classIncomeRetailEditor_r14}{rangeAccount}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r15}{rangeAccountFrame}\\
+\>QHBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r16}{rangeAccountHBoxLayout}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r17}{rangeAccountFrameList}\\
+\>QVBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r18}{rangeAccountFrameListVBoxLayout}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r19}{rangeBeginEndFrame}\\
+\>QHBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r20}{rangeBeginEndHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classIncomeRetailEditor_r21}{rangeBegin}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classIncomeRetailEditor_r22}{rangeBeginEdit}\\
+\>QLabel $\ast$ \hyperlink{classIncomeRetailEditor_r23}{rangeBetween}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classIncomeRetailEditor_r24}{rangeEndEdit}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r25}{rangeDescFrame}\\
+\>QHBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r26}{rangeDescFrameHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classIncomeRetailEditor_r27}{rangeDesc}\\
+\>QLineEdit $\ast$ \hyperlink{classIncomeRetailEditor_r28}{rangeDescEdit}\\
+\>QFrame $\ast$ \hyperlink{classIncomeRetailEditor_r29}{buttonFrame}\\
+\>QHBoxLayout $\ast$ \hyperlink{classIncomeRetailEditor_r30}{buttonFrameHBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classIncomeRetailEditor_r31}{ok}\\
+\>QPushButton $\ast$ \hyperlink{classIncomeRetailEditor_r32}{cancel}\\
+\} \hyperlink{classIncomeRetailEditor_r33}{dialog}\\
+
+\end{tabbing}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classIncomeRetailEditor_a0}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!IncomeRetailEditor@{IncomeRetailEditor}}
+\index{IncomeRetailEditor@{IncomeRetailEditor}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[IncomeRetailEditor]{\setlength{\rightskip}{0pt plus 5cm}Income\-Retail\-Editor::Income\-Retail\-Editor (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classIncomeRetailEditor_a0}
+
+
+Definition at line 18 of file income\-Retail\-Editor.cpp.
+
+References accounts, Income\-Retail\-Editor::Element\-Section::add\-Button, add\-COS(), add\-Expenses(), add\-Income(), Income\-Retail\-Editor::Element\-Section::bottom\-Frame, Income\-Retail\-Editor::Element\-Section::bottom\-HBox\-Layout, cos, db, expenses, frame, Database::get\-Accounts\-List(), income, Database::instance(), Income\-Retail\-Editor::Element\-Section::label, list\-Section(), Income\-Retail\-Editor::Element\-Section::list\-View, Income\-Retail\-Editor::Element\-Section::top\-Frame, Income\-Retail\-Editor::Element\-Section::top\-HBox\-Layout, update\-Accounts(), and v\-Box\-Layout.
+
+\footnotesize\begin{verbatim}19     : QScrollView(parent,name)
+20 {
+21     db = Database::instance();
+22     
+23     setResizePolicy(QScrollView::AutoOneFit);
+24     setMargins(5,5,5,5);
+25     
+26     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
+27     accounts = db->getAccountsList();
+28    
+29     frame = new QFrame(viewport());
+30     vBoxLayout = new QVBoxLayout(frame);
+31     
+32     income.topFrame = new QFrame(frame);
+33     income.topHBoxLayout = new QHBoxLayout(income.topFrame);
+34     
+35     
+36     income.label = new QLabel("<b>Income:</b>", income.topFrame);
+37     income.addButton = new QPushButton(
+38             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/addElement.png") ),
+39             "Add to Income", income.topFrame);
+40     connect(income.addButton, SIGNAL(clicked()), this, SLOT(addIncome()));
+41 
+42     income.topHBoxLayout->addWidget(income.label);
+43     income.topHBoxLayout->addStretch();
+44     income.topHBoxLayout->addWidget(income.addButton);
+45     
+46     income.bottomFrame = new QFrame(frame);
+47     income.bottomHBoxLayout = new QHBoxLayout(income.bottomFrame);
+48     listSection(&income);
+49     
+50     income.bottomHBoxLayout->addSpacing(5);
+51     income.bottomHBoxLayout->addWidget(income.listView);
+52     
+53     vBoxLayout->addWidget(income.topFrame);
+54     vBoxLayout->addSpacing(5);
+55 
+56     vBoxLayout->addWidget(income.bottomFrame);
+57     vBoxLayout->addSpacing(10);
+58    
+59 
+60     cos.topFrame = new QFrame(frame);
+61     cos.topHBoxLayout = new QHBoxLayout(cos.topFrame);
+62     
+63     cos.label = new QLabel("<nobr><b>Cost Of Sales:</b></nobr>", cos.topFrame);
+64     cos.addButton = new QPushButton(
+65             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/addElement.png") ),
+66             "Add to Cost Of Sales", cos.topFrame);
+67     connect(cos.addButton, SIGNAL(clicked()), this, SLOT(addCOS()));
+68     
+69     cos.topHBoxLayout->addWidget(cos.label);
+70     cos.topHBoxLayout->addStretch();
+71     cos.topHBoxLayout->addWidget(cos.addButton);
+72     
+73     cos.bottomFrame = new QFrame(frame);
+74     cos.bottomHBoxLayout = new QHBoxLayout(cos.bottomFrame);
+75     listSection(&cos);
+76     
+77     cos.bottomHBoxLayout->addSpacing(5);
+78     cos.bottomHBoxLayout->addWidget(cos.listView);
+79     
+80     vBoxLayout->addWidget(cos.topFrame);
+81     vBoxLayout->addSpacing(5);
+82     vBoxLayout->addWidget(cos.bottomFrame);
+83     vBoxLayout->addSpacing(10);
+84    
+85     expenses.topFrame = new QFrame(frame);
+86     expenses.topHBoxLayout = new QHBoxLayout(expenses.topFrame);
+87     
+88     expenses.label = new QLabel("<b>Expenses:</b>", expenses.topFrame);
+89     expenses.addButton = new QPushButton(
+90             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/addElement.png") ),
+91             "Add to Expenses", expenses.topFrame);
+92     connect(expenses.addButton, SIGNAL(clicked()), this, SLOT(addExpenses()));
+93     
+94     expenses.topHBoxLayout->addWidget(expenses.label);
+95     expenses.topHBoxLayout->addStretch();
+96     expenses.topHBoxLayout->addWidget(expenses.addButton);
+97     
+98     expenses.bottomFrame = new QFrame(frame);
+99     expenses.bottomHBoxLayout = new QHBoxLayout(expenses.bottomFrame);
+100     listSection(&expenses);
+101     
+102     expenses.bottomHBoxLayout->addSpacing(5);
+103     expenses.bottomHBoxLayout->addWidget(expenses.listView);
+104     
+105     vBoxLayout->addWidget(expenses.topFrame);
+106     vBoxLayout->addSpacing(5);
+107     vBoxLayout->addWidget(expenses.bottomFrame);
+108     
+109     vBoxLayout->addStretch();
+110     
+111     addChild(frame);
+112 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_a1}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!~IncomeRetailEditor@{$\sim$IncomeRetailEditor}}
+\index{~IncomeRetailEditor@{$\sim$IncomeRetailEditor}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[$\sim$IncomeRetailEditor]{\setlength{\rightskip}{0pt plus 5cm}Income\-Retail\-Editor::$\sim$\hyperlink{classIncomeRetailEditor}{Income\-Retail\-Editor} ()}}
+\label{classIncomeRetailEditor_a1}
+
+
+Definition at line 114 of file income\-Retail\-Editor.cpp.
+
+References cos, Income\-Retail\-Editor::Element\-Section::elements, expenses, and income.
+
+\footnotesize\begin{verbatim}115 {
+116     for(unsigned int i = 0; i < income.elements.size(); i++)
+117         delete income.elements[i];
+118     income.elements.clear();
+119     
+120     for(unsigned int i = 0; i < cos.elements.size(); i++)
+121         delete cos.elements[i];
+122     cos.elements.clear();
+123     
+124     for(unsigned int i = 0; i < expenses.elements.size(); i++)
+125         delete expenses.elements[i];
+126     expenses.elements.clear();
+127 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classIncomeRetailEditor_k3}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!addCOS@{addCOS}}
+\index{addCOS@{addCOS}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[addCOS]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::add\-COS ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k3}
+
+
+Definition at line 342 of file income\-Retail\-Editor.cpp.
+
+References add\-Element(), cos, and update\-Section().
+
+Referenced by Income\-Retail\-Editor().
+
+\footnotesize\begin{verbatim}343 {
+344     addElement((int)Database::incomeRetailCOS);
+345     updateSection(&cos);
+346 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k1}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!addElement@{addElement}}
+\index{addElement@{addElement}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[addElement]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::add\-Element (int {\em category})\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k1}
+
+
+Definition at line 193 of file income\-Retail\-Editor.cpp.
+
+References accounts, Database::create\-Element(), db, dialog, one\-Account\-Toggled(), and range\-Account\-Toggled().
+
+Referenced by add\-COS(), add\-Expenses(), and add\-Income().
+
+\footnotesize\begin{verbatim}194 {
+195     dialog.main = new QDialog;
+196     switch((Database::editorCategories)category)
+197     {
+198         case Database::incomeRetailIncome:
+199             dialog.main->setCaption("Add to Income");
+200             break;
+201         case Database::incomeRetailCOS:
+202             dialog.main->setCaption("Add to Cost Of Sales");
+203             break;
+204         case Database::incomeRetailExpenses:
+205             dialog.main->setCaption("Add to Expenses");
+206             break;
+207         default:
+208             break;
+209     }
+210     
+211     dialog.vBoxLayout = new QVBoxLayout(dialog.main);
+212     dialog.vBoxLayout->setMargin(5);
+213     dialog.vBoxLayout->setSpacing(5);
+214     
+215     dialog.oneAccount = new QRadioButton("One Account", dialog.main);
+216     connect(dialog.oneAccount, SIGNAL(clicked()), this, SLOT(oneAccountToggled()));
+217         
+218     dialog.oneAccountFrame = new QFrame(dialog.main);
+219     dialog.oneAccountHBoxLayout = new QHBoxLayout(dialog.oneAccountFrame);
+220     dialog.oneAccountHBoxLayout->setSpacing(5);
+221     
+222     dialog.oneAccountHBoxLayout->addSpacing(5);
+223     dialog.oneAccountLabel = new QLabel("Account:", dialog.oneAccountFrame);
+224     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountLabel);
+225     dialog.oneAccountEdit = new AccountList(dialog.oneAccountFrame, 0, accounts);
+226     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountEdit);
+227     dialog.oneAccountHBoxLayout->addStretch();
+228        
+229     dialog.rangeAccount = new QRadioButton("Range of Accounts", dialog.main);
+230     connect(dialog.rangeAccount, SIGNAL(clicked()), this, SLOT(rangeAccountToggled()));
+231        
+232     dialog.rangeAccountFrame = new QFrame(dialog.main, "rangeAccountFrame");
+233     dialog.rangeAccountHBoxLayout = new QHBoxLayout(dialog.rangeAccountFrame);
+234     dialog.rangeAccountHBoxLayout->addSpacing(5);
+235     
+236     dialog.rangeAccountFrameList = new QFrame(dialog.rangeAccountFrame);
+237     dialog.rangeAccountFrameListVBoxLayout = new QVBoxLayout(dialog.rangeAccountFrameList);
+238     dialog.rangeAccountFrameListVBoxLayout->setSpacing(5);
+239     
+240     dialog.rangeBeginEndFrame = new QFrame(dialog.rangeAccountFrameList);
+241     dialog.rangeBeginEndHBoxLayout = new QHBoxLayout(dialog.rangeBeginEndFrame);
+242     dialog.rangeBeginEndHBoxLayout->setSpacing(5);
+243     
+244     dialog.rangeBegin = new QLabel("Begin:", dialog.rangeBeginEndFrame);
+245     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBegin);
+246     dialog.rangeBeginEdit = new AccountList(dialog.rangeBeginEndFrame, 0, accounts);
+247     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBeginEdit);
+248     dialog.rangeBetween = new QLabel("to", dialog.rangeBeginEndFrame);
+249     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBetween);
+250     dialog.rangeEndEdit = new AccountList(dialog.rangeBeginEndFrame, 0, accounts);
+251     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeEndEdit);
+252     dialog.rangeBeginEndHBoxLayout->addStretch();
+253     
+254     dialog.rangeDescFrame = new QFrame(dialog.rangeAccountFrameList);
+255     dialog.rangeDescFrameHBoxLayout = new QHBoxLayout(dialog.rangeDescFrame);
+256     dialog.rangeDescFrameHBoxLayout->setSpacing(5);
+257     
+258     dialog.rangeDesc = new QLabel("Description:", dialog.rangeDescFrame);
+259     dialog.rangeDescFrameHBoxLayout->addWidget(dialog.rangeDesc);
+260     dialog.rangeDescEdit = new QLineEdit(dialog.rangeDescFrame);
+261     dialog.rangeDescFrameHBoxLayout->addWidget(dialog.rangeDescEdit);
+262     
+263     dialog.rangeAccountFrameListVBoxLayout->addWidget(dialog.rangeBeginEndFrame);
+264     dialog.rangeAccountFrameListVBoxLayout->addWidget(dialog.rangeDescFrame);
+265     
+266     dialog.rangeAccountHBoxLayout->addWidget(dialog.rangeAccountFrameList);
+267     
+268         
+269     dialog.buttonFrame = new QFrame(dialog.main);
+270     dialog.buttonFrameHBoxLayout = new QHBoxLayout(dialog.buttonFrame);
+271     dialog.buttonFrameHBoxLayout->setSpacing(5);
+272     dialog.buttonFrameHBoxLayout->addStretch();
+273     
+274     dialog.ok = new QPushButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/addElement.png")),
+275             "Add", dialog.buttonFrame);
+276     connect(dialog.ok, SIGNAL(clicked()), dialog.main, SLOT(accept()));
+277     dialog.buttonFrameHBoxLayout->addWidget(dialog.ok);
+278     
+279     dialog.cancel = new QPushButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png")),
+280             "Cancel", dialog.buttonFrame);
+281     connect(dialog.cancel, SIGNAL(clicked()), dialog.main, SLOT(reject()));
+282     dialog.buttonFrameHBoxLayout->addWidget(dialog.cancel);
+283     
+284     
+285     dialog.vBoxLayout->addWidget(dialog.oneAccount);
+286     dialog.vBoxLayout->addWidget(dialog.oneAccountFrame);
+287     dialog.vBoxLayout->addWidget(dialog.rangeAccount);
+288     dialog.vBoxLayout->addWidget(dialog.rangeAccountFrame);
+289     dialog.vBoxLayout->addSpacing(10);
+290     dialog.vBoxLayout->addWidget(dialog.buttonFrame);
+291     
+292     oneAccountToggled();
+293     
+294     if(dialog.main->exec())
+295     {
+296         if(dialog.oneAccount->isChecked())
+297             db->createElement((Database::editorCategories)category,
+298                                       "0", "", dialog.oneAccountEdit->accountNumber(), "");
+299         else
+300             db->createElement((Database::editorCategories)category,
+301                                       "1", dialog.rangeDescEdit->text(),
+302                                       dialog.rangeBeginEdit->accountNumber(), dialog.rangeEndEdit->accountNumber());
+303     }
+304     
+305     delete dialog.main;
+306 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k4}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!addExpenses@{addExpenses}}
+\index{addExpenses@{addExpenses}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[addExpenses]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::add\-Expenses ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k4}
+
+
+Definition at line 348 of file income\-Retail\-Editor.cpp.
+
+References add\-Element(), expenses, and update\-Section().
+
+Referenced by Income\-Retail\-Editor().
+
+\footnotesize\begin{verbatim}349 {
+350     addElement((int)Database::incomeRetailExpenses);
+351     updateSection(&expenses);
+352 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k2}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!addIncome@{addIncome}}
+\index{addIncome@{addIncome}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[addIncome]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::add\-Income ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k2}
+
+
+Definition at line 336 of file income\-Retail\-Editor.cpp.
+
+References add\-Element(), income, and update\-Section().
+
+Referenced by Income\-Retail\-Editor().
+
+\footnotesize\begin{verbatim}337 {
+338     addElement((int)Database::incomeRetailIncome);
+339     updateSection(&income);
+340 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_d1}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!deleteSection@{deleteSection}}
+\index{deleteSection@{deleteSection}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[deleteSection]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::delete\-Section (\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Element\-Section} $\ast$ {\em section})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_d1}
+
+
+Definition at line 158 of file income\-Retail\-Editor.cpp.
+
+References Income\-Retail\-Editor::Element\-Section::elements, Income\-Retail\-Editor::Element\-Section::list\-View, and Income\-Retail\-Editor::Element\-Section::v\-Box\-Layout.
+
+Referenced by update\-Section().
+
+\footnotesize\begin{verbatim}159 {
+160     if(section->elements.size())
+161     {
+162         for(unsigned int i = 0; i < section->elements.size(); i++)
+163             delete section->elements[i];
+164         section->elements.clear();
+165         delete section->vBoxLayout;
+166     }
+167     delete section->listView;
+168 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_d0}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!listSection@{listSection}}
+\index{listSection@{listSection}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[listSection]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::list\-Section (\hyperlink{structIncomeRetailEditor_1_1ElementSection}{Element\-Section} $\ast$ {\em section})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_d0}
+
+
+Definition at line 129 of file income\-Retail\-Editor.cpp.
+
+References Income\-Retail\-Editor::Element\-Section::bottom\-Frame, cos, db, Income\-Retail\-Editor::Element\-Section::elements, expenses, Database::get\-Elements(), Editor\-Element::get\-Frame(), income, Income\-Retail\-Editor::Element\-Section::list\-View, update\-Section(), and Income\-Retail\-Editor::Element\-Section::v\-Box\-Layout.
+
+Referenced by Income\-Retail\-Editor(), and update\-Section().
+
+\footnotesize\begin{verbatim}130 {
+131     QPtrList<EditorElement> list;
+132     if(section == &income)
+133         list = db->getElements(Database::incomeRetailIncome);
+134     if(section == &cos)
+135         list = db->getElements(Database::incomeRetailCOS);
+136     if(section == &expenses)
+137         list = db->getElements(Database::incomeRetailExpenses);
+138     
+139     if(!list.isEmpty())
+140     {
+141         section->listView = new QFrame(section->bottomFrame);
+142         section->vBoxLayout = new QVBoxLayout(section->listView);
+143         
+144         EditorElement *element;
+145         
+146         for(element = list.first(); element; element = list.next())
+147         {
+148             connect(element, SIGNAL(changed(void*)), this, SLOT(updateSection(void*)));
+149             section->elements.push_back(element);
+150             section->vBoxLayout->addWidget(element->getFrame(section->listView, (void*)section));
+151         }
+152     }
+153     else
+154         section->listView = new QLabel("No Entries", section->bottomFrame);
+155     
+156 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k5}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccountToggled@{oneAccountToggled}}
+\index{oneAccountToggled@{oneAccountToggled}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccountToggled]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::one\-Account\-Toggled ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k5}
+
+
+Definition at line 308 of file income\-Retail\-Editor.cpp.
+
+References dialog.
+
+Referenced by add\-Element().
+
+\footnotesize\begin{verbatim}309 {
+310     dialog.oneAccount->setChecked(true);
+311     dialog.rangeAccount->setChecked(false);
+312     dialog.oneAccountLabel->setEnabled(true);
+313     dialog.oneAccountEdit->setEnabled(true);
+314     dialog.rangeBegin->setEnabled(false);
+315     dialog.rangeBeginEdit->setEnabled(false);
+316     dialog.rangeBetween->setEnabled(false);
+317     dialog.rangeEndEdit->setEnabled(false);
+318     dialog.rangeDesc->setEnabled(false);
+319     dialog.rangeDescEdit->setEnabled(false);
+320 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k6}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccountToggled@{rangeAccountToggled}}
+\index{rangeAccountToggled@{rangeAccountToggled}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccountToggled]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::range\-Account\-Toggled ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k6}
+
+
+Definition at line 322 of file income\-Retail\-Editor.cpp.
+
+References dialog.
+
+Referenced by add\-Element().
+
+\footnotesize\begin{verbatim}323 {
+324     dialog.rangeAccount->setChecked(true);
+325     dialog.oneAccount->setChecked(false);
+326     dialog.oneAccountLabel->setEnabled(false);
+327     dialog.oneAccountEdit->setEnabled(false);
+328     dialog.rangeBegin->setEnabled(true);
+329     dialog.rangeBeginEdit->setEnabled(true);
+330     dialog.rangeBetween->setEnabled(true);
+331     dialog.rangeEndEdit->setEnabled(true);
+332     dialog.rangeDesc->setEnabled(true);
+333     dialog.rangeDescEdit->setEnabled(true);
+334 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k7}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!updateAccounts@{updateAccounts}}
+\index{updateAccounts@{updateAccounts}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[updateAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::update\-Accounts ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k7}
+
+
+Definition at line 354 of file income\-Retail\-Editor.cpp.
+
+References accounts, db, and Database::get\-Accounts\-List().
+
+Referenced by Income\-Retail\-Editor().
+
+\footnotesize\begin{verbatim}355 {
+356     accounts = db->getAccountsList();
+357 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classIncomeRetailEditor_k0}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!updateSection@{updateSection}}
+\index{updateSection@{updateSection}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[updateSection]{\setlength{\rightskip}{0pt plus 5cm}void Income\-Retail\-Editor::update\-Section (void $\ast$)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classIncomeRetailEditor_k0}
+
+
+Definition at line 170 of file income\-Retail\-Editor.cpp.
+
+References Income\-Retail\-Editor::Element\-Section::bottom\-HBox\-Layout, cos, delete\-Section(), expenses, income, list\-Section(), and Income\-Retail\-Editor::Element\-Section::list\-View.
+
+Referenced by add\-COS(), add\-Expenses(), add\-Income(), and list\-Section().
+
+\footnotesize\begin{verbatim}171 {
+172     ElementSection *section = (ElementSection*)newSection;
+173     deleteSection(section);
+174     listSection(section);
+175     
+176     if(section == &income) 
+177     {
+178         income.bottomHBoxLayout->addWidget(income.listView);
+179         income.listView->show();
+180     }
+181     if(section == &cos) 
+182     {
+183         cos.bottomHBoxLayout->addWidget(cos.listView);
+184         cos.listView->show();
+185     }
+186     if(section == &expenses) 
+187     {
+188         expenses.bottomHBoxLayout->addWidget(expenses.listView);
+189         expenses.listView->show();
+190     }
+191 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classIncomeRetailEditor_r1}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!accounts@{accounts}}
+\index{accounts@{accounts}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[accounts]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \hyperlink{classIncomeRetailEditor_r1}{Income\-Retail\-Editor::accounts}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r1}
+
+
+Definition at line 43 of file income\-Retail\-Editor.h.
+
+Referenced by add\-Element(), Income\-Retail\-Editor(), and update\-Accounts().\hypertarget{classIncomeRetailEditor_r29}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!buttonFrame@{buttonFrame}}
+\index{buttonFrame@{buttonFrame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[buttonFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r29}{Income\-Retail\-Editor::button\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r29}
+
+
+Definition at line 86 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r30}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!buttonFrameHBoxLayout@{buttonFrameHBoxLayout}}
+\index{buttonFrameHBoxLayout@{buttonFrameHBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[buttonFrameHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r30}{Income\-Retail\-Editor::button\-Frame\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r30}
+
+
+Definition at line 87 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r32}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!cancel@{cancel}}
+\index{cancel@{cancel}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[cancel]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classIncomeRetailEditor_r32}{Income\-Retail\-Editor::cancel}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r32}
+
+
+Definition at line 89 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r5}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!cos@{cos}}
+\index{cos@{cos}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[cos]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section}  \hyperlink{classIncomeRetailEditor_r5}{Income\-Retail\-Editor::cos}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r5}
+
+
+
+
+Referenced by add\-COS(), Income\-Retail\-Editor(), list\-Section(), update\-Section(), and $\sim$Income\-Retail\-Editor().\hypertarget{classIncomeRetailEditor_r0}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!db@{db}}
+\index{db@{db}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classIncomeRetailEditor_r0}{Income\-Retail\-Editor::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r0}
+
+
+Definition at line 41 of file income\-Retail\-Editor.h.
+
+Referenced by add\-Element(), Income\-Retail\-Editor(), list\-Section(), and update\-Accounts().\hypertarget{classIncomeRetailEditor_r33}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!dialog@{dialog}}
+\index{dialog@{dialog}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[dialog]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classIncomeRetailEditor_r33}{Income\-Retail\-Editor::dialog}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r33}
+
+
+
+
+Referenced by add\-Element(), one\-Account\-Toggled(), and range\-Account\-Toggled().\hypertarget{classIncomeRetailEditor_r6}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!expenses@{expenses}}
+\index{expenses@{expenses}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[expenses]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section}  \hyperlink{classIncomeRetailEditor_r6}{Income\-Retail\-Editor::expenses}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r6}
+
+
+
+
+Referenced by add\-Expenses(), Income\-Retail\-Editor(), list\-Section(), update\-Section(), and $\sim$Income\-Retail\-Editor().\hypertarget{classIncomeRetailEditor_r2}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!frame@{frame}}
+\index{frame@{frame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[frame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r2}{Income\-Retail\-Editor::frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r2}
+
+
+Definition at line 45 of file income\-Retail\-Editor.h.
+
+Referenced by Income\-Retail\-Editor().\hypertarget{classIncomeRetailEditor_r4}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!income@{income}}
+\index{income@{income}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[income]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structIncomeRetailEditor_1_1ElementSection}{Income\-Retail\-Editor::Element\-Section}  \hyperlink{classIncomeRetailEditor_r4}{Income\-Retail\-Editor::income}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r4}
+
+
+
+
+Referenced by add\-Income(), Income\-Retail\-Editor(), list\-Section(), update\-Section(), and $\sim$Income\-Retail\-Editor().\hypertarget{classIncomeRetailEditor_r7}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!main@{main}}
+\index{main@{main}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[main]{\setlength{\rightskip}{0pt plus 5cm}QDialog$\ast$ \hyperlink{classIncomeRetailEditor_r7}{Income\-Retail\-Editor::main}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r7}
+
+
+Definition at line 64 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r31}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!ok@{ok}}
+\index{ok@{ok}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[ok]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classIncomeRetailEditor_r31}{Income\-Retail\-Editor::ok}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r31}
+
+
+Definition at line 88 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r9}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccount@{oneAccount}}
+\index{oneAccount@{oneAccount}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccount]{\setlength{\rightskip}{0pt plus 5cm}QRadio\-Button$\ast$ \hyperlink{classIncomeRetailEditor_r9}{Income\-Retail\-Editor::one\-Account}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r9}
+
+
+Definition at line 66 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r13}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccountEdit@{oneAccountEdit}}
+\index{oneAccountEdit@{oneAccountEdit}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccountEdit]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classIncomeRetailEditor_r13}{Income\-Retail\-Editor::one\-Account\-Edit}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r13}
+
+
+Definition at line 70 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r10}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccountFrame@{oneAccountFrame}}
+\index{oneAccountFrame@{oneAccountFrame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccountFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r10}{Income\-Retail\-Editor::one\-Account\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r10}
+
+
+Definition at line 67 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r11}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccountHBoxLayout@{oneAccountHBoxLayout}}
+\index{oneAccountHBoxLayout@{oneAccountHBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccountHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r11}{Income\-Retail\-Editor::one\-Account\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r11}
+
+
+Definition at line 68 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r12}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!oneAccountLabel@{oneAccountLabel}}
+\index{oneAccountLabel@{oneAccountLabel}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[oneAccountLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classIncomeRetailEditor_r12}{Income\-Retail\-Editor::one\-Account\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r12}
+
+
+Definition at line 69 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r14}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccount@{rangeAccount}}
+\index{rangeAccount@{rangeAccount}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccount]{\setlength{\rightskip}{0pt plus 5cm}QRadio\-Button$\ast$ \hyperlink{classIncomeRetailEditor_r14}{Income\-Retail\-Editor::range\-Account}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r14}
+
+
+Definition at line 71 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r15}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccountFrame@{rangeAccountFrame}}
+\index{rangeAccountFrame@{rangeAccountFrame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccountFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r15}{Income\-Retail\-Editor::range\-Account\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r15}
+
+
+Definition at line 72 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r17}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccountFrameList@{rangeAccountFrameList}}
+\index{rangeAccountFrameList@{rangeAccountFrameList}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccountFrameList]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r17}{Income\-Retail\-Editor::range\-Account\-Frame\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r17}
+
+
+Definition at line 74 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r18}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccountFrameListVBoxLayout@{rangeAccountFrameListVBoxLayout}}
+\index{rangeAccountFrameListVBoxLayout@{rangeAccountFrameListVBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccountFrameListVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r18}{Income\-Retail\-Editor::range\-Account\-Frame\-List\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r18}
+
+
+Definition at line 75 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r16}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeAccountHBoxLayout@{rangeAccountHBoxLayout}}
+\index{rangeAccountHBoxLayout@{rangeAccountHBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeAccountHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r16}{Income\-Retail\-Editor::range\-Account\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r16}
+
+
+Definition at line 73 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r21}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeBegin@{rangeBegin}}
+\index{rangeBegin@{rangeBegin}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeBegin]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classIncomeRetailEditor_r21}{Income\-Retail\-Editor::range\-Begin}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r21}
+
+
+Definition at line 78 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r22}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeBeginEdit@{rangeBeginEdit}}
+\index{rangeBeginEdit@{rangeBeginEdit}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeBeginEdit]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classIncomeRetailEditor_r22}{Income\-Retail\-Editor::range\-Begin\-Edit}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r22}
+
+
+Definition at line 79 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r19}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeBeginEndFrame@{rangeBeginEndFrame}}
+\index{rangeBeginEndFrame@{rangeBeginEndFrame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeBeginEndFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r19}{Income\-Retail\-Editor::range\-Begin\-End\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r19}
+
+
+Definition at line 76 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r20}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeBeginEndHBoxLayout@{rangeBeginEndHBoxLayout}}
+\index{rangeBeginEndHBoxLayout@{rangeBeginEndHBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeBeginEndHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r20}{Income\-Retail\-Editor::range\-Begin\-End\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r20}
+
+
+Definition at line 77 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r23}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeBetween@{rangeBetween}}
+\index{rangeBetween@{rangeBetween}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeBetween]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classIncomeRetailEditor_r23}{Income\-Retail\-Editor::range\-Between}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r23}
+
+
+Definition at line 80 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r27}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeDesc@{rangeDesc}}
+\index{rangeDesc@{rangeDesc}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeDesc]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classIncomeRetailEditor_r27}{Income\-Retail\-Editor::range\-Desc}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r27}
+
+
+Definition at line 84 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r28}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeDescEdit@{rangeDescEdit}}
+\index{rangeDescEdit@{rangeDescEdit}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeDescEdit]{\setlength{\rightskip}{0pt plus 5cm}QLine\-Edit$\ast$ \hyperlink{classIncomeRetailEditor_r28}{Income\-Retail\-Editor::range\-Desc\-Edit}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r28}
+
+
+Definition at line 85 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r25}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeDescFrame@{rangeDescFrame}}
+\index{rangeDescFrame@{rangeDescFrame}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeDescFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classIncomeRetailEditor_r25}{Income\-Retail\-Editor::range\-Desc\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r25}
+
+
+Definition at line 82 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r26}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeDescFrameHBoxLayout@{rangeDescFrameHBoxLayout}}
+\index{rangeDescFrameHBoxLayout@{rangeDescFrameHBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeDescFrameHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r26}{Income\-Retail\-Editor::range\-Desc\-Frame\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r26}
+
+
+Definition at line 83 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r24}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!rangeEndEdit@{rangeEndEdit}}
+\index{rangeEndEdit@{rangeEndEdit}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[rangeEndEdit]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classIncomeRetailEditor_r24}{Income\-Retail\-Editor::range\-End\-Edit}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r24}
+
+
+Definition at line 81 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r8}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r3}{Income\-Retail\-Editor::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r8}
+
+
+Definition at line 65 of file income\-Retail\-Editor.h.\hypertarget{classIncomeRetailEditor_r3}{
+\index{IncomeRetailEditor@{Income\-Retail\-Editor}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!IncomeRetailEditor@{Income\-Retail\-Editor}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classIncomeRetailEditor_r3}{Income\-Retail\-Editor::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classIncomeRetailEditor_r3}
+
+
+Definition at line 46 of file income\-Retail\-Editor.h.
+
+Referenced by Income\-Retail\-Editor().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{incomeRetailEditor_8h}{income\-Retail\-Editor.h}\item 
+\hyperlink{incomeRetailEditor_8cpp}{income\-Retail\-Editor.cpp}\end{CompactItemize}

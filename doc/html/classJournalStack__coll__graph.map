@@ -1,0 +1,9 @@
+base referer
+rect $classJournalSummary.html 369,201 491,225
+rect $classDatabase.html 271,99 349,123
+rect $classJournalTable.html 182,201 281,225
+rect $structDatabase_1_1ReportStruct.html 7,9 170,33
+rect $classSettings.html 510,9 579,33
+rect $classPrinter.html 457,150 518,174
+rect $structDatabase_1_1JournalTmpReport.html 194,9 391,33
+rect $classGoBackLabel.html 666,201 767,225

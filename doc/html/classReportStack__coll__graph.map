@@ -1,0 +1,9 @@
+base referer
+rect $classAccountList.html 175,182 269,206
+rect $classIncomeRetailEditor.html 447,507 581,531
+rect $classIncomeSvcEditor.html 453,290 575,314
+rect $classBalanceSheetEditor.html 445,445 583,469
+rect $classDatabase.html 183,507 261,531
+rect $classSettings.html 9,682 78,706
+rect $classPrinter.html 310,781 371,805
+rect $classGoBackLabel.html 463,629 565,653

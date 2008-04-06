@@ -14,75 +14,63 @@ win32:QMAKE_MAKEFILE = Makefile.win32
 QMAKE_EXTRA_UNIX_TARGETS += tags
 unix:PRE_TARGETDEPS += tags
 
-HEADERS += \
-           config.h \
-           include/accountsData.h \
-           include/accountsEditId.h \
-           include/accountsTab.h \
-           include/accountsTable.h \
-           include/client.h \
-           include/globalCloseDialog.h \
-           include/globalGoBackLabel.h \
-           include/globalTabs.h \
-           include/helpTab.h \
-           include/homeTab.h \
-           include/importExport.h \
-           include/journalData.h \
-           include/journalEditAccount.h \
-           include/journalEditAccountList.h \
-           include/journalEditCurrency.h \
-           include/journalEditCurrencyValidator.h \
-           include/journalEditDate.h \
-           include/journalEditDesc.h \
+HEADERS += config.h \
+           include/accountEditItem.h \
+           include/accountEditList.h \
+           include/accountEditType.h \
+           include/accountList.h \
+           include/accountStack.h \
+           include/accountTable.h \
+           include/balanceSheetEditor.h \
+           include/closeDialog.h \
+           include/database.h \
+           include/dateEdit.h \
+           include/editorElement.h \
+           include/goBackLabel.h \
+           include/helpStack.h \
+           include/incomeRetailEditor.h \
+           include/incomeSvcEditor.h \
+           include/journalDescEdit.h \
+           include/journalStack.h \
            include/journalSummary.h \
-           include/journalTab.h \
            include/journalTable.h \
-           include/main.h \
-           include/reportsEditor.h \
-           include/reportsEditorDialog.h \
-           include/reportsEditorEntityWidget.h \
-           include/reportsEditorSection.h \
-           include/reportsGenerator.h \
-           include/reportsPDFDialog.h \
-           include/reportsPrint.h \
-           include/reportsTab.h \
-	   include/saveAndClearDialog.h \
+           include/mainStack.h \
+           include/moneyEditItem.h \
+           include/moneyValidator.h \
+           include/pdfOptions.h \
+           include/printer.h \
+           include/reportStack.h \
            include/settings.h \
-
-SOURCES += \
-           src/accountsData.cpp \
-           src/accountsEditId.cpp \
-           src/accountsTab.cpp \
-           src/accountsTable.cpp \
-           src/client.cpp \
-           src/globalCloseDialog.cpp \
-           src/globalGoBackLabel.cpp \
-           src/globalTabs.cpp \
-           src/helpTab.cpp \
-           src/homeTab.cpp \
-           src/importExport.cpp \
-           src/journalData.cpp \
-           src/journalEditAccount.cpp \
-           src/journalEditAccountList.cpp \
-           src/journalEditCurrency.cpp \
-           src/journalEditCurrencyValidator.cpp \
-           src/journalEditDate.cpp \
-           src/journalEditDesc.cpp \
+           include/tabs.h
+SOURCES += src/accountEditItem.cpp \
+           src/accountEditList.cpp \
+           src/accountEditType.cpp \
+           src/accountList.cpp \
+           src/accountStack.cpp \
+           src/accountTable.cpp \
+           src/balanceSheetEditor.cpp \
+           src/closeDialog.cpp \
+           src/database.cpp \
+           src/dateEdit.cpp \
+           src/editorElement.cpp \
+           src/goBackLabel.cpp \
+           src/helpStack.cpp \
+           src/incomeRetailEditor.cpp \
+           src/incomeSvcEditor.cpp \
+           src/journalDescEdit.cpp \
+           src/journalStack.cpp \
            src/journalSummary.cpp \
-           src/journalTab.cpp \
            src/journalTable.cpp \
            src/main.cpp \
-           src/reportsEditor.cpp \
-           src/reportsEditorDialog.cpp \
-           src/reportsEditorEntityWidget.cpp \
-           src/reportsEditorSection.cpp \
-           src/reportsGenerator.cpp \
-           src/reportsPDFDialog.cpp \
-           src/reportsPrint.cpp \
-           src/reportsTab.cpp \
-	   src/saveAndClearDialog.cpp \
+           src/mainStack.cpp \
+           src/moneyEditItem.cpp \
+           src/moneyValidator.cpp \
+           src/pdfOptions.cpp \
+           src/printer.cpp \
+           src/reportStack.cpp \
            src/settings.cpp \
+           src/tabs.cpp
 
 unix:tags.target = tags
-unix:tags.commands = ctags $$HEADERS $$SOURCES
+unix:tags.commands = ctags --extra=+q $$HEADERS $$SOURCES
 unix:tags.depends = $$HEADERS $$SOURCES

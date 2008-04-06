@@ -1,21 +1,3 @@
-/* General Ledger, Copyright (C) 2004  Joshua Eckroth <josh@eckroth.net>
- * http://www.eckroth.net/software/genledg
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
-*/
-
 #ifndef JOURNAL_TABLE_H
 #define JOURNAL_TABLE_H
 
@@ -24,44 +6,42 @@
 class QStringList;
 class QKeyEvent;
 
-class JournalData;
-class AccountsData;
-class Client;
+class Database;
 
 class JournalTable : public QTable
 {
     Q_OBJECT
     public:
-        JournalTable(QWidget *parent, const char *name);
+        JournalTable(QWidget *parent = 0, const char *name = 0);
+        ~JournalTable();
         bool isInserting() const;
         int debitColWidth();
         int creditColWidth();
+        void populate();
         void clearTable();
         
     signals:
-        void switchToHome();
-        void switchToAccounts();
-        void switchToReports();
-        void switchToHelp();
-
-    public slots:
-        void populate();
-        void unpopulate();
+        void goToMain();
+        void goToAccounts();
+        void goToReports();
+        void goToHelp();
     
     private slots:
+        void updateDb(int, int);
+        void editingChanged(int, int);
         void updateAccounts();
         
     private:
-        void updateDb();
         void insert();
         void remove(int row);
         void keyPressEvent(QKeyEvent *event);
         
-        JournalData *journalData;
-        AccountsData *accountsData;
-        Client *client;
+        Database *db;
 
         bool editing;
+        int editingRow;
+        int editingCol;
+
         bool inserting;
         
         QStringList accounts;

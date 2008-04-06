@@ -1,0 +1,13 @@
+base referer
+rect $accountStack_8cpp.html 18,8 146,32
+rect $accountTable_8cpp.html 18,56 146,80
+rect $database_8cpp.html 31,104 133,128
+rect $incomeSvcEditor_8cpp.html 9,152 155,176
+rect $journalStack_8cpp.html 21,200 143,224
+rect $main_8cpp.html 45,248 119,272
+rect $mainStack_8cpp.html 27,296 137,320
+rect $pdfOptions_8cpp.html 26,344 138,368
+rect $printer_8cpp.html 39,392 125,416
+rect $reportStack_8cpp.html 25,440 139,464
+rect $settings_8cpp.html 35,488 129,512
+rect $tabs_8cpp.html 46,536 118,560

@@ -1,21 +1,3 @@
-/* General Ledger, Copyright (C) 2004  Joshua Eckroth <josh@eckroth.net>
- * http://www.eckroth.net/software/genledg
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
-*/
-
 #include <qsettings.h>
 #include <qprinter.h>
 
@@ -49,8 +31,8 @@ Settings::Settings()
     importPath = get.readEntry("/paths/importPath", myHome);
 #endif
 
-    defaultClientId = get.readEntry("/database/defaultClientId", "");
-    defaultClientName = get.readEntry("/database/defaultClientName", "");
+    defaultDb = get.readEntry("/database/defaultDb", "");
+    defaultClient = get.readEntry("/database/defaultClient", "");
 
     defaultWidth = get.readNumEntry("/geometry/width", 700);
     defaultHeight = get.readNumEntry("/geometry/height", 500);
@@ -67,7 +49,6 @@ Settings::Settings()
     printerColorMode = (QPrinter::ColorMode)get.readNumEntry("/printer/colorMode", 0);
     printerPaperSource = (QPrinter::PaperSource)get.readNumEntry("/printer/paperSource", 6);
 
-    PDFExportPath = get.readEntry("/PDF/exportPath", "");
     PDFPaperSize = get.readNumEntry("/PDF/paperSize", 0);
     PDFPaperSizeWidth = get.readEntry("/PDF/paperSizeWidth", "");
     PDFPaperSizeHeight = get.readEntry("/PDF/paperSizeHeight", "");
@@ -93,8 +74,8 @@ Settings::~Settings()
     put.writeEntry("/paths/exportPath", exportPath);
     put.writeEntry("/paths/importPath", importPath);
 
-    put.writeEntry("/database/defaultClientId", defaultClientId);
-    put.writeEntry("/database/defaultClientName", defaultClientName);
+    put.writeEntry("/database/defaultDb", defaultDb);
+    put.writeEntry("/database/defaultClient", defaultClient);
 
     put.writeEntry("/geometry/width", defaultWidth);
     put.writeEntry("/geometry/height", defaultHeight);
@@ -111,7 +92,6 @@ Settings::~Settings()
     put.writeEntry("/printer/colorMode", (int)printerColorMode);
     put.writeEntry("/printer/paperSource", (int)printerPaperSource);
 
-    put.writeEntry("/PDF/exportPath", PDFExportPath);
     put.writeEntry("/PDF/paperSize", PDFPaperSize);
     put.writeEntry("/PDF/paperSizeWidth", PDFPaperSizeWidth);
     put.writeEntry("/PDF/paperSizeHeight", PDFPaperSizeHeight);
@@ -168,24 +148,24 @@ void Settings::setImportPath(QString newImportPath)
     importPath = newImportPath;
 }
 
-QString Settings::getDefaultClientId() const
+QString Settings::getDefaultDb() const
 {
-    return defaultClientId;
+    return defaultDb;
 }
 
-void Settings::setDefaultClientId(QString newDefaultClientId)
+void Settings::setDefaultDb(QString newDefaultDb)
 {
-    defaultClientId = newDefaultClientId;
+    defaultDb = newDefaultDb;
 }
 
-QString Settings::getDefaultClientName() const
+QString Settings::getDefaultClient() const
 {
-    return defaultClientName;
+    return defaultClient;
 }
 
-void Settings::setDefaultClientName(QString newDefaultClientName)
+void Settings::setDefaultClient(QString newDefaultClient)
 {
-    defaultClientName = newDefaultClientName;
+    defaultClient = newDefaultClient;
 }
 
 int Settings::getDefaultWidth() const
@@ -316,16 +296,6 @@ QPrinter::PaperSource Settings::getPrinterPaperSource() const
 void Settings::setPrinterPaperSource(QPrinter::PaperSource newPrinterPaperSource)
 {
     printerPaperSource = newPrinterPaperSource;
-}
-
-QString Settings::getPDFExportPath() const
-{
-    return PDFExportPath;
-}
-
-void Settings::setPDFExportPath(QString newPDFExportPath)
-{
-    PDFExportPath = newPDFExportPath;
 }
 
 int Settings::getPDFPaperSizeInt() const

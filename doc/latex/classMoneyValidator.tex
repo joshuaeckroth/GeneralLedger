@@ -1,0 +1,134 @@
+\hypertarget{classMoneyValidator}{
+\section{Money\-Validator Class Reference}
+\label{classMoneyValidator}\index{MoneyValidator@{MoneyValidator}}
+}
+{\tt \#include $<$money\-Validator.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classMoneyValidator_a0}{Money\-Validator} (QObject $\ast$parent, const char $\ast$name=0)
+\item 
+\hyperlink{classMoneyValidator_a1}{$\sim$Money\-Validator} ()
+\item 
+QValidator::State \hyperlink{classMoneyValidator_a2}{validate} (QString \&input, int \&) const
+\item 
+void \hyperlink{classMoneyValidator_a3}{fixup} (QString \&input) const
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+QReg\-Exp $\ast$ \hyperlink{classMoneyValidator_r0}{regexp}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMoneyValidator_a0}{
+\index{MoneyValidator@{Money\-Validator}!MoneyValidator@{MoneyValidator}}
+\index{MoneyValidator@{MoneyValidator}!MoneyValidator@{Money\-Validator}}
+\subsubsection[MoneyValidator]{\setlength{\rightskip}{0pt plus 5cm}Money\-Validator::Money\-Validator (QObject $\ast$ {\em parent}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classMoneyValidator_a0}
+
+
+Definition at line 6 of file money\-Validator.cpp.
+
+References regexp.
+
+\footnotesize\begin{verbatim}7     : QValidator(parent,name)
+8 {
+9     regexp = new QRegExp("^\\d*\\.?\\d?\\d?$");
+10 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMoneyValidator_a1}{
+\index{MoneyValidator@{Money\-Validator}!~MoneyValidator@{$\sim$MoneyValidator}}
+\index{~MoneyValidator@{$\sim$MoneyValidator}!MoneyValidator@{Money\-Validator}}
+\subsubsection[$\sim$MoneyValidator]{\setlength{\rightskip}{0pt plus 5cm}Money\-Validator::$\sim$\hyperlink{classMoneyValidator}{Money\-Validator} ()}}
+\label{classMoneyValidator_a1}
+
+
+Definition at line 12 of file money\-Validator.cpp.
+
+References regexp.
+
+\footnotesize\begin{verbatim}13 {
+14     delete regexp;
+15 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMoneyValidator_a3}{
+\index{MoneyValidator@{Money\-Validator}!fixup@{fixup}}
+\index{fixup@{fixup}!MoneyValidator@{Money\-Validator}}
+\subsubsection[fixup]{\setlength{\rightskip}{0pt plus 5cm}void Money\-Validator::fixup (QString \& {\em input}) const}}
+\label{classMoneyValidator_a3}
+
+
+Definition at line 27 of file money\-Validator.cpp.
+
+\footnotesize\begin{verbatim}28 {
+29     if(input == "")
+30         return;
+31 
+32     if(input.right(1) == ".")
+33         input.append("00");
+34     if(input.mid(input.length() - 2, 1) == ".")
+35         input.append("0");
+36     if(input.find('.') == -1)
+37     {
+38         if(input.length() == 1)
+39             input.insert(input.length() - 1, ".0");
+40         else
+41             input.insert(input.length() - 2, ".");
+42     }
+43 
+44     if(input.left(1) == ".")
+45         input.insert(0, "0");
+46 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMoneyValidator_a2}{
+\index{MoneyValidator@{Money\-Validator}!validate@{validate}}
+\index{validate@{validate}!MoneyValidator@{Money\-Validator}}
+\subsubsection[validate]{\setlength{\rightskip}{0pt plus 5cm}QValidator::State Money\-Validator::validate (QString \& {\em input}, int \&) const}}
+\label{classMoneyValidator_a2}
+
+
+Definition at line 17 of file money\-Validator.cpp.
+
+References regexp.
+
+\footnotesize\begin{verbatim}18 {
+19     if(input == "")
+20         return QValidator::Acceptable;
+21     if(regexp->search(input) == -1)
+22         return QValidator::Invalid;
+23     else
+24         return QValidator::Intermediate;
+25 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classMoneyValidator_r0}{
+\index{MoneyValidator@{Money\-Validator}!regexp@{regexp}}
+\index{regexp@{regexp}!MoneyValidator@{Money\-Validator}}
+\subsubsection[regexp]{\setlength{\rightskip}{0pt plus 5cm}QReg\-Exp$\ast$ \hyperlink{classMoneyValidator_r0}{Money\-Validator::regexp}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMoneyValidator_r0}
+
+
+Definition at line 16 of file money\-Validator.h.
+
+Referenced by Money\-Validator(), validate(), and $\sim$Money\-Validator().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{moneyValidator_8h}{money\-Validator.h}\item 
+\hyperlink{moneyValidator_8cpp}{money\-Validator.cpp}\end{CompactItemize}

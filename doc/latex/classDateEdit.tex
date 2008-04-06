@@ -1,0 +1,58 @@
+\hypertarget{classDateEdit}{
+\section{Date\-Edit Class Reference}
+\label{classDateEdit}\index{DateEdit@{DateEdit}}
+}
+{\tt \#include $<$date\-Edit.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDateEdit_a0}{Date\-Edit} (QTable $\ast$table, const QString \&contents)
+\item 
+QWidget $\ast$ \hyperlink{classDateEdit_a1}{create\-Editor} () const
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classDateEdit_a0}{
+\index{DateEdit@{Date\-Edit}!DateEdit@{DateEdit}}
+\index{DateEdit@{DateEdit}!DateEdit@{Date\-Edit}}
+\subsubsection[DateEdit]{\setlength{\rightskip}{0pt plus 5cm}Date\-Edit::Date\-Edit (QTable $\ast$ {\em table}, const QString \& {\em contents})}}
+\label{classDateEdit_a0}
+
+
+Definition at line 6 of file date\-Edit.cpp.
+
+\footnotesize\begin{verbatim}7     : QTableItem(table, QTableItem::OnTyping, contents)
+8 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDateEdit_a1}{
+\index{DateEdit@{Date\-Edit}!createEditor@{createEditor}}
+\index{createEditor@{createEditor}!DateEdit@{Date\-Edit}}
+\subsubsection[createEditor]{\setlength{\rightskip}{0pt plus 5cm}QWidget $\ast$ Date\-Edit::create\-Editor () const}}
+\label{classDateEdit_a1}
+
+
+Definition at line 10 of file date\-Edit.cpp.
+
+\footnotesize\begin{verbatim}11 {
+12     QLineEdit *lineEdit = new QLineEdit(table()->viewport());
+13     lineEdit->setInputMask("99/99/99");
+14     lineEdit->setText(text());
+15     lineEdit->selectAll();
+16     return lineEdit;
+17 }
+\end{verbatim}\normalsize 
+
+
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{dateEdit_8h}{date\-Edit.h}\item 
+\hyperlink{dateEdit_8cpp}{date\-Edit.cpp}\end{CompactItemize}

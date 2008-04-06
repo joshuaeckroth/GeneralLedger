@@ -1,0 +1,5 @@
+base referer
+rect $classSettings.html 8,9 77,33
+rect $classDatabase.html 178,100 256,124
+rect $structDatabase_1_1ReportStruct.html 172,9 334,33
+rect $structDatabase_1_1JournalTmpReport.html 358,9 556,33

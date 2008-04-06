@@ -1,0 +1,8 @@
+base referer
+rect $accountStack_8cpp.html 8,84 136,108
+rect $goBackLabel_8cpp.html 160,84 282,108
+rect $helpStack_8cpp.html 306,84 413,108
+rect $journalStack_8cpp.html 437,84 560,108
+rect $reportStack_8cpp.html 540,9 654,33
+rect $reportStack_8h.html 634,84 736,108
+rect $tabs_8cpp.html 678,9 750,33

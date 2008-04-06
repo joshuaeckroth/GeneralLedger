@@ -1,0 +1,1424 @@
+\hypertarget{classMainStack}{
+\section{Main\-Stack Class Reference}
+\label{classMainStack}\index{MainStack@{MainStack}}
+}
+{\tt \#include $<$main\-Stack.h$>$}
+
+Collaboration diagram for Main\-Stack:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classMainStack__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classMainStack_i0}{close\-Client} ()
+\end{CompactItemize}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classMainStack_l0}{switch\-To\-Accounts} ()
+\item 
+void \hyperlink{classMainStack_l1}{switch\-To\-Journal} ()
+\item 
+void \hyperlink{classMainStack_l2}{switch\-To\-Reports} ()
+\item 
+void \hyperlink{classMainStack_l3}{db\-Opened} ()
+\item 
+void \hyperlink{classMainStack_l4}{db\-Closed} ()
+\item 
+void \hyperlink{classMainStack_l5}{name\-Changed} ()
+\item 
+void \hyperlink{classMainStack_l6}{save\-And\-Clear\-Journal\-Tmp} ()
+\item 
+void \hyperlink{classMainStack_l7}{quit} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classMainStack_a0}{Main\-Stack} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\item 
+\hyperlink{classMainStack_a1}{$\sim$Main\-Stack} ()
+\item 
+bool \hyperlink{classMainStack_a2}{closed} () const
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classMainStack_k0}{open\-Default} ()
+\item 
+void \hyperlink{classMainStack_k1}{open\-New\-Dialog} ()
+\item 
+void \hyperlink{classMainStack_k2}{create\-New\-Dialog} ()
+\item 
+void \hyperlink{classMainStack_k3}{edit\-Name} ()
+\item 
+void \hyperlink{classMainStack_k4}{copy\-Client} ()
+\item 
+void \hyperlink{classMainStack_k5}{change\-Path} ()
+\item 
+void \hyperlink{classMainStack_k6}{import} ()
+\item 
+void \hyperlink{classMainStack_k7}{encrypt} ()
+\item 
+void \hyperlink{classMainStack_k8}{decrypt} ()
+\item 
+void \hyperlink{classMainStack_k9}{prepare\-Quit} ()
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classMainStack_d0}{client\-Opened} ()
+\item 
+void \hyperlink{classMainStack_d1}{switch\-Widget} ()
+\item 
+bool \hyperlink{classMainStack_d2}{event\-Filter} (QObject $\ast$target, QEvent $\ast$event)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classMainStack_r0}{db}
+\item 
+\hyperlink{classSettings}{Settings} $\ast$ \hyperlink{classMainStack_r1}{settings}
+\item 
+QString \hyperlink{classMainStack_r2}{client\-Path}
+\item 
+QString \hyperlink{classMainStack_r3}{export\-Path}
+\item 
+QString \hyperlink{classMainStack_r4}{import\-Path}
+\item 
+int \hyperlink{classMainStack_r5}{active}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classMainStack_r6}{widget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classMainStack_r7}{hBoxLayout}\\
+\>QVBoxLayout $\ast$ \hyperlink{classMainStack_r8}{vBoxLayout}\\
+\>QVGroupBox $\ast$ \hyperlink{classMainStack_r9}{mainGroup}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r10}{openDefaultButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r11}{openNewButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r12}{createNewButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classMainStack_r13}{otherGroup}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r14}{pathButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r15}{importButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r16}{quitButton}\\
+\} \hyperlink{classMainStack_r17}{main}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r18}{focusedButton}\\
+\>QWidget $\ast$ \hyperlink{classMainStack_r19}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classMainStack_r20}{vBoxLabel}\\
+\>QHBoxLayout $\ast$ \hyperlink{classMainStack_r21}{hBoxLabel}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r22}{closeButton}\\
+\>QHBoxLayout $\ast$ \hyperlink{classMainStack_r23}{hBoxLayout}\\
+\>QVBoxLayout $\ast$ \hyperlink{classMainStack_r24}{vBoxLayout}\\
+\>QVGroupBox $\ast$ \hyperlink{classMainStack_r25}{clientGroup}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r26}{accountsButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r27}{journalButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r28}{reportButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classMainStack_r29}{adminGroup}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r30}{editNameButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r31}{copyDatabaseButton}\\
+\>QPushButton $\ast$ \hyperlink{classMainStack_r32}{cryptButton}\\
+\} \hyperlink{classMainStack_r33}{tasks}\\
+
+\end{tabbing}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMainStack_a0}{
+\index{MainStack@{Main\-Stack}!MainStack@{MainStack}}
+\index{MainStack@{MainStack}!MainStack@{Main\-Stack}}
+\subsubsection[MainStack]{\setlength{\rightskip}{0pt plus 5cm}Main\-Stack::Main\-Stack (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classMainStack_a0}
+
+
+Definition at line 25 of file main\-Stack.cpp.
+
+References active, change\-Path(), client\-Path, create\-New\-Dialog(), Database::cur\-Client\-Exists(), db, export\-Path, Settings::get\-Client\-Path(), Database::get\-Cur\-Client(), Settings::get\-Export\-Path(), Settings::get\-Import\-Path(), import\-Path, Settings::instance(), Database::instance(), main, open\-Default(), open\-New\-Dialog(), prepare\-Quit(), and settings.
+
+\footnotesize\begin{verbatim}26     : QWidgetStack(parent,name)
+27 {
+28     db = Database::instance();
+29     settings = Settings::instance();
+30 
+31     clientPath = settings->getClientPath();
+32     exportPath = settings->getExportPath();
+33     importPath = settings->getImportPath();
+34     
+35     main.widget = new QWidget(this);
+36     
+37     main.hBoxLayout = new QHBoxLayout(main.widget);
+38     
+39     main.hBoxLayout->addStretch();
+40     
+41     main.vBoxLayout = new QVBoxLayout(main.hBoxLayout);
+42     
+43     main.vBoxLayout->addStretch();
+44     
+45     main.mainGroup = new QVGroupBox("Main Options", main.widget);
+46     main.mainGroup->setInsideMargin(30);
+47     main.mainGroup->setInsideSpacing(20);
+48     
+49     main.vBoxLayout->add(main.mainGroup);
+50     
+51     if(db->getCurClient() != "" && db->curClientExists())
+52     {
+53         main.openDefaultButton = new QPushButton(
+54                 QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/openDefButton.png") ),
+55                 "Open " + db->getCurClient(), main.mainGroup);
+56         connect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
+57         main.openDefaultButton->setDefault(true);
+58         main.openDefaultButton->setFocus();
+59         main.openDefaultButton->installEventFilter(this);
+60     }
+61     else
+62     {
+63         main.openDefaultButton = new QPushButton(
+64                 QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/openDefButton.png") ),
+65                 "Open ...", main.mainGroup);
+66         main.openDefaultButton->setEnabled(false);
+67     }
+68     
+69     main.openNewButton = new QPushButton(
+70             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/openNewButton.png") ),
+71             "Open a Different Client", main.mainGroup);
+72     connect(main.openNewButton, SIGNAL(clicked()), this, SLOT(openNewDialog()));
+73     main.openNewButton->installEventFilter(this);
+74     
+75     main.createNewButton = new QPushButton(
+76             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/createNewButton.png") ),
+77             "Create a New Client", main.mainGroup);
+78     connect(main.createNewButton, SIGNAL(clicked()), this, SLOT(createNewDialog()));
+79     main.createNewButton->installEventFilter(this);
+80     
+81     main.vBoxLayout->addSpacing(30);
+82     
+83     main.otherGroup = new QVGroupBox("Other Options", main.widget);
+84     main.otherGroup->setInsideMargin(30);
+85     main.otherGroup->setInsideSpacing(20);
+86     
+87     main.vBoxLayout->add(main.otherGroup);
+88     
+89     main.pathButton = new QPushButton(
+90             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/pathButton.png") ),
+91             "Change Client Database Folder", main.otherGroup);
+92     connect(main.pathButton, SIGNAL(clicked()), this, SLOT(changePath()));
+93     main.pathButton->installEventFilter(this);
+94 
+95     main.importButton = new QPushButton(
+96             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/importButton.png") ),
+97             "Import a Database File", main.otherGroup);
+98     connect(main.importButton, SIGNAL(clicked()), this, SLOT(import()));
+99     main.importButton->installEventFilter(this);
+100     
+101     main.quitButton = new QPushButton(
+102             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/quitButton.png") ),
+103             "Quit General Ledger", main.otherGroup);
+104     connect(main.quitButton, SIGNAL(clicked()), this, SLOT(prepareQuit()));
+105     main.quitButton->installEventFilter(this);
+106     
+107     main.vBoxLayout->addStretch();
+108     
+109     main.hBoxLayout->addStretch();
+110     
+111     addWidget(main.widget, 0);
+112     
+113     active = 0;
+114 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_a1}{
+\index{MainStack@{Main\-Stack}!~MainStack@{$\sim$MainStack}}
+\index{~MainStack@{$\sim$MainStack}!MainStack@{Main\-Stack}}
+\subsubsection[$\sim$MainStack]{\setlength{\rightskip}{0pt plus 5cm}Main\-Stack::$\sim$\hyperlink{classMainStack}{Main\-Stack} ()}}
+\label{classMainStack_a1}
+
+
+Definition at line 116 of file main\-Stack.cpp.
+
+\footnotesize\begin{verbatim}117 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMainStack_k5}{
+\index{MainStack@{Main\-Stack}!changePath@{changePath}}
+\index{changePath@{changePath}!MainStack@{Main\-Stack}}
+\subsubsection[changePath]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::change\-Path ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k5}
+
+
+Definition at line 584 of file main\-Stack.cpp.
+
+References client\-Path, Settings::set\-Client\-Path(), and settings.
+
+Referenced by Main\-Stack().
+
+\footnotesize\begin{verbatim}585 {
+586     QString path = QFileDialog::getExistingDirectory(
+587             clientPath,
+588             this,
+589             0,
+590             "Choose Client Database Folder");
+591 
+592     if(!path.isEmpty())
+593         settings->setClientPath(path);
+594 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_d0}{
+\index{MainStack@{Main\-Stack}!clientOpened@{clientOpened}}
+\index{clientOpened@{clientOpened}!MainStack@{Main\-Stack}}
+\subsubsection[clientOpened]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::client\-Opened ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_d0}
+
+
+Definition at line 127 of file main\-Stack.cpp.
+
+References active, close\-Client(), copy\-Client(), db, decrypt(), edit\-Name(), encrypt(), Database::get\-Cur\-Client(), Database::is\-Encrypted(), main, open\-Default(), switch\-To\-Accounts(), switch\-To\-Journal(), switch\-To\-Reports(), switch\-Widget(), tasks, and widget.
+
+Referenced by create\-New\-Dialog(), decrypt(), encrypt(), open\-Default(), and open\-New\-Dialog().
+
+\footnotesize\begin{verbatim}128 {
+129     main.openDefaultButton->setText("Open " + db->getCurClient());
+130     main.openDefaultButton->setEnabled(true);
+131     main.openDefaultButton->installEventFilter(this);
+132     disconnect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
+133     connect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
+134     
+135     active = 0;
+136 
+137     if(widget(1))
+138     {
+139         removeWidget(tasks.widget);
+140         delete tasks.cryptButton;
+141         delete tasks.copyDatabaseButton;
+142         delete tasks.editNameButton;
+143         delete tasks.adminGroup;
+144         delete tasks.reportButton;
+145         delete tasks.journalButton;
+146         delete tasks.accountsButton;
+147         delete tasks.clientGroup;
+148         delete tasks.vBoxLayout;
+149         delete tasks.hBoxLayout;
+150         delete tasks.closeButton;
+151         delete tasks.hBoxLabel;
+152         delete tasks.vBoxLabel;
+153         delete tasks.widget;
+154     }
+155     
+156     tasks.widget = new QWidget(this);
+157     
+158     tasks.vBoxLabel = new QVBoxLayout(tasks.widget);
+159     
+160     tasks.hBoxLabel = new QHBoxLayout(tasks.vBoxLabel);
+161     tasks.hBoxLabel->setMargin(5);
+162     
+163     tasks.closeButton = new QPushButton(
+164             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/closeClient.png") ),
+165             "Close Client (F8)", tasks.widget);
+166     tasks.closeButton->setFocusPolicy(QWidget::NoFocus);
+167     connect(tasks.closeButton, SIGNAL(clicked()), this, SLOT(closeClient()));
+168     
+169     tasks.hBoxLabel->addStretch();
+170     tasks.hBoxLabel->addWidget(tasks.closeButton);
+171     
+172     tasks.hBoxLayout = new QHBoxLayout(tasks.vBoxLabel);
+173     
+174     tasks.hBoxLayout->addStretch();
+175     
+176     tasks.vBoxLayout = new QVBoxLayout(tasks.hBoxLayout);
+177     
+178     tasks.vBoxLayout->addStretch();
+179     
+180     tasks.clientGroup = new QVGroupBox("Client Tasks", tasks.widget);
+181     tasks.clientGroup->setInsideMargin(30);
+182     tasks.clientGroup->setInsideSpacing(20);
+183     
+184     tasks.vBoxLayout->add(tasks.clientGroup);
+185     
+186     tasks.accountsButton = new QPushButton(
+187             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/accountsTab.png") ),
+188             "Accounts", tasks.clientGroup);
+189     connect(tasks.accountsButton, SIGNAL(clicked()), this, SIGNAL(switchToAccounts()));
+190     tasks.accountsButton->setDefault(true);
+191     tasks.accountsButton->setFocus();
+192     tasks.focusedButton = tasks.accountsButton;
+193     tasks.accountsButton->installEventFilter(this);
+194     
+195     tasks.journalButton = new QPushButton(
+196             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/journalTab.png") ),
+197             "Journal Entry", tasks.clientGroup);
+198     connect(tasks.journalButton, SIGNAL(clicked()), this, SIGNAL(switchToJournal()));
+199     tasks.journalButton->installEventFilter(this);
+200     
+201     tasks.reportButton = new QPushButton(
+202             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/reportTab.png") ),
+203             "Reports", tasks.clientGroup);
+204     connect(tasks.reportButton, SIGNAL(clicked()), this, SIGNAL(switchToReports()));
+205     tasks.reportButton->installEventFilter(this);
+206     
+207     tasks.vBoxLayout->addSpacing(30);
+208     
+209     tasks.adminGroup = new QVGroupBox("Administrative Options", tasks.widget);
+210     tasks.adminGroup->setInsideMargin(30);
+211     tasks.adminGroup->setInsideSpacing(20);
+212     
+213     tasks.vBoxLayout->add(tasks.adminGroup);
+214     
+215     tasks.editNameButton = new QPushButton(
+216             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/editNameButton.png") ),
+217             "Edit Client Name", tasks.adminGroup);
+218     connect(tasks.editNameButton, SIGNAL(clicked()), this, SLOT(editName()));
+219     tasks.editNameButton->installEventFilter(this);
+220     
+221     tasks.copyDatabaseButton = new QPushButton(
+222             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/copyDatabaseButton.png") ),
+223             "Copy Client Database to File", tasks.adminGroup);
+224     connect(tasks.copyDatabaseButton, SIGNAL(clicked()), this, SLOT(copyClient()));
+225     tasks.copyDatabaseButton->installEventFilter(this);
+226     
+227 
+228     if(db->isEncrypted())
+229     {
+230         tasks.cryptButton = new QPushButton(
+231                 QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/decryptButton.png") ),
+232                 "Decrypt Database", tasks.adminGroup);
+233         connect(tasks.cryptButton, SIGNAL(clicked()), this, SLOT(decrypt()));
+234     }
+235     else
+236     {
+237         tasks.cryptButton = new QPushButton(
+238                 QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/encryptButton.png") ),
+239                 "Encrypt Database with Password", tasks.adminGroup);
+240         connect(tasks.cryptButton, SIGNAL(clicked()), this, SLOT(encrypt()));
+241     }
+242     tasks.cryptButton->installEventFilter(this);
+243     
+244     tasks.vBoxLayout->addStretch();
+245     
+246     tasks.hBoxLayout->addStretch();
+247     
+248     addWidget(tasks.widget, 1);
+249         
+250     switchWidget();
+251 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_i0}{
+\index{MainStack@{Main\-Stack}!closeClient@{closeClient}}
+\index{closeClient@{closeClient}!MainStack@{Main\-Stack}}
+\subsubsection[closeClient]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::close\-Client ()\hspace{0.3cm}{\tt  \mbox{[}slot\mbox{]}}}}
+\label{classMainStack_i0}
+
+
+Definition at line 706 of file main\-Stack.cpp.
+
+References active, Database::close\-Db(), db, db\-Closed(), Database::journal\-Tmp\-Empty(), save\-And\-Clear\-Journal\-Tmp(), switch\-To\-Journal(), and switch\-Widget().
+
+Referenced by client\-Opened(), Tabs::close\-Event(), event\-Filter(), and prepare\-Quit().
+
+\footnotesize\begin{verbatim}707 {
+708     if(active == 0)
+709         return;
+710 
+711     if(!(db->journalTmpEmpty()))
+712     {
+713         CloseDialog dialog;
+714         dialog.exec();
+715 
+716         switch(dialog.result())
+717         {
+718             case 0:
+719                 emit saveAndClearJournalTmp();
+720                 break;
+721             case 1:
+722                 break;
+723             case 2:
+724                 emit switchToJournal();
+725                 return;
+726                 break;
+727             default:
+728                 break;
+729         }
+730     }
+731 
+732     db->closeDb();
+733     switchWidget();
+734     emit dbClosed();
+735 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_a2}{
+\index{MainStack@{Main\-Stack}!closed@{closed}}
+\index{closed@{closed}!MainStack@{Main\-Stack}}
+\subsubsection[closed]{\setlength{\rightskip}{0pt plus 5cm}bool Main\-Stack::closed () const}}
+\label{classMainStack_a2}
+
+
+Definition at line 119 of file main\-Stack.cpp.
+
+References active.
+
+Referenced by Tabs::close\-Event().
+
+\footnotesize\begin{verbatim}120 {
+121     if(active == 0)
+122         return true;
+123     else
+124         return false;
+125 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k4}{
+\index{MainStack@{Main\-Stack}!copyClient@{copyClient}}
+\index{copyClient@{copyClient}!MainStack@{Main\-Stack}}
+\subsubsection[copyClient]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::copy\-Client ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k4}
+
+
+Definition at line 571 of file main\-Stack.cpp.
+
+References Database::copy\-Db(), db, and export\-Path.
+
+Referenced by client\-Opened().
+
+\footnotesize\begin{verbatim}572 {
+573     QString file = QFileDialog::getSaveFileName(
+574             exportPath,
+575             "Client Database (*.db *.dbx)",
+576             this,
+577             0,
+578             "Copy Client Database to File");
+579     
+580     if(!file.isEmpty())
+581         db->copyDb(file);
+582 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k2}{
+\index{MainStack@{Main\-Stack}!createNewDialog@{createNewDialog}}
+\index{createNewDialog@{createNewDialog}!MainStack@{Main\-Stack}}
+\subsubsection[createNewDialog]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::create\-New\-Dialog ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k2}
+
+
+Definition at line 470 of file main\-Stack.cpp.
+
+References client\-Opened(), Database::create\-New(), db, db\-Opened(), and v\-Box\-Layout.
+
+Referenced by Main\-Stack().
+
+\footnotesize\begin{verbatim}471 {
+472     QDialog dialog;
+473     dialog.setCaption("Create a New Client");
+474     
+475     QVBoxLayout vBoxLayout(&dialog);
+476     vBoxLayout.setMargin(5);
+477     vBoxLayout.setSpacing(5);
+478     
+479     QLabel labelName("Input the Client's Name:", &dialog);
+480     vBoxLayout.addWidget(&labelName);
+481     
+482     QLineEdit lineEdit(&dialog);
+483     lineEdit.setMaxLength(50);
+484     lineEdit.setFocus();
+485     vBoxLayout.addWidget(&lineEdit);
+486     
+487     QHBoxLayout hBoxYearEnd(&vBoxLayout);
+488     hBoxYearEnd.setSpacing(5);
+489 
+490     vBoxLayout.addSpacing(10);
+491     
+492     QLabel yearEndLabel("Year-End Date:", &dialog);
+493     QComboBox yearEndList(false, &dialog);
+494     QStringList yearEndStrings;
+495     yearEndStrings << "January 31" << "February 28" << "March 31" << "April 30"
+496             << "May 31" << "June 30" << "July 31" << "August 31" << "September 30"
+497             << "October 31" << "November 30" << "December 31";
+498     yearEndList.insertStringList(yearEndStrings);
+499     
+500     hBoxYearEnd.addWidget(&yearEndLabel);
+501     hBoxYearEnd.addWidget(&yearEndList);
+502     
+503     QHBoxLayout hBoxButtons(&vBoxLayout);
+504     hBoxButtons.setSpacing(5);
+505     
+506     QPushButton createButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/createNewButton.png")), "Create", &dialog);
+507     createButton.setDefault(true);
+508     connect(&createButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+509     
+510     QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png")), "Cancel", &dialog);
+511     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+512     
+513     hBoxButtons.addStretch();
+514     hBoxButtons.addWidget(&createButton);
+515     hBoxButtons.addWidget(&cancelButton);
+516     
+517     if(dialog.exec() && !lineEdit.text().isEmpty())
+518     {
+519         if(db->createNew(lineEdit.text(), yearEndList.currentText()))
+520         {
+521             clientOpened();
+522             emit dbOpened();
+523         }
+524     }
+525 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_l4}{
+\index{MainStack@{Main\-Stack}!dbClosed@{dbClosed}}
+\index{dbClosed@{dbClosed}!MainStack@{Main\-Stack}}
+\subsubsection[dbClosed]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::db\-Closed ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l4}
+
+
+
+
+Referenced by close\-Client().\hypertarget{classMainStack_l3}{
+\index{MainStack@{Main\-Stack}!dbOpened@{dbOpened}}
+\index{dbOpened@{dbOpened}!MainStack@{Main\-Stack}}
+\subsubsection[dbOpened]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::db\-Opened ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l3}
+
+
+
+
+Referenced by create\-New\-Dialog(), open\-Default(), and open\-New\-Dialog().\hypertarget{classMainStack_k8}{
+\index{MainStack@{Main\-Stack}!decrypt@{decrypt}}
+\index{decrypt@{decrypt}!MainStack@{Main\-Stack}}
+\subsubsection[decrypt]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::decrypt ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k8}
+
+
+Definition at line 668 of file main\-Stack.cpp.
+
+References client\-Opened(), db, Database::decrypt\-Db(), h\-Box\-Layout, and v\-Box\-Layout.
+
+Referenced by client\-Opened().
+
+\footnotesize\begin{verbatim}669 {
+670     QDialog dialog;
+671     dialog.setCaption("Decrypt Database");
+672 
+673     QVBoxLayout vBoxLayout(&dialog);
+674     vBoxLayout.setMargin(5);
+675     vBoxLayout.setSpacing(5);
+676 
+677     QLabel label("<nobr>Are you sure you want to decrypt the database?</nobr>", &dialog);
+678 
+679     vBoxLayout.addWidget(&label);
+680     vBoxLayout.addSpacing(10);
+681 
+682     QHBoxLayout hBoxLayout(&vBoxLayout);
+683     hBoxLayout.setSpacing(5);
+684 
+685     QPushButton decryptButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/decryptButton.png")),
+686                               "Decrypt", &dialog);
+687     connect(&decryptButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+688     decryptButton.setDefault(false);
+689 
+690     QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(QString(ICON_PATH + "/cancelButton.png"))),
+691                              "Cancel", &dialog);
+692     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+693     cancelButton.setDefault(true);
+694 
+695     hBoxLayout.addStretch();
+696     hBoxLayout.addWidget(&decryptButton);
+697     hBoxLayout.addWidget(&cancelButton);
+698 
+699     if(dialog.exec())
+700     {
+701         db->decryptDb();
+702         clientOpened();
+703     }
+704 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k3}{
+\index{MainStack@{Main\-Stack}!editName@{editName}}
+\index{editName@{editName}!MainStack@{Main\-Stack}}
+\subsubsection[editName]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::edit\-Name ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k3}
+
+
+Definition at line 527 of file main\-Stack.cpp.
+
+References db, Database::edit\-Name(), Database::get\-Cur\-Client(), h\-Box\-Layout, main, name\-Changed(), and v\-Box\-Layout.
+
+Referenced by client\-Opened().
+
+\footnotesize\begin{verbatim}528 {
+529     QDialog dialog;
+530     dialog.setCaption("Edit Client Name");
+531 
+532     QVBoxLayout vBoxLayout(&dialog);
+533     vBoxLayout.setMargin(5);
+534     vBoxLayout.setSpacing(5);
+535 
+536     QLabel label("Input a new client name:", &dialog);
+537 
+538     vBoxLayout.addWidget(&label);
+539 
+540     QLineEdit lineEdit(db->getCurClient(), &dialog);
+541     lineEdit.setMaxLength(50);
+542     lineEdit.setFocus();
+543 
+544     vBoxLayout.addWidget(&lineEdit);
+545     vBoxLayout.addSpacing(10);
+546 
+547     QHBoxLayout hBoxLayout(&vBoxLayout);
+548 
+549     QPushButton okButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/editNameButton.png")),
+550                          "Change Name", &dialog);
+551     connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+552 
+553     QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png")),
+554                              "Cancel", &dialog);
+555     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+556 
+557     cancelButton.setDefault(false);
+558     okButton.setDefault(true);
+559 
+560     hBoxLayout.addStretch();
+561     hBoxLayout.addWidget(&okButton);
+562     hBoxLayout.addWidget(&cancelButton);
+563 
+564     if( dialog.exec() && !(lineEdit.text().isEmpty()))
+565         db->editName(lineEdit.text());
+566 
+567     main.openDefaultButton->setText("Open " + db->getCurClient());
+568     emit nameChanged();
+569 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k7}{
+\index{MainStack@{Main\-Stack}!encrypt@{encrypt}}
+\index{encrypt@{encrypt}!MainStack@{Main\-Stack}}
+\subsubsection[encrypt]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::encrypt ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k7}
+
+
+Definition at line 609 of file main\-Stack.cpp.
+
+References client\-Opened(), db, Database::encrypt\-Db(), and v\-Box\-Layout.
+
+Referenced by client\-Opened().
+
+\footnotesize\begin{verbatim}610 {
+611     QDialog dialog;
+612     dialog.setCaption("Encrypt Database");
+613     
+614     QVBoxLayout vBoxLayout(&dialog);
+615     vBoxLayout.setMargin(5);
+616     vBoxLayout.setSpacing(5);
+617     
+618     QHBoxLayout hBoxTop(&vBoxLayout);
+619     hBoxTop.setSpacing(5);
+620     
+621     QLabel label1("Input a password:", &dialog);
+622     QLineEdit password1(&dialog);
+623     password1.setMaxLength(20);
+624     password1.setEchoMode(QLineEdit::Password);
+625     hBoxTop.addStretch();
+626     hBoxTop.addWidget(&label1);
+627     hBoxTop.addWidget(&password1);
+628     
+629     QHBoxLayout hBoxMiddle(&vBoxLayout);
+630     hBoxMiddle.setSpacing(5);
+631 
+632     vBoxLayout.addSpacing(10);
+633     
+634     QLabel label2("Repeat:", &dialog);
+635     QLineEdit password2(&dialog);
+636     password2.setMaxLength(20);
+637     password2.setEchoMode(QLineEdit::Password);
+638     hBoxMiddle.addStretch();
+639     hBoxMiddle.addWidget(&label2);
+640     hBoxMiddle.addWidget(&password2);
+641     
+642     QHBoxLayout hBoxBottom(&vBoxLayout);
+643     hBoxBottom.setSpacing(5);
+644     
+645     QPushButton encryptButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/encryptButton.png") ),
+646                               "Encrypt", &dialog);
+647     connect(&encryptButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+648     
+649     QPushButton cancelButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png") ),
+650                              "Cancel", &dialog);
+651     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+652     
+653     hBoxBottom.addStretch();
+654     hBoxBottom.addWidget(&encryptButton);
+655     hBoxBottom.addWidget(&cancelButton);
+656     
+657     while(dialog.exec())
+658     {
+659         if(password1.text() == password2.text())
+660         {
+661             db->encryptDb(password1.text());
+662             clientOpened();
+663             break;
+664         }
+665     }
+666 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_d2}{
+\index{MainStack@{Main\-Stack}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!MainStack@{Main\-Stack}}
+\subsubsection[eventFilter]{\setlength{\rightskip}{0pt plus 5cm}bool Main\-Stack::event\-Filter (QObject $\ast$ {\em target}, QEvent $\ast$ {\em event})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_d2}
+
+
+Definition at line 269 of file main\-Stack.cpp.
+
+References active, close\-Client(), and tasks.
+
+\footnotesize\begin{verbatim}270 {
+271     if(event->type() == QEvent::KeyPress)
+272     {
+273         QKeyEvent *keyEvent = (QKeyEvent *)event;
+274         if(keyEvent->key() == Key_F8 && active == 1)
+275         {
+276             closeClient();
+277             return true;
+278         }
+279     }
+280     if(event->type() == QEvent::FocusIn)
+281     {
+282     //    if(typeid(*target) == typeid(QPushButton))
+283         {
+284             ((QPushButton*)target)->setDefault(true);
+285             if(active == 1)
+286                 tasks.focusedButton = (QPushButton*)target;
+287         }
+288     }
+289     if(event->type() == QEvent::FocusOut)
+290     {
+291     //    if(typeid(*target) == typeid(QPushButton))
+292             ((QPushButton*)target)->setDefault(false);
+293     }
+294     if(event->type() == QEvent::Show)
+295     {
+296         if(active == 1)
+297             tasks.focusedButton->setFocus();
+298     }
+299     
+300     return QWidgetStack::eventFilter(target,event);
+301 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k6}{
+\index{MainStack@{Main\-Stack}!import@{import}}
+\index{import@{import}!MainStack@{Main\-Stack}}
+\subsubsection[import]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::import ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k6}
+
+
+Definition at line 596 of file main\-Stack.cpp.
+
+References db, Database::import\-Db(), and import\-Path.
+
+\footnotesize\begin{verbatim}597 {
+598     QString file = QFileDialog::getOpenFileName(
+599             importPath,
+600             "Client Database (*.db *.dbx)",
+601             this,
+602             0,
+603             "Import a Database File");
+604 
+605     if(!file.isEmpty())
+606         db->importDb(file);
+607 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_l5}{
+\index{MainStack@{Main\-Stack}!nameChanged@{nameChanged}}
+\index{nameChanged@{nameChanged}!MainStack@{Main\-Stack}}
+\subsubsection[nameChanged]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::name\-Changed ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l5}
+
+
+
+
+Referenced by edit\-Name().\hypertarget{classMainStack_k0}{
+\index{MainStack@{Main\-Stack}!openDefault@{openDefault}}
+\index{openDefault@{openDefault}!MainStack@{Main\-Stack}}
+\subsubsection[openDefault]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::open\-Default ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k0}
+
+
+Definition at line 303 of file main\-Stack.cpp.
+
+References client\-Opened(), db, db\-Opened(), Database::get\-Cur\-Db(), and Database::open\-New().
+
+Referenced by client\-Opened(), and Main\-Stack().
+
+\footnotesize\begin{verbatim}304 {
+305     QString file = db->getCurDb();
+306 
+307     bool encrypted = false;
+308 
+309     if(file.right(4) == ".dbx")
+310     {
+311         file.truncate(file.length() - 4);
+312         encrypted = true;
+313     }
+314     else if(file.right(3) == ".db")
+315         file.truncate(file.length() - 3);
+316 
+317     QString password(QString::null);
+318 
+319     if(encrypted)
+320     {
+321         QDialog dialog2;
+322         dialog2.setCaption("Enter Password");
+323     
+324         QVBoxLayout vBoxLayout2(&dialog2);
+325         vBoxLayout2.setMargin(5);
+326         vBoxLayout2.setSpacing(5);
+327     
+328         QLabel label2("<nobr>This database is encrypted</nobr><br><nobr>Enter the password:</nobr>", &dialog2);
+329         QLineEdit password2(&dialog2);
+330         password2.setMaxLength(20);
+331         password2.setEchoMode(QLineEdit::Password);
+332         vBoxLayout2.addStretch();
+333         vBoxLayout2.addWidget(&label2);
+334         vBoxLayout2.addWidget(&password2);
+335         vBoxLayout2.addSpacing(10);
+336     
+337         QHBoxLayout hBoxLayout2(&vBoxLayout2);
+338         hBoxLayout2.setSpacing(5);
+339     
+340         QPushButton decryptButton2(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/decryptButton.png") ),
+341                                    "Open", &dialog2);
+342         connect(&decryptButton2, SIGNAL(clicked()), &dialog2, SLOT(accept()));
+343     
+344         QPushButton cancelButton2(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png") ),
+345                                   "Cancel", &dialog2);
+346         connect(&cancelButton2, SIGNAL(clicked()), &dialog2, SLOT(reject()));
+347     
+348         hBoxLayout2.addStretch();
+349         hBoxLayout2.addWidget(&decryptButton2);
+350         hBoxLayout2.addWidget(&cancelButton2);
+351 
+352         while(dialog2.exec())
+353         {
+354             password = password2.text();
+355 
+356             if(db->openNew(file, password))
+357             {
+358                 clientOpened();
+359                 emit dbOpened();
+360                 break;
+361             }
+362         }
+363     }
+364     else
+365     {
+366         if(db->openNew(file, password))
+367         {
+368             clientOpened();
+369             emit dbOpened();
+370         }
+371     }
+372 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k1}{
+\index{MainStack@{Main\-Stack}!openNewDialog@{openNewDialog}}
+\index{openNewDialog@{openNewDialog}!MainStack@{Main\-Stack}}
+\subsubsection[openNewDialog]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::open\-New\-Dialog ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k1}
+
+
+Definition at line 374 of file main\-Stack.cpp.
+
+References client\-Opened(), db, db\-Opened(), Database::get\-Client\-List(), h\-Box\-Layout, Database::open\-New(), and v\-Box\-Layout.
+
+Referenced by Main\-Stack().
+
+\footnotesize\begin{verbatim}375 {
+376     QDialog dialog;
+377     dialog.setCaption("Open Client");
+378     
+379     QVBoxLayout vBoxLayout(&dialog);
+380     vBoxLayout.setMargin(5);
+381     vBoxLayout.setSpacing(5);
+382     
+383     QLabel label("Choose a Client:", &dialog);
+384     vBoxLayout.addWidget(&label);
+385     
+386     QListBox listBox(&dialog);
+387     listBox.setFocus();
+388     listBox.insertStringList(db->getClientList());
+389     listBox.setSelected(0, true);
+390     connect(&listBox, SIGNAL(selected(QListBoxItem*)), &dialog, SLOT(accept()));
+391     
+392     vBoxLayout.addWidget(&listBox);
+393     vBoxLayout.addSpacing(10);
+394     
+395     QHBoxLayout hBoxLayout(&vBoxLayout);
+396     hBoxLayout.setSpacing(5);
+397     
+398     QPushButton okButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/openNewButton.png")), "Open", &dialog);
+399     okButton.setDefault(true);
+400     connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+401     
+402     QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png")), "Cancel", &dialog);
+403     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+404     
+405     hBoxLayout.addWidget(&okButton);
+406     hBoxLayout.addWidget(&cancelButton);
+407     
+408     if(dialog.exec() && listBox.count())
+409     {
+410         QString file = listBox.selectedItem()->text();
+411         file.remove(QRegExp(".+\\("));
+412 
+413         bool encrypted = false;
+414 
+415         if(file.right(5) == ".dbx)")
+416         {
+417             file.truncate(file.length() - 5);
+418             encrypted = true;
+419         }
+420         if(file.right(4) == ".db)")
+421             file.truncate(file.length() - 4);
+422 
+423         QString password(QString::null);
+424 
+425         if(encrypted)
+426         {
+427             QDialog dialog2;
+428             dialog2.setCaption("Enter Password");
+429     
+430             QVBoxLayout vBoxLayout2(&dialog2);
+431             vBoxLayout2.setMargin(5);
+432             vBoxLayout2.setSpacing(5);
+433     
+434             QLabel label2("<nobr>This database is encrypted</nobr><br><nobr>Enter the password:</nobr>", &dialog2);
+435             QLineEdit password2(&dialog2);
+436             password2.setMaxLength(20);
+437             password2.setEchoMode(QLineEdit::Password);
+438             vBoxLayout2.addStretch();
+439             vBoxLayout2.addWidget(&label2);
+440             vBoxLayout2.addWidget(&password2);
+441             vBoxLayout2.addSpacing(10);
+442     
+443             QHBoxLayout hBoxLayout2(&vBoxLayout2);
+444             hBoxLayout2.setSpacing(5);
+445     
+446             QPushButton decryptButton2(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/decryptButton.png") ),
+447                                       "Open", &dialog2);
+448             connect(&decryptButton2, SIGNAL(clicked()), &dialog2, SLOT(accept()));
+449     
+450             QPushButton cancelButton2(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png") ),
+451                                      "Cancel", &dialog2);
+452             connect(&cancelButton2, SIGNAL(clicked()), &dialog2, SLOT(reject()));
+453     
+454             hBoxLayout2.addStretch();
+455             hBoxLayout2.addWidget(&decryptButton2);
+456             hBoxLayout2.addWidget(&cancelButton2);
+457 
+458             if(dialog2.exec())
+459                 password = password2.text();
+460         }
+461 
+462         if(db->openNew(file, password))
+463         {
+464             clientOpened();
+465             emit dbOpened();
+466         }
+467     }
+468 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_k9}{
+\index{MainStack@{Main\-Stack}!prepareQuit@{prepareQuit}}
+\index{prepareQuit@{prepareQuit}!MainStack@{Main\-Stack}}
+\subsubsection[prepareQuit]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::prepare\-Quit ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classMainStack_k9}
+
+
+Definition at line 737 of file main\-Stack.cpp.
+
+References active, close\-Client(), and quit().
+
+Referenced by Main\-Stack().
+
+\footnotesize\begin{verbatim}738 {
+739     if(active == 1)
+740         closeClient();
+741     emit quit();
+742 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classMainStack_l7}{
+\index{MainStack@{Main\-Stack}!quit@{quit}}
+\index{quit@{quit}!MainStack@{Main\-Stack}}
+\subsubsection[quit]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::quit ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l7}
+
+
+
+
+Referenced by prepare\-Quit().\hypertarget{classMainStack_l6}{
+\index{MainStack@{Main\-Stack}!saveAndClearJournalTmp@{saveAndClearJournalTmp}}
+\index{saveAndClearJournalTmp@{saveAndClearJournalTmp}!MainStack@{Main\-Stack}}
+\subsubsection[saveAndClearJournalTmp]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::save\-And\-Clear\-Journal\-Tmp ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l6}
+
+
+
+
+Referenced by close\-Client().\hypertarget{classMainStack_l0}{
+\index{MainStack@{Main\-Stack}!switchToAccounts@{switchToAccounts}}
+\index{switchToAccounts@{switchToAccounts}!MainStack@{Main\-Stack}}
+\subsubsection[switchToAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::switch\-To\-Accounts ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l0}
+
+
+
+
+Referenced by client\-Opened().\hypertarget{classMainStack_l1}{
+\index{MainStack@{Main\-Stack}!switchToJournal@{switchToJournal}}
+\index{switchToJournal@{switchToJournal}!MainStack@{Main\-Stack}}
+\subsubsection[switchToJournal]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::switch\-To\-Journal ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l1}
+
+
+
+
+Referenced by client\-Opened(), and close\-Client().\hypertarget{classMainStack_l2}{
+\index{MainStack@{Main\-Stack}!switchToReports@{switchToReports}}
+\index{switchToReports@{switchToReports}!MainStack@{Main\-Stack}}
+\subsubsection[switchToReports]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::switch\-To\-Reports ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classMainStack_l2}
+
+
+
+
+Referenced by client\-Opened().\hypertarget{classMainStack_d1}{
+\index{MainStack@{Main\-Stack}!switchWidget@{switchWidget}}
+\index{switchWidget@{switchWidget}!MainStack@{Main\-Stack}}
+\subsubsection[switchWidget]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Stack::switch\-Widget ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_d1}
+
+
+Definition at line 253 of file main\-Stack.cpp.
+
+References active, main, and tasks.
+
+Referenced by client\-Opened(), and close\-Client().
+
+\footnotesize\begin{verbatim}254 {
+255     if(active == 0)
+256     {
+257         raiseWidget(1);
+258         active = 1;
+259         tasks.focusedButton->setFocus();
+260     }
+261     else
+262     {
+263         raiseWidget(0);
+264         active = 0;
+265         main.openDefaultButton->setFocus();
+266     }
+267 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classMainStack_r26}{
+\index{MainStack@{Main\-Stack}!accountsButton@{accountsButton}}
+\index{accountsButton@{accountsButton}!MainStack@{Main\-Stack}}
+\subsubsection[accountsButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r26}{Main\-Stack::accounts\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r26}
+
+
+Definition at line 85 of file main\-Stack.h.\hypertarget{classMainStack_r5}{
+\index{MainStack@{Main\-Stack}!active@{active}}
+\index{active@{active}!MainStack@{Main\-Stack}}
+\subsubsection[active]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classMainStack_r5}{Main\-Stack::active}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r5}
+
+
+Definition at line 60 of file main\-Stack.h.
+
+Referenced by client\-Opened(), close\-Client(), closed(), event\-Filter(), Main\-Stack(), prepare\-Quit(), and switch\-Widget().\hypertarget{classMainStack_r29}{
+\index{MainStack@{Main\-Stack}!adminGroup@{adminGroup}}
+\index{adminGroup@{adminGroup}!MainStack@{Main\-Stack}}
+\subsubsection[adminGroup]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classMainStack_r29}{Main\-Stack::admin\-Group}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r29}
+
+
+Definition at line 88 of file main\-Stack.h.\hypertarget{classMainStack_r25}{
+\index{MainStack@{Main\-Stack}!clientGroup@{clientGroup}}
+\index{clientGroup@{clientGroup}!MainStack@{Main\-Stack}}
+\subsubsection[clientGroup]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classMainStack_r25}{Main\-Stack::client\-Group}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r25}
+
+
+Definition at line 84 of file main\-Stack.h.\hypertarget{classMainStack_r2}{
+\index{MainStack@{Main\-Stack}!clientPath@{clientPath}}
+\index{clientPath@{clientPath}!MainStack@{Main\-Stack}}
+\subsubsection[clientPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classMainStack_r2}{Main\-Stack::client\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r2}
+
+
+Definition at line 56 of file main\-Stack.h.
+
+Referenced by change\-Path(), and Main\-Stack().\hypertarget{classMainStack_r22}{
+\index{MainStack@{Main\-Stack}!closeButton@{closeButton}}
+\index{closeButton@{closeButton}!MainStack@{Main\-Stack}}
+\subsubsection[closeButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r22}{Main\-Stack::close\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r22}
+
+
+Definition at line 81 of file main\-Stack.h.\hypertarget{classMainStack_r31}{
+\index{MainStack@{Main\-Stack}!copyDatabaseButton@{copyDatabaseButton}}
+\index{copyDatabaseButton@{copyDatabaseButton}!MainStack@{Main\-Stack}}
+\subsubsection[copyDatabaseButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r31}{Main\-Stack::copy\-Database\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r31}
+
+
+Definition at line 90 of file main\-Stack.h.\hypertarget{classMainStack_r12}{
+\index{MainStack@{Main\-Stack}!createNewButton@{createNewButton}}
+\index{createNewButton@{createNewButton}!MainStack@{Main\-Stack}}
+\subsubsection[createNewButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r12}{Main\-Stack::create\-New\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r12}
+
+
+Definition at line 69 of file main\-Stack.h.\hypertarget{classMainStack_r32}{
+\index{MainStack@{Main\-Stack}!cryptButton@{cryptButton}}
+\index{cryptButton@{cryptButton}!MainStack@{Main\-Stack}}
+\subsubsection[cryptButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r32}{Main\-Stack::crypt\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r32}
+
+
+Definition at line 91 of file main\-Stack.h.\hypertarget{classMainStack_r0}{
+\index{MainStack@{Main\-Stack}!db@{db}}
+\index{db@{db}!MainStack@{Main\-Stack}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classMainStack_r0}{Main\-Stack::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r0}
+
+
+Definition at line 53 of file main\-Stack.h.
+
+Referenced by client\-Opened(), close\-Client(), copy\-Client(), create\-New\-Dialog(), decrypt(), edit\-Name(), encrypt(), import(), Main\-Stack(), open\-Default(), and open\-New\-Dialog().\hypertarget{classMainStack_r30}{
+\index{MainStack@{Main\-Stack}!editNameButton@{editNameButton}}
+\index{editNameButton@{editNameButton}!MainStack@{Main\-Stack}}
+\subsubsection[editNameButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r30}{Main\-Stack::edit\-Name\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r30}
+
+
+Definition at line 89 of file main\-Stack.h.\hypertarget{classMainStack_r3}{
+\index{MainStack@{Main\-Stack}!exportPath@{exportPath}}
+\index{exportPath@{exportPath}!MainStack@{Main\-Stack}}
+\subsubsection[exportPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classMainStack_r3}{Main\-Stack::export\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r3}
+
+
+Definition at line 57 of file main\-Stack.h.
+
+Referenced by copy\-Client(), and Main\-Stack().\hypertarget{classMainStack_r18}{
+\index{MainStack@{Main\-Stack}!focusedButton@{focusedButton}}
+\index{focusedButton@{focusedButton}!MainStack@{Main\-Stack}}
+\subsubsection[focusedButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r18}{Main\-Stack::focused\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r18}
+
+
+Definition at line 77 of file main\-Stack.h.\hypertarget{classMainStack_r21}{
+\index{MainStack@{Main\-Stack}!hBoxLabel@{hBoxLabel}}
+\index{hBoxLabel@{hBoxLabel}!MainStack@{Main\-Stack}}
+\subsubsection[hBoxLabel]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classMainStack_r21}{Main\-Stack::h\-Box\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r21}
+
+
+Definition at line 80 of file main\-Stack.h.\hypertarget{classMainStack_r23}{
+\index{MainStack@{Main\-Stack}!hBoxLayout@{hBoxLayout}}
+\index{hBoxLayout@{hBoxLayout}!MainStack@{Main\-Stack}}
+\subsubsection[hBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classMainStack_r7}{Main\-Stack::h\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r23}
+
+
+Definition at line 82 of file main\-Stack.h.\hypertarget{classMainStack_r7}{
+\index{MainStack@{Main\-Stack}!hBoxLayout@{hBoxLayout}}
+\index{hBoxLayout@{hBoxLayout}!MainStack@{Main\-Stack}}
+\subsubsection[hBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classMainStack_r7}{Main\-Stack::h\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r7}
+
+
+Definition at line 64 of file main\-Stack.h.
+
+Referenced by decrypt(), edit\-Name(), and open\-New\-Dialog().\hypertarget{classMainStack_r15}{
+\index{MainStack@{Main\-Stack}!importButton@{importButton}}
+\index{importButton@{importButton}!MainStack@{Main\-Stack}}
+\subsubsection[importButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r15}{Main\-Stack::import\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r15}
+
+
+Definition at line 72 of file main\-Stack.h.\hypertarget{classMainStack_r4}{
+\index{MainStack@{Main\-Stack}!importPath@{importPath}}
+\index{importPath@{importPath}!MainStack@{Main\-Stack}}
+\subsubsection[importPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classMainStack_r4}{Main\-Stack::import\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r4}
+
+
+Definition at line 58 of file main\-Stack.h.
+
+Referenced by import(), and Main\-Stack().\hypertarget{classMainStack_r27}{
+\index{MainStack@{Main\-Stack}!journalButton@{journalButton}}
+\index{journalButton@{journalButton}!MainStack@{Main\-Stack}}
+\subsubsection[journalButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r27}{Main\-Stack::journal\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r27}
+
+
+Definition at line 86 of file main\-Stack.h.\hypertarget{classMainStack_r17}{
+\index{MainStack@{Main\-Stack}!main@{main}}
+\index{main@{main}!MainStack@{Main\-Stack}}
+\subsubsection[main]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classMainStack_r17}{Main\-Stack::main}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r17}
+
+
+
+
+Referenced by client\-Opened(), edit\-Name(), Main\-Stack(), and switch\-Widget().\hypertarget{classMainStack_r9}{
+\index{MainStack@{Main\-Stack}!mainGroup@{mainGroup}}
+\index{mainGroup@{mainGroup}!MainStack@{Main\-Stack}}
+\subsubsection[mainGroup]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classMainStack_r9}{Main\-Stack::main\-Group}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r9}
+
+
+Definition at line 66 of file main\-Stack.h.\hypertarget{classMainStack_r10}{
+\index{MainStack@{Main\-Stack}!openDefaultButton@{openDefaultButton}}
+\index{openDefaultButton@{openDefaultButton}!MainStack@{Main\-Stack}}
+\subsubsection[openDefaultButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r10}{Main\-Stack::open\-Default\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r10}
+
+
+Definition at line 67 of file main\-Stack.h.\hypertarget{classMainStack_r11}{
+\index{MainStack@{Main\-Stack}!openNewButton@{openNewButton}}
+\index{openNewButton@{openNewButton}!MainStack@{Main\-Stack}}
+\subsubsection[openNewButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r11}{Main\-Stack::open\-New\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r11}
+
+
+Definition at line 68 of file main\-Stack.h.\hypertarget{classMainStack_r13}{
+\index{MainStack@{Main\-Stack}!otherGroup@{otherGroup}}
+\index{otherGroup@{otherGroup}!MainStack@{Main\-Stack}}
+\subsubsection[otherGroup]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classMainStack_r13}{Main\-Stack::other\-Group}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r13}
+
+
+Definition at line 70 of file main\-Stack.h.\hypertarget{classMainStack_r14}{
+\index{MainStack@{Main\-Stack}!pathButton@{pathButton}}
+\index{pathButton@{pathButton}!MainStack@{Main\-Stack}}
+\subsubsection[pathButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r14}{Main\-Stack::path\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r14}
+
+
+Definition at line 71 of file main\-Stack.h.\hypertarget{classMainStack_r16}{
+\index{MainStack@{Main\-Stack}!quitButton@{quitButton}}
+\index{quitButton@{quitButton}!MainStack@{Main\-Stack}}
+\subsubsection[quitButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r16}{Main\-Stack::quit\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r16}
+
+
+Definition at line 73 of file main\-Stack.h.\hypertarget{classMainStack_r28}{
+\index{MainStack@{Main\-Stack}!reportButton@{reportButton}}
+\index{reportButton@{reportButton}!MainStack@{Main\-Stack}}
+\subsubsection[reportButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classMainStack_r28}{Main\-Stack::report\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r28}
+
+
+Definition at line 87 of file main\-Stack.h.\hypertarget{classMainStack_r1}{
+\index{MainStack@{Main\-Stack}!settings@{settings}}
+\index{settings@{settings}!MainStack@{Main\-Stack}}
+\subsubsection[settings]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classSettings}{Settings}$\ast$ \hyperlink{classMainStack_r1}{Main\-Stack::settings}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r1}
+
+
+Definition at line 54 of file main\-Stack.h.
+
+Referenced by change\-Path(), and Main\-Stack().\hypertarget{classMainStack_r33}{
+\index{MainStack@{Main\-Stack}!tasks@{tasks}}
+\index{tasks@{tasks}!MainStack@{Main\-Stack}}
+\subsubsection[tasks]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classMainStack_r33}{Main\-Stack::tasks}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r33}
+
+
+
+
+Referenced by client\-Opened(), event\-Filter(), and switch\-Widget().\hypertarget{classMainStack_r20}{
+\index{MainStack@{Main\-Stack}!vBoxLabel@{vBoxLabel}}
+\index{vBoxLabel@{vBoxLabel}!MainStack@{Main\-Stack}}
+\subsubsection[vBoxLabel]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classMainStack_r20}{Main\-Stack::v\-Box\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r20}
+
+
+Definition at line 79 of file main\-Stack.h.\hypertarget{classMainStack_r24}{
+\index{MainStack@{Main\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!MainStack@{Main\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classMainStack_r8}{Main\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r24}
+
+
+Definition at line 83 of file main\-Stack.h.\hypertarget{classMainStack_r8}{
+\index{MainStack@{Main\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!MainStack@{Main\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classMainStack_r8}{Main\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r8}
+
+
+Definition at line 65 of file main\-Stack.h.
+
+Referenced by create\-New\-Dialog(), decrypt(), edit\-Name(), encrypt(), and open\-New\-Dialog().\hypertarget{classMainStack_r19}{
+\index{MainStack@{Main\-Stack}!widget@{widget}}
+\index{widget@{widget}!MainStack@{Main\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classMainStack_r6}{Main\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r19}
+
+
+Definition at line 78 of file main\-Stack.h.\hypertarget{classMainStack_r6}{
+\index{MainStack@{Main\-Stack}!widget@{widget}}
+\index{widget@{widget}!MainStack@{Main\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classMainStack_r6}{Main\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classMainStack_r6}
+
+
+Definition at line 63 of file main\-Stack.h.
+
+Referenced by client\-Opened().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{mainStack_8h}{main\-Stack.h}\item 
+\hyperlink{mainStack_8cpp}{main\-Stack.cpp}\end{CompactItemize}

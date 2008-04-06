@@ -1,0 +1,121 @@
+\hypertarget{classAccountEditType}{
+\section{Account\-Edit\-Type Class Reference}
+\label{classAccountEditType}\index{AccountEditType@{AccountEditType}}
+}
+{\tt \#include $<$account\-Edit\-Type.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classAccountEditType_a0}{Account\-Edit\-Type} (QTable $\ast$table, const QString \&default\-Content)
+\item 
+QWidget $\ast$ \hyperlink{classAccountEditType_a1}{create\-Editor} () const
+\item 
+void \hyperlink{classAccountEditType_a2}{set\-Content\-From\-Editor} (QWidget $\ast$widget)
+\item 
+QString \hyperlink{classAccountEditType_a3}{text} () const
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+QString \hyperlink{classAccountEditType_r0}{content}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAccountEditType_a0}{
+\index{AccountEditType@{Account\-Edit\-Type}!AccountEditType@{AccountEditType}}
+\index{AccountEditType@{AccountEditType}!AccountEditType@{Account\-Edit\-Type}}
+\subsubsection[AccountEditType]{\setlength{\rightskip}{0pt plus 5cm}Account\-Edit\-Type::Account\-Edit\-Type (QTable $\ast$ {\em table}, const QString \& {\em default\-Content})}}
+\label{classAccountEditType_a0}
+
+
+Definition at line 8 of file account\-Edit\-Type.cpp.
+
+\footnotesize\begin{verbatim}9     : QTableItem(table, QTableItem::OnTyping), content(defaultContent)
+10 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAccountEditType_a1}{
+\index{AccountEditType@{Account\-Edit\-Type}!createEditor@{createEditor}}
+\index{createEditor@{createEditor}!AccountEditType@{Account\-Edit\-Type}}
+\subsubsection[createEditor]{\setlength{\rightskip}{0pt plus 5cm}QWidget $\ast$ Account\-Edit\-Type::create\-Editor () const}}
+\label{classAccountEditType_a1}
+
+
+Definition at line 12 of file account\-Edit\-Type.cpp.
+
+References content.
+
+\footnotesize\begin{verbatim}13 {
+14     QComboBox *editor = new QComboBox(false, table()->viewport());
+15     editor->insertStringList(QStringList("Normal") << "Type 2" << "Type 3" << "Type 4");
+16     if(content == "Normal")
+17         editor->setCurrentItem(0);
+18     if(content == "Type 2")
+19         editor->setCurrentItem(1);
+20     if(content == "Type 3")
+21         editor->setCurrentItem(2);
+22     if(content == "Type 4")
+23         editor->setCurrentItem(3);
+24     return editor;
+25 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditType_a2}{
+\index{AccountEditType@{Account\-Edit\-Type}!setContentFromEditor@{setContentFromEditor}}
+\index{setContentFromEditor@{setContentFromEditor}!AccountEditType@{Account\-Edit\-Type}}
+\subsubsection[setContentFromEditor]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-Type::set\-Content\-From\-Editor (QWidget $\ast$ {\em widget})}}
+\label{classAccountEditType_a2}
+
+
+Definition at line 27 of file account\-Edit\-Type.cpp.
+
+References content.
+
+\footnotesize\begin{verbatim}28 {
+29     content = ((QComboBox*)(widget))->currentText();
+30 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditType_a3}{
+\index{AccountEditType@{Account\-Edit\-Type}!text@{text}}
+\index{text@{text}!AccountEditType@{Account\-Edit\-Type}}
+\subsubsection[text]{\setlength{\rightskip}{0pt plus 5cm}QString Account\-Edit\-Type::text () const}}
+\label{classAccountEditType_a3}
+
+
+Definition at line 32 of file account\-Edit\-Type.cpp.
+
+References content.
+
+\footnotesize\begin{verbatim}33 {
+34     return content;
+35 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classAccountEditType_r0}{
+\index{AccountEditType@{Account\-Edit\-Type}!content@{content}}
+\index{content@{content}!AccountEditType@{Account\-Edit\-Type}}
+\subsubsection[content]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classAccountEditType_r0}{Account\-Edit\-Type::content}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditType_r0}
+
+
+Definition at line 17 of file account\-Edit\-Type.h.
+
+Referenced by create\-Editor(), set\-Content\-From\-Editor(), and text().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{accountEditType_8h}{account\-Edit\-Type.h}\item 
+\hyperlink{accountEditType_8cpp}{account\-Edit\-Type.cpp}\end{CompactItemize}

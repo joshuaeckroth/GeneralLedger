@@ -1,0 +1,86 @@
+\hypertarget{classJournalDescEdit}{
+\section{Journal\-Desc\-Edit Class Reference}
+\label{classJournalDescEdit}\index{JournalDescEdit@{JournalDescEdit}}
+}
+{\tt \#include $<$journal\-Desc\-Edit.h$>$}
+
+Collaboration diagram for Journal\-Desc\-Edit:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classJournalDescEdit__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classJournalDescEdit_a0}{Journal\-Desc\-Edit} (\hyperlink{classJournalTable}{Journal\-Table} $\ast$table, const QString \&contents)
+\item 
+QWidget $\ast$ \hyperlink{classJournalDescEdit_a1}{create\-Editor} () const
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classJournalTable}{Journal\-Table} $\ast$ \hyperlink{classJournalDescEdit_r0}{journal\-Table}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classJournalDescEdit_a0}{
+\index{JournalDescEdit@{Journal\-Desc\-Edit}!JournalDescEdit@{JournalDescEdit}}
+\index{JournalDescEdit@{JournalDescEdit}!JournalDescEdit@{Journal\-Desc\-Edit}}
+\subsubsection[JournalDescEdit]{\setlength{\rightskip}{0pt plus 5cm}Journal\-Desc\-Edit::Journal\-Desc\-Edit (\hyperlink{classJournalTable}{Journal\-Table} $\ast$ {\em table}, const QString \& {\em contents})}}
+\label{classJournalDescEdit_a0}
+
+
+Definition at line 7 of file journal\-Desc\-Edit.cpp.
+
+\footnotesize\begin{verbatim}8     : QTableItem(table, QTableItem::OnTyping, contents), journalTable(table)
+9 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classJournalDescEdit_a1}{
+\index{JournalDescEdit@{Journal\-Desc\-Edit}!createEditor@{createEditor}}
+\index{createEditor@{createEditor}!JournalDescEdit@{Journal\-Desc\-Edit}}
+\subsubsection[createEditor]{\setlength{\rightskip}{0pt plus 5cm}QWidget $\ast$ Journal\-Desc\-Edit::create\-Editor () const}}
+\label{classJournalDescEdit_a1}
+
+
+Definition at line 11 of file journal\-Desc\-Edit.cpp.
+
+References Journal\-Table::is\-Inserting(), and journal\-Table.
+
+\footnotesize\begin{verbatim}12 {
+13     QLineEdit *lineEdit = new QLineEdit(table()->viewport());
+14     
+15     lineEdit->setText(text());
+16     
+17     if(journalTable->isInserting())
+18         lineEdit->selectAll();
+19 
+20     return lineEdit;
+21 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classJournalDescEdit_r0}{
+\index{JournalDescEdit@{Journal\-Desc\-Edit}!journalTable@{journalTable}}
+\index{journalTable@{journalTable}!JournalDescEdit@{Journal\-Desc\-Edit}}
+\subsubsection[journalTable]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classJournalTable}{Journal\-Table}$\ast$ \hyperlink{classJournalDescEdit_r0}{Journal\-Desc\-Edit::journal\-Table}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalDescEdit_r0}
+
+
+Definition at line 15 of file journal\-Desc\-Edit.h.
+
+Referenced by create\-Editor().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{journalDescEdit_8h}{journal\-Desc\-Edit.h}\item 
+\hyperlink{journalDescEdit_8cpp}{journal\-Desc\-Edit.cpp}\end{CompactItemize}

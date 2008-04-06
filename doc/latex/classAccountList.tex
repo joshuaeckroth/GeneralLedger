@@ -1,0 +1,75 @@
+\hypertarget{classAccountList}{
+\section{Account\-List Class Reference}
+\label{classAccountList}\index{AccountList@{AccountList}}
+}
+{\tt \#include $<$account\-List.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classAccountList_a0}{Account\-List} (QWidget $\ast$parent, const char $\ast$name, QString\-List \&accounts)
+\item 
+QString \hyperlink{classAccountList_a1}{account\-Number} () const
+\item 
+void \hyperlink{classAccountList_a2}{update\-Accounts} (const QString\-List \&accounts)
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAccountList_a0}{
+\index{AccountList@{Account\-List}!AccountList@{AccountList}}
+\index{AccountList@{AccountList}!AccountList@{Account\-List}}
+\subsubsection[AccountList]{\setlength{\rightskip}{0pt plus 5cm}Account\-List::Account\-List (QWidget $\ast$ {\em parent}, const char $\ast$ {\em name}, QString\-List \& {\em accounts})}}
+\label{classAccountList_a0}
+
+
+Definition at line 7 of file account\-List.cpp.
+
+\footnotesize\begin{verbatim}8     : QComboBox(false, parent, name)
+9 {
+10     insertStringList(accounts);
+11 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAccountList_a1}{
+\index{AccountList@{Account\-List}!accountNumber@{accountNumber}}
+\index{accountNumber@{accountNumber}!AccountList@{Account\-List}}
+\subsubsection[accountNumber]{\setlength{\rightskip}{0pt plus 5cm}QString Account\-List::account\-Number () const}}
+\label{classAccountList_a1}
+
+
+Definition at line 13 of file account\-List.cpp.
+
+\footnotesize\begin{verbatim}14 {
+15     int pos = currentText().find(" - ");
+16     return currentText().left(pos);
+17 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountList_a2}{
+\index{AccountList@{Account\-List}!updateAccounts@{updateAccounts}}
+\index{updateAccounts@{updateAccounts}!AccountList@{Account\-List}}
+\subsubsection[updateAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Account\-List::update\-Accounts (const QString\-List \& {\em accounts})}}
+\label{classAccountList_a2}
+
+
+Definition at line 19 of file account\-List.cpp.
+
+\footnotesize\begin{verbatim}20 {
+21     clear();
+22     insertStringList(accounts);
+23 }
+\end{verbatim}\normalsize 
+
+
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{accountList_8h}{account\-List.h}\item 
+\hyperlink{accountList_8cpp}{account\-List.cpp}\end{CompactItemize}

@@ -1,0 +1,16 @@
+base referer
+rect $accountStack_8cpp.html 230,7 358,31
+rect $accountTable_8cpp.html 230,55 358,79
+rect $balanceSheetEditor_8cpp.html 9,118 172,142
+rect $editorElement_8h.html 237,205 352,229
+rect $database_8cpp.html 40,191 141,215
+rect $editorElement_8cpp.html 26,247 154,271
+rect $incomeRetailEditor_8cpp.html 10,301 170,325
+rect $incomeSvcEditor_8cpp.html 17,518 164,542
+rect $journalStack_8cpp.html 233,354 356,378
+rect $journalSummary_8cpp.html 221,402 368,426
+rect $journalTable_8cpp.html 234,450 354,474
+rect $main_8cpp.html 257,498 332,522
+rect $mainStack_8cpp.html 240,546 349,570
+rect $reportStack_8cpp.html 237,594 352,618
+rect $tabs_8cpp.html 258,642 330,666

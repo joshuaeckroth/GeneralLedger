@@ -1,0 +1,285 @@
+\hypertarget{classJournalSummary}{
+\section{Journal\-Summary Class Reference}
+\label{classJournalSummary}\index{JournalSummary@{JournalSummary}}
+}
+{\tt \#include $<$journal\-Summary.h$>$}
+
+Collaboration diagram for Journal\-Summary:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classJournalSummary__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classJournalSummary_a0}{Journal\-Summary} (QWidget $\ast$parent=0, const char $\ast$name=0, \hyperlink{classJournalTable}{Journal\-Table} $\ast$table=0)
+\item 
+\hyperlink{classJournalSummary_a1}{$\sim$Journal\-Summary} ()
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classJournalSummary_k0}{update\-Summary} ()
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classJournalSummary_r0}{db}
+\item 
+QGrid\-Layout $\ast$ \hyperlink{classJournalSummary_r1}{grid}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r2}{debit\-Label}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r3}{debit\-Value}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r4}{credit\-Label}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r5}{credit\-Value}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r6}{balance\-Label}
+\item 
+QLabel $\ast$ \hyperlink{classJournalSummary_r7}{balance\-Value}
+\item 
+QSpacer\-Item $\ast$ \hyperlink{classJournalSummary_r8}{debit\-Width}
+\item 
+QSpacer\-Item $\ast$ \hyperlink{classJournalSummary_r9}{credit\-Width}
+\item 
+QSpacer\-Item $\ast$ \hyperlink{classJournalSummary_r10}{scroll\-Width}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classJournalSummary_a0}{
+\index{JournalSummary@{Journal\-Summary}!JournalSummary@{JournalSummary}}
+\index{JournalSummary@{JournalSummary}!JournalSummary@{Journal\-Summary}}
+\subsubsection[JournalSummary]{\setlength{\rightskip}{0pt plus 5cm}Journal\-Summary::Journal\-Summary (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0}, \hyperlink{classJournalTable}{Journal\-Table} $\ast$ {\em table} = {\tt 0})}}
+\label{classJournalSummary_a0}
+
+
+Definition at line 9 of file journal\-Summary.cpp.
+
+References balance\-Label, balance\-Value, Journal\-Table::credit\-Col\-Width(), credit\-Label, credit\-Value, credit\-Width, db, Journal\-Table::debit\-Col\-Width(), debit\-Label, debit\-Value, debit\-Width, grid, Database::instance(), Database::journal\-Tmp\-Balance(), Database::journal\-Tmp\-Credit(), Database::journal\-Tmp\-Debit(), scroll\-Width, and update\-Summary().
+
+\footnotesize\begin{verbatim}10     : QWidget(parent,name)
+11 {
+12     db = Database::instance();
+13     connect(db, SIGNAL(journalTmpChanged()), this, SLOT(updateSummary()));
+14     
+15     int debitColWidth = table->debitColWidth();
+16     int creditColWidth = table->creditColWidth();
+17     int scrollBarWidth = (table->verticalScrollBar()->width() + 5);
+18     
+19     grid = new QGridLayout(this, 3, 5);
+20     
+21     debitLabel = new QLabel("Debit:", this);
+22     debitLabel->setAlignment(Qt::AlignRight);
+23     
+24     debitValue = new QLabel("<tt>" + db->journalTmpDebit() + "</tt>", this);
+25     debitValue->setFixedWidth(debitColWidth);
+26     debitValue->setAlignment(Qt::AlignRight);
+27     
+28     creditLabel = new QLabel("Credit:", this);
+29     creditLabel->setAlignment(Qt::AlignRight);
+30     
+31     creditValue = new QLabel("<tt>" + db->journalTmpCredit() + "</tt>", this);
+32     creditValue->setFixedWidth(creditColWidth);
+33     creditValue->setAlignment(Qt::AlignRight);
+34     
+35     balanceLabel = new QLabel(tr("<b>Balance:</b>"), this);
+36     balanceLabel->setAlignment(Qt::AlignRight);
+37     
+38     balanceValue = new QLabel("<b><tt>" + db->journalTmpBalance() + "</tt></b>", this);
+39     balanceValue->setAlignment(Qt::AlignRight);
+40     
+41     debitWidth = new QSpacerItem(debitColWidth, 1);
+42     creditWidth = new QSpacerItem(creditColWidth, 1);
+43     scrollWidth = new QSpacerItem(scrollBarWidth, 1);
+44     
+45     grid->setColStretch(0, 1);
+46     
+47     grid->addWidget(debitLabel, 0, 1);
+48     grid->addWidget(debitValue, 0, 2);
+49     grid->addItem(creditWidth, 0, 3);
+50     
+51     grid->addItem(scrollWidth, 0, 4);
+52     
+53     grid->addWidget(creditLabel, 1, 1);
+54     grid->addItem(debitWidth, 1, 2);
+55     grid->addWidget(creditValue, 1, 3);
+56     
+57     grid->addWidget(balanceLabel, 2, 1);
+58     grid->addItem(debitWidth, 2, 2);
+59     grid->addWidget(balanceValue, 2, 3);
+60     
+61 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classJournalSummary_a1}{
+\index{JournalSummary@{Journal\-Summary}!~JournalSummary@{$\sim$JournalSummary}}
+\index{~JournalSummary@{$\sim$JournalSummary}!JournalSummary@{Journal\-Summary}}
+\subsubsection[$\sim$JournalSummary]{\setlength{\rightskip}{0pt plus 5cm}Journal\-Summary::$\sim$\hyperlink{classJournalSummary}{Journal\-Summary} ()}}
+\label{classJournalSummary_a1}
+
+
+Definition at line 63 of file journal\-Summary.cpp.
+
+References balance\-Label, balance\-Value, credit\-Label, credit\-Value, credit\-Width, debit\-Label, debit\-Value, debit\-Width, grid, and scroll\-Width.
+
+\footnotesize\begin{verbatim}64 {
+65     grid->removeItem(scrollWidth);
+66     delete scrollWidth;
+67     grid->removeItem(creditWidth);
+68     delete creditWidth;
+69     grid->removeItem(debitWidth);
+70     delete debitWidth;
+71     grid->remove(balanceValue);
+72     delete balanceValue;
+73     grid->remove(balanceLabel);
+74     delete balanceLabel;
+75     grid->remove(creditValue);
+76     delete creditValue;
+77     grid->remove(creditLabel);
+78     delete creditLabel;
+79     grid->remove(debitValue);
+80     delete debitValue;
+81     grid->remove(debitLabel);
+82     delete debitLabel;
+83     delete grid;
+84 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classJournalSummary_k0}{
+\index{JournalSummary@{Journal\-Summary}!updateSummary@{updateSummary}}
+\index{updateSummary@{updateSummary}!JournalSummary@{Journal\-Summary}}
+\subsubsection[updateSummary]{\setlength{\rightskip}{0pt plus 5cm}void Journal\-Summary::update\-Summary ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classJournalSummary_k0}
+
+
+Definition at line 86 of file journal\-Summary.cpp.
+
+References balance\-Value, credit\-Value, db, debit\-Value, Database::journal\-Tmp\-Balance(), Database::journal\-Tmp\-Credit(), and Database::journal\-Tmp\-Debit().
+
+Referenced by Journal\-Summary().
+
+\footnotesize\begin{verbatim}87 {
+88     debitValue->setText("<tt>" + db->journalTmpDebit() + "</tt>");
+89     creditValue->setText("<tt>" + db->journalTmpCredit() + "</tt>");
+90     balanceValue->setText("<b><tt>" + db->journalTmpBalance() + "</tt></b>");
+91 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classJournalSummary_r6}{
+\index{JournalSummary@{Journal\-Summary}!balanceLabel@{balanceLabel}}
+\index{balanceLabel@{balanceLabel}!JournalSummary@{Journal\-Summary}}
+\subsubsection[balanceLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r6}{Journal\-Summary::balance\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r6}
+
+
+Definition at line 31 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r7}{
+\index{JournalSummary@{Journal\-Summary}!balanceValue@{balanceValue}}
+\index{balanceValue@{balanceValue}!JournalSummary@{Journal\-Summary}}
+\subsubsection[balanceValue]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r7}{Journal\-Summary::balance\-Value}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r7}
+
+
+Definition at line 32 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), update\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r4}{
+\index{JournalSummary@{Journal\-Summary}!creditLabel@{creditLabel}}
+\index{creditLabel@{creditLabel}!JournalSummary@{Journal\-Summary}}
+\subsubsection[creditLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r4}{Journal\-Summary::credit\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r4}
+
+
+Definition at line 29 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r5}{
+\index{JournalSummary@{Journal\-Summary}!creditValue@{creditValue}}
+\index{creditValue@{creditValue}!JournalSummary@{Journal\-Summary}}
+\subsubsection[creditValue]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r5}{Journal\-Summary::credit\-Value}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r5}
+
+
+Definition at line 30 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), update\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r9}{
+\index{JournalSummary@{Journal\-Summary}!creditWidth@{creditWidth}}
+\index{creditWidth@{creditWidth}!JournalSummary@{Journal\-Summary}}
+\subsubsection[creditWidth]{\setlength{\rightskip}{0pt plus 5cm}QSpacer\-Item$\ast$ \hyperlink{classJournalSummary_r9}{Journal\-Summary::credit\-Width}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r9}
+
+
+Definition at line 34 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r0}{
+\index{JournalSummary@{Journal\-Summary}!db@{db}}
+\index{db@{db}!JournalSummary@{Journal\-Summary}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classJournalSummary_r0}{Journal\-Summary::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r0}
+
+
+Definition at line 24 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and update\-Summary().\hypertarget{classJournalSummary_r2}{
+\index{JournalSummary@{Journal\-Summary}!debitLabel@{debitLabel}}
+\index{debitLabel@{debitLabel}!JournalSummary@{Journal\-Summary}}
+\subsubsection[debitLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r2}{Journal\-Summary::debit\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r2}
+
+
+Definition at line 27 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r3}{
+\index{JournalSummary@{Journal\-Summary}!debitValue@{debitValue}}
+\index{debitValue@{debitValue}!JournalSummary@{Journal\-Summary}}
+\subsubsection[debitValue]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classJournalSummary_r3}{Journal\-Summary::debit\-Value}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r3}
+
+
+Definition at line 28 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), update\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r8}{
+\index{JournalSummary@{Journal\-Summary}!debitWidth@{debitWidth}}
+\index{debitWidth@{debitWidth}!JournalSummary@{Journal\-Summary}}
+\subsubsection[debitWidth]{\setlength{\rightskip}{0pt plus 5cm}QSpacer\-Item$\ast$ \hyperlink{classJournalSummary_r8}{Journal\-Summary::debit\-Width}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r8}
+
+
+Definition at line 33 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r1}{
+\index{JournalSummary@{Journal\-Summary}!grid@{grid}}
+\index{grid@{grid}!JournalSummary@{Journal\-Summary}}
+\subsubsection[grid]{\setlength{\rightskip}{0pt plus 5cm}QGrid\-Layout$\ast$ \hyperlink{classJournalSummary_r1}{Journal\-Summary::grid}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r1}
+
+
+Definition at line 26 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().\hypertarget{classJournalSummary_r10}{
+\index{JournalSummary@{Journal\-Summary}!scrollWidth@{scrollWidth}}
+\index{scrollWidth@{scrollWidth}!JournalSummary@{Journal\-Summary}}
+\subsubsection[scrollWidth]{\setlength{\rightskip}{0pt plus 5cm}QSpacer\-Item$\ast$ \hyperlink{classJournalSummary_r10}{Journal\-Summary::scroll\-Width}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classJournalSummary_r10}
+
+
+Definition at line 35 of file journal\-Summary.h.
+
+Referenced by Journal\-Summary(), and $\sim$Journal\-Summary().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{journalSummary_8h}{journal\-Summary.h}\item 
+\hyperlink{journalSummary_8cpp}{journal\-Summary.cpp}\end{CompactItemize}

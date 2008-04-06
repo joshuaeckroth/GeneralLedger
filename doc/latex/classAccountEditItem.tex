@@ -1,0 +1,185 @@
+\hypertarget{classAccountEditItem}{
+\section{Account\-Edit\-Item Class Reference}
+\label{classAccountEditItem}\index{AccountEditItem@{AccountEditItem}}
+}
+{\tt \#include $<$account\-Edit\-Item.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classAccountEditItem_a0}{Account\-Edit\-Item} (QTable $\ast$table, QString\-List \&new\-Accounts, const QString \&new\-Text, const QString \&new\-Key)
+\item 
+\hyperlink{classAccountEditItem_a1}{Account\-Edit\-Item} (QTable $\ast$table, const QString \&new\-Text, const QString \&new\-Key)
+\item 
+QWidget $\ast$ \hyperlink{classAccountEditItem_a2}{create\-Editor} () const
+\item 
+void \hyperlink{classAccountEditItem_a3}{set\-Content\-From\-Editor} (QWidget $\ast$widget)
+\item 
+QString \hyperlink{classAccountEditItem_a4}{text} () const
+\item 
+QString \hyperlink{classAccountEditItem_a5}{get\-Key} () const
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+QString\-List \hyperlink{classAccountEditItem_r0}{accounts}
+\item 
+QString \hyperlink{classAccountEditItem_r1}{item\-Text}
+\item 
+QString \hyperlink{classAccountEditItem_r2}{item\-Key}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAccountEditItem_a0}{
+\index{AccountEditItem@{Account\-Edit\-Item}!AccountEditItem@{AccountEditItem}}
+\index{AccountEditItem@{AccountEditItem}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[AccountEditItem]{\setlength{\rightskip}{0pt plus 5cm}Account\-Edit\-Item::Account\-Edit\-Item (QTable $\ast$ {\em table}, QString\-List \& {\em new\-Accounts}, const QString \& {\em new\-Text}, const QString \& {\em new\-Key})}}
+\label{classAccountEditItem_a0}
+
+
+Definition at line 10 of file account\-Edit\-Item.cpp.
+
+\footnotesize\begin{verbatim}11     : QTableItem(table, QTableItem::OnTyping), accounts(newAccounts), itemText(newText), itemKey(newKey)
+12 {}
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditItem_a1}{
+\index{AccountEditItem@{Account\-Edit\-Item}!AccountEditItem@{AccountEditItem}}
+\index{AccountEditItem@{AccountEditItem}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[AccountEditItem]{\setlength{\rightskip}{0pt plus 5cm}Account\-Edit\-Item::Account\-Edit\-Item (QTable $\ast$ {\em table}, const QString \& {\em new\-Text}, const QString \& {\em new\-Key})}}
+\label{classAccountEditItem_a1}
+
+
+Definition at line 14 of file account\-Edit\-Item.cpp.
+
+References accounts.
+
+\footnotesize\begin{verbatim}15     : QTableItem(table, QTableItem::OnTyping), itemText(newText), itemKey(newKey)
+16 {
+17     accounts = QStringList();
+18 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAccountEditItem_a2}{
+\index{AccountEditItem@{Account\-Edit\-Item}!createEditor@{createEditor}}
+\index{createEditor@{createEditor}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[createEditor]{\setlength{\rightskip}{0pt plus 5cm}QWidget $\ast$ Account\-Edit\-Item::create\-Editor () const}}
+\label{classAccountEditItem_a2}
+
+
+Definition at line 20 of file account\-Edit\-Item.cpp.
+
+References accounts, and item\-Text.
+
+\footnotesize\begin{verbatim}21 {
+22     if(accounts.count())
+23     {
+24         AccountEditList *editor = new AccountEditList(table()->viewport(), 0, accounts, itemText);
+25         return editor;
+26     }
+27     else
+28     {
+29         QLineEdit *editor = new QLineEdit(itemText, table()->viewport());
+30         editor->setValidator(new QRegExpValidator(QRegExp("\\d+-?\\d*"), editor));
+31         return editor;
+32     }
+33 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditItem_a5}{
+\index{AccountEditItem@{Account\-Edit\-Item}!getKey@{getKey}}
+\index{getKey@{getKey}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[getKey]{\setlength{\rightskip}{0pt plus 5cm}QString Account\-Edit\-Item::get\-Key () const}}
+\label{classAccountEditItem_a5}
+
+
+Definition at line 48 of file account\-Edit\-Item.cpp.
+
+References item\-Key.
+
+\footnotesize\begin{verbatim}49 {
+50     return itemKey;
+51 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditItem_a3}{
+\index{AccountEditItem@{Account\-Edit\-Item}!setContentFromEditor@{setContentFromEditor}}
+\index{setContentFromEditor@{setContentFromEditor}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[setContentFromEditor]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Edit\-Item::set\-Content\-From\-Editor (QWidget $\ast$ {\em widget})}}
+\label{classAccountEditItem_a3}
+
+
+Definition at line 35 of file account\-Edit\-Item.cpp.
+
+References item\-Text.
+
+\footnotesize\begin{verbatim}36 {
+37     if(widget->inherits("QComboBox"))
+38         itemText = ((AccountEditList*)widget)->currentText();
+39     else
+40         itemText = ((QLineEdit*)widget)->text();
+41 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountEditItem_a4}{
+\index{AccountEditItem@{Account\-Edit\-Item}!text@{text}}
+\index{text@{text}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[text]{\setlength{\rightskip}{0pt plus 5cm}QString Account\-Edit\-Item::text () const}}
+\label{classAccountEditItem_a4}
+
+
+Definition at line 43 of file account\-Edit\-Item.cpp.
+
+References item\-Text.
+
+\footnotesize\begin{verbatim}44 {
+45     return itemText;
+46 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classAccountEditItem_r0}{
+\index{AccountEditItem@{Account\-Edit\-Item}!accounts@{accounts}}
+\index{accounts@{accounts}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[accounts]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \hyperlink{classAccountEditItem_r0}{Account\-Edit\-Item::accounts}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditItem_r0}
+
+
+Definition at line 19 of file account\-Edit\-Item.h.
+
+Referenced by Account\-Edit\-Item(), and create\-Editor().\hypertarget{classAccountEditItem_r2}{
+\index{AccountEditItem@{Account\-Edit\-Item}!itemKey@{itemKey}}
+\index{itemKey@{itemKey}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[itemKey]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classAccountEditItem_r2}{Account\-Edit\-Item::item\-Key}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditItem_r2}
+
+
+Definition at line 21 of file account\-Edit\-Item.h.
+
+Referenced by get\-Key().\hypertarget{classAccountEditItem_r1}{
+\index{AccountEditItem@{Account\-Edit\-Item}!itemText@{itemText}}
+\index{itemText@{itemText}!AccountEditItem@{Account\-Edit\-Item}}
+\subsubsection[itemText]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classAccountEditItem_r1}{Account\-Edit\-Item::item\-Text}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountEditItem_r1}
+
+
+Definition at line 20 of file account\-Edit\-Item.h.
+
+Referenced by create\-Editor(), set\-Content\-From\-Editor(), and text().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{accountEditItem_8h}{account\-Edit\-Item.h}\item 
+\hyperlink{accountEditItem_8cpp}{account\-Edit\-Item.cpp}\end{CompactItemize}

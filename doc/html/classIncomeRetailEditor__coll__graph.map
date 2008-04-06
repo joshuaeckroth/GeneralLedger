@@ -1,0 +1,7 @@
+base referer
+rect $classAccountList.html 8,99 101,123
+rect $structIncomeRetailEditor_1_1ElementSection.html 125,99 360,123
+rect $classDatabase.html 384,99 461,123
+rect $structDatabase_1_1ReportStruct.html 201,9 364,33
+rect $classSettings.html 388,9 457,33
+rect $structDatabase_1_1JournalTmpReport.html 552,9 749,33

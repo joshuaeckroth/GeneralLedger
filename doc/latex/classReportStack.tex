@@ -1,0 +1,2168 @@
+\hypertarget{classReportStack}{
+\section{Report\-Stack Class Reference}
+\label{classReportStack}\index{ReportStack@{ReportStack}}
+}
+{\tt \#include $<$report\-Stack.h$>$}
+
+Collaboration diagram for Report\-Stack:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{classReportStack__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classReportStack_l0}{go\-To\-Main} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classReportStack_a0}{Report\-Stack} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\item 
+\hyperlink{classReportStack_a1}{$\sim$Report\-Stack} ()
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classReportStack_k0}{detail\-Accounts\-All\-Changed} (bool)
+\item 
+void \hyperlink{classReportStack_k1}{trial\-Accounts\-All\-Changed} (bool)
+\item 
+void \hyperlink{classReportStack_k2}{db\-Opened} ()
+\item 
+void \hyperlink{classReportStack_k3}{update\-Accounts} ()
+\item 
+void \hyperlink{classReportStack_k4}{view\-Report} (QString \&text)
+\item 
+void \hyperlink{classReportStack_k5}{export\-PDF} ()
+\item 
+void \hyperlink{classReportStack_k6}{export\-CSV} ()
+\item 
+void \hyperlink{classReportStack_k7}{switch\-Widget} ()
+\item 
+void \hyperlink{classReportStack_k8}{general\-Detail\-Report} ()
+\item 
+void \hyperlink{classReportStack_k9}{general\-Trial\-Report} ()
+\item 
+void \hyperlink{classReportStack_k10}{chart\-Accounts\-Report} ()
+\item 
+void \hyperlink{classReportStack_k11}{balance\-Report} ()
+\item 
+void \hyperlink{classReportStack_k12}{income\-Svc\-Report} ()
+\item 
+void \hyperlink{classReportStack_k13}{income\-Retail\-Report} ()
+\item 
+void \hyperlink{classReportStack_k14}{switch\-To\-Edit\-Balance} ()
+\item 
+void \hyperlink{classReportStack_k15}{switch\-To\-Edit\-Income\-Svc} ()
+\item 
+void \hyperlink{classReportStack_k16}{switch\-To\-Edit\-Income\-Retail} ()
+\item 
+void \hyperlink{classReportStack_k17}{print} ()
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+bool \hyperlink{classReportStack_d0}{event\-Filter} (QObject $\ast$target, QEvent $\ast$event)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classReportStack_r0}{db}
+\item 
+\hyperlink{classSettings}{Settings} $\ast$ \hyperlink{classReportStack_r1}{settings}
+\item 
+\hyperlink{classPrinter}{Printer} $\ast$ \hyperlink{classReportStack_r2}{printer}
+\item 
+QString \hyperlink{classReportStack_r3}{client\-Path}
+\item 
+QString \hyperlink{classReportStack_r4}{export\-Path}
+\item 
+QString \hyperlink{classReportStack_r5}{import\-Path}
+\item 
+int \hyperlink{classReportStack_r6}{active}
+\item 
+QString\-List \hyperlink{classReportStack_r7}{accounts}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r8}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r9}{vBoxLabel}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r10}{hBoxLabel}\\
+\>\hyperlink{classGoBackLabel}{GoBackLabel} $\ast$ \hyperlink{classReportStack_r11}{topLabel}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r12}{hBoxLayout}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r13}{vBoxLayout}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r14}{reportsGroup}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r15}{reportsWidget}\\
+\>QGridLayout $\ast$ \hyperlink{classReportStack_r16}{reportsGridLayout}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r17}{generalDetailVGroupBox}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r18}{generalDetailDateRangeWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r19}{generalDetailDateRangeHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r20}{generalDetailDateRangeLabelBegin}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r21}{generalDetailDateRangeBegin}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r22}{generalDetailDateRangeLabelBetween}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r23}{generalDetailDateRangeEnd}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r24}{generalDetailAccountRangeWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r25}{generalDetailAccountRangeHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r26}{generalDetailAccountRangeLabel}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classReportStack_r27}{generalDetailAccountRangeBegin}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r28}{generalDetailAccountRangeLabelBetween}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classReportStack_r29}{generalDetailAccountRangeEnd}\\
+\>QCheckBox $\ast$ \hyperlink{classReportStack_r30}{generalDetailAccountRangeAll}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r31}{generalDetailButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r32}{generalDetailButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r33}{generalTrialVGroupBox}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r34}{generalTrialMonthEndWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r35}{generalTrialMonthEndHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r36}{generalTrialMonthEndLabel}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r37}{generalTrialMonthEndList}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r38}{generalTrialAccountRangeWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r39}{generalTrialAccountRangeHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r40}{generalTrialAccountRangeLabel}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classReportStack_r41}{generalTrialAccountRangeBegin}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r42}{generalTrialAccountRangeLabelBetween}\\
+\>\hyperlink{classAccountList}{AccountList} $\ast$ \hyperlink{classReportStack_r43}{generalTrialAccountRangeEnd}\\
+\>QCheckBox $\ast$ \hyperlink{classReportStack_r44}{generalTrialAccountRangeAll}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r45}{generalTrialButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r46}{generalTrialButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r47}{balanceVGroupBox}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r48}{balanceMonthEndWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r49}{balanceMonthEndHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r50}{balanceMonthEndLabel}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r51}{balanceMonthEndList}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r52}{balanceModifyWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r53}{balanceModifyHBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r54}{balanceModifyButton}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r55}{balanceReportButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r56}{balanceReportButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r57}{incomeSvcVGroupBox}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r58}{incomeSvcMonthEndWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r59}{incomeSvcMonthEndHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r60}{incomeSvcMonthEndLabel}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r61}{incomeSvcMonthEndList}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r62}{incomeSvcModifyWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r63}{incomeSvcModifyHBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r64}{incomeSvcModifyButton}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r65}{incomeSvcButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r66}{incomeSvcButton}\\
+\>QVGroupBox $\ast$ \hyperlink{classReportStack_r67}{incomeRetailVGroupBox}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r68}{incomeRetailMonthEndWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r69}{incomeRetailMonthEndHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r70}{incomeRetailMonthEndLabel}\\
+\>QComboBox $\ast$ \hyperlink{classReportStack_r71}{incomeRetailMonthEndList}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r72}{incomeRetailModifyWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r73}{incomeRetailModifyHBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r74}{incomeRetailModifyButton}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r75}{incomeRetailButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r76}{incomeRetailButton}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r77}{chartAccountsButtonVBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r78}{chartAccountsButton}\\
+\} \hyperlink{classReportStack_r79}{main}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r80}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r81}{vBoxLayout}\\
+\>QBoxLayout $\ast$ \hyperlink{classReportStack_r82}{labelLayout}\\
+\>\hyperlink{classGoBackLabel}{GoBackLabel} $\ast$ \hyperlink{classReportStack_r83}{topLabel}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r84}{print}\\
+\>QTextEdit $\ast$ \hyperlink{classReportStack_r85}{view}\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r86}{bottomWidget}\\
+\>QHBoxLayout $\ast$ \hyperlink{classReportStack_r87}{bottomHBoxLayout}\\
+\>QLabel $\ast$ \hyperlink{classReportStack_r88}{bottomLabel}\\
+\>QFrame $\ast$ \hyperlink{classReportStack_r89}{bottomRightFrame}\\
+\>QBoxLayout $\ast$ \hyperlink{classReportStack_r90}{bottomRightBoxLayout}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r91}{exportPDFButton}\\
+\>QPushButton $\ast$ \hyperlink{classReportStack_r92}{exportCSVButton}\\
+\} \hyperlink{classReportStack_r93}{report}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r94}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r95}{vBoxLayout}\\
+\>QBoxLayout $\ast$ \hyperlink{classReportStack_r96}{labelLayout}\\
+\>\hyperlink{classGoBackLabel}{GoBackLabel} $\ast$ \hyperlink{classReportStack_r97}{topLabel}\\
+\>\hyperlink{classBalanceSheetEditor}{BalanceSheetEditor} $\ast$ \hyperlink{classReportStack_r98}{editor}\\
+\} \hyperlink{classReportStack_r99}{balance}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r100}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r101}{vBoxLayout}\\
+\>QBoxLayout $\ast$ \hyperlink{classReportStack_r102}{labelLayout}\\
+\>\hyperlink{classGoBackLabel}{GoBackLabel} $\ast$ \hyperlink{classReportStack_r103}{topLabel}\\
+\>\hyperlink{classIncomeSvcEditor}{IncomeSvcEditor} $\ast$ \hyperlink{classReportStack_r104}{editor}\\
+\} \hyperlink{classReportStack_r105}{incomeSvc}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>QWidget $\ast$ \hyperlink{classReportStack_r106}{widget}\\
+\>QVBoxLayout $\ast$ \hyperlink{classReportStack_r107}{vBoxLayout}\\
+\>QBoxLayout $\ast$ \hyperlink{classReportStack_r108}{labelLayout}\\
+\>\hyperlink{classGoBackLabel}{GoBackLabel} $\ast$ \hyperlink{classReportStack_r109}{topLabel}\\
+\>\hyperlink{classIncomeRetailEditor}{IncomeRetailEditor} $\ast$ \hyperlink{classReportStack_r110}{editor}\\
+\} \hyperlink{classReportStack_r111}{incomeRetail}\\
+
+\end{tabbing}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classReportStack_a0}{
+\index{ReportStack@{Report\-Stack}!ReportStack@{ReportStack}}
+\index{ReportStack@{ReportStack}!ReportStack@{Report\-Stack}}
+\subsubsection[ReportStack]{\setlength{\rightskip}{0pt plus 5cm}Report\-Stack::Report\-Stack (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classReportStack_a0}
+
+
+Definition at line 37 of file report\-Stack.cpp.
+
+References accounts, active, balance\-Report(), chart\-Accounts\-Report(), client\-Path, db, detail\-Accounts\-All\-Changed(), export\-CSV(), export\-Path, export\-PDF(), general\-Detail\-Report(), general\-Trial\-Report(), Settings::get\-Client\-Path(), Settings::get\-Export\-Path(), Settings::get\-Import\-Path(), go\-To\-Main(), import\-Path, income\-Retail\-Report(), income\-Svc\-Report(), Printer::instance(), Settings::instance(), Database::instance(), main, print(), printer, report, settings, switch\-To\-Edit\-Balance(), switch\-To\-Edit\-Income\-Retail(), switch\-To\-Edit\-Income\-Svc(), switch\-Widget(), trial\-Accounts\-All\-Changed(), and update\-Accounts().
+
+\footnotesize\begin{verbatim}38     : QWidgetStack(parent,name)
+39 {
+40     db = Database::instance();
+41     settings = Settings::instance();
+42     printer = Printer::instance();
+43 
+44     clientPath = settings->getClientPath();
+45     exportPath = settings->getExportPath();
+46     importPath = settings->getImportPath();
+47     
+48     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
+49     accounts = QStringList("                    ");  // set a placeholder width
+50 
+51     QStringList periodTmp("Period X (00/00/00)");  // placeholder for combobox sizes
+52     
+53     main.widget = new QWidget(this);
+54     
+55     main.vBoxLabel = new QVBoxLayout(main.widget);
+56     
+57     main.hBoxLabel = new QHBoxLayout(main.vBoxLabel);
+58     main.hBoxLabel->setMargin(5);
+59     
+60     main.topLabel = new GoBackLabel(main.widget);
+61     connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
+62     
+63     main.hBoxLabel->addWidget(main.topLabel);
+64     main.hBoxLabel->addStretch();
+65     
+66     main.hBoxLayout = new QHBoxLayout(main.vBoxLabel);
+67     
+68     main.hBoxLayout->addStretch();
+69     
+70     main.vBoxLayout = new QVBoxLayout(main.hBoxLayout);
+71     main.vBoxLayout->setSpacing(30);
+72     
+73     main.vBoxLayout->addStretch();
+74     
+75     
+76     main.reportsGroup = new QVGroupBox("Reports", main.widget);
+77     main.reportsGroup->setInsideMargin(30);
+78     main.reportsGroup->setInsideSpacing(20);
+79     
+80     main.vBoxLayout->add(main.reportsGroup);
+81     
+82     main.reportsWidget = new QWidget(main.reportsGroup);
+83     
+84     main.reportsGridLayout = new QGridLayout(main.reportsWidget, 6, 2, 0, 15);  // rows, cols, margin, spacing
+85     
+86     
+87     main.generalDetailVGroupBox = new QVGroupBox(main.reportsWidget);
+88     main.generalDetailVGroupBox->setInsideSpacing(5);
+89     
+90     main.generalDetailDateRangeWidget = new QWidget(main.generalDetailVGroupBox);
+91     main.generalDetailDateRangeHBoxLayout = new QHBoxLayout(main.generalDetailDateRangeWidget);
+92     main.generalDetailDateRangeHBoxLayout->setSpacing(5);
+93     
+94     main.generalDetailDateRangeLabelBegin = new QLabel("Date Range:", main.generalDetailDateRangeWidget);
+95     main.generalDetailDateRangeBegin = new QComboBox(main.generalDetailDateRangeWidget);
+96     main.generalDetailDateRangeBegin->setFocus();
+97     main.generalDetailDateRangeBegin->installEventFilter(this);
+98     main.generalDetailDateRangeBegin->insertStringList(periodTmp);
+99     main.generalDetailDateRangeLabelBetween = new QLabel("to", main.generalDetailDateRangeWidget);
+100     main.generalDetailDateRangeEnd = new QComboBox(main.generalDetailDateRangeWidget);
+101     main.generalDetailDateRangeEnd->installEventFilter(this);
+102     main.generalDetailDateRangeEnd->insertStringList(periodTmp);
+103     
+104     main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeLabelBegin);
+105     main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeBegin);
+106     main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeLabelBetween);
+107     main.generalDetailDateRangeHBoxLayout->addWidget(main.generalDetailDateRangeEnd);
+108     main.generalDetailDateRangeHBoxLayout->addStretch();
+109     
+110     main.generalDetailAccountRangeWidget = new QWidget(main.generalDetailVGroupBox);
+111     main.generalDetailAccountRangeHBoxLayout = new QHBoxLayout(main.generalDetailAccountRangeWidget);
+112     main.generalDetailAccountRangeHBoxLayout->setSpacing(5);
+113     
+114     main.generalDetailAccountRangeLabel = new QLabel("Account Range:", main.generalDetailAccountRangeWidget);
+115     main.generalDetailAccountRangeAll = new QCheckBox("All", main.generalDetailAccountRangeWidget);
+116     main.generalDetailAccountRangeAll->installEventFilter(this);
+117     main.generalDetailAccountRangeAll->setChecked(true);
+118     connect(main.generalDetailAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(detailAccountsAllChanged(bool)));
+119     main.generalDetailAccountRangeBegin = new AccountList(main.generalDetailAccountRangeWidget, 0, accounts);
+120     main.generalDetailAccountRangeBegin->installEventFilter(this);
+121     main.generalDetailAccountRangeBegin->setEnabled(false);
+122     main.generalDetailAccountRangeLabelBetween = new QLabel("to", main.generalDetailAccountRangeWidget);
+123     main.generalDetailAccountRangeLabelBetween->setEnabled(false);
+124     main.generalDetailAccountRangeEnd = new AccountList(main.generalDetailAccountRangeWidget, 0, accounts);
+125     main.generalDetailAccountRangeEnd->installEventFilter(this);
+126     main.generalDetailAccountRangeEnd->setEnabled(false);
+127 
+128     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeLabel);    
+129     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeAll);
+130     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeBegin);
+131     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeLabelBetween);
+132     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeEnd);
+133     main.generalDetailAccountRangeHBoxLayout->addStretch();
+134     
+135     main.generalDetailButtonVBoxLayout = new QVBoxLayout();
+136     main.generalDetailButton = new QPushButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/generalDetailReport.png")),
+137                                                "General Ledger Detail", main.reportsWidget);
+138     connect(main.generalDetailButton, SIGNAL(clicked()), this, SLOT(generalDetailReport()));
+139     main.generalDetailButton->setDefault(true);
+140     main.generalDetailButton->installEventFilter(this);
+141     main.generalDetailButtonVBoxLayout->addWidget(main.generalDetailButton);
+142     
+143     main.reportsGridLayout->addWidget(main.generalDetailVGroupBox, 0, 0);
+144     main.reportsGridLayout->addLayout(main.generalDetailButtonVBoxLayout, 0, 1);
+145     
+146     
+147     main.generalTrialVGroupBox = new QVGroupBox(main.reportsWidget);
+148     main.generalTrialVGroupBox->setInsideSpacing(5);
+149     
+150     main.generalTrialMonthEndWidget = new QWidget(main.generalTrialVGroupBox);
+151     main.generalTrialMonthEndHBoxLayout = new QHBoxLayout(main.generalTrialMonthEndWidget);
+152     main.generalTrialMonthEndHBoxLayout->setSpacing(5);
+153     
+154     main.generalTrialMonthEndLabel = new QLabel("Month-End:", main.generalTrialMonthEndWidget);
+155     main.generalTrialMonthEndList = new QComboBox(main.generalTrialMonthEndWidget);
+156     main.generalTrialMonthEndList->installEventFilter(this);
+157     main.generalTrialMonthEndList->insertStringList(periodTmp);
+158     
+159     main.generalTrialMonthEndHBoxLayout->addWidget(main.generalTrialMonthEndLabel);
+160     main.generalTrialMonthEndHBoxLayout->addWidget(main.generalTrialMonthEndList);
+161     main.generalTrialMonthEndHBoxLayout->addStretch();
+162     
+163     main.generalTrialAccountRangeWidget = new QWidget(main.generalTrialVGroupBox);
+164     main.generalTrialAccountRangeHBoxLayout = new QHBoxLayout(main.generalTrialAccountRangeWidget);
+165     main.generalTrialAccountRangeHBoxLayout->setSpacing(5);
+166     
+167     main.generalTrialAccountRangeLabel = new QLabel("Account Range:", main.generalTrialAccountRangeWidget);
+168     main.generalTrialAccountRangeAll = new QCheckBox("All", main.generalTrialAccountRangeWidget);
+169     main.generalTrialAccountRangeAll->installEventFilter(this);
+170     main.generalTrialAccountRangeAll->setChecked(true);
+171     connect(main.generalTrialAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(trialAccountsAllChanged(bool)));
+172     main.generalTrialAccountRangeBegin = new AccountList(main.generalTrialAccountRangeWidget, 0, accounts);
+173     main.generalTrialAccountRangeBegin->installEventFilter(this);
+174     main.generalTrialAccountRangeBegin->setEnabled(false);
+175     main.generalTrialAccountRangeLabelBetween = new QLabel("to", main.generalTrialAccountRangeWidget);
+176     main.generalTrialAccountRangeLabelBetween->setEnabled(false);
+177     main.generalTrialAccountRangeEnd = new AccountList(main.generalTrialAccountRangeWidget, 0, accounts);
+178     main.generalTrialAccountRangeEnd->installEventFilter(this);
+179     main.generalTrialAccountRangeEnd->setEnabled(false);
+180     
+181     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeLabel);
+182     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeAll);
+183     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeBegin);
+184     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeLabelBetween);
+185     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeEnd);
+186     main.generalTrialAccountRangeHBoxLayout->addStretch();
+187     
+188     main.generalTrialButtonVBoxLayout = new QVBoxLayout();
+189     main.generalTrialButton = new QPushButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/generalTrialReport.png")),
+190                                               "General Trial Balance", main.reportsWidget);
+191     connect(main.generalTrialButton, SIGNAL(clicked()), this, SLOT(generalTrialReport()));
+192     main.generalTrialButton->installEventFilter(this);
+193     main.generalTrialButtonVBoxLayout->addWidget(main.generalTrialButton);
+194     
+195     main.reportsGridLayout->addWidget(main.generalTrialVGroupBox, 1, 0);
+196     main.reportsGridLayout->addLayout(main.generalTrialButtonVBoxLayout, 1, 1);
+197     
+198     
+199     main.balanceVGroupBox = new QVGroupBox(main.reportsWidget);
+200     main.balanceVGroupBox->setInsideSpacing(5);
+201     
+202     main.balanceMonthEndWidget = new QWidget(main.balanceVGroupBox);
+203     main.balanceMonthEndHBoxLayout = new QHBoxLayout(main.balanceMonthEndWidget);
+204     main.balanceMonthEndHBoxLayout->setSpacing(5);
+205     
+206     main.balanceMonthEndLabel = new QLabel("Month-End:", main.balanceMonthEndWidget);
+207     main.balanceMonthEndList = new QComboBox(main.balanceMonthEndWidget);
+208     main.balanceMonthEndList->installEventFilter(this);
+209     main.balanceMonthEndList->insertStringList(periodTmp);
+210     
+211     main.balanceMonthEndHBoxLayout->addWidget(main.balanceMonthEndLabel);
+212     main.balanceMonthEndHBoxLayout->addWidget(main.balanceMonthEndList);
+213     main.balanceMonthEndHBoxLayout->addStretch();
+214     
+215     main.balanceModifyWidget = new QWidget(main.balanceVGroupBox);
+216     main.balanceModifyHBoxLayout = new QHBoxLayout(main.balanceModifyWidget);
+217     
+218     main.balanceModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/modifyReport.png") ),
+219                                                "Modify Balance Sheet", main.balanceModifyWidget);
+220     connect(main.balanceModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditBalance()));
+221     main.balanceModifyButton->installEventFilter(this);
+222     
+223     main.balanceModifyHBoxLayout->addWidget(main.balanceModifyButton);
+224     main.balanceModifyHBoxLayout->addStretch();
+225     
+226     main.balanceReportButtonVBoxLayout = new QVBoxLayout();
+227     main.balanceReportButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/balanceReport.png") ),
+228                                                "Balance Sheet Report", main.reportsWidget);
+229     connect(main.balanceReportButton, SIGNAL(clicked()), this, SLOT(balanceReport()));
+230     main.balanceReportButton->installEventFilter(this);
+231     main.balanceReportButtonVBoxLayout->addWidget(main.balanceReportButton);
+232         
+233     
+234     main.reportsGridLayout->addWidget(main.balanceVGroupBox, 2, 0);
+235     main.reportsGridLayout->addLayout(main.balanceReportButtonVBoxLayout, 2, 1);
+236     
+237     
+238     main.incomeSvcVGroupBox = new QVGroupBox(main.reportsWidget);
+239     main.incomeSvcVGroupBox->setInsideSpacing(5);
+240     
+241     main.incomeSvcMonthEndWidget = new QWidget(main.incomeSvcVGroupBox);
+242     main.incomeSvcMonthEndHBoxLayout = new QHBoxLayout(main.incomeSvcMonthEndWidget);
+243     main.incomeSvcMonthEndHBoxLayout->setSpacing(5);
+244     
+245     main.incomeSvcMonthEndLabel = new QLabel("Month-End:", main.incomeSvcMonthEndWidget);
+246     main.incomeSvcMonthEndList = new QComboBox(main.incomeSvcMonthEndWidget);
+247     main.incomeSvcMonthEndList->installEventFilter(this);
+248     main.incomeSvcMonthEndList->insertStringList(periodTmp);
+249     
+250     main.incomeSvcMonthEndHBoxLayout->addWidget(main.incomeSvcMonthEndLabel);
+251     main.incomeSvcMonthEndHBoxLayout->addWidget(main.incomeSvcMonthEndList);
+252     main.incomeSvcMonthEndHBoxLayout->addStretch();
+253     
+254     main.incomeSvcModifyWidget = new QWidget(main.incomeSvcVGroupBox);
+255     main.incomeSvcModifyHBoxLayout = new QHBoxLayout(main.incomeSvcModifyWidget);
+256     
+257     main.incomeSvcModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/modifyReport.png") ),
+258                                                "Modify Income Statement Svc. Co.", main.incomeSvcModifyWidget);
+259     connect(main.incomeSvcModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditIncomeSvc()));
+260     main.incomeSvcModifyButton->installEventFilter(this);
+261     
+262     main.incomeSvcModifyHBoxLayout->addWidget(main.incomeSvcModifyButton);
+263     main.incomeSvcModifyHBoxLayout->addStretch();
+264     
+265     main.incomeSvcButtonVBoxLayout = new QVBoxLayout();
+266     main.incomeSvcButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/incomeReport.png") ),
+267                                         "Income Statement Svc. Co.", main.reportsWidget);
+268     connect(main.incomeSvcButton, SIGNAL(clicked()), this, SLOT(incomeSvcReport()));
+269     main.incomeSvcButton->installEventFilter(this);
+270     main.incomeSvcButtonVBoxLayout->addWidget(main.incomeSvcButton);
+271     
+272     
+273     main.reportsGridLayout->addWidget(main.incomeSvcVGroupBox, 3, 0);
+274     main.reportsGridLayout->addLayout(main.incomeSvcButtonVBoxLayout, 3, 1);
+275     
+276 
+277     
+278     main.incomeRetailVGroupBox = new QVGroupBox(main.reportsWidget);
+279     main.incomeRetailVGroupBox->setInsideSpacing(5);
+280     
+281     main.incomeRetailMonthEndWidget = new QWidget(main.incomeRetailVGroupBox);
+282     main.incomeRetailMonthEndHBoxLayout = new QHBoxLayout(main.incomeRetailMonthEndWidget);
+283     main.incomeRetailMonthEndHBoxLayout->setSpacing(5);
+284     
+285     main.incomeRetailMonthEndLabel = new QLabel("Month-End:", main.incomeRetailMonthEndWidget);
+286     main.incomeRetailMonthEndList = new QComboBox(main.incomeRetailMonthEndWidget);
+287     main.incomeRetailMonthEndList->installEventFilter(this);
+288     main.incomeRetailMonthEndList->insertStringList(periodTmp);
+289     
+290     main.incomeRetailMonthEndHBoxLayout->addWidget(main.incomeRetailMonthEndLabel);
+291     main.incomeRetailMonthEndHBoxLayout->addWidget(main.incomeRetailMonthEndList);
+292     main.incomeRetailMonthEndHBoxLayout->addStretch();
+293     
+294     main.incomeRetailModifyWidget = new QWidget(main.incomeRetailVGroupBox);
+295     main.incomeRetailModifyHBoxLayout = new QHBoxLayout(main.incomeRetailModifyWidget);
+296     
+297     main.incomeRetailModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/modifyReport.png") ),
+298                                             "Modify Income Statement Retail", main.incomeRetailModifyWidget);
+299     connect(main.incomeRetailModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditIncomeRetail()));
+300     main.incomeRetailModifyButton->installEventFilter(this);
+301     
+302     main.incomeRetailModifyHBoxLayout->addWidget(main.incomeRetailModifyButton);
+303     main.incomeRetailModifyHBoxLayout->addStretch();
+304     
+305     main.incomeRetailButtonVBoxLayout = new QVBoxLayout();
+306     main.incomeRetailButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/incomeReport.png") ),
+307                                            "Income Statement Retail", main.reportsWidget);
+308     connect(main.incomeRetailButton, SIGNAL(clicked()), this, SLOT(incomeRetailReport()));
+309     main.incomeRetailButton->installEventFilter(this);
+310     main.incomeRetailButtonVBoxLayout->addWidget(main.incomeRetailButton);
+311     
+312     
+313     main.reportsGridLayout->addWidget(main.incomeRetailVGroupBox, 4, 0);
+314     main.reportsGridLayout->addLayout(main.incomeRetailButtonVBoxLayout, 4, 1);
+315 
+316 
+317 
+318     main.chartAccountsButtonVBoxLayout = new QVBoxLayout();
+319     main.chartAccountsButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/chartOfAccounts.png") ),
+320                                                "Chart of Accounts", main.reportsWidget);
+321     connect(main.chartAccountsButton, SIGNAL(clicked()), this, SLOT(chartAccountsReport()));
+322     main.chartAccountsButton->installEventFilter(this);
+323     main.chartAccountsButtonVBoxLayout->addWidget(main.chartAccountsButton);
+324     
+325     
+326     main.reportsGridLayout->addLayout(main.chartAccountsButtonVBoxLayout, 5, 1);
+327     
+328     
+329     main.vBoxLayout->addStretch();
+330     
+331     main.hBoxLayout->addStretch();
+332     
+333     
+334     addWidget(main.widget, 0);
+335     
+336     active = 0;
+337     
+338     
+339     report.widget = new QWidget(this);
+340     report.vBoxLayout = new QVBoxLayout(report.widget);
+341     report.vBoxLayout->setMargin(5);
+342     report.vBoxLayout->setSpacing(5);
+343     
+344     report.labelLayout = new QBoxLayout(report.vBoxLayout, QBoxLayout::LeftToRight);
+345     report.topLabel = new GoBackLabel(report.widget);
+346     connect(report.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
+347     
+348     report.print = new QPushButton(
+349             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/print.png") ),
+350             "Print Report (F8)", report.widget);
+351     report.print->setFocusPolicy(QWidget::NoFocus);
+352     connect(report.print, SIGNAL(clicked()), this, SLOT(print()));
+353     
+354     report.labelLayout->addWidget(report.topLabel, 0, Qt::AlignLeft | Qt::AlignTop);
+355     report.labelLayout->addStretch();
+356     report.labelLayout->addWidget(report.print);
+357     
+358     report.view = new QTextEdit(report.widget);
+359     report.view->setTextFormat(QTextEdit::RichText);
+360     report.view->setReadOnly(true);
+361     report.view->setVScrollBarMode(QScrollView::AlwaysOn);
+362     report.view->installEventFilter(this);
+363     
+364     report.vBoxLayout->addWidget(report.view);
+365     
+366     report.bottomWidget = new QWidget(report.widget);
+367     report.bottomHBoxLayout = new QHBoxLayout(report.bottomWidget);
+368     
+369     report.bottomLabel = new QLabel(
+370             "<nobr><b>Keyboard Control:</b></nobr><br>"
+371             "<nobr> &nbsp; &nbsp; <b>Up</b> / <b>Down</b>: Scroll the page</nobr><br>",
+372             report.bottomWidget);
+373     
+374     report.bottomRightFrame = new QFrame(report.bottomWidget);
+375     report.bottomRightBoxLayout = new QBoxLayout(report.bottomRightFrame, QBoxLayout::LeftToRight);
+376     report.bottomRightBoxLayout->setSpacing(5);
+377     
+378     report.exportPDFButton = new QPushButton(
+379             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/exportpdf.png") ),
+380             "Export to PDF (F11)", report.bottomRightFrame);
+381     connect(report.exportPDFButton, SIGNAL(clicked()), this, SLOT(exportPDF()));
+382     
+383     report.exportCSVButton = new QPushButton(
+384             QIconSet( QPixmap::fromMimeSource(ICON_PATH + "/export.png") ),
+385             "Export to CSV (F12)", report.bottomRightFrame);
+386     connect(report.exportCSVButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
+387     
+388     report.bottomRightBoxLayout->addWidget(report.exportPDFButton, 0, Qt::AlignLeft | Qt::AlignTop);
+389     report.bottomRightBoxLayout->addWidget(report.exportCSVButton, 0, Qt::AlignLeft | Qt::AlignTop);
+390     
+391     report.bottomHBoxLayout->addWidget(report.bottomLabel);
+392     report.bottomHBoxLayout->addStretch();
+393     report.bottomHBoxLayout->addWidget(report.bottomRightFrame);
+394     
+395     report.vBoxLayout->addWidget(report.bottomWidget);
+396     
+397     addWidget(report.widget, 1);
+398     
+399 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_a1}{
+\index{ReportStack@{Report\-Stack}!~ReportStack@{$\sim$ReportStack}}
+\index{~ReportStack@{$\sim$ReportStack}!ReportStack@{Report\-Stack}}
+\subsubsection[$\sim$ReportStack]{\setlength{\rightskip}{0pt plus 5cm}Report\-Stack::$\sim$\hyperlink{classReportStack}{Report\-Stack} ()}}
+\label{classReportStack_a1}
+
+
+Definition at line 401 of file report\-Stack.cpp.
+
+\footnotesize\begin{verbatim}402 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classReportStack_k11}{
+\index{ReportStack@{Report\-Stack}!balanceReport@{balanceReport}}
+\index{balanceReport@{balanceReport}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::balance\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k11}
+
+
+Definition at line 520 of file report\-Stack.cpp.
+
+References db, Database::get\-Balance\-Report(), main, Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}521 {
+522     viewReport(db->getBalanceReport(main.balanceMonthEndList->currentText())->reportString());
+523 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k10}{
+\index{ReportStack@{Report\-Stack}!chartAccountsReport@{chartAccountsReport}}
+\index{chartAccountsReport@{chartAccountsReport}!ReportStack@{Report\-Stack}}
+\subsubsection[chartAccountsReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::chart\-Accounts\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k10}
+
+
+Definition at line 525 of file report\-Stack.cpp.
+
+References db, Database::get\-Chart\-Accounts(), Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}526 {
+527     viewReport(db->getChartAccounts()->reportString());
+528 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k2}{
+\index{ReportStack@{Report\-Stack}!dbOpened@{dbOpened}}
+\index{dbOpened@{dbOpened}!ReportStack@{Report\-Stack}}
+\subsubsection[dbOpened]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::db\-Opened ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k2}
+
+
+Definition at line 438 of file report\-Stack.cpp.
+
+References active, db, Database::get\-Period\-Begin(), Database::get\-Period\-End(), main, and update\-Accounts().
+
+\footnotesize\begin{verbatim}439 {
+440     updateAccounts();
+441     
+442     QStringList periodBegin = db->getPeriodBegin();
+443     QStringList periodEnd = db->getPeriodEnd();
+444     main.generalDetailDateRangeBegin->clear();
+445     main.generalDetailDateRangeBegin->insertStringList(periodBegin);
+446     main.generalDetailDateRangeEnd->clear();
+447     main.generalDetailDateRangeEnd->insertStringList(periodEnd);
+448     main.generalTrialMonthEndList->clear();
+449     main.generalTrialMonthEndList->insertStringList(periodEnd);
+450     main.balanceMonthEndList->clear();
+451     main.balanceMonthEndList->insertStringList(periodEnd);
+452     main.incomeSvcMonthEndList->clear();
+453     main.incomeSvcMonthEndList->insertStringList(periodEnd);
+454     main.incomeRetailMonthEndList->clear();
+455     main.incomeRetailMonthEndList->insertStringList(periodEnd);
+456 
+457     raiseWidget(0);
+458     active = 0;
+459 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k0}{
+\index{ReportStack@{Report\-Stack}!detailAccountsAllChanged@{detailAccountsAllChanged}}
+\index{detailAccountsAllChanged@{detailAccountsAllChanged}!ReportStack@{Report\-Stack}}
+\subsubsection[detailAccountsAllChanged]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::detail\-Accounts\-All\-Changed (bool)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k0}
+
+
+Definition at line 404 of file report\-Stack.cpp.
+
+References main.
+
+Referenced by Report\-Stack().
+
+\footnotesize\begin{verbatim}405 {
+406     if(on)
+407     {
+408         main.generalDetailAccountRangeBegin->setEnabled(false);
+409         main.generalDetailAccountRangeLabelBetween->setEnabled(false);
+410         main.generalDetailAccountRangeEnd->setEnabled(false);
+411         main.generalDetailAccountRangeAll->setFocus();
+412     }
+413     else
+414     {
+415         main.generalDetailAccountRangeBegin->setEnabled(true);
+416         main.generalDetailAccountRangeLabelBetween->setEnabled(true);
+417         main.generalDetailAccountRangeEnd->setEnabled(true);
+418     }
+419 } 
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_d0}{
+\index{ReportStack@{Report\-Stack}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!ReportStack@{Report\-Stack}}
+\subsubsection[eventFilter]{\setlength{\rightskip}{0pt plus 5cm}bool Report\-Stack::event\-Filter (QObject $\ast$ {\em target}, QEvent $\ast$ {\em event})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_d0}
+
+
+Definition at line 694 of file report\-Stack.cpp.
+
+References active, balance\-Report(), chart\-Accounts\-Report(), export\-CSV(), export\-PDF(), general\-Detail\-Report(), general\-Trial\-Report(), go\-To\-Main(), income\-Retail\-Report(), income\-Svc\-Report(), main, print(), switch\-To\-Edit\-Income\-Retail(), switch\-To\-Edit\-Income\-Svc(), and switch\-Widget().
+
+\footnotesize\begin{verbatim}695 {
+696     if(event->type() == QEvent::KeyPress)
+697     {
+698         QKeyEvent *keyEvent = (QKeyEvent *)event;
+699         if(keyEvent->key() == Key_Escape)
+700         {
+701             if(active == 0)
+702                 emit goToMain();
+703             else
+704                 switchWidget();
+705             return true;
+706         }
+707         if((keyEvent->key() == Key_Enter || keyEvent->key() == Key_Return)
+708            && active == 0)
+709         {
+710             if(main.generalDetailButton->isDefault())
+711                 generalDetailReport();
+712             else if(main.generalTrialButton->isDefault())
+713                 generalTrialReport();
+714             else if(main.balanceReportButton->isDefault())
+715                 balanceReport();
+716             else if(main.incomeSvcModifyButton->isDefault())
+717                 switchToEditIncomeSvc();
+718             else if(main.incomeSvcButton->isDefault())
+719                 incomeSvcReport();
+720             else if(main.incomeRetailModifyButton->isDefault())
+721                 switchToEditIncomeRetail();
+722             else if(main.incomeRetailButton->isDefault())
+723                 incomeRetailReport();
+724             else if(main.chartAccountsButton->isDefault())
+725                 chartAccountsReport();
+726         }
+727         if(keyEvent->key() == Key_F8 && active == 1)
+728         {
+729             print();
+730             return true;
+731         }
+732         if(keyEvent->key() == Key_F11 && active == 1)
+733         {
+734             exportPDF();
+735             return true;
+736         }
+737         if(keyEvent->key() == Key_F12 && active == 1)
+738         {
+739             exportCSV();
+740             return true;
+741         }
+742     }
+743     if(event->type() == QEvent::FocusIn)
+744     {
+745         if(target == main.generalDetailDateRangeBegin
+746            || target == main.generalDetailDateRangeEnd
+747            || target == main.generalDetailAccountRangeBegin
+748            || target == main.generalDetailAccountRangeEnd
+749            || target == main.generalDetailAccountRangeAll
+750            || target == main.generalDetailButton)
+751         {
+752             if(!main.generalDetailButton->isDefault())
+753             {
+754                 main.generalDetailButton->setDefault(true);
+755                 main.generalTrialButton->setDefault(false);
+756                 main.balanceReportButton->setDefault(false);
+757                 main.incomeSvcModifyButton->setDefault(false);
+758                 main.incomeSvcButton->setDefault(false);
+759                 main.incomeRetailModifyButton->setDefault(false);
+760                 main.incomeRetailButton->setDefault(false);
+761                 main.chartAccountsButton->setDefault(false);
+762             }
+763         }
+764         else if(target == main.generalTrialMonthEndList
+765                 || target == main.generalTrialAccountRangeBegin
+766                 || target == main.generalTrialAccountRangeEnd
+767                 || target == main.generalTrialAccountRangeAll
+768                 || target == main.generalTrialButton)
+769         {
+770             if(!main.generalTrialButton->isDefault())
+771             {
+772                 main.generalDetailButton->setDefault(false);
+773                 main.generalTrialButton->setDefault(true);
+774                 main.balanceReportButton->setDefault(false);
+775                 main.incomeSvcModifyButton->setDefault(false);
+776                 main.incomeSvcButton->setDefault(false);
+777                 main.incomeRetailModifyButton->setDefault(false);
+778                 main.incomeRetailButton->setDefault(false);
+779                 main.chartAccountsButton->setDefault(false);
+780             }
+781         }
+782         else if(target == main.balanceMonthEndList
+783                 || target == main.balanceModifyButton   
+784                 || target == main.balanceReportButton)
+785         {
+786             if(!main.balanceReportButton->isDefault())
+787             {
+788                 main.generalDetailButton->setDefault(false);
+789                 main.generalTrialButton->setDefault(false);
+790                 main.balanceReportButton->setDefault(true);
+791                 main.incomeSvcModifyButton->setDefault(false);
+792                 main.incomeSvcButton->setDefault(false);
+793                 main.incomeRetailModifyButton->setDefault(false);
+794                 main.incomeRetailButton->setDefault(false);
+795                 main.chartAccountsButton->setDefault(false);
+796             }
+797         }
+798         else if(target == main.incomeSvcMonthEndList
+799                 || target == main.incomeSvcButton)
+800         {
+801             if(!main.incomeSvcButton->isDefault())
+802             {
+803                 main.generalDetailButton->setDefault(false);
+804                 main.generalTrialButton->setDefault(false);
+805                 main.balanceReportButton->setDefault(false);
+806                 main.incomeSvcModifyButton->setDefault(false);
+807                 main.incomeSvcButton->setDefault(true);
+808                 main.incomeRetailModifyButton->setDefault(false);
+809                 main.incomeRetailButton->setDefault(false);
+810                 main.chartAccountsButton->setDefault(false);
+811             }
+812         }
+813         else if(target == main.incomeSvcModifyButton)
+814         {
+815             if(!main.incomeSvcModifyButton->isDefault())
+816             {
+817                 main.generalDetailButton->setDefault(false);
+818                 main.generalTrialButton->setDefault(false);
+819                 main.balanceReportButton->setDefault(false);
+820                 main.incomeSvcModifyButton->setDefault(true);
+821                 main.incomeSvcButton->setDefault(false);
+822                 main.incomeRetailModifyButton->setDefault(false);
+823                 main.incomeRetailButton->setDefault(false);
+824                 main.chartAccountsButton->setDefault(false);
+825             }
+826         }
+827         else if(target == main.incomeRetailMonthEndList
+828                 || target == main.incomeRetailButton)
+829         {
+830             if(!main.incomeRetailButton->isDefault())
+831             {
+832                 main.generalDetailButton->setDefault(false);
+833                 main.generalTrialButton->setDefault(false);
+834                 main.balanceReportButton->setDefault(false);
+835                 main.incomeSvcModifyButton->setDefault(false);
+836                 main.incomeSvcButton->setDefault(false);
+837                 main.incomeRetailModifyButton->setDefault(false);
+838                 main.incomeRetailButton->setDefault(true);
+839                 main.chartAccountsButton->setDefault(false);
+840             }
+841         }
+842         else if(target == main.incomeRetailModifyButton)
+843         {
+844             if(!main.incomeRetailModifyButton->isDefault())
+845             {
+846                 main.generalDetailButton->setDefault(false);
+847                 main.generalTrialButton->setDefault(false);
+848                 main.balanceReportButton->setDefault(false);
+849                 main.incomeSvcModifyButton->setDefault(false);
+850                 main.incomeSvcButton->setDefault(false);
+851                 main.incomeRetailModifyButton->setDefault(true);
+852                 main.incomeRetailButton->setDefault(false);
+853                 main.chartAccountsButton->setDefault(false);
+854             }
+855         }
+856         else if(target == main.chartAccountsButton)
+857         {
+858             main.generalDetailButton->setDefault(false);
+859             main.generalTrialButton->setDefault(false);
+860             main.balanceReportButton->setDefault(false);
+861             main.incomeSvcModifyButton->setDefault(false);
+862             main.incomeSvcButton->setDefault(false);
+863             main.incomeRetailModifyButton->setDefault(false);
+864             main.incomeRetailButton->setDefault(false);
+865             main.chartAccountsButton->setDefault(true);
+866         }
+867     }
+868     return QWidgetStack::eventFilter(target,event);
+869 }  
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k6}{
+\index{ReportStack@{Report\-Stack}!exportCSV@{exportCSV}}
+\index{exportCSV@{exportCSV}!ReportStack@{Report\-Stack}}
+\subsubsection[exportCSV]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::export\-CSV ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k6}
+
+
+Definition at line 588 of file report\-Stack.cpp.
+
+References db, import\-Path, and Database::report\-CSV().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}589 {
+590     QString file = QFileDialog::getSaveFileName(
+591             importPath,
+592             "Comma Separated Values (*.csv)",
+593             this,
+594             0,
+595             "Export Report to CSV");
+596     
+597     if(file != "")
+598     {
+599         if(file.right(4) != ".csv")
+600             file.append(".csv");
+601 
+602         QFile destFile(file);
+603     
+604         if(destFile.open(IO_WriteOnly))
+605         {
+606             QTextStream destStream(&destFile);
+607             destStream << db->reportCSV();
+608         }
+609         destFile.close();
+610     }
+611 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k5}{
+\index{ReportStack@{Report\-Stack}!exportPDF@{exportPDF}}
+\index{exportPDF@{exportPDF}!ReportStack@{Report\-Stack}}
+\subsubsection[exportPDF]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::export\-PDF ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k5}
+
+
+Definition at line 545 of file report\-Stack.cpp.
+
+References client\-Path, db, PDFOptions::exec(), export\-Path, and Database::report\-HTML().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}546 {
+547     QString file = QFileDialog::getSaveFileName(
+548             exportPath,
+549             "PDF Files (*.pdf)",
+550             this,
+551             0,
+552             "Export Report to PDF");
+553     
+554     if(file != "")
+555     {
+556         if(file.right(4) != ".pdf")
+557             file.append(".pdf");
+558 
+559         PDFOptions pdfOptions;
+560         QString options = pdfOptions.exec();
+561         if(options == QString::null)
+562             return;
+563 
+564         QFile tmpHTML(clientPath + "/tmp.html");
+565         if(!tmpHTML.open( IO_WriteOnly ))
+566             return;
+567 
+568         QTextStream tmpStream(&tmpHTML);
+569 
+570         QString html = db->reportHTML();
+571         html.replace("<tr><td> </td></tr>", "<tr><td>&nbsp;<br></td></tr>");
+572 
+573         tmpStream << html;
+574 
+575         tmpStream.unsetDevice();
+576         tmpHTML.close();
+577 
+578         system(QString(HTMLDOC_PATH + "/htmldoc --footer ./. --fontsize 9.0 "
+579                 + options +
+580                 "--right .5in --left .5in --top .2in "
+581                 "--textfont helvetica --no-toc --no-title --quiet -f \""
+582                 + file + "\" \"" + clientPath + "/tmp.html\""));
+583 
+584         remove(clientPath + "/tmp.html");
+585     }
+586 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k8}{
+\index{ReportStack@{Report\-Stack}!generalDetailReport@{generalDetailReport}}
+\index{generalDetailReport@{generalDetailReport}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::general\-Detail\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k8}
+
+
+Definition at line 492 of file report\-Stack.cpp.
+
+References db, Database::get\-General\-Detail(), main, Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}493 {
+494     if(main.generalDetailAccountRangeAll->isChecked())
+495         viewReport(db->getGeneralDetail(
+496                 main.generalDetailDateRangeBegin->currentText(),
+497                 main.generalDetailDateRangeEnd->currentText(),
+498                 "", "")->reportString());
+499     else
+500         viewReport(db->getGeneralDetail(
+501                 main.generalDetailDateRangeBegin->currentText(),
+502                 main.generalDetailDateRangeEnd->currentText(),
+503                 main.generalDetailAccountRangeBegin->accountNumber(),
+504                 main.generalDetailAccountRangeEnd->accountNumber())->reportString());
+505 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k9}{
+\index{ReportStack@{Report\-Stack}!generalTrialReport@{generalTrialReport}}
+\index{generalTrialReport@{generalTrialReport}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::general\-Trial\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k9}
+
+
+Definition at line 507 of file report\-Stack.cpp.
+
+References db, Database::get\-General\-Trial\-Balance(), main, Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}508 {
+509     if(main.generalTrialAccountRangeAll->isChecked())
+510         viewReport(db->getGeneralTrialBalance(
+511             main.generalTrialMonthEndList->currentText(),
+512             "", "")->reportString());
+513     else
+514         viewReport(db->getGeneralTrialBalance(
+515             main.generalTrialMonthEndList->currentText(),
+516             main.generalTrialAccountRangeBegin->accountNumber(),
+517             main.generalTrialAccountRangeEnd->accountNumber())->reportString());
+518 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_l0}{
+\index{ReportStack@{Report\-Stack}!goToMain@{goToMain}}
+\index{goToMain@{goToMain}!ReportStack@{Report\-Stack}}
+\subsubsection[goToMain]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::go\-To\-Main ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classReportStack_l0}
+
+
+
+
+Referenced by event\-Filter(), and Report\-Stack().\hypertarget{classReportStack_k13}{
+\index{ReportStack@{Report\-Stack}!incomeRetailReport@{incomeRetailReport}}
+\index{incomeRetailReport@{incomeRetailReport}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::income\-Retail\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k13}
+
+
+Definition at line 535 of file report\-Stack.cpp.
+
+References db, Database::get\-Income\-Retail\-Report(), main, Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}536 {
+537     viewReport(db->getIncomeRetailReport(main.incomeRetailMonthEndList->currentText())->reportString());
+538 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k12}{
+\index{ReportStack@{Report\-Stack}!incomeSvcReport@{incomeSvcReport}}
+\index{incomeSvcReport@{incomeSvcReport}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::income\-Svc\-Report ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k12}
+
+
+Definition at line 530 of file report\-Stack.cpp.
+
+References db, Database::get\-Income\-Svc\-Report(), main, Database::report\-String(), and view\-Report().
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}531 {
+532     viewReport(db->getIncomeSvcReport(main.incomeSvcMonthEndList->currentText())->reportString());
+533 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k17}{
+\index{ReportStack@{Report\-Stack}!print@{print}}
+\index{print@{print}!ReportStack@{Report\-Stack}}
+\subsubsection[print]{\setlength{\rightskip}{0pt plus 5cm}void \hyperlink{classReportStack_r84}{Report\-Stack::print} ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k17}
+
+
+
+
+Referenced by event\-Filter(), and Report\-Stack().\hypertarget{classReportStack_k14}{
+\index{ReportStack@{Report\-Stack}!switchToEditBalance@{switchToEditBalance}}
+\index{switchToEditBalance@{switchToEditBalance}!ReportStack@{Report\-Stack}}
+\subsubsection[switchToEditBalance]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::switch\-To\-Edit\-Balance ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k14}
+
+
+Definition at line 613 of file report\-Stack.cpp.
+
+References active, balance, switch\-Widget(), and widget.
+
+Referenced by Report\-Stack().
+
+\footnotesize\begin{verbatim}614 {
+615     if(widget(2))
+616         delete balance.widget;
+617 
+618     balance.widget = new QWidget(this);
+619     balance.vBoxLayout = new QVBoxLayout(balance.widget);
+620     balance.vBoxLayout->setMargin(5);
+621     balance.vBoxLayout->setSpacing(5);
+622     
+623     balance.labelLayout = new QHBoxLayout(balance.vBoxLayout);
+624     balance.topLabel = new GoBackLabel(balance.widget);
+625     connect(balance.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
+626     
+627     balance.labelLayout->addWidget(balance.topLabel);
+628     balance.labelLayout->addStretch();
+629     
+630     balance.editor = new BalanceSheetEditor(balance.widget);
+631     
+632     balance.vBoxLayout->addWidget(balance.editor);
+633     
+634     addWidget(balance.widget, 2);
+635 
+636     raiseWidget(2);
+637     active = 2;
+638 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k16}{
+\index{ReportStack@{Report\-Stack}!switchToEditIncomeRetail@{switchToEditIncomeRetail}}
+\index{switchToEditIncomeRetail@{switchToEditIncomeRetail}!ReportStack@{Report\-Stack}}
+\subsubsection[switchToEditIncomeRetail]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::switch\-To\-Edit\-Income\-Retail ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k16}
+
+
+Definition at line 667 of file report\-Stack.cpp.
+
+References active, income\-Retail, switch\-Widget(), and widget.
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}668 {
+669     if(widget(4))
+670         delete incomeRetail.widget;
+671 
+672     incomeRetail.widget = new QWidget(this);
+673     incomeRetail.vBoxLayout = new QVBoxLayout(incomeRetail.widget);
+674     incomeRetail.vBoxLayout->setMargin(5);
+675     incomeRetail.vBoxLayout->setSpacing(5);
+676     
+677     incomeRetail.labelLayout = new QHBoxLayout(incomeRetail.vBoxLayout);
+678     incomeRetail.topLabel = new GoBackLabel(incomeRetail.widget);
+679     connect(incomeRetail.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
+680     
+681     incomeRetail.labelLayout->addWidget(incomeRetail.topLabel);
+682     incomeRetail.labelLayout->addStretch();
+683     
+684     incomeRetail.editor = new IncomeRetailEditor(incomeRetail.widget);
+685     
+686     incomeRetail.vBoxLayout->addWidget(incomeRetail.editor);
+687     
+688     addWidget(incomeRetail.widget, 4);
+689 
+690     raiseWidget(4);
+691     active = 4;
+692 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k15}{
+\index{ReportStack@{Report\-Stack}!switchToEditIncomeSvc@{switchToEditIncomeSvc}}
+\index{switchToEditIncomeSvc@{switchToEditIncomeSvc}!ReportStack@{Report\-Stack}}
+\subsubsection[switchToEditIncomeSvc]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::switch\-To\-Edit\-Income\-Svc ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k15}
+
+
+Definition at line 640 of file report\-Stack.cpp.
+
+References active, income\-Svc, switch\-Widget(), and widget.
+
+Referenced by event\-Filter(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}641 {
+642     if(widget(3))
+643         delete incomeSvc.widget;
+644 
+645     incomeSvc.widget = new QWidget(this);
+646     incomeSvc.vBoxLayout = new QVBoxLayout(incomeSvc.widget);
+647     incomeSvc.vBoxLayout->setMargin(5);
+648     incomeSvc.vBoxLayout->setSpacing(5);
+649     
+650     incomeSvc.labelLayout = new QHBoxLayout(incomeSvc.vBoxLayout);
+651     incomeSvc.topLabel = new GoBackLabel(incomeSvc.widget);
+652     connect(incomeSvc.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
+653     
+654     incomeSvc.labelLayout->addWidget(incomeSvc.topLabel);
+655     incomeSvc.labelLayout->addStretch();
+656     
+657     incomeSvc.editor = new IncomeSvcEditor(incomeSvc.widget);
+658     
+659     incomeSvc.vBoxLayout->addWidget(incomeSvc.editor);
+660     
+661     addWidget(incomeSvc.widget, 3);
+662 
+663     raiseWidget(3);
+664     active = 3;
+665 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k7}{
+\index{ReportStack@{Report\-Stack}!switchWidget@{switchWidget}}
+\index{switchWidget@{switchWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[switchWidget]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::switch\-Widget ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k7}
+
+
+Definition at line 477 of file report\-Stack.cpp.
+
+References active, and report.
+
+Referenced by event\-Filter(), Report\-Stack(), switch\-To\-Edit\-Balance(), switch\-To\-Edit\-Income\-Retail(), switch\-To\-Edit\-Income\-Svc(), and view\-Report().
+
+\footnotesize\begin{verbatim}478 {
+479     if(active == 0)
+480     {
+481             raiseWidget(1);
+482             report.view->setFocus();
+483             active = 1;
+484     }
+485     else
+486     {
+487         raiseWidget(0);
+488         active = 0;
+489     }
+490 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k1}{
+\index{ReportStack@{Report\-Stack}!trialAccountsAllChanged@{trialAccountsAllChanged}}
+\index{trialAccountsAllChanged@{trialAccountsAllChanged}!ReportStack@{Report\-Stack}}
+\subsubsection[trialAccountsAllChanged]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::trial\-Accounts\-All\-Changed (bool)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k1}
+
+
+Definition at line 421 of file report\-Stack.cpp.
+
+References main.
+
+Referenced by Report\-Stack().
+
+\footnotesize\begin{verbatim}422 {
+423     if(on)
+424     {
+425         main.generalTrialAccountRangeBegin->setEnabled(false);
+426         main.generalTrialAccountRangeLabelBetween->setEnabled(false);
+427         main.generalTrialAccountRangeEnd->setEnabled(false);
+428         main.generalTrialAccountRangeAll->setFocus();
+429     }
+430     else
+431     {
+432         main.generalTrialAccountRangeBegin->setEnabled(true);
+433         main.generalTrialAccountRangeLabelBetween->setEnabled(true);
+434         main.generalTrialAccountRangeEnd->setEnabled(true);
+435     }
+436 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k3}{
+\index{ReportStack@{Report\-Stack}!updateAccounts@{updateAccounts}}
+\index{updateAccounts@{updateAccounts}!ReportStack@{Report\-Stack}}
+\subsubsection[updateAccounts]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::update\-Accounts ()\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k3}
+
+
+Definition at line 461 of file report\-Stack.cpp.
+
+References accounts, db, Database::get\-Accounts\-List(), and main.
+
+Referenced by db\-Opened(), and Report\-Stack().
+
+\footnotesize\begin{verbatim}462 {
+463     accounts = db->getAccountsList();
+464     main.generalDetailAccountRangeBegin->updateAccounts(accounts);
+465     main.generalDetailAccountRangeEnd->updateAccounts(accounts);
+466     main.generalTrialAccountRangeBegin->updateAccounts(accounts);
+467     main.generalTrialAccountRangeEnd->updateAccounts(accounts);
+468 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_k4}{
+\index{ReportStack@{Report\-Stack}!viewReport@{viewReport}}
+\index{viewReport@{viewReport}!ReportStack@{Report\-Stack}}
+\subsubsection[viewReport]{\setlength{\rightskip}{0pt plus 5cm}void Report\-Stack::view\-Report (QString \& {\em text})\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classReportStack_k4}
+
+
+Definition at line 470 of file report\-Stack.cpp.
+
+References report, and switch\-Widget().
+
+Referenced by balance\-Report(), chart\-Accounts\-Report(), general\-Detail\-Report(), general\-Trial\-Report(), income\-Retail\-Report(), and income\-Svc\-Report().
+
+\footnotesize\begin{verbatim}471 {
+472     report.view->setText(text);
+473 
+474     switchWidget();
+475 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classReportStack_r7}{
+\index{ReportStack@{Report\-Stack}!accounts@{accounts}}
+\index{accounts@{accounts}!ReportStack@{Report\-Stack}}
+\subsubsection[accounts]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \hyperlink{classReportStack_r7}{Report\-Stack::accounts}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r7}
+
+
+Definition at line 76 of file report\-Stack.h.
+
+Referenced by Report\-Stack(), and update\-Accounts().\hypertarget{classReportStack_r6}{
+\index{ReportStack@{Report\-Stack}!active@{active}}
+\index{active@{active}!ReportStack@{Report\-Stack}}
+\subsubsection[active]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classReportStack_r6}{Report\-Stack::active}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r6}
+
+
+Definition at line 75 of file report\-Stack.h.
+
+Referenced by db\-Opened(), event\-Filter(), Report\-Stack(), switch\-To\-Edit\-Balance(), switch\-To\-Edit\-Income\-Retail(), switch\-To\-Edit\-Income\-Svc(), and switch\-Widget().\hypertarget{classReportStack_r99}{
+\index{ReportStack@{Report\-Stack}!balance@{balance}}
+\index{balance@{balance}!ReportStack@{Report\-Stack}}
+\subsubsection[balance]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classReportStack_r99}{Report\-Stack::balance}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r99}
+
+
+
+
+Referenced by switch\-To\-Edit\-Balance().\hypertarget{classReportStack_r54}{
+\index{ReportStack@{Report\-Stack}!balanceModifyButton@{balanceModifyButton}}
+\index{balanceModifyButton@{balanceModifyButton}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceModifyButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r54}{Report\-Stack::balance\-Modify\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r54}
+
+
+Definition at line 129 of file report\-Stack.h.\hypertarget{classReportStack_r53}{
+\index{ReportStack@{Report\-Stack}!balanceModifyHBoxLayout@{balanceModifyHBoxLayout}}
+\index{balanceModifyHBoxLayout@{balanceModifyHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceModifyHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r53}{Report\-Stack::balance\-Modify\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r53}
+
+
+Definition at line 128 of file report\-Stack.h.\hypertarget{classReportStack_r52}{
+\index{ReportStack@{Report\-Stack}!balanceModifyWidget@{balanceModifyWidget}}
+\index{balanceModifyWidget@{balanceModifyWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceModifyWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r52}{Report\-Stack::balance\-Modify\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r52}
+
+
+Definition at line 127 of file report\-Stack.h.\hypertarget{classReportStack_r49}{
+\index{ReportStack@{Report\-Stack}!balanceMonthEndHBoxLayout@{balanceMonthEndHBoxLayout}}
+\index{balanceMonthEndHBoxLayout@{balanceMonthEndHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceMonthEndHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r49}{Report\-Stack::balance\-Month\-End\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r49}
+
+
+Definition at line 124 of file report\-Stack.h.\hypertarget{classReportStack_r50}{
+\index{ReportStack@{Report\-Stack}!balanceMonthEndLabel@{balanceMonthEndLabel}}
+\index{balanceMonthEndLabel@{balanceMonthEndLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceMonthEndLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r50}{Report\-Stack::balance\-Month\-End\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r50}
+
+
+Definition at line 125 of file report\-Stack.h.\hypertarget{classReportStack_r51}{
+\index{ReportStack@{Report\-Stack}!balanceMonthEndList@{balanceMonthEndList}}
+\index{balanceMonthEndList@{balanceMonthEndList}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceMonthEndList]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r51}{Report\-Stack::balance\-Month\-End\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r51}
+
+
+Definition at line 126 of file report\-Stack.h.\hypertarget{classReportStack_r48}{
+\index{ReportStack@{Report\-Stack}!balanceMonthEndWidget@{balanceMonthEndWidget}}
+\index{balanceMonthEndWidget@{balanceMonthEndWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceMonthEndWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r48}{Report\-Stack::balance\-Month\-End\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r48}
+
+
+Definition at line 123 of file report\-Stack.h.\hypertarget{classReportStack_r56}{
+\index{ReportStack@{Report\-Stack}!balanceReportButton@{balanceReportButton}}
+\index{balanceReportButton@{balanceReportButton}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceReportButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r56}{Report\-Stack::balance\-Report\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r56}
+
+
+Definition at line 131 of file report\-Stack.h.\hypertarget{classReportStack_r55}{
+\index{ReportStack@{Report\-Stack}!balanceReportButtonVBoxLayout@{balanceReportButtonVBoxLayout}}
+\index{balanceReportButtonVBoxLayout@{balanceReportButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceReportButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r55}{Report\-Stack::balance\-Report\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r55}
+
+
+Definition at line 130 of file report\-Stack.h.\hypertarget{classReportStack_r47}{
+\index{ReportStack@{Report\-Stack}!balanceVGroupBox@{balanceVGroupBox}}
+\index{balanceVGroupBox@{balanceVGroupBox}!ReportStack@{Report\-Stack}}
+\subsubsection[balanceVGroupBox]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r47}{Report\-Stack::balance\-VGroup\-Box}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r47}
+
+
+Definition at line 122 of file report\-Stack.h.\hypertarget{classReportStack_r87}{
+\index{ReportStack@{Report\-Stack}!bottomHBoxLayout@{bottomHBoxLayout}}
+\index{bottomHBoxLayout@{bottomHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[bottomHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r87}{Report\-Stack::bottom\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r87}
+
+
+Definition at line 167 of file report\-Stack.h.\hypertarget{classReportStack_r88}{
+\index{ReportStack@{Report\-Stack}!bottomLabel@{bottomLabel}}
+\index{bottomLabel@{bottomLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[bottomLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r88}{Report\-Stack::bottom\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r88}
+
+
+Definition at line 168 of file report\-Stack.h.\hypertarget{classReportStack_r90}{
+\index{ReportStack@{Report\-Stack}!bottomRightBoxLayout@{bottomRightBoxLayout}}
+\index{bottomRightBoxLayout@{bottomRightBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[bottomRightBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QBox\-Layout$\ast$ \hyperlink{classReportStack_r90}{Report\-Stack::bottom\-Right\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r90}
+
+
+Definition at line 170 of file report\-Stack.h.\hypertarget{classReportStack_r89}{
+\index{ReportStack@{Report\-Stack}!bottomRightFrame@{bottomRightFrame}}
+\index{bottomRightFrame@{bottomRightFrame}!ReportStack@{Report\-Stack}}
+\subsubsection[bottomRightFrame]{\setlength{\rightskip}{0pt plus 5cm}QFrame$\ast$ \hyperlink{classReportStack_r89}{Report\-Stack::bottom\-Right\-Frame}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r89}
+
+
+Definition at line 169 of file report\-Stack.h.\hypertarget{classReportStack_r86}{
+\index{ReportStack@{Report\-Stack}!bottomWidget@{bottomWidget}}
+\index{bottomWidget@{bottomWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[bottomWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r86}{Report\-Stack::bottom\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r86}
+
+
+Definition at line 166 of file report\-Stack.h.\hypertarget{classReportStack_r78}{
+\index{ReportStack@{Report\-Stack}!chartAccountsButton@{chartAccountsButton}}
+\index{chartAccountsButton@{chartAccountsButton}!ReportStack@{Report\-Stack}}
+\subsubsection[chartAccountsButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r78}{Report\-Stack::chart\-Accounts\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r78}
+
+
+Definition at line 156 of file report\-Stack.h.\hypertarget{classReportStack_r77}{
+\index{ReportStack@{Report\-Stack}!chartAccountsButtonVBoxLayout@{chartAccountsButtonVBoxLayout}}
+\index{chartAccountsButtonVBoxLayout@{chartAccountsButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[chartAccountsButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r77}{Report\-Stack::chart\-Accounts\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r77}
+
+
+Definition at line 155 of file report\-Stack.h.\hypertarget{classReportStack_r3}{
+\index{ReportStack@{Report\-Stack}!clientPath@{clientPath}}
+\index{clientPath@{clientPath}!ReportStack@{Report\-Stack}}
+\subsubsection[clientPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classReportStack_r3}{Report\-Stack::client\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r3}
+
+
+Definition at line 71 of file report\-Stack.h.
+
+Referenced by export\-PDF(), and Report\-Stack().\hypertarget{classReportStack_r0}{
+\index{ReportStack@{Report\-Stack}!db@{db}}
+\index{db@{db}!ReportStack@{Report\-Stack}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classReportStack_r0}{Report\-Stack::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r0}
+
+
+Definition at line 67 of file report\-Stack.h.
+
+Referenced by balance\-Report(), chart\-Accounts\-Report(), db\-Opened(), export\-CSV(), export\-PDF(), general\-Detail\-Report(), general\-Trial\-Report(), income\-Retail\-Report(), income\-Svc\-Report(), Report\-Stack(), and update\-Accounts().\hypertarget{classReportStack_r110}{
+\index{ReportStack@{Report\-Stack}!editor@{editor}}
+\index{editor@{editor}!ReportStack@{Report\-Stack}}
+\subsubsection[editor]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classIncomeRetailEditor}{Income\-Retail\-Editor}$\ast$ \hyperlink{classReportStack_r98}{Report\-Stack::editor}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r110}
+
+
+Definition at line 196 of file report\-Stack.h.\hypertarget{classReportStack_r104}{
+\index{ReportStack@{Report\-Stack}!editor@{editor}}
+\index{editor@{editor}!ReportStack@{Report\-Stack}}
+\subsubsection[editor]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classIncomeSvcEditor}{Income\-Svc\-Editor}$\ast$ \hyperlink{classReportStack_r98}{Report\-Stack::editor}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r104}
+
+
+Definition at line 188 of file report\-Stack.h.\hypertarget{classReportStack_r98}{
+\index{ReportStack@{Report\-Stack}!editor@{editor}}
+\index{editor@{editor}!ReportStack@{Report\-Stack}}
+\subsubsection[editor]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classBalanceSheetEditor}{Balance\-Sheet\-Editor}$\ast$ \hyperlink{classReportStack_r98}{Report\-Stack::editor}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r98}
+
+
+Definition at line 180 of file report\-Stack.h.\hypertarget{classReportStack_r92}{
+\index{ReportStack@{Report\-Stack}!exportCSVButton@{exportCSVButton}}
+\index{exportCSVButton@{exportCSVButton}!ReportStack@{Report\-Stack}}
+\subsubsection[exportCSVButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r92}{Report\-Stack::export\-CSVButton}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r92}
+
+
+Definition at line 172 of file report\-Stack.h.\hypertarget{classReportStack_r4}{
+\index{ReportStack@{Report\-Stack}!exportPath@{exportPath}}
+\index{exportPath@{exportPath}!ReportStack@{Report\-Stack}}
+\subsubsection[exportPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classReportStack_r4}{Report\-Stack::export\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r4}
+
+
+Definition at line 72 of file report\-Stack.h.
+
+Referenced by export\-PDF(), and Report\-Stack().\hypertarget{classReportStack_r91}{
+\index{ReportStack@{Report\-Stack}!exportPDFButton@{exportPDFButton}}
+\index{exportPDFButton@{exportPDFButton}!ReportStack@{Report\-Stack}}
+\subsubsection[exportPDFButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r91}{Report\-Stack::export\-PDFButton}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r91}
+
+
+Definition at line 171 of file report\-Stack.h.\hypertarget{classReportStack_r30}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeAll@{generalDetailAccountRangeAll}}
+\index{generalDetailAccountRangeAll@{generalDetailAccountRangeAll}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeAll]{\setlength{\rightskip}{0pt plus 5cm}QCheck\-Box$\ast$ \hyperlink{classReportStack_r30}{Report\-Stack::general\-Detail\-Account\-Range\-All}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r30}
+
+
+Definition at line 103 of file report\-Stack.h.\hypertarget{classReportStack_r27}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeBegin@{generalDetailAccountRangeBegin}}
+\index{generalDetailAccountRangeBegin@{generalDetailAccountRangeBegin}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeBegin]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classReportStack_r27}{Report\-Stack::general\-Detail\-Account\-Range\-Begin}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r27}
+
+
+Definition at line 100 of file report\-Stack.h.\hypertarget{classReportStack_r29}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeEnd@{generalDetailAccountRangeEnd}}
+\index{generalDetailAccountRangeEnd@{generalDetailAccountRangeEnd}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeEnd]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classReportStack_r29}{Report\-Stack::general\-Detail\-Account\-Range\-End}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r29}
+
+
+Definition at line 102 of file report\-Stack.h.\hypertarget{classReportStack_r25}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeHBoxLayout@{generalDetailAccountRangeHBoxLayout}}
+\index{generalDetailAccountRangeHBoxLayout@{generalDetailAccountRangeHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r25}{Report\-Stack::general\-Detail\-Account\-Range\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r25}
+
+
+Definition at line 98 of file report\-Stack.h.\hypertarget{classReportStack_r26}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeLabel@{generalDetailAccountRangeLabel}}
+\index{generalDetailAccountRangeLabel@{generalDetailAccountRangeLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r26}{Report\-Stack::general\-Detail\-Account\-Range\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r26}
+
+
+Definition at line 99 of file report\-Stack.h.\hypertarget{classReportStack_r28}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeLabelBetween@{generalDetailAccountRangeLabelBetween}}
+\index{generalDetailAccountRangeLabelBetween@{generalDetailAccountRangeLabelBetween}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeLabelBetween]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r28}{Report\-Stack::general\-Detail\-Account\-Range\-Label\-Between}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r28}
+
+
+Definition at line 101 of file report\-Stack.h.\hypertarget{classReportStack_r24}{
+\index{ReportStack@{Report\-Stack}!generalDetailAccountRangeWidget@{generalDetailAccountRangeWidget}}
+\index{generalDetailAccountRangeWidget@{generalDetailAccountRangeWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailAccountRangeWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r24}{Report\-Stack::general\-Detail\-Account\-Range\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r24}
+
+
+Definition at line 97 of file report\-Stack.h.\hypertarget{classReportStack_r32}{
+\index{ReportStack@{Report\-Stack}!generalDetailButton@{generalDetailButton}}
+\index{generalDetailButton@{generalDetailButton}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r32}{Report\-Stack::general\-Detail\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r32}
+
+
+Definition at line 105 of file report\-Stack.h.\hypertarget{classReportStack_r31}{
+\index{ReportStack@{Report\-Stack}!generalDetailButtonVBoxLayout@{generalDetailButtonVBoxLayout}}
+\index{generalDetailButtonVBoxLayout@{generalDetailButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r31}{Report\-Stack::general\-Detail\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r31}
+
+
+Definition at line 104 of file report\-Stack.h.\hypertarget{classReportStack_r21}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeBegin@{generalDetailDateRangeBegin}}
+\index{generalDetailDateRangeBegin@{generalDetailDateRangeBegin}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeBegin]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r21}{Report\-Stack::general\-Detail\-Date\-Range\-Begin}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r21}
+
+
+Definition at line 94 of file report\-Stack.h.\hypertarget{classReportStack_r23}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeEnd@{generalDetailDateRangeEnd}}
+\index{generalDetailDateRangeEnd@{generalDetailDateRangeEnd}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeEnd]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r23}{Report\-Stack::general\-Detail\-Date\-Range\-End}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r23}
+
+
+Definition at line 96 of file report\-Stack.h.\hypertarget{classReportStack_r19}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeHBoxLayout@{generalDetailDateRangeHBoxLayout}}
+\index{generalDetailDateRangeHBoxLayout@{generalDetailDateRangeHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r19}{Report\-Stack::general\-Detail\-Date\-Range\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r19}
+
+
+Definition at line 92 of file report\-Stack.h.\hypertarget{classReportStack_r20}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeLabelBegin@{generalDetailDateRangeLabelBegin}}
+\index{generalDetailDateRangeLabelBegin@{generalDetailDateRangeLabelBegin}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeLabelBegin]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r20}{Report\-Stack::general\-Detail\-Date\-Range\-Label\-Begin}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r20}
+
+
+Definition at line 93 of file report\-Stack.h.\hypertarget{classReportStack_r22}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeLabelBetween@{generalDetailDateRangeLabelBetween}}
+\index{generalDetailDateRangeLabelBetween@{generalDetailDateRangeLabelBetween}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeLabelBetween]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r22}{Report\-Stack::general\-Detail\-Date\-Range\-Label\-Between}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r22}
+
+
+Definition at line 95 of file report\-Stack.h.\hypertarget{classReportStack_r18}{
+\index{ReportStack@{Report\-Stack}!generalDetailDateRangeWidget@{generalDetailDateRangeWidget}}
+\index{generalDetailDateRangeWidget@{generalDetailDateRangeWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailDateRangeWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r18}{Report\-Stack::general\-Detail\-Date\-Range\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r18}
+
+
+Definition at line 91 of file report\-Stack.h.\hypertarget{classReportStack_r17}{
+\index{ReportStack@{Report\-Stack}!generalDetailVGroupBox@{generalDetailVGroupBox}}
+\index{generalDetailVGroupBox@{generalDetailVGroupBox}!ReportStack@{Report\-Stack}}
+\subsubsection[generalDetailVGroupBox]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r17}{Report\-Stack::general\-Detail\-VGroup\-Box}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r17}
+
+
+Definition at line 90 of file report\-Stack.h.\hypertarget{classReportStack_r44}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeAll@{generalTrialAccountRangeAll}}
+\index{generalTrialAccountRangeAll@{generalTrialAccountRangeAll}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeAll]{\setlength{\rightskip}{0pt plus 5cm}QCheck\-Box$\ast$ \hyperlink{classReportStack_r44}{Report\-Stack::general\-Trial\-Account\-Range\-All}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r44}
+
+
+Definition at line 118 of file report\-Stack.h.\hypertarget{classReportStack_r41}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeBegin@{generalTrialAccountRangeBegin}}
+\index{generalTrialAccountRangeBegin@{generalTrialAccountRangeBegin}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeBegin]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classReportStack_r41}{Report\-Stack::general\-Trial\-Account\-Range\-Begin}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r41}
+
+
+Definition at line 115 of file report\-Stack.h.\hypertarget{classReportStack_r43}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeEnd@{generalTrialAccountRangeEnd}}
+\index{generalTrialAccountRangeEnd@{generalTrialAccountRangeEnd}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeEnd]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classAccountList}{Account\-List}$\ast$ \hyperlink{classReportStack_r43}{Report\-Stack::general\-Trial\-Account\-Range\-End}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r43}
+
+
+Definition at line 117 of file report\-Stack.h.\hypertarget{classReportStack_r39}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeHBoxLayout@{generalTrialAccountRangeHBoxLayout}}
+\index{generalTrialAccountRangeHBoxLayout@{generalTrialAccountRangeHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r39}{Report\-Stack::general\-Trial\-Account\-Range\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r39}
+
+
+Definition at line 113 of file report\-Stack.h.\hypertarget{classReportStack_r40}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeLabel@{generalTrialAccountRangeLabel}}
+\index{generalTrialAccountRangeLabel@{generalTrialAccountRangeLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r40}{Report\-Stack::general\-Trial\-Account\-Range\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r40}
+
+
+Definition at line 114 of file report\-Stack.h.\hypertarget{classReportStack_r42}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeLabelBetween@{generalTrialAccountRangeLabelBetween}}
+\index{generalTrialAccountRangeLabelBetween@{generalTrialAccountRangeLabelBetween}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeLabelBetween]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r42}{Report\-Stack::general\-Trial\-Account\-Range\-Label\-Between}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r42}
+
+
+Definition at line 116 of file report\-Stack.h.\hypertarget{classReportStack_r38}{
+\index{ReportStack@{Report\-Stack}!generalTrialAccountRangeWidget@{generalTrialAccountRangeWidget}}
+\index{generalTrialAccountRangeWidget@{generalTrialAccountRangeWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialAccountRangeWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r38}{Report\-Stack::general\-Trial\-Account\-Range\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r38}
+
+
+Definition at line 112 of file report\-Stack.h.\hypertarget{classReportStack_r46}{
+\index{ReportStack@{Report\-Stack}!generalTrialButton@{generalTrialButton}}
+\index{generalTrialButton@{generalTrialButton}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r46}{Report\-Stack::general\-Trial\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r46}
+
+
+Definition at line 120 of file report\-Stack.h.\hypertarget{classReportStack_r45}{
+\index{ReportStack@{Report\-Stack}!generalTrialButtonVBoxLayout@{generalTrialButtonVBoxLayout}}
+\index{generalTrialButtonVBoxLayout@{generalTrialButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r45}{Report\-Stack::general\-Trial\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r45}
+
+
+Definition at line 119 of file report\-Stack.h.\hypertarget{classReportStack_r35}{
+\index{ReportStack@{Report\-Stack}!generalTrialMonthEndHBoxLayout@{generalTrialMonthEndHBoxLayout}}
+\index{generalTrialMonthEndHBoxLayout@{generalTrialMonthEndHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialMonthEndHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r35}{Report\-Stack::general\-Trial\-Month\-End\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r35}
+
+
+Definition at line 109 of file report\-Stack.h.\hypertarget{classReportStack_r36}{
+\index{ReportStack@{Report\-Stack}!generalTrialMonthEndLabel@{generalTrialMonthEndLabel}}
+\index{generalTrialMonthEndLabel@{generalTrialMonthEndLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialMonthEndLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r36}{Report\-Stack::general\-Trial\-Month\-End\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r36}
+
+
+Definition at line 110 of file report\-Stack.h.\hypertarget{classReportStack_r37}{
+\index{ReportStack@{Report\-Stack}!generalTrialMonthEndList@{generalTrialMonthEndList}}
+\index{generalTrialMonthEndList@{generalTrialMonthEndList}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialMonthEndList]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r37}{Report\-Stack::general\-Trial\-Month\-End\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r37}
+
+
+Definition at line 111 of file report\-Stack.h.\hypertarget{classReportStack_r34}{
+\index{ReportStack@{Report\-Stack}!generalTrialMonthEndWidget@{generalTrialMonthEndWidget}}
+\index{generalTrialMonthEndWidget@{generalTrialMonthEndWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialMonthEndWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r34}{Report\-Stack::general\-Trial\-Month\-End\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r34}
+
+
+Definition at line 108 of file report\-Stack.h.\hypertarget{classReportStack_r33}{
+\index{ReportStack@{Report\-Stack}!generalTrialVGroupBox@{generalTrialVGroupBox}}
+\index{generalTrialVGroupBox@{generalTrialVGroupBox}!ReportStack@{Report\-Stack}}
+\subsubsection[generalTrialVGroupBox]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r33}{Report\-Stack::general\-Trial\-VGroup\-Box}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r33}
+
+
+Definition at line 107 of file report\-Stack.h.\hypertarget{classReportStack_r10}{
+\index{ReportStack@{Report\-Stack}!hBoxLabel@{hBoxLabel}}
+\index{hBoxLabel@{hBoxLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[hBoxLabel]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r10}{Report\-Stack::h\-Box\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r10}
+
+
+Definition at line 81 of file report\-Stack.h.\hypertarget{classReportStack_r12}{
+\index{ReportStack@{Report\-Stack}!hBoxLayout@{hBoxLayout}}
+\index{hBoxLayout@{hBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[hBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r12}{Report\-Stack::h\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r12}
+
+
+Definition at line 83 of file report\-Stack.h.\hypertarget{classReportStack_r5}{
+\index{ReportStack@{Report\-Stack}!importPath@{importPath}}
+\index{importPath@{importPath}!ReportStack@{Report\-Stack}}
+\subsubsection[importPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classReportStack_r5}{Report\-Stack::import\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r5}
+
+
+Definition at line 73 of file report\-Stack.h.
+
+Referenced by export\-CSV(), and Report\-Stack().\hypertarget{classReportStack_r111}{
+\index{ReportStack@{Report\-Stack}!incomeRetail@{incomeRetail}}
+\index{incomeRetail@{incomeRetail}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetail]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classReportStack_r111}{Report\-Stack::income\-Retail}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r111}
+
+
+
+
+Referenced by switch\-To\-Edit\-Income\-Retail().\hypertarget{classReportStack_r76}{
+\index{ReportStack@{Report\-Stack}!incomeRetailButton@{incomeRetailButton}}
+\index{incomeRetailButton@{incomeRetailButton}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r76}{Report\-Stack::income\-Retail\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r76}
+
+
+Definition at line 153 of file report\-Stack.h.\hypertarget{classReportStack_r75}{
+\index{ReportStack@{Report\-Stack}!incomeRetailButtonVBoxLayout@{incomeRetailButtonVBoxLayout}}
+\index{incomeRetailButtonVBoxLayout@{incomeRetailButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r75}{Report\-Stack::income\-Retail\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r75}
+
+
+Definition at line 152 of file report\-Stack.h.\hypertarget{classReportStack_r74}{
+\index{ReportStack@{Report\-Stack}!incomeRetailModifyButton@{incomeRetailModifyButton}}
+\index{incomeRetailModifyButton@{incomeRetailModifyButton}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailModifyButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r74}{Report\-Stack::income\-Retail\-Modify\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r74}
+
+
+Definition at line 151 of file report\-Stack.h.\hypertarget{classReportStack_r73}{
+\index{ReportStack@{Report\-Stack}!incomeRetailModifyHBoxLayout@{incomeRetailModifyHBoxLayout}}
+\index{incomeRetailModifyHBoxLayout@{incomeRetailModifyHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailModifyHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r73}{Report\-Stack::income\-Retail\-Modify\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r73}
+
+
+Definition at line 150 of file report\-Stack.h.\hypertarget{classReportStack_r72}{
+\index{ReportStack@{Report\-Stack}!incomeRetailModifyWidget@{incomeRetailModifyWidget}}
+\index{incomeRetailModifyWidget@{incomeRetailModifyWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailModifyWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r72}{Report\-Stack::income\-Retail\-Modify\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r72}
+
+
+Definition at line 149 of file report\-Stack.h.\hypertarget{classReportStack_r69}{
+\index{ReportStack@{Report\-Stack}!incomeRetailMonthEndHBoxLayout@{incomeRetailMonthEndHBoxLayout}}
+\index{incomeRetailMonthEndHBoxLayout@{incomeRetailMonthEndHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailMonthEndHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r69}{Report\-Stack::income\-Retail\-Month\-End\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r69}
+
+
+Definition at line 146 of file report\-Stack.h.\hypertarget{classReportStack_r70}{
+\index{ReportStack@{Report\-Stack}!incomeRetailMonthEndLabel@{incomeRetailMonthEndLabel}}
+\index{incomeRetailMonthEndLabel@{incomeRetailMonthEndLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailMonthEndLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r70}{Report\-Stack::income\-Retail\-Month\-End\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r70}
+
+
+Definition at line 147 of file report\-Stack.h.\hypertarget{classReportStack_r71}{
+\index{ReportStack@{Report\-Stack}!incomeRetailMonthEndList@{incomeRetailMonthEndList}}
+\index{incomeRetailMonthEndList@{incomeRetailMonthEndList}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailMonthEndList]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r71}{Report\-Stack::income\-Retail\-Month\-End\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r71}
+
+
+Definition at line 148 of file report\-Stack.h.\hypertarget{classReportStack_r68}{
+\index{ReportStack@{Report\-Stack}!incomeRetailMonthEndWidget@{incomeRetailMonthEndWidget}}
+\index{incomeRetailMonthEndWidget@{incomeRetailMonthEndWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailMonthEndWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r68}{Report\-Stack::income\-Retail\-Month\-End\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r68}
+
+
+Definition at line 145 of file report\-Stack.h.\hypertarget{classReportStack_r67}{
+\index{ReportStack@{Report\-Stack}!incomeRetailVGroupBox@{incomeRetailVGroupBox}}
+\index{incomeRetailVGroupBox@{incomeRetailVGroupBox}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeRetailVGroupBox]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r67}{Report\-Stack::income\-Retail\-VGroup\-Box}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r67}
+
+
+Definition at line 144 of file report\-Stack.h.\hypertarget{classReportStack_r105}{
+\index{ReportStack@{Report\-Stack}!incomeSvc@{incomeSvc}}
+\index{incomeSvc@{incomeSvc}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvc]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classReportStack_r105}{Report\-Stack::income\-Svc}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r105}
+
+
+
+
+Referenced by switch\-To\-Edit\-Income\-Svc().\hypertarget{classReportStack_r66}{
+\index{ReportStack@{Report\-Stack}!incomeSvcButton@{incomeSvcButton}}
+\index{incomeSvcButton@{incomeSvcButton}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r66}{Report\-Stack::income\-Svc\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r66}
+
+
+Definition at line 142 of file report\-Stack.h.\hypertarget{classReportStack_r65}{
+\index{ReportStack@{Report\-Stack}!incomeSvcButtonVBoxLayout@{incomeSvcButtonVBoxLayout}}
+\index{incomeSvcButtonVBoxLayout@{incomeSvcButtonVBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcButtonVBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r65}{Report\-Stack::income\-Svc\-Button\-VBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r65}
+
+
+Definition at line 141 of file report\-Stack.h.\hypertarget{classReportStack_r64}{
+\index{ReportStack@{Report\-Stack}!incomeSvcModifyButton@{incomeSvcModifyButton}}
+\index{incomeSvcModifyButton@{incomeSvcModifyButton}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcModifyButton]{\setlength{\rightskip}{0pt plus 5cm}QPush\-Button$\ast$ \hyperlink{classReportStack_r64}{Report\-Stack::income\-Svc\-Modify\-Button}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r64}
+
+
+Definition at line 140 of file report\-Stack.h.\hypertarget{classReportStack_r63}{
+\index{ReportStack@{Report\-Stack}!incomeSvcModifyHBoxLayout@{incomeSvcModifyHBoxLayout}}
+\index{incomeSvcModifyHBoxLayout@{incomeSvcModifyHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcModifyHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r63}{Report\-Stack::income\-Svc\-Modify\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r63}
+
+
+Definition at line 139 of file report\-Stack.h.\hypertarget{classReportStack_r62}{
+\index{ReportStack@{Report\-Stack}!incomeSvcModifyWidget@{incomeSvcModifyWidget}}
+\index{incomeSvcModifyWidget@{incomeSvcModifyWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcModifyWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r62}{Report\-Stack::income\-Svc\-Modify\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r62}
+
+
+Definition at line 138 of file report\-Stack.h.\hypertarget{classReportStack_r59}{
+\index{ReportStack@{Report\-Stack}!incomeSvcMonthEndHBoxLayout@{incomeSvcMonthEndHBoxLayout}}
+\index{incomeSvcMonthEndHBoxLayout@{incomeSvcMonthEndHBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcMonthEndHBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QHBox\-Layout$\ast$ \hyperlink{classReportStack_r59}{Report\-Stack::income\-Svc\-Month\-End\-HBox\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r59}
+
+
+Definition at line 135 of file report\-Stack.h.\hypertarget{classReportStack_r60}{
+\index{ReportStack@{Report\-Stack}!incomeSvcMonthEndLabel@{incomeSvcMonthEndLabel}}
+\index{incomeSvcMonthEndLabel@{incomeSvcMonthEndLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcMonthEndLabel]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classReportStack_r60}{Report\-Stack::income\-Svc\-Month\-End\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r60}
+
+
+Definition at line 136 of file report\-Stack.h.\hypertarget{classReportStack_r61}{
+\index{ReportStack@{Report\-Stack}!incomeSvcMonthEndList@{incomeSvcMonthEndList}}
+\index{incomeSvcMonthEndList@{incomeSvcMonthEndList}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcMonthEndList]{\setlength{\rightskip}{0pt plus 5cm}QCombo\-Box$\ast$ \hyperlink{classReportStack_r61}{Report\-Stack::income\-Svc\-Month\-End\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r61}
+
+
+Definition at line 137 of file report\-Stack.h.\hypertarget{classReportStack_r58}{
+\index{ReportStack@{Report\-Stack}!incomeSvcMonthEndWidget@{incomeSvcMonthEndWidget}}
+\index{incomeSvcMonthEndWidget@{incomeSvcMonthEndWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcMonthEndWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r58}{Report\-Stack::income\-Svc\-Month\-End\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r58}
+
+
+Definition at line 134 of file report\-Stack.h.\hypertarget{classReportStack_r57}{
+\index{ReportStack@{Report\-Stack}!incomeSvcVGroupBox@{incomeSvcVGroupBox}}
+\index{incomeSvcVGroupBox@{incomeSvcVGroupBox}!ReportStack@{Report\-Stack}}
+\subsubsection[incomeSvcVGroupBox]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r57}{Report\-Stack::income\-Svc\-VGroup\-Box}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r57}
+
+
+Definition at line 133 of file report\-Stack.h.\hypertarget{classReportStack_r108}{
+\index{ReportStack@{Report\-Stack}!labelLayout@{labelLayout}}
+\index{labelLayout@{labelLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[labelLayout]{\setlength{\rightskip}{0pt plus 5cm}QBox\-Layout$\ast$ \hyperlink{classReportStack_r82}{Report\-Stack::label\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r108}
+
+
+Definition at line 194 of file report\-Stack.h.\hypertarget{classReportStack_r102}{
+\index{ReportStack@{Report\-Stack}!labelLayout@{labelLayout}}
+\index{labelLayout@{labelLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[labelLayout]{\setlength{\rightskip}{0pt plus 5cm}QBox\-Layout$\ast$ \hyperlink{classReportStack_r82}{Report\-Stack::label\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r102}
+
+
+Definition at line 186 of file report\-Stack.h.\hypertarget{classReportStack_r96}{
+\index{ReportStack@{Report\-Stack}!labelLayout@{labelLayout}}
+\index{labelLayout@{labelLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[labelLayout]{\setlength{\rightskip}{0pt plus 5cm}QBox\-Layout$\ast$ \hyperlink{classReportStack_r82}{Report\-Stack::label\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r96}
+
+
+Definition at line 178 of file report\-Stack.h.\hypertarget{classReportStack_r82}{
+\index{ReportStack@{Report\-Stack}!labelLayout@{labelLayout}}
+\index{labelLayout@{labelLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[labelLayout]{\setlength{\rightskip}{0pt plus 5cm}QBox\-Layout$\ast$ \hyperlink{classReportStack_r82}{Report\-Stack::label\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r82}
+
+
+Definition at line 162 of file report\-Stack.h.\hypertarget{classReportStack_r79}{
+\index{ReportStack@{Report\-Stack}!main@{main}}
+\index{main@{main}!ReportStack@{Report\-Stack}}
+\subsubsection[main]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classReportStack_r79}{Report\-Stack::main}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r79}
+
+
+
+
+Referenced by balance\-Report(), db\-Opened(), detail\-Accounts\-All\-Changed(), event\-Filter(), general\-Detail\-Report(), general\-Trial\-Report(), income\-Retail\-Report(), income\-Svc\-Report(), Report\-Stack(), trial\-Accounts\-All\-Changed(), and update\-Accounts().\hypertarget{classReportStack_r84}{
+\index{ReportStack@{Report\-Stack}!print@{print}}
+\index{print@{print}!ReportStack@{Report\-Stack}}
+\subsubsection[print]{\setlength{\rightskip}{0pt plus 5cm}void \hyperlink{classReportStack_r84}{Report\-Stack::print}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r84}
+
+
+Definition at line 540 of file report\-Stack.cpp.
+
+\footnotesize\begin{verbatim}541 {
+542     printer->printReport(db->reportHeader(), db->reportData());
+543 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classReportStack_r2}{
+\index{ReportStack@{Report\-Stack}!printer@{printer}}
+\index{printer@{printer}!ReportStack@{Report\-Stack}}
+\subsubsection[printer]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classPrinter}{Printer}$\ast$ \hyperlink{classReportStack_r2}{Report\-Stack::printer}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r2}
+
+
+Definition at line 69 of file report\-Stack.h.
+
+Referenced by Report\-Stack().\hypertarget{classReportStack_r93}{
+\index{ReportStack@{Report\-Stack}!report@{report}}
+\index{report@{report}!ReportStack@{Report\-Stack}}
+\subsubsection[report]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   \hyperlink{classReportStack_r93}{Report\-Stack::report}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r93}
+
+
+
+
+Referenced by Report\-Stack(), switch\-Widget(), and view\-Report().\hypertarget{classReportStack_r16}{
+\index{ReportStack@{Report\-Stack}!reportsGridLayout@{reportsGridLayout}}
+\index{reportsGridLayout@{reportsGridLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[reportsGridLayout]{\setlength{\rightskip}{0pt plus 5cm}QGrid\-Layout$\ast$ \hyperlink{classReportStack_r16}{Report\-Stack::reports\-Grid\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r16}
+
+
+Definition at line 88 of file report\-Stack.h.\hypertarget{classReportStack_r14}{
+\index{ReportStack@{Report\-Stack}!reportsGroup@{reportsGroup}}
+\index{reportsGroup@{reportsGroup}!ReportStack@{Report\-Stack}}
+\subsubsection[reportsGroup]{\setlength{\rightskip}{0pt plus 5cm}QVGroup\-Box$\ast$ \hyperlink{classReportStack_r14}{Report\-Stack::reports\-Group}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r14}
+
+
+Definition at line 86 of file report\-Stack.h.\hypertarget{classReportStack_r15}{
+\index{ReportStack@{Report\-Stack}!reportsWidget@{reportsWidget}}
+\index{reportsWidget@{reportsWidget}!ReportStack@{Report\-Stack}}
+\subsubsection[reportsWidget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r15}{Report\-Stack::reports\-Widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r15}
+
+
+Definition at line 87 of file report\-Stack.h.\hypertarget{classReportStack_r1}{
+\index{ReportStack@{Report\-Stack}!settings@{settings}}
+\index{settings@{settings}!ReportStack@{Report\-Stack}}
+\subsubsection[settings]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classSettings}{Settings}$\ast$ \hyperlink{classReportStack_r1}{Report\-Stack::settings}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r1}
+
+
+Definition at line 68 of file report\-Stack.h.
+
+Referenced by Report\-Stack().\hypertarget{classReportStack_r109}{
+\index{ReportStack@{Report\-Stack}!topLabel@{topLabel}}
+\index{topLabel@{topLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[topLabel]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classGoBackLabel}{Go\-Back\-Label}$\ast$ \hyperlink{classReportStack_r11}{Report\-Stack::top\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r109}
+
+
+Definition at line 195 of file report\-Stack.h.\hypertarget{classReportStack_r103}{
+\index{ReportStack@{Report\-Stack}!topLabel@{topLabel}}
+\index{topLabel@{topLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[topLabel]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classGoBackLabel}{Go\-Back\-Label}$\ast$ \hyperlink{classReportStack_r11}{Report\-Stack::top\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r103}
+
+
+Definition at line 187 of file report\-Stack.h.\hypertarget{classReportStack_r97}{
+\index{ReportStack@{Report\-Stack}!topLabel@{topLabel}}
+\index{topLabel@{topLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[topLabel]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classGoBackLabel}{Go\-Back\-Label}$\ast$ \hyperlink{classReportStack_r11}{Report\-Stack::top\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r97}
+
+
+Definition at line 179 of file report\-Stack.h.\hypertarget{classReportStack_r83}{
+\index{ReportStack@{Report\-Stack}!topLabel@{topLabel}}
+\index{topLabel@{topLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[topLabel]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classGoBackLabel}{Go\-Back\-Label}$\ast$ \hyperlink{classReportStack_r11}{Report\-Stack::top\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r83}
+
+
+Definition at line 163 of file report\-Stack.h.\hypertarget{classReportStack_r11}{
+\index{ReportStack@{Report\-Stack}!topLabel@{topLabel}}
+\index{topLabel@{topLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[topLabel]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classGoBackLabel}{Go\-Back\-Label}$\ast$ \hyperlink{classReportStack_r11}{Report\-Stack::top\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r11}
+
+
+Definition at line 82 of file report\-Stack.h.\hypertarget{classReportStack_r9}{
+\index{ReportStack@{Report\-Stack}!vBoxLabel@{vBoxLabel}}
+\index{vBoxLabel@{vBoxLabel}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLabel]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r9}{Report\-Stack::v\-Box\-Label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r9}
+
+
+Definition at line 80 of file report\-Stack.h.\hypertarget{classReportStack_r107}{
+\index{ReportStack@{Report\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r13}{Report\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r107}
+
+
+Definition at line 193 of file report\-Stack.h.\hypertarget{classReportStack_r101}{
+\index{ReportStack@{Report\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r13}{Report\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r101}
+
+
+Definition at line 185 of file report\-Stack.h.\hypertarget{classReportStack_r95}{
+\index{ReportStack@{Report\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r13}{Report\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r95}
+
+
+Definition at line 177 of file report\-Stack.h.\hypertarget{classReportStack_r81}{
+\index{ReportStack@{Report\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r13}{Report\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r81}
+
+
+Definition at line 161 of file report\-Stack.h.\hypertarget{classReportStack_r13}{
+\index{ReportStack@{Report\-Stack}!vBoxLayout@{vBoxLayout}}
+\index{vBoxLayout@{vBoxLayout}!ReportStack@{Report\-Stack}}
+\subsubsection[vBoxLayout]{\setlength{\rightskip}{0pt plus 5cm}QVBox\-Layout$\ast$ \hyperlink{classReportStack_r13}{Report\-Stack::v\-Box\-Layout}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r13}
+
+
+Definition at line 84 of file report\-Stack.h.\hypertarget{classReportStack_r85}{
+\index{ReportStack@{Report\-Stack}!view@{view}}
+\index{view@{view}!ReportStack@{Report\-Stack}}
+\subsubsection[view]{\setlength{\rightskip}{0pt plus 5cm}QText\-Edit$\ast$ \hyperlink{classReportStack_r85}{Report\-Stack::view}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r85}
+
+
+Definition at line 165 of file report\-Stack.h.\hypertarget{classReportStack_r106}{
+\index{ReportStack@{Report\-Stack}!widget@{widget}}
+\index{widget@{widget}!ReportStack@{Report\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r8}{Report\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r106}
+
+
+Definition at line 192 of file report\-Stack.h.\hypertarget{classReportStack_r100}{
+\index{ReportStack@{Report\-Stack}!widget@{widget}}
+\index{widget@{widget}!ReportStack@{Report\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r8}{Report\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r100}
+
+
+Definition at line 184 of file report\-Stack.h.\hypertarget{classReportStack_r94}{
+\index{ReportStack@{Report\-Stack}!widget@{widget}}
+\index{widget@{widget}!ReportStack@{Report\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r8}{Report\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r94}
+
+
+Definition at line 176 of file report\-Stack.h.\hypertarget{classReportStack_r80}{
+\index{ReportStack@{Report\-Stack}!widget@{widget}}
+\index{widget@{widget}!ReportStack@{Report\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r8}{Report\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r80}
+
+
+Definition at line 160 of file report\-Stack.h.\hypertarget{classReportStack_r8}{
+\index{ReportStack@{Report\-Stack}!widget@{widget}}
+\index{widget@{widget}!ReportStack@{Report\-Stack}}
+\subsubsection[widget]{\setlength{\rightskip}{0pt plus 5cm}QWidget$\ast$ \hyperlink{classReportStack_r8}{Report\-Stack::widget}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classReportStack_r8}
+
+
+Definition at line 79 of file report\-Stack.h.
+
+Referenced by switch\-To\-Edit\-Balance(), switch\-To\-Edit\-Income\-Retail(), and switch\-To\-Edit\-Income\-Svc().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{reportStack_8h}{report\-Stack.h}\item 
+\hyperlink{reportStack_8cpp}{report\-Stack.cpp}\end{CompactItemize}

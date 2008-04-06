@@ -1,0 +1,4216 @@
+\hypertarget{classDatabase}{
+\section{Database Class Reference}
+\label{classDatabase}\index{Database@{Database}}
+}
+{\tt \#include $<$database.h$>$}
+
+Collaboration diagram for Database:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classDatabase__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{CompactItemize}
+\item 
+enum \hyperlink{classDatabase_w8}{editor\-Categories} \{ \par
+\hyperlink{classDatabase_w8w0}{balance\-Assets}, 
+\hyperlink{classDatabase_w8w1}{balance\-Liabilities}, 
+\hyperlink{classDatabase_w8w2}{balance\-Equities}, 
+\hyperlink{classDatabase_w8w3}{income\-Svc\-Income}, 
+\par
+\hyperlink{classDatabase_w8w4}{income\-Svc\-Expenses}, 
+\hyperlink{classDatabase_w8w5}{income\-Retail\-Income}, 
+\hyperlink{classDatabase_w8w6}{income\-Retail\-COS}, 
+\hyperlink{classDatabase_w8w7}{income\-Retail\-Expenses}
+ \}
+\end{CompactItemize}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classDatabase_l0}{accounts\-Changed} ()
+\item 
+void \hyperlink{classDatabase_l1}{journal\-Tmp\-Changed} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classDatabase_a0}{destroy} ()
+\item 
+bool \hyperlink{classDatabase_a1}{open\-New} (QString file, QString password)
+\item 
+bool \hyperlink{classDatabase_a2}{create\-New} (QString name, QString year\-End)
+\item 
+void \hyperlink{classDatabase_a3}{close\-Db} ()
+\item 
+void \hyperlink{classDatabase_a4}{copy\-Db} (QString file) const
+\item 
+void \hyperlink{classDatabase_a5}{encrypt\-Db} (QString password)
+\item 
+void \hyperlink{classDatabase_a6}{decrypt\-Db} ()
+\item 
+bool \hyperlink{classDatabase_a7}{is\-Encrypted} () const
+\item 
+void \hyperlink{classDatabase_a8}{import\-Db} (QString file) const
+\item 
+void \hyperlink{classDatabase_a9}{edit\-Name} (QString name)
+\item 
+QString \hyperlink{classDatabase_a10}{get\-Cur\-Db} () const
+\item 
+QString \hyperlink{classDatabase_a11}{get\-Cur\-Client} () const
+\item 
+bool \hyperlink{classDatabase_a12}{cur\-Client\-Exists} () const
+\item 
+QString\-List \hyperlink{classDatabase_a13}{get\-Client\-List} () const
+\item 
+void \hyperlink{classDatabase_a14}{export\-CSV} (QString table, QString file) const
+\item 
+void \hyperlink{classDatabase_a15}{import\-CSV} (QString table, QString file)
+\item 
+QString\-List \hyperlink{classDatabase_a16}{get\-Period\-Begin} () const
+\item 
+QString\-List \hyperlink{classDatabase_a17}{get\-Period\-End} () const
+\item 
+QPtr\-List$<$ \hyperlink{classEditorElement}{Editor\-Element} $>$ \hyperlink{classDatabase_a18}{get\-Elements} (\hyperlink{classDatabase_w8}{editor\-Categories} category)
+\item 
+void \hyperlink{classDatabase_a19}{create\-Element} (\hyperlink{classDatabase_w8}{editor\-Categories} category, QString type, QString desc, QString account\-Begin, QString account\-End=\char`\"{}\char`\"{})
+\item 
+void \hyperlink{classDatabase_a20}{remove\-Element} (\hyperlink{classDatabase_w8}{editor\-Categories} category, QString key)
+\item 
+void \hyperlink{classDatabase_a21}{move\-Element} (\hyperlink{classDatabase_w8}{editor\-Categories} category, QString key, bool up)
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a22}{get\-General\-Detail} (QString period\-Begin, QString period\-End, QString account\-Begin, QString account\-End)
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a23}{get\-General\-Trial\-Balance} (QString period\-End, QString account\-Begin, QString account\-End)
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a24}{get\-Balance\-Report} (QString period\-End)
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a25}{get\-Chart\-Accounts} ()
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a26}{get\-Journal\-Tmp\-Report} ()
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a27}{get\-Income\-Svc\-Report} (QString period\-End)
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_a28}{get\-Income\-Retail\-Report} (QString period\-End)
+\item 
+QString \& \hyperlink{classDatabase_a29}{report\-Header} ()
+\item 
+QString \& \hyperlink{classDatabase_a30}{report\-Data} ()
+\item 
+QString \& \hyperlink{classDatabase_a31}{report\-String} ()
+\item 
+QString \& \hyperlink{classDatabase_a32}{report\-CSV} ()
+\item 
+QString \& \hyperlink{classDatabase_a33}{report\-HTML} ()
+\item 
+QString \& \hyperlink{classDatabase_a34}{journal\-Tmp\-Report\-Header} ()
+\item 
+QString \& \hyperlink{classDatabase_a35}{journal\-Tmp\-Report\-Data} ()
+\item 
+QString\-List \& \hyperlink{classDatabase_a36}{get\-Accounts\-List} ()
+\item 
+QPtr\-List$<$ QString\-List $>$ $\ast$ \hyperlink{classDatabase_a37}{get\-Accounts\-Data} ()
+\item 
+QPtr\-List$<$ QString\-List $>$ $\ast$ \hyperlink{classDatabase_a38}{get\-Journal\-Tmp\-Data} ()
+\item 
+void \hyperlink{classDatabase_a39}{update\-Account} (QString key, QString id, QString desc)
+\item 
+void \hyperlink{classDatabase_a40}{delete\-Account} (QString key)
+\item 
+void \hyperlink{classDatabase_a41}{update\-Journal\-Tmp} (QString key, QString date, QString account, QString reference, QString desc, QString debit, QString credit)
+\item 
+void \hyperlink{classDatabase_a42}{delete\-Journal\-Tmp} (QString key)
+\item 
+QString \hyperlink{classDatabase_a43}{journal\-Tmp\-Debit} ()
+\item 
+QString \hyperlink{classDatabase_a44}{journal\-Tmp\-Credit} ()
+\item 
+QString \hyperlink{classDatabase_a45}{journal\-Tmp\-Balance} ()
+\item 
+QString \hyperlink{classDatabase_a46}{add\-Currency} (QString base, QString add) const
+\item 
+QString \hyperlink{classDatabase_a47}{neg\-Currency} (QString currency) const
+\item 
+QString \hyperlink{classDatabase_a48}{add\-Commas} (QString currency) const
+\item 
+QString \hyperlink{classDatabase_a49}{format\-Currency} (QString currency) const
+\item 
+void \hyperlink{classDatabase_a50}{commit\-Journal\-Tmp} ()
+\item 
+bool \hyperlink{classDatabase_a51}{journal\-Tmp\-Empty} ()
+\item 
+QString \hyperlink{classDatabase_a52}{next\-Account\-Key} ()
+\item 
+QString \hyperlink{classDatabase_a53}{next\-Journal\-Tmp\-Key} ()
+\item 
+QString \hyperlink{classDatabase_a54}{get\-Account\-Desc} (QString account)
+\item 
+bool \hyperlink{classDatabase_a55}{account\-Exists} (QString account)
+\item 
+bool \hyperlink{classDatabase_a56}{account\-Has\-Entries} (QString account)
+\end{CompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_e0}{instance} ()
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase_d0}{Database} ()
+\item 
+\hyperlink{classDatabase_d1}{$\sim$Database} ()
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classSettings}{Settings} $\ast$ \hyperlink{classDatabase_r0}{settings}
+\item 
+QString \hyperlink{classDatabase_r1}{client\-Path}
+\item 
+QSql\-Database $\ast$ \hyperlink{classDatabase_r2}{connection}
+\item 
+QString \hyperlink{classDatabase_r3}{cur\-Client}
+\item 
+QString \hyperlink{classDatabase_r4}{cur\-Db}
+\item 
+\hyperlink{structDatabase_1_1ReportStruct}{Report\-Struct} $\ast$ \hyperlink{classDatabase_r5}{report}
+\item 
+\hyperlink{structDatabase_1_1JournalTmpReport}{Journal\-Tmp\-Report} $\ast$ \hyperlink{classDatabase_r6}{journal\-Tmp\-Report}
+\item 
+QString\-List $\ast$ \hyperlink{classDatabase_r7}{accounts\-List}
+\end{CompactItemize}
+\subsection*{Static Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_v0}{db} = 0
+\end{CompactItemize}
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{classDatabase_w8}{
+\index{Database@{Database}!editorCategories@{editorCategories}}
+\index{editorCategories@{editorCategories}!Database@{Database}}
+\subsubsection[editorCategories]{\setlength{\rightskip}{0pt plus 5cm}enum \hyperlink{classDatabase_w8}{Database::editor\-Categories}}}
+\label{classDatabase_w8}
+
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{balanceAssets@{balanceAssets}!Database@{Database}}\index{Database@{Database}!balanceAssets@{balanceAssets}}\item[{\em 
+\hypertarget{classDatabase_w8w0}{
+balance\-Assets}
+\label{classDatabase_w8w0}
+}]\index{balanceLiabilities@{balanceLiabilities}!Database@{Database}}\index{Database@{Database}!balanceLiabilities@{balanceLiabilities}}\item[{\em 
+\hypertarget{classDatabase_w8w1}{
+balance\-Liabilities}
+\label{classDatabase_w8w1}
+}]\index{balanceEquities@{balanceEquities}!Database@{Database}}\index{Database@{Database}!balanceEquities@{balanceEquities}}\item[{\em 
+\hypertarget{classDatabase_w8w2}{
+balance\-Equities}
+\label{classDatabase_w8w2}
+}]\index{incomeSvcIncome@{incomeSvcIncome}!Database@{Database}}\index{Database@{Database}!incomeSvcIncome@{incomeSvcIncome}}\item[{\em 
+\hypertarget{classDatabase_w8w3}{
+income\-Svc\-Income}
+\label{classDatabase_w8w3}
+}]\index{incomeSvcExpenses@{incomeSvcExpenses}!Database@{Database}}\index{Database@{Database}!incomeSvcExpenses@{incomeSvcExpenses}}\item[{\em 
+\hypertarget{classDatabase_w8w4}{
+income\-Svc\-Expenses}
+\label{classDatabase_w8w4}
+}]\index{incomeRetailIncome@{incomeRetailIncome}!Database@{Database}}\index{Database@{Database}!incomeRetailIncome@{incomeRetailIncome}}\item[{\em 
+\hypertarget{classDatabase_w8w5}{
+income\-Retail\-Income}
+\label{classDatabase_w8w5}
+}]\index{incomeRetailCOS@{incomeRetailCOS}!Database@{Database}}\index{Database@{Database}!incomeRetailCOS@{incomeRetailCOS}}\item[{\em 
+\hypertarget{classDatabase_w8w6}{
+income\-Retail\-COS}
+\label{classDatabase_w8w6}
+}]\index{incomeRetailExpenses@{incomeRetailExpenses}!Database@{Database}}\index{Database@{Database}!incomeRetailExpenses@{incomeRetailExpenses}}\item[{\em 
+\hypertarget{classDatabase_w8w7}{
+income\-Retail\-Expenses}
+\label{classDatabase_w8w7}
+}]\end{description}
+\end{Desc}
+
+Definition at line 40 of file database.h.
+
+\footnotesize\begin{verbatim}40                               {balanceAssets, balanceLiabilities, balanceEquities,
+41                                incomeSvcIncome, incomeSvcExpenses,
+42                                incomeRetailIncome, incomeRetailCOS, incomeRetailExpenses};
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classDatabase_d0}{
+\index{Database@{Database}!Database@{Database}}
+\index{Database@{Database}!Database@{Database}}
+\subsubsection[Database]{\setlength{\rightskip}{0pt plus 5cm}Database::Database ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_d0}
+
+
+Definition at line 35 of file database.cpp.
+
+References accounts\-List, client\-Path, connection, cur\-Client, cur\-Db, Settings::get\-Client\-Path(), Settings::get\-Default\-Client(), Settings::get\-Default\-Db(), Settings::instance(), journal\-Tmp\-Report, report, and settings.
+
+\footnotesize\begin{verbatim}35                    : QObject()
+36 {
+37 #ifdef Q_WS_WIN
+38     connection = QSqlDatabase::addDatabase("QSQLITEX");
+39 #else
+40     connection = QSqlDatabase::addDatabase("QSQLITE");
+41 #endif
+42     report = new ReportStruct;
+43     journalTmpReport = new JournalTmpReport;
+44     accountsList = new QStringList;
+45 
+46     settings = Settings::instance();
+47 
+48     clientPath = settings->getClientPath();
+49     
+50     curDb = settings->getDefaultDb();
+51     curClient = settings->getDefaultClient();
+52 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_d1}{
+\index{Database@{Database}!~Database@{$\sim$Database}}
+\index{~Database@{$\sim$Database}!Database@{Database}}
+\subsubsection[$\sim$Database]{\setlength{\rightskip}{0pt plus 5cm}Database::$\sim$\hyperlink{classDatabase}{Database} ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_d1}
+
+
+Definition at line 54 of file database.cpp.
+
+References accounts\-List, close\-Db(), cur\-Client, cur\-Db, journal\-Tmp\-Report, report, Settings::set\-Default\-Client(), Settings::set\-Default\-Db(), and settings.
+
+\footnotesize\begin{verbatim}55 {
+56     closeDb();
+57 
+58     delete report;
+59     delete journalTmpReport;
+60     delete accountsList;
+61 
+62     settings->setDefaultDb(curDb);
+63     settings->setDefaultClient(curClient);
+64 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDatabase_a55}{
+\index{Database@{Database}!accountExists@{accountExists}}
+\index{accountExists@{accountExists}!Database@{Database}}
+\subsubsection[accountExists]{\setlength{\rightskip}{0pt plus 5cm}bool Database::account\-Exists (QString {\em account})}}
+\label{classDatabase_a55}
+
+
+Definition at line 3056 of file database.cpp.
+
+References connection.
+
+\footnotesize\begin{verbatim}3057 {
+3058     QSqlQuery query("SELECT * FROM accounts WHERE id = " + account, connection);
+3059     if(query.first())
+3060         return true;
+3061     else
+3062         return false;
+3063 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a56}{
+\index{Database@{Database}!accountHasEntries@{accountHasEntries}}
+\index{accountHasEntries@{accountHasEntries}!Database@{Database}}
+\subsubsection[accountHasEntries]{\setlength{\rightskip}{0pt plus 5cm}bool Database::account\-Has\-Entries (QString {\em account})}}
+\label{classDatabase_a56}
+
+
+Definition at line 3065 of file database.cpp.
+
+References connection.
+
+Referenced by Account\-Table::remove().
+
+\footnotesize\begin{verbatim}3066 {
+3067     QSqlQuery query("SELECT * FROM journal WHERE account = " + account, connection);
+3068     if(query.first())
+3069         return true;
+3070     else
+3071         return false;
+3072 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_l0}{
+\index{Database@{Database}!accountsChanged@{accountsChanged}}
+\index{accountsChanged@{accountsChanged}!Database@{Database}}
+\subsubsection[accountsChanged]{\setlength{\rightskip}{0pt plus 5cm}void Database::accounts\-Changed ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classDatabase_l0}
+
+
+
+
+Referenced by delete\-Account(), import\-CSV(), and update\-Account().\hypertarget{classDatabase_a48}{
+\index{Database@{Database}!addCommas@{addCommas}}
+\index{addCommas@{addCommas}!Database@{Database}}
+\subsubsection[addCommas]{\setlength{\rightskip}{0pt plus 5cm}QString Database::add\-Commas (QString {\em currency}) const}}
+\label{classDatabase_a48}
+
+
+Definition at line 2946 of file database.cpp.
+
+References neg\-Currency().
+
+Referenced by format\-Currency(), get\-General\-Detail(), get\-General\-Trial\-Balance(), and get\-Journal\-Tmp\-Report().
+
+\footnotesize\begin{verbatim}2947 {
+2948     bool neg = false;
+2949     QString result;
+2950     if(currency.left(1) == "-")
+2951     {
+2952         neg = true;
+2953         result = currency.mid(1);
+2954     }
+2955     else
+2956         result = currency;
+2957 
+2958     std::div_t divResult = div(result.length() - 3, 3);
+2959     int start = divResult.rem;
+2960     int times = divResult.quot;
+2961 
+2962     for(int i = 0; i < times; i++)
+2963     {
+2964         if(start == 0)
+2965             continue;
+2966 
+2967         result.insert(start + i, ",");
+2968 
+2969         start += 3;
+2970     }
+2971 
+2972     if(neg)
+2973         return negCurrency(result);
+2974     else
+2975         return result;
+2976 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a46}{
+\index{Database@{Database}!addCurrency@{addCurrency}}
+\index{addCurrency@{addCurrency}!Database@{Database}}
+\subsubsection[addCurrency]{\setlength{\rightskip}{0pt plus 5cm}QString Database::add\-Currency (QString {\em base}, QString {\em add}) const}}
+\label{classDatabase_a46}
+
+
+Definition at line 2863 of file database.cpp.
+
+Referenced by get\-Balance\-Report(), get\-General\-Detail(), get\-General\-Trial\-Balance(), get\-Income\-Retail\-Report(), get\-Income\-Svc\-Report(), journal\-Tmp\-Balance(), journal\-Tmp\-Credit(), and journal\-Tmp\-Debit().
+
+\footnotesize\begin{verbatim}2864 {
+2865     // code adopted from "moncls.h" by donpa@linuxledgers.com
+2866     
+2867     QString resultCents;
+2868     QString resultDollars;
+2869     int cents;
+2870     int dollars;
+2871     
+2872     QString baseCents;
+2873     QString baseDollars;
+2874     QString addCents;
+2875     QString addDollars;
+2876     
+2877     baseCents = base.right(2);
+2878     base.truncate(base.length() - 3);
+2879     baseDollars = base;
+2880     
+2881     addCents = add.right(2);
+2882     add.truncate(add.length() - 3);
+2883     addDollars = add;
+2884     
+2885     if(baseDollars.left(1) == "-")
+2886     {
+2887         baseCents.setNum(baseCents.toInt() + 100);
+2888         baseCents.insert(0, "-");
+2889         baseDollars.setNum(baseDollars.toInt() + 1);
+2890     }
+2891     if(addDollars.left(1) == "-")
+2892     {
+2893         addCents.setNum(addCents.toInt() + 100);
+2894         addCents.insert(0, "-");
+2895         addDollars.setNum(addDollars.toInt() + 1);
+2896     }
+2897     
+2898     dollars = (baseDollars.toInt() + addDollars.toInt());
+2899     cents = (baseCents.toInt() + addCents.toInt());
+2900     
+2901     while(dollars > 0 && cents < 0)
+2902     {
+2903         dollars -= 1;
+2904         cents += 100;
+2905     }
+2906     while(cents >= 100)
+2907     {
+2908         dollars += 1;
+2909         cents -= 100;
+2910     }
+2911     while(cents <= -100)
+2912     {
+2913         dollars -= 1;
+2914         cents += 100;
+2915     }
+2916 
+2917     resultDollars.setNum(dollars);
+2918 
+2919     if(cents < 0)
+2920     {
+2921         cents = 0 - cents;
+2922         if(dollars >= 0)
+2923             resultDollars.insert(0, "-");
+2924     }
+2925 
+2926     resultCents.setNum(cents);
+2927 
+2928     if(cents < 10)
+2929         resultCents.insert(0, "0");
+2930     
+2931     return QString(resultDollars + "." + resultCents);   
+2932 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a3}{
+\index{Database@{Database}!closeDb@{closeDb}}
+\index{closeDb@{closeDb}!Database@{Database}}
+\subsubsection[closeDb]{\setlength{\rightskip}{0pt plus 5cm}void Database::close\-Db ()}}
+\label{classDatabase_a3}
+
+
+Definition at line 191 of file database.cpp.
+
+References client\-Path, connection, Database::Report\-Struct::csv, cur\-Db, Database::Journal\-Tmp\-Report::data, Database::Report\-Struct::data, Database::Journal\-Tmp\-Report::header, Database::Report\-Struct::header, Database::Report\-Struct::html, journal\-Tmp\-Report, report, and Database::Report\-Struct::string.
+
+Referenced by Main\-Stack::close\-Client(), and $\sim$Database().
+
+\footnotesize\begin{verbatim}192 {
+193     if(connection->isOpen()) connection->close();
+194 
+195     report->header = QString::null;
+196     report->data = QString::null;
+197     report->string = QString::null;
+198     report->csv = QString::null;
+199     report->html = QString::null;
+200 
+201     journalTmpReport->header = QString::null;
+202     journalTmpReport->data = QString::null;
+203 
+204     if(curDb.right(4) == ".db_")
+205     {
+206         remove(QString(clientPath + "/" + curDb));
+207         remove(QString(clientPath + "/" + curDb.left(curDb.length() - 1)));
+208         curDb = curDb.left(curDb.length() - 1).append("x");
+209     }
+210 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a50}{
+\index{Database@{Database}!commitJournalTmp@{commitJournalTmp}}
+\index{commitJournalTmp@{commitJournalTmp}!Database@{Database}}
+\subsubsection[commitJournalTmp]{\setlength{\rightskip}{0pt plus 5cm}void Database::commit\-Journal\-Tmp ()}}
+\label{classDatabase_a50}
+
+
+Definition at line 2988 of file database.cpp.
+
+References connection, and journal\-Tmp\-Changed().
+
+\footnotesize\begin{verbatim}2989 {
+2990     QStringList data;
+2991     
+2992     QSqlQuery query("SELECT * FROM journalTmp", connection);
+2993     while(query.next())
+2994     {
+2995         data << ("\"" + query.value(1).toString() + "\", \"" + query.value(2).toString()
+2996                 + "\", \"" + query.value(3).toString() + "\", \"" + query.value(4).toString()
+2997                 + "\", \"" + query.value(5).toString() + "\", \"" + query.value(6).toString() + "\"");
+2998     }
+2999     
+3000     for(QStringList::Iterator it = data.begin(); it != data.end(); ++it)
+3001     {
+3002         query.prepare("INSERT INTO journal VALUES(" + *it + ")");
+3003         query.exec();
+3004     }
+3005     
+3006     query.prepare("DROP TABLE journalTmp");
+3007     query.exec();
+3008     
+3009     query.prepare("CREATE TABLE journalTmp (key, date, account, reference, "
+3010             "desc, debit, credit, PRIMARY KEY (key))");
+3011     query.exec();
+3012     
+3013     emit journalTmpChanged();
+3014 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a4}{
+\index{Database@{Database}!copyDb@{copyDb}}
+\index{copyDb@{copyDb}!Database@{Database}}
+\subsubsection[copyDb]{\setlength{\rightskip}{0pt plus 5cm}void Database::copy\-Db (QString {\em file}) const}}
+\label{classDatabase_a4}
+
+
+Definition at line 212 of file database.cpp.
+
+References client\-Path, and cur\-Db.
+
+Referenced by Main\-Stack::copy\-Client().
+
+\footnotesize\begin{verbatim}213 {
+214     QString origFile;
+215     bool encrypted;
+216     if(curDb.right(4) == ".db_")
+217     {
+218         encrypted = true;
+219         origFile = curDb.left(curDb.length() - 1).append("x");
+220     }
+221     else
+222     {
+223         encrypted = false;
+224         origFile = curDb;
+225     }
+226 
+227     QFile origDb(clientPath + "/" + origFile);
+228 
+229     if(file.right(3) == ".db" && encrypted)
+230         file = file.left(file.length() - 3).append(".dbx");
+231     if(file.right(4) == ".dbx" && !encrypted)
+232         file = file.left(file.length() - 4).append(".db");
+233     if(file.right(3) != ".db" && file.right(4) != ".dbx" && encrypted)
+234         file = file.append(".dbx");
+235     if(file.right(3) != ".db" && file.right(4) != ".dbx" && !encrypted)
+236         file = file.append(".db");
+237 
+238     QFile newDb(file);
+239     
+240     if( !origDb.open(IO_ReadOnly | IO_Raw) )
+241     {
+242         qDebug("origDb not open");
+243         qDebug(origDb.errorString());
+244         return;
+245     }
+246     if( !newDb.open(IO_WriteOnly) )
+247     {
+248         qDebug("newDb not open");
+249         qDebug(newDb.errorString());
+250         return;
+251     }
+252     
+253     while(!origDb.atEnd())
+254         newDb.putch(origDb.getch());
+255     
+256     newDb.close();
+257     origDb.close();
+258 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a19}{
+\index{Database@{Database}!createElement@{createElement}}
+\index{createElement@{createElement}!Database@{Database}}
+\subsubsection[createElement]{\setlength{\rightskip}{0pt plus 5cm}void Database::create\-Element (\hyperlink{classDatabase_w8}{editor\-Categories} {\em category}, QString {\em type}, QString {\em desc}, QString {\em account\-Begin}, QString {\em account\-End} = {\tt \char`\"{}\char`\"{}})}}
+\label{classDatabase_a19}
+
+
+Definition at line 856 of file database.cpp.
+
+References balance\-Assets, balance\-Equities, balance\-Liabilities, connection, income\-Retail\-COS, income\-Retail\-Expenses, income\-Retail\-Income, income\-Svc\-Expenses, and income\-Svc\-Income.
+
+Referenced by Income\-Svc\-Editor::add\-Element(), Income\-Retail\-Editor::add\-Element(), and Balance\-Sheet\-Editor::add\-Element().
+
+\footnotesize\begin{verbatim}858 {
+859     if(!connection->open())
+860     {
+861         connection->lastError().showMessage();
+862         return;
+863     }
+864     
+865     QString table;
+866     switch(category)
+867     {
+868         case balanceAssets:
+869             table = "balanceAssets";
+870             break;
+871         case balanceLiabilities:
+872             table = "balanceLiabilities";
+873             break;
+874         case balanceEquities:
+875             table = "balanceEquities";
+876             break;
+877         case incomeSvcIncome:
+878             table = "incomeSvcIncome";
+879             break;
+880         case incomeSvcExpenses:
+881             table = "incomeSvcExpenses";
+882             break;
+883         case incomeRetailIncome:
+884             table = "incomeRetailIncome";
+885             break;
+886         case incomeRetailCOS:
+887             table = "incomeRetailCOS";
+888             break;
+889         case incomeRetailExpenses:
+890             table = "incomeRetailExpenses";
+891             break;
+892     }
+893     
+894     QSqlQuery queryLast("SELECT key FROM " + table + " ORDER BY key");
+895     
+896     QString oneUp;
+897     if(queryLast.last())
+898         oneUp.setNum(queryLast.value(0).toInt() + 1);
+899     else
+900         oneUp.setNum(1);
+901     
+902     if(type == "0")
+903     {
+904         QSqlQuery queryDesc("SELECT desc FROM accounts WHERE id = \"" + accountBegin + "\"", connection);
+905         if(queryDesc.next())
+906             desc = queryDesc.value(0).toString();
+907     }
+908     
+909     QSqlQuery queryInsert("INSERT INTO " + table + " VALUES( \"" + oneUp + "\", \"" +
+910             type + "\", \"" + desc + "\", \"" + accountBegin + "\", \"" + accountEnd + "\")", connection);
+911 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a2}{
+\index{Database@{Database}!createNew@{createNew}}
+\index{createNew@{createNew}!Database@{Database}}
+\subsubsection[createNew]{\setlength{\rightskip}{0pt plus 5cm}bool Database::create\-New (QString {\em name}, QString {\em year\-End})}}
+\label{classDatabase_a2}
+
+
+Definition at line 148 of file database.cpp.
+
+References client\-Path, connection, cur\-Client, cur\-Db, Settings::get\-Client\-Path(), and settings.
+
+Referenced by Main\-Stack::create\-New\-Dialog().
+
+\footnotesize\begin{verbatim}149 {
+150     clientPath = settings->getClientPath();
+151 
+152     QString file(name);
+153     
+154     file.replace(QChar(' '), "_");
+155     file.replace(QChar('/'), "-");
+156     file.replace(QChar('\\'), "-");
+157     file.append(".db");
+158     
+159     if(connection->isOpen()) connection->close();
+160     connection->setDatabaseName(clientPath + "/" + file);
+161     if (!connection->open())
+162     {
+163         connection->lastError().showMessage();
+164         return false;
+165     }
+166     
+167     curDb = file;
+168     curClient = name;
+169         
+170     QSqlQuery createMain("CREATE TABLE main (name, yearEnd)", connection);
+171     QSqlQuery createAccounts("CREATE TABLE accounts (key, id, desc, PRIMARY KEY (key))", connection);
+172     QSqlQuery createAccountsIndex("CREATE INDEX accountsIndex ON accounts (id)", connection);
+173     QSqlQuery createJournal("CREATE TABLE journal (date, account, reference, "
+174             "desc, debit, credit)", connection);
+175     QSqlQuery createJournalTmp("CREATE TABLE journalTmp (key, date, account, reference, "
+176             "desc, debit, credit, PRIMARY KEY (key))", connection);
+177     QSqlQuery createBalanceAssets("CREATE TABLE balanceAssets (key, type, desc, begin, end)", connection);
+178     QSqlQuery createBalanceLiabilities("CREATE TABLE balanceLiabilities (key, type, desc, begin, end)", connection);
+179     QSqlQuery createBalanceEquities("CREATE TABLE balanceEquities (key, type, desc, begin, end)", connection);
+180     QSqlQuery createIncomeSvcIncome("CREATE TABLE incomeSvcIncome (key, type, desc, begin, end)", connection);
+181     QSqlQuery createIncomeSvcExpenses("CREATE TABLE incomeSvcExpenses (key, type, desc, begin, end)", connection);
+182     QSqlQuery createIncomeRetailIncome("CREATE TABLE incomeRetailIncome (key, type, desc, begin, end)", connection);
+183     QSqlQuery createIncomeRetailCOS("CREATE TABLE incomeRetailCOS (key, type, desc, begin, end)", connection);
+184     QSqlQuery createIncomeRetailExpenses("CREATE TABLE incomeRetailExpenses (key, type, desc, begin, end)", connection);
+185     
+186     QSqlQuery("INSERT INTO main VALUES(\"" + name + "\", \"" + yearEnd + "\")", connection);
+187     
+188     return true;
+189 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a12}{
+\index{Database@{Database}!curClientExists@{curClientExists}}
+\index{curClientExists@{curClientExists}!Database@{Database}}
+\subsubsection[curClientExists]{\setlength{\rightskip}{0pt plus 5cm}bool Database::cur\-Client\-Exists () const}}
+\label{classDatabase_a12}
+
+
+Definition at line 398 of file database.cpp.
+
+References client\-Path, and cur\-Db.
+
+Referenced by Main\-Stack::Main\-Stack().
+
+\footnotesize\begin{verbatim}399 {
+400     QFile file(clientPath + "/" + curDb);
+401     if(file.exists())
+402         return true;
+403     else
+404         return false;
+405 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a6}{
+\index{Database@{Database}!decryptDb@{decryptDb}}
+\index{decryptDb@{decryptDb}!Database@{Database}}
+\subsubsection[decryptDb]{\setlength{\rightskip}{0pt plus 5cm}void Database::decrypt\-Db ()}}
+\label{classDatabase_a6}
+
+
+Definition at line 298 of file database.cpp.
+
+References client\-Path, and cur\-Db.
+
+Referenced by Main\-Stack::decrypt().
+
+\footnotesize\begin{verbatim}299 {
+300     QFile origDb(clientPath + "/" + curDb);
+301 
+302     curDb.truncate(curDb.length() - 4);
+303 
+304     QFile newDb(clientPath + "/" + curDb + ".db");
+305 
+306     if( !origDb.open(IO_ReadOnly | IO_Raw) )
+307     {
+308         qDebug("origDb not open");
+309         qDebug(origDb.errorString());
+310         return;
+311     }
+312     if( !newDb.open(IO_WriteOnly) )
+313     {
+314         qDebug("newDb not open");
+315         qDebug(newDb.errorString());
+316         return;
+317     }
+318     
+319     while(!origDb.atEnd())
+320         newDb.putch(origDb.getch());
+321     
+322     newDb.close();
+323     origDb.close();
+324 
+325     remove(clientPath + "/" + curDb + ".db_");
+326     remove(clientPath + "/" + curDb + ".dbx");
+327 
+328     curDb.append(".db");
+329 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a40}{
+\index{Database@{Database}!deleteAccount@{deleteAccount}}
+\index{deleteAccount@{deleteAccount}!Database@{Database}}
+\subsubsection[deleteAccount]{\setlength{\rightskip}{0pt plus 5cm}void Database::delete\-Account (QString {\em key})}}
+\label{classDatabase_a40}
+
+
+Definition at line 2796 of file database.cpp.
+
+References accounts\-Changed(), and connection.
+
+Referenced by Account\-Table::remove().
+
+\footnotesize\begin{verbatim}2797 {
+2798     QSqlQuery query("DELETE FROM accounts WHERE key = \"" + key + "\"", connection);
+2799     
+2800     emit accountsChanged();
+2801 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a42}{
+\index{Database@{Database}!deleteJournalTmp@{deleteJournalTmp}}
+\index{deleteJournalTmp@{deleteJournalTmp}!Database@{Database}}
+\subsubsection[deleteJournalTmp]{\setlength{\rightskip}{0pt plus 5cm}void Database::delete\-Journal\-Tmp (QString {\em key})}}
+\label{classDatabase_a42}
+
+
+Definition at line 2825 of file database.cpp.
+
+References connection.
+
+Referenced by Journal\-Table::remove().
+
+\footnotesize\begin{verbatim}2826 {
+2827     QSqlQuery query("DELETE FROM journalTmp WHERE key = " + key, connection);
+2828 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a0}{
+\index{Database@{Database}!destroy@{destroy}}
+\index{destroy@{destroy}!Database@{Database}}
+\subsubsection[destroy]{\setlength{\rightskip}{0pt plus 5cm}void Database::destroy ()}}
+\label{classDatabase_a0}
+
+
+Definition at line 73 of file database.cpp.
+
+References db.
+
+Referenced by main().
+
+\footnotesize\begin{verbatim}74 {
+75     if(db != 0)
+76         delete db;
+77 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a9}{
+\index{Database@{Database}!editName@{editName}}
+\index{editName@{editName}!Database@{Database}}
+\subsubsection[editName]{\setlength{\rightskip}{0pt plus 5cm}void Database::edit\-Name (QString {\em name})}}
+\label{classDatabase_a9}
+
+
+Definition at line 376 of file database.cpp.
+
+References connection, and cur\-Client.
+
+Referenced by Main\-Stack::edit\-Name().
+
+\footnotesize\begin{verbatim}377 {
+378     if(!connection->open())
+379     {
+380         connection->lastError().showMessage();
+381         return;
+382     }
+383     
+384     QSqlQuery update("UPDATE main SET name = '" + name + "'", connection);
+385     curClient = name;
+386 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a5}{
+\index{Database@{Database}!encryptDb@{encryptDb}}
+\index{encryptDb@{encryptDb}!Database@{Database}}
+\subsubsection[encryptDb]{\setlength{\rightskip}{0pt plus 5cm}void Database::encrypt\-Db (QString {\em password})}}
+\label{classDatabase_a5}
+
+
+Definition at line 260 of file database.cpp.
+
+References client\-Path, cur\-Client, cur\-Db, and open\-New().
+
+Referenced by Main\-Stack::encrypt().
+
+\footnotesize\begin{verbatim}261 {
+262     system(QString(CRYPT_PATH + "/aescrypt2 0 \"" + clientPath + "/" + curDb + "\" \""
+263             + clientPath + "/" + curDb + "x2\" \"" + password + "\"").ascii());
+264 
+265     QFile encDb2(clientPath + "/" + curDb + "x2");
+266     if(!encDb2.open( IO_ReadOnly ))
+267         return;
+268     QDataStream encStream2(&encDb2);
+269 
+270     QFile encDb(clientPath + "/" + curDb + "x");
+271     encDb.open( IO_WriteOnly );
+272     QDataStream encStream(&encDb);
+273 
+274     encStream << QString("enc:" + curClient).ascii();
+275 
+276     char *byte = new char;
+277     while(!encStream2.atEnd())
+278     {
+279         encStream2.readRawBytes(byte, 1);
+280         encStream.writeRawBytes(byte, 1);
+281     }
+282     delete byte;
+283 
+284     encStream.unsetDevice();
+285     encDb.close();
+286     encStream2.unsetDevice();
+287     encDb2.close();
+288 
+289     remove(QString(clientPath + "/" + curDb + "x2").ascii());
+290 
+291     QString oldCurDb = curDb;
+292 
+293     openNew(curClient, password);
+294 
+295     remove(QString(clientPath + "/" + oldCurDb).ascii());
+296 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a14}{
+\index{Database@{Database}!exportCSV@{exportCSV}}
+\index{exportCSV@{exportCSV}!Database@{Database}}
+\subsubsection[exportCSV]{\setlength{\rightskip}{0pt plus 5cm}void Database::export\-CSV (QString {\em table}, QString {\em file}) const}}
+\label{classDatabase_a14}
+
+
+Definition at line 461 of file database.cpp.
+
+Referenced by Journal\-Stack::export\-CSV(), and Account\-Stack::export\-CSV().
+
+\footnotesize\begin{verbatim}462 {
+463     if(file.right(4) != ".csv")
+464         file.append(".csv");
+465 
+466     QFile destFile(file);
+467     
+468     if(destFile.open(IO_WriteOnly))
+469     {
+470         QTextStream destStream(&destFile);
+471         
+472         QSqlQuery query("SELECT * FROM " + table);
+473         
+474         if(table == "accounts")
+475         {
+476             destStream << "Account ID,Account Description\n";
+477         
+478             while(query.next())
+479                 destStream << query.value(1).toString() << "," << query.value(2).toString() << "\n";
+480         }
+481         if(table == "journalTmp")
+482         {
+483             destStream << "Date,Account,Reference,Description,Debit,Credit\n";
+484             
+485             while(query.next())
+486             {
+487                 destStream << query.value(1).toString() << "," << query.value(2).toString() << ","
+488                         << query.value(3).toString() << "," << query.value(4).toString() << ","
+489                         << query.value(5).toString() << "," << query.value(6).toString() << "\n";
+490             }
+491         }
+492     }
+493     destFile.close();
+494 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a49}{
+\index{Database@{Database}!formatCurrency@{formatCurrency}}
+\index{formatCurrency@{formatCurrency}!Database@{Database}}
+\subsubsection[formatCurrency]{\setlength{\rightskip}{0pt plus 5cm}QString Database::format\-Currency (QString {\em currency}) const}}
+\label{classDatabase_a49}
+
+
+Definition at line 2978 of file database.cpp.
+
+References add\-Commas().
+
+Referenced by get\-Balance\-Report(), get\-Income\-Retail\-Report(), and get\-Income\-Svc\-Report().
+
+\footnotesize\begin{verbatim}2979 {
+2980     QString result = addCommas(currency);
+2981 
+2982     if(result.left(1) == "-")
+2983         result = "(" + result.mid(1) + ")";
+2984 
+2985     return result;
+2986 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a54}{
+\index{Database@{Database}!getAccountDesc@{getAccountDesc}}
+\index{getAccountDesc@{getAccountDesc}!Database@{Database}}
+\subsubsection[getAccountDesc]{\setlength{\rightskip}{0pt plus 5cm}QString Database::get\-Account\-Desc (QString {\em account})}}
+\label{classDatabase_a54}
+
+
+Definition at line 3047 of file database.cpp.
+
+References connection.
+
+Referenced by Journal\-Table::update\-Db().
+
+\footnotesize\begin{verbatim}3048 {
+3049     QSqlQuery query("SELECT desc FROM accounts WHERE id = " + account, connection);
+3050     if(query.next())
+3051         return query.value(0).toString();
+3052     else
+3053         return QString::null;
+3054 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a37}{
+\index{Database@{Database}!getAccountsData@{getAccountsData}}
+\index{getAccountsData@{getAccountsData}!Database@{Database}}
+\subsubsection[getAccountsData]{\setlength{\rightskip}{0pt plus 5cm}QPtr\-List$<$ QString\-List $>$ $\ast$ Database::get\-Accounts\-Data ()}}
+\label{classDatabase_a37}
+
+
+Definition at line 2748 of file database.cpp.
+
+References connection.
+
+Referenced by Account\-Table::populate().
+
+\footnotesize\begin{verbatim}2749 {
+2750     QPtrList<QStringList>* data = new QPtrList<QStringList>;
+2751     
+2752     QSqlQuery query("SELECT * FROM accounts ORDER BY id", connection);
+2753     while(query.next())
+2754     {
+2755         QStringList *list = new QStringList;
+2756         *list << query.value(0).toString() << query.value(1).toString()
+2757                 << query.value(2).toString() << query.value(3).toString();
+2758         data->append(list);
+2759     }
+2760     return data;
+2761 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a36}{
+\index{Database@{Database}!getAccountsList@{getAccountsList}}
+\index{getAccountsList@{getAccountsList}!Database@{Database}}
+\subsubsection[getAccountsList]{\setlength{\rightskip}{0pt plus 5cm}QString\-List \& Database::get\-Accounts\-List ()}}
+\label{classDatabase_a36}
+
+
+Definition at line 2736 of file database.cpp.
+
+References accounts\-List, and connection.
+
+Referenced by Balance\-Sheet\-Editor::Balance\-Sheet\-Editor(), Income\-Retail\-Editor::Income\-Retail\-Editor(), Income\-Svc\-Editor::Income\-Svc\-Editor(), Journal\-Table::Journal\-Table(), Report\-Stack::update\-Accounts(), Journal\-Table::update\-Accounts(), Income\-Svc\-Editor::update\-Accounts(), Income\-Retail\-Editor::update\-Accounts(), and Balance\-Sheet\-Editor::update\-Accounts().
+
+\footnotesize\begin{verbatim}2737 {
+2738     accountsList->clear();
+2739     
+2740     QSqlQuery query("SELECT * FROM accounts ORDER BY id", connection);
+2741     while(query.next())
+2742         accountsList->append(query.value(1).toString() + " - " + query.value(2).toString());
+2743 
+2744     return *accountsList;
+2745     
+2746 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a24}{
+\index{Database@{Database}!getBalanceReport@{getBalanceReport}}
+\index{getBalanceReport@{getBalanceReport}!Database@{Database}}
+\subsubsection[getBalanceReport]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-Balance\-Report (QString {\em period\-End})}}
+\label{classDatabase_a24}
+
+
+Definition at line 1360 of file database.cpp.
+
+References add\-Currency(), connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, format\-Currency(), Database::Report\-Struct::header, Database::Report\-Struct::html, neg\-Currency(), report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::balance\-Report().
+
+\footnotesize\begin{verbatim}1361 {
+1362 
+1363     QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+1364     dateRegexp.search(periodEnd);
+1365     
+1366     QDate curDate = QDate::currentDate();
+1367     QDate periodDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1368     QString entryYear;
+1369     QString entryMonth;
+1370     QString entryDay;
+1371     QDate entryDate;
+1372 
+1373     report->csv = "Account Description,Balance\n";
+1374     report->header = "<center><h1>";
+1375     report->header += curClient;
+1376     report->header += "</h1></center>\n";
+1377     report->header += "<center><h2>Balance Sheet</h2></center>\n";
+1378     report->header += "<center><h3>" + periodDate.toString("MMM d, yyyy") + "</h3>\n";
+1379 
+1380     report->header += "<table width=\"60%\"><tr>"
+1381             "<td width=\"70%\"><b>Account Description</b></td>"
+1382             "<td align=\"right\" width=\"30%\"><b>Balance</b></td></tr></table></center>";
+1383 
+1384     report->data = "<center><table width=\"60%\">";
+1385 
+1386     QStringList assetsList;
+1387     QStringList liabilitiesList;
+1388     QStringList equitiesList;
+1389 
+1390     QSqlQuery query("SELECT * FROM balanceAssets", connection);
+1391     while(query.next())
+1392     {
+1393         assetsList << (query.value(0).toString() + "\n" + query.value(1).toString()
+1394                 + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+1395                 + "\n" + query.value(4).toString());
+1396     }
+1397     assetsList.sort();
+1398 
+1399     query.prepare("SELECT * FROM balanceLiabilities");
+1400     query.exec();
+1401     while(query.next())
+1402     {
+1403         liabilitiesList << (query.value(0).toString() + "\n" + query.value(1).toString()
+1404                 + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+1405                 + "\n" + query.value(4).toString());
+1406     }
+1407     liabilitiesList.sort();
+1408 
+1409     query.prepare("SELECT * FROM balanceEquities");
+1410     query.exec();
+1411     while(query.next())
+1412     {
+1413         equitiesList << (query.value(0).toString() + "\n" + query.value(1).toString()
+1414                 + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+1415                 + "\n" + query.value(4).toString());
+1416     }
+1417     equitiesList.sort();
+1418 
+1419 
+1420     QString sectionBalance;
+1421     QString accountBalance;
+1422 
+1423     QString type;
+1424     QString desc;
+1425     QString accountBegin;
+1426     QString accountEnd;
+1427     
+1428     QRegExp regexp(".*\n(.*)\n(.*)\n(.*)\n(.*)");
+1429 
+1430     sectionBalance = "0.00";
+1431     for(QStringList::Iterator listIt = assetsList.begin(); listIt != assetsList.end(); ++listIt)
+1432     {
+1433         regexp.search(*listIt);
+1434         type = regexp.cap(1);
+1435         desc = regexp.cap(2);
+1436         accountBegin = regexp.cap(3);
+1437         accountEnd = regexp.cap(4);
+1438 
+1439         accountBalance = "0.00";
+1440         if(type == "0")  // one account
+1441         {
+1442             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+1443             query.exec();
+1444             while(query.next())
+1445             {
+1446                 entryYear = query.value(0).toString().right(2);
+1447                 
+1448                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1449                     entryYear.insert(0, "20");
+1450                 else
+1451                     entryYear.insert(0, "19");
+1452                 
+1453                 entryMonth = query.value(0).toString().left(2);
+1454                 entryDay = query.value(0).toString().mid(3,2);
+1455                 
+1456                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1457                 if(entryDate > periodDate)
+1458                     continue;
+1459 
+1460                 if(query.value(1).toString() != "")
+1461                     accountBalance = addCurrency(accountBalance, query.value(1).toString());
+1462                 if(query.value(2).toString() != "")
+1463                     accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+1464             }
+1465         }
+1466         else  // begin and end accounts
+1467         {
+1468             QStringList accounts;
+1469 
+1470             query.prepare("SELECT id FROM accounts");
+1471             query.exec();
+1472             while(query.next())
+1473             {
+1474                 if(query.value(0).toInt() >= accountBegin.toInt()
+1475                    && query.value(0).toInt() <= accountEnd.toInt())
+1476                     accounts << query.value(0).toString();
+1477             }
+1478 
+1479             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1480             {
+1481                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+1482                 query.exec();
+1483                 while(query.next())
+1484                 {
+1485                     entryYear = query.value(0).toString().right(2);
+1486                 
+1487                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1488                         entryYear.insert(0, "20");
+1489                     else
+1490                         entryYear.insert(0, "19");
+1491                 
+1492                     entryMonth = query.value(0).toString().left(2);
+1493                     entryDay = query.value(0).toString().mid(3,2);
+1494                 
+1495                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1496                     if(entryDate > periodDate)
+1497                         continue;
+1498 
+1499                     if(query.value(1).toString() != "")
+1500                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+1501                     if(query.value(2).toString() != "")
+1502                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+1503                 }
+1504             }
+1505         }
+1506 
+1507         sectionBalance = addCurrency(sectionBalance, accountBalance);
+1508 
+1509         report->data += "<tr><td width=\"70%\">" + desc + "</td>"
+1510                 "<td align=\"right\" width=\"30%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+1511         report->csv += desc + "," + accountBalance + "\n";
+1512     }
+1513 
+1514     report->data += "<tr><td> </td></tr>\n";
+1515     report->data += "<tr><td width=\"70%\"><b>Total Assets</b></td>"
+1516             "<td align=\"right\" width=\"30%\"><b>" + formatCurrency(sectionBalance) + "</b></td></tr>\n";
+1517     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+1518     report->csv += "Total Assets," + sectionBalance + "\n";
+1519 
+1520 
+1521     sectionBalance = "0.00";
+1522     for(QStringList::Iterator listIt = liabilitiesList.begin(); listIt != liabilitiesList.end(); ++listIt)
+1523     {
+1524         regexp.search(*listIt);
+1525         type = regexp.cap(1);
+1526         desc = regexp.cap(2);
+1527         accountBegin = regexp.cap(3);
+1528         accountEnd = regexp.cap(4);
+1529 
+1530         accountBalance = "0.00";
+1531         if(type == "0")  // one account
+1532         {
+1533             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+1534             query.exec();
+1535             while(query.next())
+1536             {
+1537                 entryYear = query.value(0).toString().right(2);
+1538                 
+1539                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1540                     entryYear.insert(0, "20");
+1541                 else
+1542                     entryYear.insert(0, "19");
+1543                 
+1544                 entryMonth = query.value(0).toString().left(2);
+1545                 entryDay = query.value(0).toString().mid(3,2);
+1546 
+1547                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1548                 if(entryDate > periodDate)
+1549                     continue;
+1550 
+1551                 if(query.value(1).toString() != "")
+1552                 {
+1553                     accountBalance = addCurrency(accountBalance, negCurrency(query.value(1).toString()));
+1554                 }
+1555                 if(query.value(2).toString() != "")
+1556                 {
+1557                     accountBalance = addCurrency(accountBalance, query.value(2).toString());
+1558                 }
+1559             }
+1560         }
+1561         else  // begin and end accounts
+1562         {
+1563             QStringList accounts;
+1564 
+1565             query.prepare("SELECT id FROM accounts");
+1566             query.exec();
+1567             while(query.next())
+1568             {
+1569                 if(query.value(0).toInt() >= accountBegin.toInt()
+1570                    && query.value(0).toInt() <= accountEnd.toInt())
+1571                     accounts << query.value(0).toString();
+1572             }
+1573 
+1574             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1575             {
+1576                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+1577                 query.exec();
+1578                 while(query.next())
+1579                 {
+1580                     entryYear = query.value(0).toString().right(2);
+1581                 
+1582                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1583                         entryYear.insert(0, "20");
+1584                     else
+1585                         entryYear.insert(0, "19");
+1586                 
+1587                     entryMonth = query.value(0).toString().left(2);
+1588                     entryDay = query.value(0).toString().mid(3,2);
+1589 
+1590                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1591                     if(entryDate > periodDate)
+1592                         continue;
+1593 
+1594                     if(query.value(1).toString() != "")
+1595                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(1).toString()));
+1596                     if(query.value(2).toString() != "")
+1597                         accountBalance = addCurrency(accountBalance, query.value(2).toString());
+1598                 }
+1599             }
+1600         }
+1601 
+1602         sectionBalance = addCurrency(sectionBalance, accountBalance);
+1603 
+1604         report->data += "<tr><td width=\"70%\">" + desc + "</td>"
+1605                 "<td align=\"right\" width=\"30%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+1606         report->csv += desc + "," + accountBalance + "\n";
+1607     }
+1608 
+1609     report->data += "<tr><td> </td></tr>\n";
+1610     report->data += "<tr><td width=\"70%\"><b>Total Liabilities</b></td>"
+1611             "<td align=\"right\" width=\"30%\"><b>" + formatCurrency(sectionBalance) + "</b></td></tr>\n";
+1612     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+1613     report->csv += "Total Liabilities," + sectionBalance + "\n";
+1614 
+1615 
+1616     sectionBalance = "0.00";
+1617     for(QStringList::Iterator listIt = equitiesList.begin(); listIt != equitiesList.end(); ++listIt)
+1618     {
+1619         regexp.search(*listIt);
+1620         type = regexp.cap(1);
+1621         desc = regexp.cap(2);
+1622         accountBegin = regexp.cap(3);
+1623         accountEnd = regexp.cap(4);
+1624 
+1625         accountBalance = "0.00";
+1626         if(type == "0")  // one account
+1627         {
+1628             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+1629             query.exec();
+1630             while(query.next())
+1631             {
+1632                 entryYear = query.value(0).toString().right(2);
+1633                 
+1634                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1635                     entryYear.insert(0, "20");
+1636                 else
+1637                     entryYear.insert(0, "19");
+1638                 
+1639                 entryMonth = query.value(0).toString().left(2);
+1640                 entryDay = query.value(0).toString().mid(3,2);
+1641                 
+1642                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1643                 if(entryDate > periodDate)
+1644                     continue;
+1645 
+1646                 if(query.value(1).toString() != "")
+1647                 {
+1648                     accountBalance = addCurrency(accountBalance, negCurrency(query.value(1).toString()));
+1649                 }
+1650                 if(query.value(2).toString() != "")
+1651                 {
+1652                     accountBalance = addCurrency(accountBalance, query.value(2).toString());
+1653                 }
+1654             }
+1655         }
+1656         else  // begin and end accounts
+1657         {
+1658             QStringList accounts;
+1659 
+1660             query.prepare("SELECT id FROM accounts");
+1661             query.exec();
+1662             while(query.next())
+1663             {
+1664                 if(query.value(0).toInt() >= accountBegin.toInt()
+1665                    && query.value(0).toInt() <= accountEnd.toInt())
+1666                     accounts << query.value(0).toString();
+1667             }
+1668 
+1669             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1670             {
+1671                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+1672                 query.exec();
+1673                 while(query.next())
+1674                 {
+1675                     entryYear = query.value(0).toString().right(2);
+1676                 
+1677                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1678                         entryYear.insert(0, "20");
+1679                     else
+1680                         entryYear.insert(0, "19");
+1681                 
+1682                     entryMonth = query.value(0).toString().left(2);
+1683                     entryDay = query.value(0).toString().mid(3,2);
+1684                 
+1685                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1686                     if(entryDate > periodDate)
+1687                         continue;
+1688 
+1689                     if(query.value(1).toString() != "")
+1690                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(1).toString()));
+1691                     if(query.value(2).toString() != "")
+1692                         accountBalance = addCurrency(accountBalance, query.value(2).toString());
+1693                 }
+1694             }
+1695         }
+1696 
+1697         sectionBalance = addCurrency(sectionBalance, accountBalance);
+1698 
+1699         report->data += "<tr><td width=\"70%\">" + desc + "</td>"
+1700                 "<td align=\"right\" width=\"30%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+1701         report->csv += desc + "," + accountBalance + "\n";
+1702     }
+1703     
+1704     report->data += "<tr><td> </td></tr>\n";
+1705     report->data += "<tr><td width=\"70%\"><b>Total Equities</b></td>"
+1706             "<td align=\"right\" width=\"30%\"><b>" + formatCurrency(sectionBalance) + "</b></td></tr>\n";
+1707     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+1708     report->csv += "Total Equities," + sectionBalance + "\n";
+1709 
+1710     report->data += "</table></center>";
+1711 
+1712     report->string = "<qt>" + report->header + report->data + "</qt>";
+1713     
+1714     report->html = report->string.replace(
+1715             "<qt>", "<html><head><title>" + curClient +
+1716             " - Balance Sheet</title></head><body>\n").replace(
+1717                     "</qt>", "</body></html>");
+1718 
+1719     return this;
+1720 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a25}{
+\index{Database@{Database}!getChartAccounts@{getChartAccounts}}
+\index{getChartAccounts@{getChartAccounts}!Database@{Database}}
+\subsubsection[getChartAccounts]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-Chart\-Accounts ()}}
+\label{classDatabase_a25}
+
+
+Definition at line 1722 of file database.cpp.
+
+References connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, Database::Report\-Struct::header, Database::Report\-Struct::html, report, report\-CSV(), report\-String(), and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::chart\-Accounts\-Report().
+
+\footnotesize\begin{verbatim}1723 {
+1724     QSqlQuery query("SELECT * FROM accounts ORDER BY id", connection);
+1725     
+1726     QDate date = QDate::currentDate();
+1727     
+1728     report->csv = "Account ID,Account Description\n";
+1729     report->header = "<center><h1>";
+1730     report->header += curClient;
+1731     report->header += "</h1></center>\n";
+1732     report->header += "<center><h2>Chart of Accounts</h2></center>\n";
+1733     report->header += "<center><h3>As of " + date.toString("MMM d, yyyy") + "</h3></center>\n";
+1734 
+1735     report->header += "<table width=\"100%\"><tr><td width=\"15%\"><b>Account ID</b></td>"
+1736             "<td width=\"40%\"><b>Account Description</b></td><td width=\"45%\"> </td></tr>\n";
+1737 
+1738     report->data = "<table width=\"100%\">";
+1739     
+1740     QStringList reportString;
+1741     QStringList reportCSV;
+1742     
+1743     while(query.next())
+1744     {
+1745         reportCSV << (query.value(1).toString() + "," + query.value(2).toString() + "\n");
+1746         reportString << ("<tr><td width=\"15%\">" + query.value(1).toString() + "</td><td width=\"40%\">" +
+1747                 query.value(2).toString() + "</td><td width=\"45%\"> </td></tr>\n");
+1748     }
+1749     
+1750     
+1751     report->data += reportString.join("") + "</table>";
+1752     report->csv += reportCSV.join("");
+1753     
+1754     report->string = "<qt>" + report->header + report->data + "</qt>";
+1755     
+1756     report->html = report->string.replace(
+1757             "<qt>", "<html><head><title>" + curClient + " - Chart of Accounts</title></head><body>\n").replace(
+1758             "</qt>", "</body></html>");
+1759     
+1760     return this;
+1761 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a13}{
+\index{Database@{Database}!getClientList@{getClientList}}
+\index{getClientList@{getClientList}!Database@{Database}}
+\subsubsection[getClientList]{\setlength{\rightskip}{0pt plus 5cm}QString\-List Database::get\-Client\-List () const}}
+\label{classDatabase_a13}
+
+
+Definition at line 407 of file database.cpp.
+
+References client\-Path.
+
+Referenced by Main\-Stack::open\-New\-Dialog().
+
+\footnotesize\begin{verbatim}408 {
+409     QStringList list;
+410     
+411 #ifdef Q_WS_WIN
+412         QSqlDatabase *connectionTemp = QSqlDatabase::addDatabase("QSQLITEX", "temp");
+413 #else
+414         QSqlDatabase *connectionTemp = QSqlDatabase::addDatabase("QSQLITE", "temp");
+415 #endif 
+416     
+417     QDir dir(clientPath);
+418     QStringList::Iterator it;
+419     QStringList files = dir.entryList("*.db", QDir::Files);
+420     it = files.begin();
+421     while(it != files.end())
+422     {
+423         connectionTemp->setDatabaseName(clientPath + "/" + *it);
+424         if(connectionTemp->open())
+425         {
+426             QSqlQuery query("SELECT name FROM main", connectionTemp);
+427             if(query.next())
+428                 list << (query.value(0).toString() + "    (" + *it + ")");
+429             connectionTemp->close();
+430         }
+431         ++it;
+432     }
+433 
+434     QFile encDb;
+435     QDataStream encStream;
+436 
+437     files = dir.entryList("*.dbx", QDir::Files);
+438     it = files.begin();
+439     while(it != files.end())
+440     {
+441         encDb.setName(clientPath + "/" + *it);
+442         encDb.open( IO_ReadOnly );
+443         encStream.setDevice(&encDb);
+444 
+445         char *string;
+446         encStream >> string;
+447         QString qstring(string);
+448 
+449         if(qstring.startsWith("enc:"))
+450             list << (qstring.mid(4) + "    (" + *it + ")");
+451 
+452         delete string;
+453         encStream.unsetDevice();
+454         encDb.close();
+455         ++it;
+456     }
+457     
+458     return list;
+459 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a11}{
+\index{Database@{Database}!getCurClient@{getCurClient}}
+\index{getCurClient@{getCurClient}!Database@{Database}}
+\subsubsection[getCurClient]{\setlength{\rightskip}{0pt plus 5cm}QString Database::get\-Cur\-Client () const}}
+\label{classDatabase_a11}
+
+
+Definition at line 393 of file database.cpp.
+
+References cur\-Client.
+
+Referenced by Main\-Stack::client\-Opened(), Tabs::db\-Opened(), Main\-Stack::edit\-Name(), Main\-Stack::Main\-Stack(), and Tabs::name\-Changed().
+
+\footnotesize\begin{verbatim}394 {
+395     return curClient;
+396 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a10}{
+\index{Database@{Database}!getCurDb@{getCurDb}}
+\index{getCurDb@{getCurDb}!Database@{Database}}
+\subsubsection[getCurDb]{\setlength{\rightskip}{0pt plus 5cm}QString Database::get\-Cur\-Db () const}}
+\label{classDatabase_a10}
+
+
+Definition at line 388 of file database.cpp.
+
+References cur\-Db.
+
+Referenced by Main\-Stack::open\-Default().
+
+\footnotesize\begin{verbatim}389 {
+390     return curDb;
+391 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a18}{
+\index{Database@{Database}!getElements@{getElements}}
+\index{getElements@{getElements}!Database@{Database}}
+\subsubsection[getElements]{\setlength{\rightskip}{0pt plus 5cm}QPtr\-List$<$ \hyperlink{classEditorElement}{Editor\-Element} $>$ Database::get\-Elements (\hyperlink{classDatabase_w8}{editor\-Categories} {\em category})}}
+\label{classDatabase_a18}
+
+
+Definition at line 801 of file database.cpp.
+
+References balance\-Assets, balance\-Equities, balance\-Liabilities, connection, income\-Retail\-COS, income\-Retail\-Expenses, income\-Retail\-Income, income\-Svc\-Expenses, and income\-Svc\-Income.
+
+Referenced by Income\-Svc\-Editor::list\-Section(), Income\-Retail\-Editor::list\-Section(), and Balance\-Sheet\-Editor::list\-Section().
+
+\footnotesize\begin{verbatim}802 {
+803     QPtrList<EditorElement> tmpList;
+804 
+805     if(!connection->open())
+806     {
+807         connection->lastError().showMessage();
+808         return tmpList;
+809     }
+810     
+811     QString table;
+812     switch(category)
+813     {
+814         case balanceAssets:
+815             table = "balanceAssets";
+816             break;
+817         case balanceLiabilities:
+818             table = "balanceLiabilities";
+819             break;
+820         case balanceEquities:
+821             table = "balanceEquities";
+822             break;
+823         case incomeSvcIncome:
+824             table = "incomeSvcIncome";
+825             break;
+826         case incomeSvcExpenses:
+827             table = "incomeSvcExpenses";
+828             break;
+829         case incomeRetailIncome:
+830             table = "incomeRetailIncome";
+831             break;
+832         case incomeRetailCOS:
+833             table = "incomeRetailCOS";
+834             break;
+835         case incomeRetailExpenses:
+836             table = "incomeRetailExpenses";
+837             break;
+838     }
+839 
+840     QSqlQuery query("SELECT * FROM " + table + " ORDER BY key", connection);
+841     
+842     while(query.next())
+843     {
+844         EditorElement *element = new EditorElement(
+845                 category,
+846                 query.value(0).toString(),
+847                 query.value(1).toString(),
+848                 query.value(2).toString(),
+849                 query.value(3).toString(),
+850                 query.value(4).toString());
+851         tmpList.append(element);
+852     }
+853     return tmpList;
+854 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a22}{
+\index{Database@{Database}!getGeneralDetail@{getGeneralDetail}}
+\index{getGeneralDetail@{getGeneralDetail}!Database@{Database}}
+\subsubsection[getGeneralDetail]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-General\-Detail (QString {\em period\-Begin}, QString {\em period\-End}, QString {\em account\-Begin}, QString {\em account\-End})}}
+\label{classDatabase_a22}
+
+
+Definition at line 1021 of file database.cpp.
+
+References accounts\-List, add\-Commas(), add\-Currency(), connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, Database::Report\-Struct::header, Database::Report\-Struct::html, neg\-Currency(), report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::general\-Detail\-Report().
+
+\footnotesize\begin{verbatim}1023 {
+1024     QPtrList<QStringList> accounts;
+1025     
+1026     bool allAccounts = false;
+1027     if(accountBegin == "" && accountEnd == "")
+1028         allAccounts = true;
+1029     
+1030     QSqlQuery query(connection);
+1031     if(allAccounts)
+1032         query.prepare("SELECT * FROM accounts ORDER BY id");
+1033     else
+1034         query.prepare("SELECT * FROM accounts WHERE id >= " + accountBegin
+1035                       + " AND id <= " + accountEnd + " ORDER BY id");
+1036     query.exec();
+1037 
+1038     while(query.next())
+1039     {
+1040         QStringList* accountsList = new QStringList;
+1041         *accountsList << query.value(1).toString() << query.value(2).toString();
+1042         accounts.append(accountsList);
+1043     }
+1044     
+1045     QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+1046     
+1047     dateRegexp.search(periodBegin);
+1048     QDate periodBeginDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1049     
+1050     dateRegexp.search(periodEnd);
+1051     QDate periodEndDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1052     
+1053     report->csv = "Account ID,Account Description,Date,Reference,Description,Debit Amt,Credit Amt,Balance\n";
+1054     report->header = "<center><h1>";
+1055     report->header += curClient;
+1056     report->header += "</h1></center>\n";
+1057     report->header += "<center><h2>General Ledger Detail</h2></center>\n";
+1058     report->header += "<center><h3>For the Period From " + periodBeginDate.toString("MMM d, yyyy")
+1059             + " to " + periodEndDate.toString("MMM d, yyyy") + "</h3></center>\n";
+1060     
+1061     if(allAccounts)
+1062         report->header += "<center><h4>All Accounts</h4></center>\n";
+1063     else
+1064         report->header += "<center><h4>Account Range: " + accountBegin + " to " + accountEnd + "</h4></center>\n";
+1065     
+1066     report->header += "<table width=\"100%\"><tr>"
+1067             "<td width=\"19%\"><b>Account ID<br>Account Description</b></td>"
+1068             "<td width=\"10%\"><b>Date</b></td>"
+1069             "<td width=\"10%\"><b>Reference</b></td>"
+1070             "<td width=\"31%\"><b>Description</b></td>"
+1071             "<td align=\"right\" width=\"10%\"><b>Debit Amt</b></td>"
+1072             "<td align=\"right\" width=\"10%\"><b>Credit Amt</b></td>"
+1073             "<td align=\"right\" width=\"10%\"><b>Balance</b></td></tr></table>";
+1074 
+1075     report->data = "<table width=\"100%\">";
+1076     
+1077     QString beginningBalance;
+1078     QString periodChangeBalance;
+1079     QString endingBalance;
+1080     QString debitBalance;
+1081     QString creditBalance;
+1082     
+1083     QString entryYear;
+1084     QString entryMonth;
+1085     QString entryDay;
+1086     QDate entryDate;
+1087     
+1088     bool inDateRange;
+1089     
+1090     QDate curDate = QDate::currentDate();
+1091     
+1092     for(QPtrList<QStringList>::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1093     {
+1094         query.prepare("SELECT date, reference, desc, debit, credit FROM journal WHERE account = " + (**it)[1]);
+1095         query.exec();
+1096         
+1097         report->data += "<tr><td width=\"19%\">" + (**it)[0] + "</td><td width=\"10%\">"
+1098                 + periodBeginDate.toString("MM/dd/yy") +
+1099                 "</td><td width=\"10%\"> </td><td width=\"31%\">Beginning Balance</td><td width=\"10%\"> </td>"
+1100                 "<td width=\"10%\"> </td><td align=\"right\" width=\"10%\">(BALANCE)</td></tr>";
+1101         
+1102         bool accountDescDisplayed = false;
+1103         
+1104         report->csv += (**it)[0] + "," + (**it)[1] + "," + periodBeginDate.toString("MM/dd/yy") +
+1105                 ",,Beginning Balance,,,(BALANCE)\n";
+1106         
+1107         beginningBalance = "0.00";
+1108         periodChangeBalance = "0.00";
+1109         endingBalance = "0.00";
+1110         debitBalance = "0.00";
+1111         creditBalance = "0.00";
+1112         
+1113         if(query.first())
+1114         {
+1115             query.seek(-1);
+1116             
+1117             inDateRange = false;
+1118             
+1119             while(query.next())
+1120             {
+1121                 QString entryYear = query.value(0).toString().right(2);
+1122                     
+1123                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1124                     entryYear.insert(0, "20");
+1125                 else
+1126                     entryYear.insert(0, "19");
+1127                 
+1128                 QString entryMonth = query.value(0).toString().left(2);
+1129                 QString entryDay = query.value(0).toString().mid(3,2);
+1130                 
+1131                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1132                 
+1133                 if(entryDate >= periodBeginDate && entryDate <= periodEndDate)
+1134                 {
+1135                     inDateRange = true;
+1136                     
+1137                     if(!accountDescDisplayed)
+1138                     {
+1139                         report->data += "<tr><td width=\"19%\">" + (**it)[1] + "</td>";
+1140                         accountDescDisplayed = true;
+1141                     }
+1142                     else
+1143                         report->data += "<tr><td width=\"19%\"> </td>";
+1144                     
+1145                     report->data += "<td width=\"10%\">" + query.value(0).toString() + "</td><td width=\"10%\">"
+1146                             + query.value(1).toString() + "</td><td width=\"31%\">"
+1147                             + query.value(2).toString() + "</td><td align=\"right\" width=\"10%\">"
+1148                             + addCommas(query.value(3).toString()) + "</td><td align=\"right\" width=\"10%\">"
+1149                             + addCommas(query.value(4).toString()) + "</td><td width=\"10%\"> </td></tr>\n";
+1150                     
+1151                     report->csv += (**it)[0] + "," + (**it)[1] + ","
+1152                             + query.value(0).toString() + "," + query.value(1).toString()
+1153                             + "," + query.value(2).toString() + "," + query.value(3).toString()
+1154                             + "," + query.value(4).toString() + ",\n";
+1155                     
+1156                     debitBalance = addCurrency(debitBalance, query.value(3).toString());
+1157                     creditBalance = addCurrency(creditBalance, query.value(4).toString());
+1158                     
+1159                     periodChangeBalance = addCurrency(debitBalance, QString(creditBalance).insert(0,"-"));
+1160             
+1161                 }
+1162                 if(entryDate < periodBeginDate)
+1163                 {
+1164                     beginningBalance = addCurrency(beginningBalance, query.value(3).toString());
+1165                     beginningBalance = addCurrency(beginningBalance, negCurrency(query.value(4).toString()));
+1166                 }
+1167             }
+1168             
+1169             if(inDateRange)
+1170             {   
+1171                 report->data += "<tr><td width=\"19%\"> </td><td width=\"10%\"> </td><td width=\"10%\"> </td>"
+1172                         "<td width=\"31%\">Current Period Change</td><td align=\"right\" width=\"10%\">"
+1173                         + addCommas(debitBalance) + "</td><td align=\"right\" width=\"10%\">"
+1174                         + addCommas(creditBalance) + "</td><td align=\"right\" width=\"10%\">"
+1175                         + addCommas(periodChangeBalance) + "</td></tr>\n";
+1176                 
+1177                 report->csv += ",,,Current Period Change," + debitBalance + "," + creditBalance
+1178                         + "," + periodChangeBalance + "\n";
+1179             }
+1180         }
+1181         else
+1182         {
+1183             report->data += "<tr><td width=\"19%\">" + (**it)[1] + "</td></tr>\n";
+1184             accountDescDisplayed = true;
+1185         }
+1186         
+1187         if(!accountDescDisplayed)
+1188             report->data += "<tr><td width=\"19%\">" + (**it)[1] + "</td></tr>";
+1189         
+1190         if(beginningBalance == "0.00" && debitBalance == "0.00" && creditBalance == "0.00")
+1191             endingBalance = "";
+1192         else
+1193             endingBalance = addCurrency(beginningBalance, periodChangeBalance);
+1194         
+1195         if(beginningBalance == "0.00")
+1196             beginningBalance = "";
+1197         
+1198         report->data = (report->data).replace("(BALANCE)", addCommas(beginningBalance));
+1199         report->csv = (report->csv).replace("(BALANCE)", beginningBalance);
+1200         
+1201         report->data += "<tr><td width=\"19%\"> </td><td width=\"10%\"><b>"
+1202                 + periodEndDate.toString("MM/dd/yy") + "</b></td>"
+1203                 "<td width=\"10%\"> </td><td width=\"31%\"><b>Ending Balance</b></td>"
+1204                 "<td width=\"10%\"> </td><td width=\"10%\"> </td><td align=\"right\" width=\"10%\"><b>"
+1205                 + addCommas(endingBalance) + "</b></td></tr><tr><td> </td></tr><tr><td> </td></tr>\n";
+1206         
+1207         report->csv += "," + periodEndDate.toString("MM/dd/yy") + ",,Ending Balance,,,"
+1208                 + endingBalance + "\n";
+1209 
+1210         delete *it;
+1211         
+1212     }
+1213 
+1214     report->data += "</table>";
+1215     
+1216     report->string = "<qt>" + report->header + report->data + "</qt>";
+1217     
+1218     report->html = report->string.replace(
+1219             "<qt>", "<html><head><title>" + curClient +
+1220             " - General Ledger Detail</title></head><body>\n").replace(
+1221                     "</qt>", "</body></html>");
+1222     
+1223     return this;
+1224 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a23}{
+\index{Database@{Database}!getGeneralTrialBalance@{getGeneralTrialBalance}}
+\index{getGeneralTrialBalance@{getGeneralTrialBalance}!Database@{Database}}
+\subsubsection[getGeneralTrialBalance]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-General\-Trial\-Balance (QString {\em period\-End}, QString {\em account\-Begin}, QString {\em account\-End})}}
+\label{classDatabase_a23}
+
+
+Definition at line 1226 of file database.cpp.
+
+References accounts\-List, add\-Commas(), add\-Currency(), connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, Database::Report\-Struct::header, Database::Report\-Struct::html, report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::general\-Trial\-Report().
+
+\footnotesize\begin{verbatim}1227 {
+1228     QPtrList<QStringList> accounts;
+1229     
+1230     bool allAccounts = false;
+1231     if(accountBegin == "" && accountEnd == "")
+1232         allAccounts = true;
+1233    
+1234     QSqlQuery query(connection);
+1235     if(allAccounts)
+1236         query.prepare("SELECT * FROM accounts ORDER BY id");
+1237     else
+1238         query.prepare("SELECT * FROM accounts WHERE id >= " + accountBegin
+1239                       + " AND id <= " + accountEnd + " ORDER BY id");
+1240     query.exec();
+1241 
+1242     while(query.next())
+1243     {
+1244         QStringList* accountsList = new QStringList;
+1245         *accountsList << query.value(1).toString() << query.value(2).toString();
+1246         accounts.append(accountsList);
+1247     }
+1248     
+1249     QDate curDate = QDate::currentDate();
+1250     
+1251     QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+1252     dateRegexp.search(periodEnd);
+1253     
+1254     QDate periodDate(dateRegexp.cap(3).insert(0,"20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1255     
+1256     report->csv = "Account ID,Account Description,Debit Amt,Credit Amt\n";
+1257     report->header = "<center><h1>";
+1258     report->header += curClient;
+1259     report->header += "</h1></center>\n";
+1260     report->header += "<center><h2>General Ledger Trial Balance</h2></center>\n";
+1261     report->header += "<center><h3>As of " + periodDate.toString("MMM d, yyyy") + "</h3></center>\n";
+1262     
+1263     if(allAccounts)
+1264         report->header += "<center><h4>All Accounts</h4></center>\n";
+1265     else
+1266         report->header += "<center><h4>Account Range: " + accountBegin + " to " + accountEnd + "</h4></center>\n";
+1267     
+1268     report->header += "<table width=\"100%\"><tr><td width=\"19%\"><b>Account ID</b></td>"
+1269             "<td width=\"31%\"><b>Account Description</b></td>"
+1270             "<td align=\"right\" width=\"10%\"><b>Debit Amt</b></td>"
+1271             "<td align=\"right\" width=\"10%\"><b>Credit Amt</b></td><td width=\"30%\"> </td></tr></table>";
+1272 
+1273     report->data = "<table width=\"100%\">";
+1274     
+1275     QString debit = "0.00";
+1276     QString credit = "0.00";
+1277     QString totalDebit = "0.00";
+1278     QString totalCredit = "0.00";
+1279     
+1280     QString entryYear;
+1281     QString entryMonth;
+1282     QString entryDay;
+1283     QDate entryDate;
+1284     
+1285     for(QPtrList<QStringList>::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1286     {
+1287         query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + (**it)[0]);
+1288         query.exec();
+1289         
+1290         report->data += "<tr><td width=\"19%\">" + (**it)[0] + "</td><td width=\"31%\">" + (**it)[1]
+1291                 + "</td><td align=\"right\" width=\"10%\">";
+1292         report->csv += (**it)[0] + "," + (**it)[1] + ",";
+1293         
+1294         if(query.first())
+1295         {
+1296             debit = "0.00";
+1297             credit = "0.00";
+1298             
+1299             query.seek(-1);
+1300             while(query.next())
+1301             {
+1302                 QString entryYear = query.value(0).toString().right(2);
+1303                 
+1304                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1305                     entryYear.insert(0, "20");
+1306                 else
+1307                     entryYear.insert(0, "19");
+1308                 
+1309                 QString entryMonth = query.value(0).toString().left(2);
+1310                 QString entryDay = query.value(0).toString().mid(3,2);
+1311                 
+1312                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1313                 if(entryDate > periodDate)
+1314                     continue;
+1315                 
+1316                 debit = addCurrency(debit, query.value(1).toString());
+1317                 credit = addCurrency(credit, query.value(2).toString());
+1318             }
+1319             
+1320             totalDebit = addCurrency(totalDebit, debit);
+1321             totalCredit = addCurrency(totalCredit, credit);
+1322             
+1323             if(debit != "0.00")
+1324                 report->data += addCommas(debit);
+1325             report->data += "</td><td align=\"right\" width=\"10%\">";
+1326             if(credit != "0.00")
+1327                 report->data += addCommas(credit);
+1328             report->data += "</td><td width=\"30%\"> </td></tr>\n";
+1329             
+1330             report->csv += debit + "," + credit + "\n";
+1331         }
+1332         else
+1333         {
+1334             report->data += "</td><td width=\"10%\"> </td><td width=\"30%\"> </td></tr>\n";
+1335             report->csv += ",\n";
+1336         }
+1337 
+1338         delete *it;
+1339     }
+1340     
+1341     report->data += "<tr><td> </td><td> </td><td> </td><td> </td>"
+1342             "</tr><tr><td width=\"19%\"> </td><td width=\"31%\"><b>Total:</b></td>"
+1343             "<td align=\"right\" width=\"10%\"><b>" + addCommas(totalDebit)
+1344             + "</b></td><td align=\"right\" width=\"10%\"><b>" + addCommas(totalCredit) + "</b></td>"
+1345             "<td width=\"30%\"> </td></tr>\n</table>";
+1346 
+1347     report->csv += ",,,,,Total:," + totalDebit + "," + totalCredit + ",\n";
+1348     
+1349     
+1350     report->string = "<qt>" + report->header + report->data + "</qt>";
+1351     
+1352     report->html = report->string.replace(
+1353             "<qt>", "<html><head><title>" + curClient +
+1354             " - General Ledger Trial Balance</title></head><body>\n").replace(
+1355             "</qt>", "</body></html>");
+1356     
+1357     return this;
+1358 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a28}{
+\index{Database@{Database}!getIncomeRetailReport@{getIncomeRetailReport}}
+\index{getIncomeRetailReport@{getIncomeRetailReport}!Database@{Database}}
+\subsubsection[getIncomeRetailReport]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-Income\-Retail\-Report (QString {\em period\-End})}}
+\label{classDatabase_a28}
+
+
+Definition at line 2167 of file database.cpp.
+
+References add\-Currency(), connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, format\-Currency(), get\-Period\-Begin(), Database::Report\-Struct::header, Database::Report\-Struct::html, neg\-Currency(), report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::income\-Retail\-Report().
+
+\footnotesize\begin{verbatim}2168 {
+2169     QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+2170 
+2171     dateRegexp.search(getPeriodBegin()[0]);
+2172     int periodBeginMonth = dateRegexp.cap(1).toInt();
+2173     QDate periodBeginDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+2174 
+2175     dateRegexp.search(periodEnd);
+2176     QDate periodBeginSingleDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), 1);
+2177 
+2178     dateRegexp.search(periodEnd);
+2179     int periodEndMonth = dateRegexp.cap(1).toInt();
+2180     QDate periodEndDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+2181 
+2182     QDate curDate = QDate::currentDate();
+2183 
+2184     QString monthRange;
+2185     int monthRangeInt = periodEndMonth - periodBeginMonth;
+2186     if(monthRangeInt < 0)
+2187         monthRangeInt += 12;
+2188     monthRangeInt++;
+2189 
+2190     if(monthRangeInt == 1)
+2191         monthRange = "One";
+2192     if(monthRangeInt == 2)
+2193         monthRange = "Two";
+2194     if(monthRangeInt == 3)
+2195         monthRange = "Three";
+2196     if(monthRangeInt == 4)
+2197         monthRange = "Four";
+2198     if(monthRangeInt == 5)
+2199         monthRange = "Five";
+2200     if(monthRangeInt == 6)
+2201         monthRange = "Six";
+2202     if(monthRangeInt == 7)
+2203         monthRange = "Seven";
+2204     if(monthRangeInt == 8)
+2205         monthRange = "Eight";
+2206     if(monthRangeInt == 9)
+2207         monthRange = "Nine";
+2208     if(monthRangeInt == 10)
+2209         monthRange = "Ten";
+2210     if(monthRangeInt == 11)
+2211         monthRange = "Eleven";
+2212     if(monthRangeInt == 12)
+2213         monthRange = "Twelve";
+2214 
+2215     QString entryYear;
+2216     QString entryMonth;
+2217     QString entryDay;
+2218     QDate entryDate;
+2219 
+2220     report->csv = "Account Description,One Month Balance,";
+2221     if(monthRange == "One")
+2222         report->csv += "One Month Balance\n";
+2223     else
+2224         report->csv += monthRange + " Months Balance\n";
+2225 
+2226     report->header = "<center><h1>";
+2227     report->header += curClient;
+2228     report->header += "</h1></center>\n";
+2229     report->header += "<center><h2>Income Statement Retail</h2></center>\n";
+2230     report->header += "<center><h3>For One Month and ";
+2231     if(monthRange == "One")
+2232         report->header += "One Month";
+2233     else
+2234         report->header += monthRange + " Months";
+2235     report->header += " Ended " + periodEndDate.toString("MMM d, yyyy") + "</h3>\n";
+2236 
+2237     report->header += "<table width=\"80%\"><tr>"
+2238             "<td width=\"50%\"><b>Account Description</b></td>"
+2239             "<td align=\"right\" width=\"25%\"><b>One Month</b></td>"
+2240             "<td align=\"right\" width=\"25%\"><b>";
+2241     if(monthRange == "One")
+2242         report->header += "One Month";
+2243     else
+2244         report->header += monthRange + " Months";
+2245     report->header += "</b></td></tr></table></center>";
+2246 
+2247     report->data = "<center><table width=\"80%\">";
+2248 
+2249     QStringList incomeList;
+2250     QStringList cosList;
+2251     QStringList expensesList;
+2252 
+2253     QSqlQuery query("SELECT * FROM incomeRetailIncome", connection);
+2254     while(query.next())
+2255     {
+2256         incomeList << (query.value(0).toString() + "\n" + query.value(1).toString()
+2257         + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+2258         + "\n" + query.value(4).toString());
+2259     }
+2260     incomeList.sort();
+2261 
+2262     query.prepare("SELECT * FROM incomeRetailCOS");
+2263     query.exec();
+2264     while(query.next())
+2265     {
+2266         cosList << (query.value(0).toString() + "\n" + query.value(1).toString()
+2267         + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+2268         + "\n" + query.value(4).toString());
+2269     }
+2270     cosList.sort();
+2271 
+2272     query.prepare("SELECT * FROM incomeRetailExpenses");
+2273     query.exec();
+2274     while(query.next())
+2275     {
+2276         expensesList << (query.value(0).toString() + "\n" + query.value(1).toString()
+2277         + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+2278         + "\n" + query.value(4).toString());
+2279     }
+2280     expensesList.sort();
+2281 
+2282     QString incomeBalance;
+2283     QString incomeBalanceSingle;
+2284     QString cosBalance;
+2285     QString cosBalanceSingle;
+2286     QString expensesBalance;
+2287     QString expensesBalanceSingle;
+2288     QString accountBalance;
+2289     QString accountBalanceSingle;
+2290 
+2291     QString type;
+2292     QString desc;
+2293     QString accountBegin;
+2294     QString accountEnd;
+2295 
+2296     QRegExp regexp(".*\n(.*)\n(.*)\n(.*)\n(.*)");
+2297 
+2298     incomeBalance = "0.00";
+2299     incomeBalanceSingle = "0.00";
+2300     for(QStringList::Iterator listIt = incomeList.begin(); listIt != incomeList.end(); ++listIt)
+2301     {
+2302         regexp.search(*listIt);
+2303         type = regexp.cap(1);
+2304         desc = regexp.cap(2);
+2305         accountBegin = regexp.cap(3);
+2306         accountEnd = regexp.cap(4);
+2307 
+2308         accountBalance = "0.00";
+2309         accountBalanceSingle = "0.00";
+2310         if(type == "0")
+2311         {
+2312             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+2313             query.exec();
+2314             while(query.next())
+2315             {
+2316                 entryYear = query.value(0).toString().right(2);
+2317 
+2318                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2319                     entryYear.insert(0, "20");
+2320                 else
+2321                     entryYear.insert(0, "19");
+2322 
+2323                 entryMonth = query.value(0).toString().left(2);
+2324                 entryDay = query.value(0).toString().mid(3,2);
+2325 
+2326                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2327                 if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2328                     continue;
+2329 
+2330                 if(entryDate >= periodBeginDate)
+2331                 {
+2332                     if(query.value(1).toString() != "")
+2333                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2334                     if(query.value(2).toString() != "")
+2335                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2336                 }
+2337                 if(entryDate >= periodBeginSingleDate)
+2338                 {
+2339                     if(query.value(1).toString() != "")
+2340                         accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2341                     if(query.value(2).toString() != "")
+2342                         accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2343                 }
+2344             }
+2345         }
+2346         else
+2347         {
+2348             QStringList accounts;
+2349 
+2350             query.prepare("SELECT id FROM accounts");
+2351             query.exec();
+2352             while(query.next())
+2353             {
+2354                 if(query.value(0).toInt() >= accountBegin.toInt()
+2355                    && query.value(0).toInt() <= accountEnd.toInt())
+2356                     accounts << query.value(0).toString();
+2357             }
+2358 
+2359             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+2360             {
+2361                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+2362                 query.exec();
+2363                 while(query.next())
+2364                 {
+2365                     entryYear = query.value(0).toString().right(2);
+2366 
+2367                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2368                         entryYear.insert(0, "20");
+2369                     else
+2370                         entryYear.insert(0, "19");
+2371 
+2372                     entryMonth = query.value(0).toString().left(2);
+2373                     entryDay = query.value(0).toString().mid(3,2);
+2374 
+2375                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2376                     if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2377                         continue;
+2378 
+2379                     if(entryDate >= periodBeginDate)
+2380                     {
+2381                         if(query.value(1).toString() != "")
+2382                             accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2383                         if(query.value(2).toString() != "")
+2384                             accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2385                     }
+2386                     if(entryDate >= periodBeginSingleDate)
+2387                     {
+2388                         if(query.value(1).toString() != "")
+2389                             accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2390                         if(query.value(2).toString() != "")
+2391                             accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2392                     }
+2393                 }
+2394             }
+2395         }
+2396 
+2397         incomeBalance = addCurrency(incomeBalance, negCurrency(accountBalance));
+2398         incomeBalanceSingle = addCurrency(incomeBalanceSingle, negCurrency(accountBalanceSingle));
+2399 
+2400         report->data += "<tr><td width=\"50%\">" + desc + "</td>"
+2401                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalanceSingle) + "</td>"
+2402                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+2403         report->csv += desc + "," + accountBalanceSingle + "," + accountBalance + "\n";
+2404     }
+2405 
+2406     report->data += "<tr><td> </td></tr>\n";
+2407     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Total Income</b></td>"
+2408             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(incomeBalanceSingle) + "</b>"
+2409                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td>"
+2410             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(incomeBalance) + "</b>"
+2411                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td></tr>\n";
+2412     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+2413     report->csv += "Total Income," + incomeBalanceSingle + "," + incomeBalance + "\n\n";
+2414 
+2415 
+2416     cosBalance = "0.00";
+2417     cosBalanceSingle = "0.00";
+2418     for(QStringList::Iterator listIt = cosList.begin(); listIt != cosList.end(); ++listIt)
+2419     {
+2420         regexp.search(*listIt);
+2421         type = regexp.cap(1);
+2422         desc = regexp.cap(2);
+2423         accountBegin = regexp.cap(3);
+2424         accountEnd = regexp.cap(4);
+2425 
+2426         accountBalance = "0.00";
+2427         accountBalanceSingle = "0.00";
+2428         if(type == "0")
+2429         {
+2430             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+2431             query.exec();
+2432             while(query.next())
+2433             {
+2434                 entryYear = query.value(0).toString().right(2);
+2435 
+2436                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2437                     entryYear.insert(0, "20");
+2438                 else
+2439                     entryYear.insert(0, "19");
+2440 
+2441                 entryMonth = query.value(0).toString().left(2);
+2442                 entryDay = query.value(0).toString().mid(3,2);
+2443 
+2444                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2445                 if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2446                     continue;
+2447 
+2448                 if(entryDate >= periodBeginDate)
+2449                 {
+2450                     if(query.value(1).toString() != "")
+2451                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2452                     if(query.value(2).toString() != "")
+2453                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2454                 }
+2455                 if(entryDate >= periodBeginSingleDate)
+2456                 {
+2457                     if(query.value(1).toString() != "")
+2458                         accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2459                     if(query.value(2).toString() != "")
+2460                         accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2461                 }
+2462             }
+2463         }
+2464         else
+2465         {
+2466             QStringList accounts;
+2467 
+2468             query.prepare("SELECT id FROM accounts");
+2469             query.exec();
+2470             while(query.next())
+2471             {
+2472                 if(query.value(0).toInt() >= accountBegin.toInt()
+2473                    && query.value(0).toInt() <= accountEnd.toInt())
+2474                     accounts << query.value(0).toString();
+2475             }
+2476 
+2477             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+2478             {
+2479                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+2480                 query.exec();
+2481                 while(query.next())
+2482                 {
+2483                     entryYear = query.value(0).toString().right(2);
+2484 
+2485                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2486                         entryYear.insert(0, "20");
+2487                     else
+2488                         entryYear.insert(0, "19");
+2489 
+2490                     entryMonth = query.value(0).toString().left(2);
+2491                     entryDay = query.value(0).toString().mid(3,2);
+2492 
+2493                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2494                     if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2495                         continue;
+2496 
+2497                     if(entryDate >= periodBeginDate)
+2498                     {
+2499                         if(query.value(1).toString() != "")
+2500                             accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2501                         if(query.value(2).toString() != "")
+2502                             accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2503                     }
+2504                     if(entryDate >= periodBeginSingleDate)
+2505                     {
+2506                         if(query.value(1).toString() != "")
+2507                             accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2508                         if(query.value(2).toString() != "")
+2509                             accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2510                     }
+2511                 }
+2512             }
+2513         }
+2514 
+2515         cosBalance = addCurrency(cosBalance, accountBalance);
+2516         cosBalanceSingle = addCurrency(cosBalanceSingle, accountBalanceSingle);
+2517 
+2518         report->data += "<tr><td width=\"50%\">" + desc + "</td>"
+2519                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalanceSingle) + "</td>"
+2520                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+2521         report->csv += desc + "," + accountBalanceSingle + "," + accountBalance + "\n";
+2522     }
+2523 
+2524     report->data += "<tr><td> </td></tr>\n";
+2525     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Total Cost of Sales</b></td>"
+2526             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(cosBalanceSingle) + "</b>"
+2527                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td>"
+2528             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(cosBalance) + "</b>"
+2529                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td></tr>\n";
+2530     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Gross Profit</b></td>"
+2531             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(
+2532                                                       addCurrency(incomeBalanceSingle, negCurrency(cosBalanceSingle)))
+2533                                                     + "</b>"
+2534                                                         "<br><img src=\"" + ICON_PATH + 
+2535                                                         "/underline_single.gif\" width=\"80\" height=\"1\"></td>"
+2536             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(
+2537                                                       addCurrency(incomeBalance, negCurrency(cosBalance)))
+2538                                                     + "</b>"
+2539                                                         "<br><img src=\"" + ICON_PATH +
+2540                                                         "/underline_single.gif\" width=\"80\" height=\"1\"></td></tr>\n";
+2541     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+2542     report->csv += "Total Cost of Sales," + cosBalanceSingle + "," + cosBalance + "\n";
+2543     report->csv += "Gross Profit," + addCurrency(incomeBalanceSingle, negCurrency(cosBalanceSingle))
+2544                 + "," + addCurrency(incomeBalance, negCurrency(cosBalance)) + "\n\n";
+2545 
+2546 
+2547     expensesBalance = "0.00";
+2548     expensesBalanceSingle = "0.00";
+2549     for(QStringList::Iterator listIt = expensesList.begin(); listIt != expensesList.end(); ++listIt)
+2550     {
+2551         regexp.search(*listIt);
+2552         type = regexp.cap(1);
+2553         desc = regexp.cap(2);
+2554         accountBegin = regexp.cap(3);
+2555         accountEnd = regexp.cap(4);
+2556 
+2557         accountBalance = "0.00";
+2558         accountBalanceSingle = "0.00";
+2559         if(type == "0")
+2560         {
+2561             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+2562             query.exec();
+2563             while(query.next())
+2564             {
+2565                 entryYear = query.value(0).toString().right(2);
+2566 
+2567                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2568                     entryYear.insert(0, "20");
+2569                 else
+2570                     entryYear.insert(0, "19");
+2571 
+2572                 entryMonth = query.value(0).toString().left(2);
+2573                 entryDay = query.value(0).toString().mid(3,2);
+2574 
+2575                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2576                 if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2577                     continue;
+2578 
+2579                 if(entryDate >= periodBeginDate)
+2580                 {
+2581                     if(query.value(1).toString() != "")
+2582                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2583                     if(query.value(2).toString() != "")
+2584                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2585                 }
+2586                 if(entryDate >= periodBeginSingleDate)
+2587                 {
+2588                     if(query.value(1).toString() != "")
+2589                         accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2590                     if(query.value(2).toString() != "")
+2591                         accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2592                 }
+2593             }
+2594         }
+2595         else
+2596         {
+2597             QStringList accounts;
+2598 
+2599             query.prepare("SELECT id FROM accounts");
+2600             query.exec();
+2601             while(query.next())
+2602             {
+2603                 if(query.value(0).toInt() >= accountBegin.toInt()
+2604                    && query.value(0).toInt() <= accountEnd.toInt())
+2605                     accounts << query.value(0).toString();
+2606             }
+2607 
+2608             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+2609             {
+2610                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+2611                 query.exec();
+2612                 while(query.next())
+2613                 {
+2614                     entryYear = query.value(0).toString().right(2);
+2615 
+2616                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2617                         entryYear.insert(0, "20");
+2618                     else
+2619                         entryYear.insert(0, "19");
+2620 
+2621                     entryMonth = query.value(0).toString().left(2);
+2622                     entryDay = query.value(0).toString().mid(3,2);
+2623 
+2624                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2625                     if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2626                         continue;
+2627 
+2628                     if(entryDate >= periodBeginDate)
+2629                     {
+2630                         if(query.value(1).toString() != "")
+2631                             accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2632                         if(query.value(2).toString() != "")
+2633                             accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2634                     }
+2635                     if(entryDate >= periodBeginSingleDate)
+2636                     {
+2637                         if(query.value(1).toString() != "")
+2638                             accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2639                         if(query.value(2).toString() != "")
+2640                             accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2641                     }
+2642                 }
+2643             }
+2644         }
+2645 
+2646         expensesBalance = addCurrency(expensesBalance, accountBalance);
+2647         expensesBalanceSingle = addCurrency(expensesBalanceSingle, accountBalanceSingle);
+2648 
+2649         report->data += "<tr><td width=\"50%\">" + desc + "</td>"
+2650                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalanceSingle) + "</td>"
+2651                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+2652         report->csv += desc + "," + accountBalanceSingle + "," + accountBalance + "\n";
+2653     }
+2654 
+2655     report->data += "<tr><td> </td></tr>\n";
+2656     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Total Expenses</b></td>"
+2657             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(expensesBalanceSingle) + "</b>"
+2658                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td>"
+2659             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(expensesBalance) + "</b>"
+2660                 "<br><img src=\"" + ICON_PATH + "/underline_single.gif\" width=\"80\" height=\"1\"></td></tr>\n";
+2661     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Net Income (Loss)</b></td>"
+2662             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(
+2663                                                       addCurrency(
+2664                                                           addCurrency(incomeBalanceSingle, negCurrency(cosBalanceSingle)),
+2665                                                           negCurrency(expensesBalanceSingle)))
+2666                                                     + "</b><br><img src=\""
+2667                                                         + ICON_PATH +
+2668                                                         "/underline_double.gif\" width=\"80\" height=\"3\">"
+2669                                                     "</td>"
+2670             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(
+2671                                                       addCurrency(
+2672                                                           addCurrency(incomeBalance, negCurrency(cosBalance)),
+2673                                                           negCurrency(expensesBalance)))
+2674                                                     + "</b><br><img src=\""
+2675                                                         + ICON_PATH +
+2676                                                         "/underline_double.gif\" width=\"80\" height=\"3\">"
+2677                                                     "</td></tr>\n";
+2678     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+2679     report->csv += "Total Expenses," + expensesBalanceSingle + "," + expensesBalance + "\n";
+2680     report->csv += "Net Income (Loss)," + addCurrency(
+2681                                               addCurrency(incomeBalanceSingle, negCurrency(cosBalanceSingle)),
+2682                                               negCurrency(expensesBalanceSingle))
+2683                 + "," + addCurrency(
+2684                             addCurrency(incomeBalance, negCurrency(cosBalance)),
+2685                             negCurrency(expensesBalanceSingle))
+2686                 + "\n\n";
+2687 
+2688 
+2689     report->data += "</table></center>";
+2690 
+2691     report->string = "<qt>" + report->header + report->data + "</qt>";
+2692 
+2693     report->html = report->string.replace(
+2694             "<qt>", "<html><head><title>" + curClient +
+2695             " - Income Statement Retail</title></head></body>\n").replace(
+2696                     "</qt>", "</body></html>");
+2697 
+2698     return this;
+2699 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a27}{
+\index{Database@{Database}!getIncomeSvcReport@{getIncomeSvcReport}}
+\index{getIncomeSvcReport@{getIncomeSvcReport}!Database@{Database}}
+\subsubsection[getIncomeSvcReport]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-Income\-Svc\-Report (QString {\em period\-End})}}
+\label{classDatabase_a27}
+
+
+Definition at line 1798 of file database.cpp.
+
+References add\-Currency(), connection, Database::Report\-Struct::csv, cur\-Client, Database::Report\-Struct::data, format\-Currency(), get\-Period\-Begin(), Database::Report\-Struct::header, Database::Report\-Struct::html, neg\-Currency(), report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::income\-Svc\-Report().
+
+\footnotesize\begin{verbatim}1799 {
+1800     QRegExp dateRegexp("Period \\d+ \\((\\d\\d)/(\\d\\d)/(\\d\\d)\\)");
+1801 
+1802     dateRegexp.search(getPeriodBegin()[0]);
+1803     int periodBeginMonth = dateRegexp.cap(1).toInt();
+1804     QDate periodBeginDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1805 
+1806     dateRegexp.search(periodEnd);
+1807     QDate periodBeginSingleDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), 1);
+1808 
+1809     dateRegexp.search(periodEnd);
+1810     int periodEndMonth = dateRegexp.cap(1).toInt();
+1811     QDate periodEndDate(dateRegexp.cap(3).insert(0, "20").toInt(), dateRegexp.cap(1).toInt(), dateRegexp.cap(2).toInt());
+1812 
+1813     QDate curDate = QDate::currentDate();
+1814 
+1815     QString monthRange;
+1816     int monthRangeInt = periodEndMonth - periodBeginMonth;
+1817     if(monthRangeInt < 0)
+1818         monthRangeInt += 12;
+1819     monthRangeInt++;
+1820 
+1821     if(monthRangeInt == 1)
+1822         monthRange = "One";
+1823     if(monthRangeInt == 2)
+1824         monthRange = "Two";
+1825     if(monthRangeInt == 3)
+1826         monthRange = "Three";
+1827     if(monthRangeInt == 4)
+1828         monthRange = "Four";
+1829     if(monthRangeInt == 5)
+1830         monthRange = "Five";
+1831     if(monthRangeInt == 6)
+1832         monthRange = "Six";
+1833     if(monthRangeInt == 7)
+1834         monthRange = "Seven";
+1835     if(monthRangeInt == 8)
+1836         monthRange = "Eight";
+1837     if(monthRangeInt == 9)
+1838         monthRange = "Nine";
+1839     if(monthRangeInt == 10)
+1840         monthRange = "Ten";
+1841     if(monthRangeInt == 11)
+1842         monthRange = "Eleven";
+1843     if(monthRangeInt == 12)
+1844         monthRange = "Twelve";
+1845 
+1846     QString entryYear;
+1847     QString entryMonth;
+1848     QString entryDay;
+1849     QDate entryDate;
+1850 
+1851     report->csv = "Account Description,One Month Balance,";
+1852     if(monthRange == "One")
+1853         report->csv += "One Month Balance\n";
+1854     else
+1855         report->csv += monthRange + " Months Balance\n";
+1856 
+1857     report->header = "<center><h1>";
+1858     report->header += curClient;
+1859     report->header += "</h1></center>\n";
+1860     report->header += "<center><h2>Income Statement Service Company</h2></center>\n";
+1861     report->header += "<center><h3>For One Month and ";
+1862     if(monthRange == "One")
+1863         report->header += "One Month";
+1864     else
+1865         report->header += monthRange + " Months";
+1866     report->header += " Ended " + periodEndDate.toString("MMM d, yyyy") + "</h3>\n";
+1867 
+1868     report->header += "<table width=\"80%\"><tr>"
+1869             "<td width=\"50%\"><b>Account Description</b></td>"
+1870             "<td align=\"right\" width=\"25%\"><b>One Month</b></td>"
+1871             "<td align=\"right\" width=\"25%\"><b>";
+1872     if(monthRange == "One")
+1873         report->header += "One Month";
+1874     else
+1875         report->header += monthRange + " Months";
+1876     report->header += "</b></td></tr></table></center>";
+1877 
+1878     report->data = "<center><table width=\"80%\">";
+1879 
+1880     QStringList incomeList;
+1881     QStringList expensesList;
+1882 
+1883     QSqlQuery query("SELECT * FROM incomeSvcIncome", connection);
+1884     while(query.next())
+1885     {
+1886         incomeList << (query.value(0).toString() + "\n" + query.value(1).toString()
+1887         + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+1888         + "\n" + query.value(4).toString());
+1889     }
+1890     incomeList.sort();
+1891 
+1892     query.prepare("SELECT * FROM incomeSvcExpenses");
+1893     query.exec();
+1894     while(query.next())
+1895     {
+1896         expensesList << (query.value(0).toString() + "\n" + query.value(1).toString()
+1897         + "\n" + query.value(2).toString() + "\n" + query.value(3).toString()
+1898         + "\n" + query.value(4).toString());
+1899     }
+1900     expensesList.sort();
+1901 
+1902     QString incomeBalance;
+1903     QString incomeBalanceSingle;
+1904     QString expensesBalance;
+1905     QString expensesBalanceSingle;
+1906     QString accountBalance;
+1907     QString accountBalanceSingle;
+1908 
+1909     QString type;
+1910     QString desc;
+1911     QString accountBegin;
+1912     QString accountEnd;
+1913 
+1914     QRegExp regexp(".*\n(.*)\n(.*)\n(.*)\n(.*)");
+1915 
+1916     incomeBalance = "0.00";
+1917     incomeBalanceSingle = "0.00";
+1918     for(QStringList::Iterator listIt = incomeList.begin(); listIt != incomeList.end(); ++listIt)
+1919     {
+1920         regexp.search(*listIt);
+1921         type = regexp.cap(1);
+1922         desc = regexp.cap(2);
+1923         accountBegin = regexp.cap(3);
+1924         accountEnd = regexp.cap(4);
+1925 
+1926         accountBalance = "0.00";
+1927         accountBalanceSingle = "0.00";
+1928         if(type == "0")
+1929         {
+1930             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+1931             query.exec();
+1932             while(query.next())
+1933             {
+1934                 entryYear = query.value(0).toString().right(2);
+1935 
+1936                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1937                     entryYear.insert(0, "20");
+1938                 else
+1939                     entryYear.insert(0, "19");
+1940 
+1941                 entryMonth = query.value(0).toString().left(2);
+1942                 entryDay = query.value(0).toString().mid(3,2);
+1943 
+1944                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1945                 if(entryDate > periodEndDate || entryDate < periodBeginDate)
+1946                     continue;
+1947 
+1948                 if(entryDate >= periodBeginDate)
+1949                 {
+1950                     if(query.value(1).toString() != "")
+1951                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+1952                     if(query.value(2).toString() != "")
+1953                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+1954                 }
+1955                 if(entryDate >= periodBeginSingleDate)
+1956                 {
+1957                     if(query.value(1).toString() != "")
+1958                         accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+1959                     if(query.value(2).toString() != "")
+1960                         accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+1961                 }
+1962             }
+1963         }
+1964         else
+1965         {
+1966             QStringList accounts;
+1967 
+1968             query.prepare("SELECT id FROM accounts");
+1969             query.exec();
+1970             while(query.next())
+1971             {
+1972                 if(query.value(0).toInt() >= accountBegin.toInt()
+1973                    && query.value(0).toInt() <= accountEnd.toInt())
+1974                     accounts << query.value(0).toString();
+1975             }
+1976 
+1977             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+1978             {
+1979                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+1980                 query.exec();
+1981                 while(query.next())
+1982                 {
+1983                     entryYear = query.value(0).toString().right(2);
+1984 
+1985                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+1986                         entryYear.insert(0, "20");
+1987                     else
+1988                         entryYear.insert(0, "19");
+1989 
+1990                     entryMonth = query.value(0).toString().left(2);
+1991                     entryDay = query.value(0).toString().mid(3,2);
+1992 
+1993                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+1994                     if(entryDate > periodEndDate || entryDate < periodBeginDate)
+1995                         continue;
+1996 
+1997                     if(entryDate >= periodBeginDate)
+1998                     {
+1999                         if(query.value(1).toString() != "")
+2000                             accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2001                         if(query.value(2).toString() != "")
+2002                             accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2003                     }
+2004                     if(entryDate >= periodBeginSingleDate)
+2005                     {
+2006                         if(query.value(1).toString() != "")
+2007                             accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2008                         if(query.value(2).toString() != "")
+2009                             accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2010                     }
+2011                 }
+2012             }
+2013         }
+2014 
+2015         incomeBalance = addCurrency(incomeBalance, negCurrency(accountBalance));
+2016         incomeBalanceSingle = addCurrency(incomeBalanceSingle, negCurrency(accountBalanceSingle));
+2017 
+2018         report->data += "<tr><td width=\"50%\">" + desc + "</td>"
+2019                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalanceSingle) + "</td>"
+2020                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+2021         report->csv += desc + "," + accountBalanceSingle + "," + accountBalance + "\n";
+2022     }
+2023 
+2024     report->data += "<tr><td> </td></tr>\n";
+2025     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Total Income</b></td>"
+2026             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(incomeBalanceSingle) + "</b></td>"
+2027             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(incomeBalance) + "</b></td></tr>\n";
+2028     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+2029     report->csv += "Total Income," + incomeBalanceSingle + "," + incomeBalance + "\n\n";
+2030 
+2031 
+2032     expensesBalance = "0.00";
+2033     expensesBalanceSingle = "0.00";
+2034     for(QStringList::Iterator listIt = expensesList.begin(); listIt != expensesList.end(); ++listIt)
+2035     {
+2036         regexp.search(*listIt);
+2037         type = regexp.cap(1);
+2038         desc = regexp.cap(2);
+2039         accountBegin = regexp.cap(3);
+2040         accountEnd = regexp.cap(4);
+2041 
+2042         accountBalance = "0.00";
+2043         accountBalanceSingle = "0.00";
+2044         if(type == "0")
+2045         {
+2046             query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + accountBegin);
+2047             query.exec();
+2048             while(query.next())
+2049             {
+2050                 entryYear = query.value(0).toString().right(2);
+2051 
+2052                 if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2053                     entryYear.insert(0, "20");
+2054                 else
+2055                     entryYear.insert(0, "19");
+2056 
+2057                 entryMonth = query.value(0).toString().left(2);
+2058                 entryDay = query.value(0).toString().mid(3,2);
+2059 
+2060                 entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2061                 if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2062                     continue;
+2063 
+2064                 if(entryDate >= periodBeginDate)
+2065                 {
+2066                     if(query.value(1).toString() != "")
+2067                         accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2068                     if(query.value(2).toString() != "")
+2069                         accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2070                 }
+2071                 if(entryDate >= periodBeginSingleDate)
+2072                 {
+2073                     if(query.value(1).toString() != "")
+2074                         accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2075                     if(query.value(2).toString() != "")
+2076                         accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2077                 }
+2078             }
+2079         }
+2080         else
+2081         {
+2082             QStringList accounts;
+2083 
+2084             query.prepare("SELECT id FROM accounts");
+2085             query.exec();
+2086             while(query.next())
+2087             {
+2088                 if(query.value(0).toInt() >= accountBegin.toInt()
+2089                    && query.value(0).toInt() <= accountEnd.toInt())
+2090                     accounts << query.value(0).toString();
+2091             }
+2092 
+2093             for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); ++it)
+2094             {
+2095                 query.prepare("SELECT date, debit, credit FROM journal WHERE account = " + *it);
+2096                 query.exec();
+2097                 while(query.next())
+2098                 {
+2099                     entryYear = query.value(0).toString().right(2);
+2100 
+2101                     if(entryYear.toInt() < (curDate.toString("yy").toInt() + 2))
+2102                         entryYear.insert(0, "20");
+2103                     else
+2104                         entryYear.insert(0, "19");
+2105 
+2106                     entryMonth = query.value(0).toString().left(2);
+2107                     entryDay = query.value(0).toString().mid(3,2);
+2108 
+2109                     entryDate.setYMD(entryYear.toInt(), entryMonth.toInt(), entryDay.toInt());
+2110                     if(entryDate > periodEndDate || entryDate < periodBeginDate)
+2111                         continue;
+2112 
+2113                     if(entryDate >= periodBeginDate)
+2114                     {
+2115                         if(query.value(1).toString() != "")
+2116                             accountBalance = addCurrency(accountBalance, query.value(1).toString());
+2117                         if(query.value(2).toString() != "")
+2118                             accountBalance = addCurrency(accountBalance, negCurrency(query.value(2).toString()));
+2119                     }
+2120                     if(entryDate >= periodBeginSingleDate)
+2121                     {
+2122                         if(query.value(1).toString() != "")
+2123                             accountBalanceSingle = addCurrency(accountBalanceSingle, query.value(1).toString());
+2124                         if(query.value(2).toString() != "")
+2125                             accountBalanceSingle = addCurrency(accountBalanceSingle, negCurrency(query.value(2).toString()));
+2126                     }
+2127                 }
+2128             }
+2129         }
+2130 
+2131         expensesBalance = addCurrency(expensesBalance, accountBalance);
+2132         expensesBalanceSingle = addCurrency(expensesBalanceSingle, accountBalanceSingle);
+2133 
+2134         report->data += "<tr><td width=\"50%\">" + desc + "</td>"
+2135                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalanceSingle) + "</td>"
+2136                 "<td align=\"right\" width=\"25%\">" + formatCurrency(accountBalance) + "</td></tr>\n";
+2137         report->csv += desc + "," + accountBalanceSingle + "," + accountBalance + "\n";
+2138     }
+2139 
+2140     report->data += "<tr><td> </td></tr>\n";
+2141     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Total Expenses</b></td>"
+2142             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(expensesBalanceSingle) + "</b></td>"
+2143             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(expensesBalance) + "</b></td></tr>\n";
+2144     report->data += "<tr><td> </td></tr><tr><td> </td></tr>\n";
+2145     report->csv += "Total Expenses," + expensesBalanceSingle + "," + expensesBalance + "\n";
+2146 
+2147     report->data += "<tr><td align=\"right\" width=\"50%\"><b>Net Income (Loss)</b></td>"
+2148             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(addCurrency(incomeBalanceSingle, expensesBalanceSingle))
+2149             + "</b></td>"
+2150             "<td align=\"right\" width=\"25%\"><b>" + formatCurrency(addCurrency(incomeBalance, expensesBalance))
+2151             + "</b></td></tr>\n";
+2152     report->csv += "Net Income (Loss)," + addCurrency(incomeBalanceSingle, expensesBalanceSingle)
+2153             + "," + addCurrency(incomeBalance, expensesBalance) + "\n";
+2154 
+2155     report->data += "</table></center>";
+2156 
+2157     report->string = "<qt>" + report->header + report->data + "</qt>";
+2158 
+2159     report->html = report->string.replace(
+2160             "<qt>", "<html><head><title>" + curClient +
+2161             " - Income Statement Service Company</title></head><body>\n").replace(
+2162                     "</qt>", "</body></html>");
+2163 
+2164     return this;
+2165 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a38}{
+\index{Database@{Database}!getJournalTmpData@{getJournalTmpData}}
+\index{getJournalTmpData@{getJournalTmpData}!Database@{Database}}
+\subsubsection[getJournalTmpData]{\setlength{\rightskip}{0pt plus 5cm}QPtr\-List$<$ QString\-List $>$ $\ast$ Database::get\-Journal\-Tmp\-Data ()}}
+\label{classDatabase_a38}
+
+
+Definition at line 2763 of file database.cpp.
+
+References connection.
+
+Referenced by Journal\-Table::populate().
+
+\footnotesize\begin{verbatim}2764 {
+2765     QPtrList<QStringList>* data = new QPtrList<QStringList>;
+2766     
+2767     QSqlQuery query("SELECT * FROM journalTmp ORDER BY key", connection);
+2768     while(query.next())
+2769     {
+2770         QStringList *list = new QStringList;
+2771         *list << query.value(0).toString() << query.value(1).toString() << query.value(2).toString()
+2772                 << query.value(3).toString() << query.value(4).toString() << query.value(5).toString()
+2773                 << query.value(6).toString();
+2774         data->append(list);
+2775     }
+2776     return data;
+2777 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a26}{
+\index{Database@{Database}!getJournalTmpReport@{getJournalTmpReport}}
+\index{getJournalTmpReport@{getJournalTmpReport}!Database@{Database}}
+\subsubsection[getJournalTmpReport]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::get\-Journal\-Tmp\-Report ()}}
+\label{classDatabase_a26}
+
+
+Definition at line 1763 of file database.cpp.
+
+References add\-Commas(), connection, cur\-Client, Database::Journal\-Tmp\-Report::data, Database::Journal\-Tmp\-Report::header, journal\-Tmp\-Report, and report\-String().
+
+Referenced by Journal\-Stack::print\-Journal().
+
+\footnotesize\begin{verbatim}1764 {
+1765     QSqlQuery query("SELECT * FROM journalTmp ORDER BY key", connection);
+1766     
+1767     QDate date = QDate::currentDate();
+1768 
+1769     journalTmpReport->header = "<center><h1>";
+1770     journalTmpReport->header += curClient;
+1771     journalTmpReport->header += "</h1></center>\n";
+1772     journalTmpReport->header += "<center><h2>Journal Entries</h2></center>\n";
+1773     journalTmpReport->header += "<center><h3>Entered " + date.toString("MMM d, yyyy") + "</h3></center>\n";
+1774 
+1775     journalTmpReport->header += "<table width=\"100%\"><tr><td width=\"10%\"><b>Date</b></td>"
+1776             "<td width=\"10%\"><b>Account</b></td><td width=\"10%\"><b>Reference</b></td>"
+1777             "<td width=\"50%\"><b>Description</b></td><td width\"10%\" align=\"right\"><b>Debit Amt</b></td>"
+1778             "<td width=\"10%\" align=\"right\"><b>Credit Amt</b></td></tr>\n";
+1779 
+1780     journalTmpReport->data = "<table width=\"100%\">";
+1781     
+1782     QStringList reportString;
+1783     
+1784     while(query.next())
+1785     {
+1786         journalTmpReport->data += "<tr><td width=\"10%\">" + query.value(1).toString() + "</td><td width=\"10%\">" +
+1787                 query.value(2).toString() + "</td><td width=\"10%\">" + query.value(3).toString() +
+1788                 "</td><td width=\"50%\">" + query.value(4).toString() + "</td><td width=\"10%\" align=\"right\">" +
+1789                 addCommas(query.value(5).toString()) + "</td><td width=\"10%\" align=\"right\">"
+1790                 + addCommas(query.value(6).toString()) + "</td></tr>\n";
+1791     }
+1792 
+1793     journalTmpReport->data += "</table>";
+1794     
+1795     return this;
+1796 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a16}{
+\index{Database@{Database}!getPeriodBegin@{getPeriodBegin}}
+\index{getPeriodBegin@{getPeriodBegin}!Database@{Database}}
+\subsubsection[getPeriodBegin]{\setlength{\rightskip}{0pt plus 5cm}QString\-List Database::get\-Period\-Begin () const}}
+\label{classDatabase_a16}
+
+
+Definition at line 662 of file database.cpp.
+
+References connection.
+
+Referenced by Report\-Stack::db\-Opened(), get\-Income\-Retail\-Report(), get\-Income\-Svc\-Report(), and get\-Period\-End().
+
+\footnotesize\begin{verbatim}663 {
+664     QStringList range;
+665     QString yearEnd;
+666     
+667     QDate date = QDate::currentDate();
+668     QString curYear = date.toString("yy");
+669     
+670     QSqlQuery query("SELECT yearEnd FROM main", connection);
+671     if(query.next())
+672         yearEnd = query.value(0).toString();
+673     
+674     int startMonth = 0;
+675     
+676     if(yearEnd.startsWith("Jan"))
+677         startMonth = 2;
+678     if(yearEnd.startsWith("Feb"))
+679         startMonth = 3;
+680     if(yearEnd.startsWith("Mar"))
+681         startMonth = 4;
+682     if(yearEnd.startsWith("Apr"))
+683         startMonth = 5;
+684     if(yearEnd.startsWith("May"))
+685         startMonth = 6;
+686     if(yearEnd.startsWith("Jun"))
+687         startMonth = 7;
+688     if(yearEnd.startsWith("Jul"))
+689         startMonth = 8;
+690     if(yearEnd.startsWith("Aug"))
+691         startMonth = 9;
+692     if(yearEnd.startsWith("Sep"))
+693         startMonth = 10;
+694     if(yearEnd.startsWith("Oct"))
+695         startMonth = 11;
+696     if(yearEnd.startsWith("Nov"))
+697         startMonth = 12;
+698     if(yearEnd.startsWith("Dec"))
+699         startMonth = 1;
+700     
+701     if(startMonth > date.month())
+702     {
+703         curYear.setNum(curYear.toInt() - 1);
+704         if(curYear.toInt() < 10)
+705             curYear.insert(0, "0");
+706     }
+707         
+708     int period = 1;
+709     for(int i = startMonth; i <= 12; i++)
+710     {
+711         QString monthString;
+712         QString periodString;
+713         
+714         monthString.setNum(i);
+715         if(i < 10)
+716             monthString.insert(0, "0");
+717         
+718         range << ("Period " + periodString.setNum(period++) + " (" + monthString + "/01/" + curYear + ")");
+719     }
+720     
+721     QString nextYear;
+722     nextYear.setNum(curYear.toInt() + 1);
+723     if(nextYear.toInt() < 10)
+724         nextYear.insert(0, "0");
+725     
+726     for(int i = 1; i < startMonth; i++)
+727     {
+728         QString monthString;
+729         QString periodString;
+730 
+731         monthString.setNum(i);        
+732         if(i < 10)
+733             monthString.insert(0, "0");
+734         
+735         range << ("Period " + periodString.setNum(period++) + " (" + monthString + "/01/" + nextYear + ")");
+736     }
+737     
+738     return range;
+739 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a17}{
+\index{Database@{Database}!getPeriodEnd@{getPeriodEnd}}
+\index{getPeriodEnd@{getPeriodEnd}!Database@{Database}}
+\subsubsection[getPeriodEnd]{\setlength{\rightskip}{0pt plus 5cm}QString\-List Database::get\-Period\-End () const}}
+\label{classDatabase_a17}
+
+
+Definition at line 741 of file database.cpp.
+
+References get\-Period\-Begin().
+
+Referenced by Report\-Stack::db\-Opened().
+
+\footnotesize\begin{verbatim}742 {
+743     QStringList periodEnd;
+744     QStringList periodBegin = getPeriodBegin();
+745     
+746     QDate date = QDate::currentDate();
+747     
+748     QRegExp regexp("^(Period \\d+ \\()(\\d\\d)/\\d\\d/(\\d\\d)\\)");
+749     
+750     for(QStringList::Iterator it = periodBegin.begin(); it != periodBegin.end(); ++it)
+751     {
+752         QString periodString;
+753         
+754         QString month;
+755         QString year;
+756         
+757         if(regexp.search(*it) != -1)
+758         {
+759             periodString += regexp.cap(1);
+760             month = regexp.cap(2);
+761             year = regexp.cap(3);
+762             
+763             if(month == "01")
+764                 periodString += "01/31/" + year + ")";
+765             if(month == "02")
+766             {
+767                 QString testYear("20" + year);
+768                 if(date.leapYear(testYear.toInt()))
+769                     periodString += "02/29/" + year + ")";
+770                 else
+771                     periodString += "02/28/" + year + ")";
+772             }
+773             if(month == "03")
+774                 periodString += "03/31/" + year + ")";
+775             if(month == "04")
+776                 periodString += "04/30/" + year + ")";
+777             if(month == "05")
+778                 periodString += "05/31/" + year + ")";
+779             if(month == "06")
+780                 periodString += "06/30/" + year + ")";
+781             if(month == "07")
+782                 periodString += "07/31/" + year + ")";
+783             if(month == "08")
+784                 periodString += "08/31/" + year + ")";
+785             if(month == "09")
+786                 periodString += "09/30/" + year + ")";
+787             if(month == "10")
+788                 periodString += "10/31/" + year + ")";
+789             if(month == "11")
+790                 periodString += "11/30/" + year + ")";
+791             if(month == "12")
+792                 periodString += "12/31/" + year + ")";
+793         }
+794         
+795         periodEnd << periodString;
+796     }
+797     
+798     return periodEnd;
+799 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a15}{
+\index{Database@{Database}!importCSV@{importCSV}}
+\index{importCSV@{importCSV}!Database@{Database}}
+\subsubsection[importCSV]{\setlength{\rightskip}{0pt plus 5cm}void Database::import\-CSV (QString {\em table}, QString {\em file})}}
+\label{classDatabase_a15}
+
+
+Definition at line 496 of file database.cpp.
+
+References accounts\-Changed(), connection, and journal\-Tmp\-Changed().
+
+Referenced by Journal\-Stack::import\-CSV(), and Account\-Stack::import\-CSV().
+
+\footnotesize\begin{verbatim}497 {
+498     QFile origFile(file);
+499     
+500     if(origFile.open(IO_ReadOnly))
+501     {
+502         QTextStream origStream(&origFile);
+503         QStringList data;
+504         QPtrList<QStringList> values;
+505         QStringList *list;
+506         
+507         int i = 0;
+508         QString line;
+509         while(!origStream.atEnd())
+510         {
+511             line = origStream.readLine();
+512             data << line;
+513             
+514             if(i < 3)
+515             {
+516                 list = new QStringList(QStringList::split(",", line));
+517                 values.append(list);
+518             }
+519             i++;
+520         }
+521         
+522         if(!values.isEmpty())
+523         {
+524             QDialog dialog;
+525             dialog.setCaption("Import CSV Data");
+526             
+527             QVBoxLayout vBoxLayout(&dialog);
+528             vBoxLayout.setMargin(5);
+529             vBoxLayout.setSpacing(5);
+530             
+531             QLabel label("<nobr>The first three records of the file are shown.</nobr><br>"
+532                     "<nobr>Choose whether the first record is a header or data.</nobr>", &dialog);
+533             
+534             QTable dataTable(3, values.first()->count(), &dialog);
+535             dataTable.setLeftMargin(0);
+536             dataTable.setTopMargin(0);
+537             dataTable.setSelectionMode(QTable::SingleRow);
+538             dataTable.setFocusStyle(QTable::FollowStyle);
+539             
+540             int row = 0;
+541             int col = 0;
+542             for(list = values.first(); list; list = values.next())
+543             {
+544                 col = 0;
+545                 for(QStringList::Iterator it = list->begin(); it != list->end(); it++)
+546                 {
+547                     dataTable.setItem(row, col, new QTableItem(&dataTable, QTableItem::Never, *it));
+548                     col++;
+549                 }
+550                 row++;
+551             }
+552             dataTable.setColumnStretchable((col - 1), true);
+553             dataTable.selectRow(0);
+554             
+555             QVButtonGroup buttonGroup(&dialog);
+556             QRadioButton headerButton("The first record is a header", &buttonGroup);
+557             headerButton.setChecked(true);
+558             QRadioButton dataButton("The first record is data", &buttonGroup);
+559         
+560             QFrame okCancelFrame(&dialog);
+561             QHBoxLayout okCancelLayout(&okCancelFrame);
+562             okCancelLayout.setSpacing(5);
+563         
+564             QPushButton okButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/okButton.png")),
+565                                  "OK", &okCancelFrame);
+566             connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+567             QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/cancelButton.png")),
+568                                      "Cancel", &okCancelFrame);
+569             connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+570             
+571             okCancelLayout.addStretch();
+572             okCancelLayout.addWidget(&okButton);
+573             okCancelLayout.addWidget(&cancelButton);
+574         
+575             vBoxLayout.addWidget(&label);
+576             vBoxLayout.addWidget(&dataTable);
+577             vBoxLayout.addWidget(&buttonGroup);
+578             vBoxLayout.addSpacing(10);
+579             vBoxLayout.addWidget(&okCancelFrame);
+580             
+581             if(dialog.exec())
+582             {
+583                 QSqlQuery query("SELECT key FROM " + table, connection);
+584                 int key = 0;
+585                 while(query.next())
+586                 {
+587                     if(key < query.value(0).toInt())
+588                         key = query.value(0).toInt();
+589                 }
+590                 key++;
+591                 
+592                 int firstLine;
+593                 if(headerButton.isChecked())
+594                     firstLine = 1;
+595                 else
+596                     firstLine = 0;
+597                 
+598                 int curLine = 0;
+599                 for(QStringList::Iterator it = data.begin(); it != data.end(); it++)
+600                 {
+601                     if(curLine < firstLine)  {curLine++; continue;}
+602                     
+603                     (*it).replace(',', "\", \"");
+604                     
+605                     if(table == "accounts")
+606                     {
+607                         query.prepare("SELECT id FROM accounts");
+608                         query.exec();
+609                         
+610                         QRegExp regexp("^(\\d+)");
+611                         int pos = regexp.search(*it);
+612                         QString givenKey;
+613                         if(pos > -1)
+614                             givenKey = regexp.cap(1);
+615                         
+616                         bool isNew = true;
+617                         while(query.next())
+618                         {
+619                             if(givenKey == query.value(0).toString())
+620                                 isNew = false;
+621                         }
+622                         
+623                         if(!isNew)
+624                         {
+625                             QString existingKey;
+626                             
+627                             query.prepare("SELECT key FROM accounts WHERE id = " + givenKey);
+628                             query.exec();
+629                             if(query.next())
+630                                 existingKey = query.value(0).toString();
+631                             
+632                             query.prepare("INSERT OR REPLACE INTO accounts VALUES(\"" + existingKey +
+633                                     "\", \"" + *it + "\")");
+634                         }
+635                         else
+636                         {
+637                             QString newKey;
+638                             newKey.setNum(key++);
+639                             query.prepare("INSERT INTO accounts VALUES(\"" + newKey + "\", \"" + *it + "\")");
+640                         }
+641 
+642                         emit accountsChanged();
+643                     }
+644                     else
+645                     {
+646                         QString newKey;
+647                         newKey.setNum(key++);
+648                         query.prepare("INSERT INTO " + table + " VALUES(\"" + newKey + "\", \"" + *it + "\")");
+649                     }
+650                     query.exec();
+651                 }
+652             }
+653         }
+654     }
+655 
+656     if(table == "journalTmp")
+657         emit journalTmpChanged();
+658     
+659     origFile.close();
+660 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a8}{
+\index{Database@{Database}!importDb@{importDb}}
+\index{importDb@{importDb}!Database@{Database}}
+\subsubsection[importDb]{\setlength{\rightskip}{0pt plus 5cm}void Database::import\-Db (QString {\em file}) const}}
+\label{classDatabase_a8}
+
+
+Definition at line 339 of file database.cpp.
+
+References client\-Path.
+
+Referenced by Main\-Stack::import().
+
+\footnotesize\begin{verbatim}340 {
+341     QRegExp regexp("[\\/\\\\]([^\\/\\\\]*)(\\.dbx?)$");
+342     regexp.search(file);
+343 
+344     QString ext = regexp.cap(2);
+345 
+346     QString newFile = clientPath + "/" + regexp.cap(1);
+347 
+348     QFile origDb(file);
+349 
+350     QFile newDb(newFile + ext);
+351 
+352     int i = 0;
+353     while(newDb.exists())
+354         newDb.setName(newFile + QString::number(i++) + ext);
+355 
+356     if( !origDb.open(IO_ReadOnly | IO_Raw) )
+357     {
+358         qDebug("origDb not open");
+359         qDebug(origDb.errorString());
+360         return;
+361     }
+362     if( !newDb.open(IO_WriteOnly) )
+363     {
+364         qDebug("newDb not open");
+365         qDebug(newDb.errorString());
+366         return;
+367     }
+368     
+369     while(!origDb.atEnd())
+370         newDb.putch(origDb.getch());
+371     
+372     newDb.close();
+373     origDb.close();
+374 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_e0}{
+\index{Database@{Database}!instance@{instance}}
+\index{instance@{instance}!Database@{Database}}
+\subsubsection[instance]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ Database::instance ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{classDatabase_e0}
+
+
+Definition at line 66 of file database.cpp.
+
+References db.
+
+Referenced by Account\-Stack::Account\-Stack(), Account\-Table::Account\-Table(), Balance\-Sheet\-Editor::Balance\-Sheet\-Editor(), Editor\-Element::Editor\-Element(), Income\-Retail\-Editor::Income\-Retail\-Editor(), Income\-Svc\-Editor::Income\-Svc\-Editor(), Journal\-Stack::Journal\-Stack(), Journal\-Summary::Journal\-Summary(), Journal\-Table::Journal\-Table(), main(), Main\-Stack::Main\-Stack(), Report\-Stack::Report\-Stack(), and Tabs::Tabs().
+
+\footnotesize\begin{verbatim}67 {
+68     if(db == 0)
+69         db = new Database;
+70     return db;
+71 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a7}{
+\index{Database@{Database}!isEncrypted@{isEncrypted}}
+\index{isEncrypted@{isEncrypted}!Database@{Database}}
+\subsubsection[isEncrypted]{\setlength{\rightskip}{0pt plus 5cm}bool Database::is\-Encrypted () const}}
+\label{classDatabase_a7}
+
+
+Definition at line 331 of file database.cpp.
+
+References cur\-Db.
+
+Referenced by Main\-Stack::client\-Opened().
+
+\footnotesize\begin{verbatim}332 {
+333     if(curDb.right(4) == ".db_")
+334         return true;
+335     else
+336         return false;
+337 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a45}{
+\index{Database@{Database}!journalTmpBalance@{journalTmpBalance}}
+\index{journalTmpBalance@{journalTmpBalance}!Database@{Database}}
+\subsubsection[journalTmpBalance]{\setlength{\rightskip}{0pt plus 5cm}QString Database::journal\-Tmp\-Balance ()}}
+\label{classDatabase_a45}
+
+
+Definition at line 2854 of file database.cpp.
+
+References add\-Currency(), journal\-Tmp\-Credit(), and journal\-Tmp\-Debit().
+
+Referenced by Journal\-Summary::Journal\-Summary(), and Journal\-Summary::update\-Summary().
+
+\footnotesize\begin{verbatim}2855 {
+2856     QString balance;
+2857     
+2858     balance = addCurrency(journalTmpDebit(), journalTmpCredit().insert(0, "-"));
+2859     
+2860     return balance;
+2861 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_l1}{
+\index{Database@{Database}!journalTmpChanged@{journalTmpChanged}}
+\index{journalTmpChanged@{journalTmpChanged}!Database@{Database}}
+\subsubsection[journalTmpChanged]{\setlength{\rightskip}{0pt plus 5cm}void Database::journal\-Tmp\-Changed ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classDatabase_l1}
+
+
+
+
+Referenced by commit\-Journal\-Tmp(), import\-CSV(), and update\-Journal\-Tmp().\hypertarget{classDatabase_a44}{
+\index{Database@{Database}!journalTmpCredit@{journalTmpCredit}}
+\index{journalTmpCredit@{journalTmpCredit}!Database@{Database}}
+\subsubsection[journalTmpCredit]{\setlength{\rightskip}{0pt plus 5cm}QString Database::journal\-Tmp\-Credit ()}}
+\label{classDatabase_a44}
+
+
+Definition at line 2842 of file database.cpp.
+
+References add\-Currency(), and connection.
+
+Referenced by Journal\-Summary::Journal\-Summary(), journal\-Tmp\-Balance(), and Journal\-Summary::update\-Summary().
+
+\footnotesize\begin{verbatim}2843 {
+2844     QString credit("0.00");
+2845     
+2846     QSqlQuery query("SELECT credit FROM journalTmp", connection);
+2847     
+2848     while(query.next())
+2849         credit = addCurrency(credit, query.value(0).toString());
+2850     
+2851     return credit;
+2852 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a43}{
+\index{Database@{Database}!journalTmpDebit@{journalTmpDebit}}
+\index{journalTmpDebit@{journalTmpDebit}!Database@{Database}}
+\subsubsection[journalTmpDebit]{\setlength{\rightskip}{0pt plus 5cm}QString Database::journal\-Tmp\-Debit ()}}
+\label{classDatabase_a43}
+
+
+Definition at line 2830 of file database.cpp.
+
+References add\-Currency(), and connection.
+
+Referenced by Journal\-Summary::Journal\-Summary(), journal\-Tmp\-Balance(), and Journal\-Summary::update\-Summary().
+
+\footnotesize\begin{verbatim}2831 {
+2832     QString debit("0.00");
+2833     
+2834     QSqlQuery query("SELECT debit FROM journalTmp", connection);
+2835     
+2836     while(query.next())
+2837         debit = addCurrency(debit, query.value(0).toString());
+2838     
+2839     return debit;
+2840 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a51}{
+\index{Database@{Database}!journalTmpEmpty@{journalTmpEmpty}}
+\index{journalTmpEmpty@{journalTmpEmpty}!Database@{Database}}
+\subsubsection[journalTmpEmpty]{\setlength{\rightskip}{0pt plus 5cm}bool Database::journal\-Tmp\-Empty ()}}
+\label{classDatabase_a51}
+
+
+Definition at line 3016 of file database.cpp.
+
+References connection.
+
+Referenced by Main\-Stack::close\-Client(), Journal\-Stack::export\-CSV(), and Journal\-Stack::print\-Journal().
+
+\footnotesize\begin{verbatim}3017 {
+3018     QSqlQuery query("SELECT * FROM journalTmp", connection);
+3019     if(query.next())
+3020         return false;
+3021     else
+3022         return true;
+3023 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a35}{
+\index{Database@{Database}!journalTmpReportData@{journalTmpReportData}}
+\index{journalTmpReportData@{journalTmpReportData}!Database@{Database}}
+\subsubsection[journalTmpReportData]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::journal\-Tmp\-Report\-Data ()}}
+\label{classDatabase_a35}
+
+
+Definition at line 2731 of file database.cpp.
+
+References Database::Journal\-Tmp\-Report::data, and journal\-Tmp\-Report.
+
+Referenced by Journal\-Stack::print\-Journal().
+
+\footnotesize\begin{verbatim}2732 {
+2733     return journalTmpReport->data;
+2734 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a34}{
+\index{Database@{Database}!journalTmpReportHeader@{journalTmpReportHeader}}
+\index{journalTmpReportHeader@{journalTmpReportHeader}!Database@{Database}}
+\subsubsection[journalTmpReportHeader]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::journal\-Tmp\-Report\-Header ()}}
+\label{classDatabase_a34}
+
+
+Definition at line 2726 of file database.cpp.
+
+References Database::Journal\-Tmp\-Report::header, and journal\-Tmp\-Report.
+
+Referenced by Journal\-Stack::print\-Journal().
+
+\footnotesize\begin{verbatim}2727 {
+2728     return journalTmpReport->header;
+2729 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a21}{
+\index{Database@{Database}!moveElement@{moveElement}}
+\index{moveElement@{moveElement}!Database@{Database}}
+\subsubsection[moveElement]{\setlength{\rightskip}{0pt plus 5cm}void Database::move\-Element (\hyperlink{classDatabase_w8}{editor\-Categories} {\em category}, QString {\em key}, bool {\em up})}}
+\label{classDatabase_a21}
+
+
+Definition at line 953 of file database.cpp.
+
+References balance\-Assets, balance\-Equities, balance\-Liabilities, connection, income\-Retail\-COS, income\-Retail\-Expenses, income\-Retail\-Income, income\-Svc\-Expenses, and income\-Svc\-Income.
+
+Referenced by Editor\-Element::element\-Down(), and Editor\-Element::element\-Up().
+
+\footnotesize\begin{verbatim}954 {
+955     if(key == "1" && up) return;
+956     
+957     if(!connection->open())
+958     {
+959         connection->lastError().showMessage();
+960         return;
+961     }
+962     
+963     QString oneUp;
+964     oneUp.setNum(key.toInt() - 1);
+965     QString oneDown;
+966     oneDown.setNum(key.toInt() + 1);
+967 
+968     QString queryLastString("SELECT key FROM ");
+969     QString queryUpdateString("UPDATE ");
+970     
+971     QString table;
+972     switch(category)
+973     {
+974         case balanceAssets:
+975             table = "balanceAssets";
+976             break;
+977         case balanceLiabilities:
+978             table = "balanceLiabilities";
+979             break;
+980         case balanceEquities:
+981             table = "balanceEquities";
+982             break;
+983         case incomeSvcIncome:
+984             table = "incomeSvcIncome";
+985             break;
+986         case incomeSvcExpenses:
+987             table = "incomeSvcExpenses";
+988             break;
+989         case incomeRetailIncome:
+990             table = "incomeRetailIncome";
+991             break;
+992         case incomeRetailCOS:
+993             table = "incomeRetailCOS";
+994             break;
+995         case incomeRetailExpenses:
+996             table = "incomeRetailExpenses";
+997             break;
+998     }
+999 
+1000     queryLastString += table + " ORDER BY key";
+1001     QSqlQuery queryLast(queryLastString, connection);
+1002     queryLast.last();
+1003     if(queryLast.value(0).toString() == key && !up) return;
+1004     
+1005     queryUpdateString += table + " SET key = ";
+1006     
+1007     QString upOrDown;
+1008     if(up)
+1009         upOrDown = oneUp;
+1010     else
+1011         upOrDown = oneDown;
+1012     queryUpdateString += "0 WHERE key = ";
+1013     queryUpdateString += key;
+1014 
+1015     QSqlQuery queryUpdate(queryUpdateString, connection);
+1016     
+1017     QSqlQuery queryUpdate2("UPDATE " + table + " SET key = " + key + " WHERE key = " + upOrDown, connection);
+1018     QSqlQuery queryUpdate3("UPDATE " + table + " SET key = " + upOrDown + " WHERE key = 0", connection);
+1019 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a47}{
+\index{Database@{Database}!negCurrency@{negCurrency}}
+\index{negCurrency@{negCurrency}!Database@{Database}}
+\subsubsection[negCurrency]{\setlength{\rightskip}{0pt plus 5cm}QString Database::neg\-Currency (QString {\em currency}) const}}
+\label{classDatabase_a47}
+
+
+Definition at line 2934 of file database.cpp.
+
+Referenced by add\-Commas(), get\-Balance\-Report(), get\-General\-Detail(), get\-Income\-Retail\-Report(), and get\-Income\-Svc\-Report().
+
+\footnotesize\begin{verbatim}2935 {
+2936     QString result(currency);
+2937 
+2938     if(result.left(1) == "-")
+2939         result = result.mid(1);
+2940     else
+2941         result = "-" + result;
+2942 
+2943     return result;
+2944 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a52}{
+\index{Database@{Database}!nextAccountKey@{nextAccountKey}}
+\index{nextAccountKey@{nextAccountKey}!Database@{Database}}
+\subsubsection[nextAccountKey]{\setlength{\rightskip}{0pt plus 5cm}QString Database::next\-Account\-Key ()}}
+\label{classDatabase_a52}
+
+
+Definition at line 3025 of file database.cpp.
+
+References connection.
+
+Referenced by Account\-Table::insert().
+
+\footnotesize\begin{verbatim}3026 {
+3027     QSqlQuery query("SELECT MAX(key) FROM accounts", connection);
+3028     
+3029     int key = 0;
+3030     if(query.first())
+3031         key = query.value(0).toInt();
+3032     
+3033     return QString::number(++key);
+3034 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a53}{
+\index{Database@{Database}!nextJournalTmpKey@{nextJournalTmpKey}}
+\index{nextJournalTmpKey@{nextJournalTmpKey}!Database@{Database}}
+\subsubsection[nextJournalTmpKey]{\setlength{\rightskip}{0pt plus 5cm}QString Database::next\-Journal\-Tmp\-Key ()}}
+\label{classDatabase_a53}
+
+
+Definition at line 3036 of file database.cpp.
+
+References connection.
+
+Referenced by Journal\-Table::insert().
+
+\footnotesize\begin{verbatim}3037 {
+3038     QSqlQuery query("SELECT MAX(key) FROM journalTmp", connection);
+3039     
+3040     int key = 0;
+3041     if(query.first())
+3042         key = query.value(0).toInt();
+3043     
+3044     return QString::number(++key);
+3045 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a1}{
+\index{Database@{Database}!openNew@{openNew}}
+\index{openNew@{openNew}!Database@{Database}}
+\subsubsection[openNew]{\setlength{\rightskip}{0pt plus 5cm}bool Database::open\-New (QString {\em file}, QString {\em password})}}
+\label{classDatabase_a1}
+
+
+Definition at line 79 of file database.cpp.
+
+References client\-Path, connection, cur\-Client, cur\-Db, Settings::get\-Client\-Path(), and settings.
+
+Referenced by encrypt\-Db(), Main\-Stack::open\-Default(), and Main\-Stack::open\-New\-Dialog().
+
+\footnotesize\begin{verbatim}80 {
+81     clientPath = settings->getClientPath();
+82 
+83     QString file2(file);
+84 
+85     if(password != QString::null)
+86     {
+87         file2.append(".db_");
+88         file.append(".dbx");
+89 
+90         QFile encDb(clientPath + "/" + file);
+91         if(!encDb.open( IO_ReadOnly ))
+92             return false;
+93 
+94         QFile encDb2(clientPath + "/" + file + "2");
+95         if(!encDb2.open( IO_WriteOnly ))
+96             return false;
+97 
+98         QDataStream encStream2(&encDb2);
+99 
+100         QDataStream encStream(&encDb);
+101         char *string;
+102         encStream >> string;
+103         delete string;
+104 
+105         char *byte = new char;
+106         while(!encStream.atEnd())
+107         {
+108             encStream.readRawBytes(byte, 1);
+109             encStream2.writeRawBytes(byte, 1);
+110         }
+111         delete byte;
+112 
+113         encStream.unsetDevice();
+114         encStream2.unsetDevice();
+115         encDb.close();
+116         encDb2.close();
+117 
+118         int retVal = system(QString(CRYPT_PATH + "/aescrypt2 1 \"" + clientPath + "/" + file + "2\" \""
+119                             + clientPath + "/" + file2 + "\" \"" + password + "\"").ascii());
+120 
+121         remove(QString(clientPath + "/" + file + "2").ascii());
+122 
+123         if(retVal != 0)
+124             return false;
+125     }
+126     else
+127         file2.append(".db");
+128     
+129     if(connection->isOpen()) connection->close();
+130     connection->setDatabaseName(clientPath + "/" + file2);
+131     if(!connection->open())
+132     {
+133         connection->lastError().showMessage();
+134         return false;
+135     }
+136     
+137     curDb = file2;
+138     
+139     QSqlQuery query("SELECT name FROM main");
+140     if(query.next())
+141         curClient = query.value(0).toString();
+142     else
+143         return false;
+144   
+145     return true;
+146 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a20}{
+\index{Database@{Database}!removeElement@{removeElement}}
+\index{removeElement@{removeElement}!Database@{Database}}
+\subsubsection[removeElement]{\setlength{\rightskip}{0pt plus 5cm}void Database::remove\-Element (\hyperlink{classDatabase_w8}{editor\-Categories} {\em category}, QString {\em key})}}
+\label{classDatabase_a20}
+
+
+Definition at line 913 of file database.cpp.
+
+References balance\-Assets, balance\-Equities, balance\-Liabilities, connection, income\-Retail\-COS, income\-Retail\-Expenses, income\-Retail\-Income, income\-Svc\-Expenses, and income\-Svc\-Income.
+
+Referenced by Editor\-Element::remove\-Element().
+
+\footnotesize\begin{verbatim}914 {
+915     if(!connection->open())
+916     {
+917         connection->lastError().showMessage();
+918         return;
+919     }
+920     
+921     QString table;
+922     switch(category)
+923     {
+924         case balanceAssets:
+925             table = "balanceAssets";
+926             break;
+927         case balanceLiabilities:
+928             table = "balanceLiabilities";
+929             break;
+930         case balanceEquities:
+931             table = "balanceEquities";
+932             break;
+933         case incomeSvcIncome:
+934             table = "incomeSvcIncome";
+935             break;
+936         case incomeSvcExpenses:
+937             table = "incomeSvcExpenses";
+938             break;
+939         case incomeRetailIncome:
+940             table = "incomeRetailIncome";
+941             break;
+942         case incomeRetailCOS:
+943             table = "incomeRetailCOS";
+944             break;
+945         case incomeRetailExpenses:
+946             table = "incomeRetailExpenses";
+947             break;
+948     }
+949 
+950     QSqlQuery query("DELETE FROM " + table + " WHERE key = " + key, connection);
+951 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a32}{
+\index{Database@{Database}!reportCSV@{reportCSV}}
+\index{reportCSV@{reportCSV}!Database@{Database}}
+\subsubsection[reportCSV]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::report\-CSV ()}}
+\label{classDatabase_a32}
+
+
+Definition at line 2716 of file database.cpp.
+
+References Database::Report\-Struct::csv, and report.
+
+Referenced by Report\-Stack::export\-CSV(), and get\-Chart\-Accounts().
+
+\footnotesize\begin{verbatim}2717 {
+2718     return report->csv;
+2719 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a30}{
+\index{Database@{Database}!reportData@{reportData}}
+\index{reportData@{reportData}!Database@{Database}}
+\subsubsection[reportData]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::report\-Data ()}}
+\label{classDatabase_a30}
+
+
+Definition at line 2706 of file database.cpp.
+
+References Database::Report\-Struct::data, and report.
+
+\footnotesize\begin{verbatim}2707 {
+2708     return report->data;
+2709 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a29}{
+\index{Database@{Database}!reportHeader@{reportHeader}}
+\index{reportHeader@{reportHeader}!Database@{Database}}
+\subsubsection[reportHeader]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::report\-Header ()}}
+\label{classDatabase_a29}
+
+
+Definition at line 2701 of file database.cpp.
+
+References Database::Report\-Struct::header, and report.
+
+\footnotesize\begin{verbatim}2702 {
+2703     return report->header;
+2704 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a33}{
+\index{Database@{Database}!reportHTML@{reportHTML}}
+\index{reportHTML@{reportHTML}!Database@{Database}}
+\subsubsection[reportHTML]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::report\-HTML ()}}
+\label{classDatabase_a33}
+
+
+Definition at line 2721 of file database.cpp.
+
+References Database::Report\-Struct::html, and report.
+
+Referenced by Report\-Stack::export\-PDF().
+
+\footnotesize\begin{verbatim}2722 {
+2723     return report->html;
+2724 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a31}{
+\index{Database@{Database}!reportString@{reportString}}
+\index{reportString@{reportString}!Database@{Database}}
+\subsubsection[reportString]{\setlength{\rightskip}{0pt plus 5cm}QString \& Database::report\-String ()}}
+\label{classDatabase_a31}
+
+
+Definition at line 2711 of file database.cpp.
+
+References report, and Database::Report\-Struct::string.
+
+Referenced by Report\-Stack::balance\-Report(), Report\-Stack::chart\-Accounts\-Report(), Report\-Stack::general\-Detail\-Report(), Report\-Stack::general\-Trial\-Report(), get\-Chart\-Accounts(), get\-Journal\-Tmp\-Report(), Report\-Stack::income\-Retail\-Report(), and Report\-Stack::income\-Svc\-Report().
+
+\footnotesize\begin{verbatim}2712 {
+2713     return report->string;
+2714 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a39}{
+\index{Database@{Database}!updateAccount@{updateAccount}}
+\index{updateAccount@{updateAccount}!Database@{Database}}
+\subsubsection[updateAccount]{\setlength{\rightskip}{0pt plus 5cm}void Database::update\-Account (QString {\em key}, QString {\em id}, QString {\em desc})}}
+\label{classDatabase_a39}
+
+
+Definition at line 2779 of file database.cpp.
+
+References accounts\-Changed(), and connection.
+
+Referenced by Account\-Table::update\-Db().
+
+\footnotesize\begin{verbatim}2780 {
+2781     QSqlQuery query("SELECT key FROM accounts WHERE key = " + key, connection);
+2782     
+2783     QString queryString;
+2784     
+2785     if(query.first())
+2786         queryString = "UPDATE accounts SET id = " + id + ", desc = \"" + desc + "\" WHERE key = " + key;
+2787     else
+2788         queryString = "INSERT INTO accounts VALUES(\"" + key + "\", \"" + id + "\", \"" + desc + "\")";
+2789     
+2790     query.prepare(queryString);
+2791     query.exec();
+2792     
+2793     emit accountsChanged();
+2794 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classDatabase_a41}{
+\index{Database@{Database}!updateJournalTmp@{updateJournalTmp}}
+\index{updateJournalTmp@{updateJournalTmp}!Database@{Database}}
+\subsubsection[updateJournalTmp]{\setlength{\rightskip}{0pt plus 5cm}void Database::update\-Journal\-Tmp (QString {\em key}, QString {\em date}, QString {\em account}, QString {\em reference}, QString {\em desc}, QString {\em debit}, QString {\em credit})}}
+\label{classDatabase_a41}
+
+
+Definition at line 2803 of file database.cpp.
+
+References connection, and journal\-Tmp\-Changed().
+
+Referenced by Journal\-Table::update\-Db().
+
+\footnotesize\begin{verbatim}2805 {
+2806     QSqlQuery query("SELECT key FROM journalTmp WHERE key = " + key, connection);
+2807     
+2808     QString queryString;
+2809     
+2810     if(query.first())
+2811         queryString = "UPDATE journalTmp SET date = \"" + date + "\", account = \"" + account +
+2812                 "\", reference = \"" + reference + "\", desc = \"" + desc + "\", debit = \"" +
+2813                 debit + "\", credit = \"" + credit + "\" WHERE key =  " + key;
+2814     else
+2815         queryString = "INSERT INTO journalTmp VALUES(\"" + key + "\", \"" + date + "\", \"" +
+2816                 account + "\", \"" + reference + "\", \"" + desc + "\", \"" + debit +
+2817                 "\", \"" + credit + "\")";
+2818     
+2819     query.prepare(queryString);
+2820     query.exec();
+2821     
+2822     emit journalTmpChanged();
+2823 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classDatabase_r7}{
+\index{Database@{Database}!accountsList@{accountsList}}
+\index{accountsList@{accountsList}!Database@{Database}}
+\subsubsection[accountsList]{\setlength{\rightskip}{0pt plus 5cm}QString\-List$\ast$ \hyperlink{classDatabase_r7}{Database::accounts\-List}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r7}
+
+
+Definition at line 132 of file database.h.
+
+Referenced by Database(), get\-Accounts\-List(), get\-General\-Detail(), get\-General\-Trial\-Balance(), and $\sim$Database().\hypertarget{classDatabase_r1}{
+\index{Database@{Database}!clientPath@{clientPath}}
+\index{clientPath@{clientPath}!Database@{Database}}
+\subsubsection[clientPath]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classDatabase_r1}{Database::client\-Path}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r1}
+
+
+Definition at line 111 of file database.h.
+
+Referenced by close\-Db(), copy\-Db(), create\-New(), cur\-Client\-Exists(), Database(), decrypt\-Db(), encrypt\-Db(), get\-Client\-List(), import\-Db(), and open\-New().\hypertarget{classDatabase_r2}{
+\index{Database@{Database}!connection@{connection}}
+\index{connection@{connection}!Database@{Database}}
+\subsubsection[connection]{\setlength{\rightskip}{0pt plus 5cm}QSql\-Database$\ast$ \hyperlink{classDatabase_r2}{Database::connection}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r2}
+
+
+Definition at line 113 of file database.h.
+
+Referenced by account\-Exists(), account\-Has\-Entries(), close\-Db(), commit\-Journal\-Tmp(), create\-Element(), create\-New(), Database(), delete\-Account(), delete\-Journal\-Tmp(), edit\-Name(), get\-Account\-Desc(), get\-Accounts\-Data(), get\-Accounts\-List(), get\-Balance\-Report(), get\-Chart\-Accounts(), get\-Elements(), get\-General\-Detail(), get\-General\-Trial\-Balance(), get\-Income\-Retail\-Report(), get\-Income\-Svc\-Report(), get\-Journal\-Tmp\-Data(), get\-Journal\-Tmp\-Report(), get\-Period\-Begin(), import\-CSV(), journal\-Tmp\-Credit(), journal\-Tmp\-Debit(), journal\-Tmp\-Empty(), move\-Element(), next\-Account\-Key(), next\-Journal\-Tmp\-Key(), open\-New(), remove\-Element(), update\-Account(), and update\-Journal\-Tmp().\hypertarget{classDatabase_r3}{
+\index{Database@{Database}!curClient@{curClient}}
+\index{curClient@{curClient}!Database@{Database}}
+\subsubsection[curClient]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classDatabase_r3}{Database::cur\-Client}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r3}
+
+
+Definition at line 114 of file database.h.
+
+Referenced by create\-New(), Database(), edit\-Name(), encrypt\-Db(), get\-Balance\-Report(), get\-Chart\-Accounts(), get\-Cur\-Client(), get\-General\-Detail(), get\-General\-Trial\-Balance(), get\-Income\-Retail\-Report(), get\-Income\-Svc\-Report(), get\-Journal\-Tmp\-Report(), open\-New(), and $\sim$Database().\hypertarget{classDatabase_r4}{
+\index{Database@{Database}!curDb@{curDb}}
+\index{curDb@{curDb}!Database@{Database}}
+\subsubsection[curDb]{\setlength{\rightskip}{0pt plus 5cm}QString \hyperlink{classDatabase_r4}{Database::cur\-Db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r4}
+
+
+Definition at line 115 of file database.h.
+
+Referenced by close\-Db(), copy\-Db(), create\-New(), cur\-Client\-Exists(), Database(), decrypt\-Db(), encrypt\-Db(), get\-Cur\-Db(), is\-Encrypted(), open\-New(), and $\sim$Database().\hypertarget{classDatabase_v0}{
+\index{Database@{Database}!db@{db}}
+\index{db@{db}!Database@{Database}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classDatabase_v0}{Database::db} = 0\hspace{0.3cm}{\tt  \mbox{[}static, private\mbox{]}}}}
+\label{classDatabase_v0}
+
+
+Definition at line 3074 of file database.cpp.
+
+Referenced by destroy(), and instance().\hypertarget{classDatabase_r6}{
+\index{Database@{Database}!journalTmpReport@{journalTmpReport}}
+\index{journalTmpReport@{journalTmpReport}!Database@{Database}}
+\subsubsection[journalTmpReport]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structDatabase_1_1JournalTmpReport}{Journal\-Tmp\-Report}$\ast$ \hyperlink{classDatabase_r6}{Database::journal\-Tmp\-Report}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r6}
+
+
+Definition at line 130 of file database.h.
+
+Referenced by close\-Db(), Database(), get\-Journal\-Tmp\-Report(), journal\-Tmp\-Report\-Data(), journal\-Tmp\-Report\-Header(), and $\sim$Database().\hypertarget{classDatabase_r5}{
+\index{Database@{Database}!report@{report}}
+\index{report@{report}!Database@{Database}}
+\subsubsection[report]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structDatabase_1_1ReportStruct}{Report\-Struct}$\ast$ \hyperlink{classDatabase_r5}{Database::report}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r5}
+
+
+Definition at line 124 of file database.h.
+
+Referenced by close\-Db(), Database(), get\-Balance\-Report(), get\-Chart\-Accounts(), get\-General\-Detail(), get\-General\-Trial\-Balance(), get\-Income\-Retail\-Report(), get\-Income\-Svc\-Report(), report\-CSV(), report\-Data(), report\-Header(), report\-HTML(), report\-String(), and $\sim$Database().\hypertarget{classDatabase_r0}{
+\index{Database@{Database}!settings@{settings}}
+\index{settings@{settings}!Database@{Database}}
+\subsubsection[settings]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classSettings}{Settings}$\ast$ \hyperlink{classDatabase_r0}{Database::settings}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_r0}
+
+
+Definition at line 109 of file database.h.
+
+Referenced by create\-New(), Database(), open\-New(), and $\sim$Database().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{database_8h}{database.h}\item 
+\hyperlink{database_8cpp}{database.cpp}\end{CompactItemize}

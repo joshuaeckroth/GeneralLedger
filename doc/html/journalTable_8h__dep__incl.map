@@ -1,0 +1,5 @@
+base referer
+rect $journalDescEdit_8cpp.html 8,9 149,33
+rect $journalStack_8cpp.html 173,9 296,33
+rect $journalSummary_8cpp.html 320,9 466,33
+rect $journalTable_8cpp.html 490,9 610,33

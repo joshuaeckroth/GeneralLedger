@@ -1,0 +1,6 @@
+base referer
+rect $accountTable_8h.html 141,58 253,82
+rect $accountEditItem_8h.html 133,106 261,130
+rect $accountEditType_8h.html 130,154 264,178
+rect $database_8h.html 153,253 241,277
+rect $settings_8h.html 157,637 237,661

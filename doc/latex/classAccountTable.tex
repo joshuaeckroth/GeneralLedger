@@ -1,0 +1,534 @@
+\hypertarget{classAccountTable}{
+\section{Account\-Table Class Reference}
+\label{classAccountTable}\index{AccountTable@{AccountTable}}
+}
+{\tt \#include $<$account\-Table.h$>$}
+
+Collaboration diagram for Account\-Table:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classAccountTable__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classAccountTable_l0}{go\-To\-Main} ()
+\item 
+void \hyperlink{classAccountTable_l1}{go\-To\-Journal} ()
+\item 
+void \hyperlink{classAccountTable_l2}{go\-To\-Reports} ()
+\item 
+void \hyperlink{classAccountTable_l3}{go\-To\-Help} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classAccountTable_a0}{Account\-Table} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\item 
+\hyperlink{classAccountTable_a1}{$\sim$Account\-Table} ()
+\item 
+void \hyperlink{classAccountTable_a2}{populate} ()
+\end{CompactItemize}
+\subsection*{Private Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classAccountTable_k0}{update\-Db} (int, int)
+\item 
+void \hyperlink{classAccountTable_k1}{editing\-Changed} (int, int)
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classAccountTable_d0}{key\-Press\-Event} (QKey\-Event $\ast$event)
+\item 
+void \hyperlink{classAccountTable_d1}{insert} ()
+\item 
+void \hyperlink{classAccountTable_d2}{remove} (int row)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+\hyperlink{classDatabase}{Database} $\ast$ \hyperlink{classAccountTable_r0}{db}
+\item 
+\hyperlink{classSettings}{Settings} $\ast$ \hyperlink{classAccountTable_r1}{settings}
+\item 
+bool \hyperlink{classAccountTable_r2}{editing}
+\item 
+int \hyperlink{classAccountTable_r3}{editing\-Row}
+\item 
+int \hyperlink{classAccountTable_r4}{editing\-Col}
+\item 
+bool \hyperlink{classAccountTable_r5}{inserting}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAccountTable_a0}{
+\index{AccountTable@{Account\-Table}!AccountTable@{AccountTable}}
+\index{AccountTable@{AccountTable}!AccountTable@{Account\-Table}}
+\subsubsection[AccountTable]{\setlength{\rightskip}{0pt plus 5cm}Account\-Table::Account\-Table (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classAccountTable_a0}
+
+
+Definition at line 17 of file account\-Table.cpp.
+
+References db, editing, editing\-Changed(), inserting, Settings::instance(), Database::instance(), populate(), settings, and update\-Db().
+
+\footnotesize\begin{verbatim}18     : QTable(parent,name)  
+19 {
+20     db = Database::instance();
+21     settings = Settings::instance();
+22 
+23     setLeftMargin(0);
+24     setVScrollBarMode(QScrollView::AlwaysOn);
+25     setSelectionMode(QTable::SingleRow);
+26     setFocusStyle(QTable::SpreadSheet);
+27     
+28     insertColumns(0,2);
+29     
+30     QStringList labels;
+31     labels << "Account ID" << "Account Description";
+32     setColumnLabels(labels);
+33     
+34     setColumnStretchable(1, true);
+35     
+36     populate();
+37 
+38     setCurrentCell(0,0);
+39     
+40     inserting = false;
+41     editing = false;
+42     
+43     connect(this, SIGNAL(currentChanged(int, int)), this, SLOT(editingChanged(int, int)));
+44     connect(this, SIGNAL(valueChanged(int, int)), this, SLOT(updateDb(int, int)));
+45     
+46 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_a1}{
+\index{AccountTable@{Account\-Table}!~AccountTable@{$\sim$AccountTable}}
+\index{~AccountTable@{$\sim$AccountTable}!AccountTable@{Account\-Table}}
+\subsubsection[$\sim$AccountTable]{\setlength{\rightskip}{0pt plus 5cm}Account\-Table::$\sim$\hyperlink{classAccountTable}{Account\-Table} ()}}
+\label{classAccountTable_a1}
+
+
+Definition at line 48 of file account\-Table.cpp.
+
+\footnotesize\begin{verbatim}49 {}
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAccountTable_k1}{
+\index{AccountTable@{Account\-Table}!editingChanged@{editingChanged}}
+\index{editingChanged@{editingChanged}!AccountTable@{Account\-Table}}
+\subsubsection[editingChanged]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::editing\-Changed (int, int)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classAccountTable_k1}
+
+
+Definition at line 186 of file account\-Table.cpp.
+
+References editing\-Col, and editing\-Row.
+
+Referenced by Account\-Table().
+
+\footnotesize\begin{verbatim}187 {
+188     editingRow = newRow;
+189     editingCol = newCol;
+190 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_l3}{
+\index{AccountTable@{Account\-Table}!goToHelp@{goToHelp}}
+\index{goToHelp@{goToHelp}!AccountTable@{Account\-Table}}
+\subsubsection[goToHelp]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::go\-To\-Help ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classAccountTable_l3}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classAccountTable_l1}{
+\index{AccountTable@{Account\-Table}!goToJournal@{goToJournal}}
+\index{goToJournal@{goToJournal}!AccountTable@{Account\-Table}}
+\subsubsection[goToJournal]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::go\-To\-Journal ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classAccountTable_l1}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classAccountTable_l0}{
+\index{AccountTable@{Account\-Table}!goToMain@{goToMain}}
+\index{goToMain@{goToMain}!AccountTable@{Account\-Table}}
+\subsubsection[goToMain]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::go\-To\-Main ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classAccountTable_l0}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classAccountTable_l2}{
+\index{AccountTable@{Account\-Table}!goToReports@{goToReports}}
+\index{goToReports@{goToReports}!AccountTable@{Account\-Table}}
+\subsubsection[goToReports]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::go\-To\-Reports ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classAccountTable_l2}
+
+
+
+
+Referenced by key\-Press\-Event().\hypertarget{classAccountTable_d1}{
+\index{AccountTable@{Account\-Table}!insert@{insert}}
+\index{insert@{insert}!AccountTable@{Account\-Table}}
+\subsubsection[insert]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::insert ()\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_d1}
+
+
+Definition at line 80 of file account\-Table.cpp.
+
+References db, editing, editing\-Col, editing\-Row, inserting, and Database::next\-Account\-Key().
+
+Referenced by key\-Press\-Event().
+
+\footnotesize\begin{verbatim}81 {
+82     inserting = true;
+83 
+84     int newRow = numRows();
+85     insertRows(newRow);
+86 
+87     editing = true;
+88     editingRow = newRow;
+89     editingCol = 0;
+90 
+91     ensureCellVisible(newRow, 0);
+92     setItem(newRow, 0, new AccountEditItem(this, "", db->nextAccountKey()));
+93     setColumnReadOnly(0, false);
+94     setItem(newRow, 1, new QTableItem(this, QTableItem::OnTyping, ""));
+95     setCurrentCell(newRow,0);
+96 
+97     beginEdit(newRow, 0, false);
+98 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_d0}{
+\index{AccountTable@{Account\-Table}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!AccountTable@{Account\-Table}}
+\subsubsection[keyPressEvent]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::key\-Press\-Event (QKey\-Event $\ast$ {\em event})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_d0}
+
+
+Definition at line 192 of file account\-Table.cpp.
+
+References editing, editing\-Col, editing\-Row, go\-To\-Help(), go\-To\-Journal(), go\-To\-Main(), go\-To\-Reports(), insert(), inserting, and remove().
+
+\footnotesize\begin{verbatim}193 {
+194     switch(event->key())
+195     {
+196         case Key_Insert:
+197             insert();
+198             break;
+199         case Key_Delete:
+200             remove(currentRow());
+201             break;
+202         case Key_Enter:
+203         case Key_Return:
+204         case Key_Tab:
+205             if(editing)
+206             {
+207                 if(inserting)
+208                 {
+209                     if(editingCol == 1)
+210                     {
+211                         endEdit(editingRow, editingCol, true, true);
+212                         editing = false;
+213                         inserting = false;
+214                         break;
+215                     }
+216 
+217                     endEdit(editingRow, editingCol, true, true);
+218                     sortColumn(0, true, true);
+219 
+220                     editingRow = currentRow();
+221                 }
+222                 else if(editingRow != (numRows() - 1))
+223                 {
+224                     endEdit(editingRow, editingCol, true, true);
+225                     editingRow++;
+226                 }
+227                 else
+228                 {
+229                     endEdit(editingRow, editingCol, true, true);
+230                     editing = false;
+231                     break;
+232                 }
+233             }
+234             editing = true;
+235             editingCol = 1;
+236 
+237             setCurrentCell(editingRow, editingCol);
+238             beginEdit(editingRow, editingCol, false);
+239             break;
+240         case Key_Escape:
+241             if(editing)
+242             {
+243                 endEdit(editingRow, editingCol, true, true);
+244                 editing = false;
+245                 inserting = false;
+246             }
+247             else
+248                 emit goToMain();
+249             break;
+250         case Key_Up:
+251         case Key_Left:
+252         case Key_Down:
+253         case Key_Right:
+254             if(inserting)
+255                 sortColumn(0, true, true);
+256             inserting = false;
+257 
+258             QTable::keyPressEvent(event);
+259             break;
+260         case Key_F1:
+261             emit goToMain();
+262             break;
+263         case Key_F2:
+264             break;
+265         case Key_F3:
+266             emit goToJournal();
+267             break;
+268         case Key_F4:
+269             emit goToReports();
+270             break;
+271         case Key_F5:
+272             emit goToHelp();
+273             break;
+274         default:
+275             QTable::keyPressEvent(event);
+276     }
+277 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_a2}{
+\index{AccountTable@{Account\-Table}!populate@{populate}}
+\index{populate@{populate}!AccountTable@{Account\-Table}}
+\subsubsection[populate]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::populate ()}}
+\label{classAccountTable_a2}
+
+
+Definition at line 51 of file account\-Table.cpp.
+
+References db, editing\-Col, editing\-Row, and Database::get\-Accounts\-Data().
+
+Referenced by Account\-Table().
+
+\footnotesize\begin{verbatim}52 {
+53     int rows = numRows();
+54     for(int row = 0; row < rows; row++)
+55         removeRow(0);
+56     
+57     QPtrList<QStringList>* data = db->getAccountsData();
+58     QPtrListIterator<QStringList> it(*data);
+59     
+60     QStringList *stringList;
+61     while((stringList = it.current()) != 0)
+62     {
+63         ++it;
+64         insertRows(0);
+65         setItem(0, 0, new AccountEditItem(this, stringList->operator[](1), stringList->operator[](0)));
+66         setItem(0, 1, new QTableItem(this, QTableItem::OnTyping, stringList->operator[](2)));
+67         delete stringList;
+68     }
+69 
+70     delete data;
+71 
+72     setColumnReadOnly(0, true);
+73     
+74     sortColumn(0, true, true);
+75 
+76     editingRow = 0;
+77     editingCol = 1;
+78 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_d2}{
+\index{AccountTable@{Account\-Table}!remove@{remove}}
+\index{remove@{remove}!AccountTable@{Account\-Table}}
+\subsubsection[remove]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::remove (int {\em row})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_d2}
+
+
+Definition at line 100 of file account\-Table.cpp.
+
+References Database::account\-Has\-Entries(), db, and Database::delete\-Account().
+
+Referenced by key\-Press\-Event().
+
+\footnotesize\begin{verbatim}101 {
+102     QString key = ((AccountEditItem*)(item(row, 0)))->getKey();
+103 
+104     if(db->accountHasEntries(text(row, 0)))
+105     {
+106         QDialog dialog;
+107         dialog.setCaption("Delete Record");
+108 
+109         QVBoxLayout vBoxLayout(&dialog);
+110         vBoxLayout.setMargin(5);
+111         vBoxLayout.setSpacing(5);
+112 
+113         QLabel label("<nobr>Cannot delete account " + text(row, 0) + "</nobr>;<br>"
+114                 "<nobr>there is data associated with this account.</nobr>", &dialog);
+115         
+116         vBoxLayout.addWidget(&label);
+117 
+118         vBoxLayout.addSpacing(10);
+119 
+120         QHBoxLayout hBoxLayout(&vBoxLayout);
+121         hBoxLayout.setSpacing(5);
+122 
+123         QPushButton okButton(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/okButton.png")),
+124                              "OK", &dialog);
+125         connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+126 
+127         hBoxLayout.addStretch();
+128         hBoxLayout.addWidget(&okButton);
+129 
+130         dialog.exec();
+131 
+132         return;
+133     }
+134     
+135     QDialog dialog;
+136     dialog.setCaption("Delete Record");
+137 
+138     QVBoxLayout vBoxLayout(&dialog);
+139     vBoxLayout.setMargin(5);
+140     vBoxLayout.setSpacing(5);
+141 
+142     QLabel label("<nobr>Are you sure you want to delete the selected record?</nobr>", &dialog);
+143 
+144     vBoxLayout.addWidget(&label);
+145 
+146     vBoxLayout.addSpacing(10);
+147 
+148     QHBoxLayout hBoxLayout(&vBoxLayout);
+149     hBoxLayout.setSpacing(5);
+150 
+151     QPushButton buttonDelete(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/deleteButton.png")),
+152                              "Delete", &dialog);
+153     connect(&buttonDelete, SIGNAL(clicked()), &dialog, SLOT(accept()));
+154 
+155     QPushButton buttonDontDelete(QIconSet(QPixmap::fromMimeSource(ICON_PATH + "/okButton.png")),
+156                                  "Don't Delete", &dialog);
+157     connect(&buttonDontDelete, SIGNAL(clicked()), &dialog, SLOT(reject()));
+158 
+159     buttonDontDelete.setDefault(true);
+160 
+161     hBoxLayout.addStretch();
+162     hBoxLayout.addWidget(&buttonDelete);
+163     hBoxLayout.addWidget(&buttonDontDelete);
+164 
+165     if(dialog.exec())
+166     {
+167         db->deleteAccount(key);
+168         removeRow(row);
+169 
+170         if(row > 0)
+171             setCurrentCell(row - 1, 1);
+172     }
+173 }
+\end{verbatim}\normalsize 
+
+
+\hypertarget{classAccountTable_k0}{
+\index{AccountTable@{Account\-Table}!updateDb@{updateDb}}
+\index{updateDb@{updateDb}!AccountTable@{Account\-Table}}
+\subsubsection[updateDb]{\setlength{\rightskip}{0pt plus 5cm}void Account\-Table::update\-Db (int, int)\hspace{0.3cm}{\tt  \mbox{[}private, slot\mbox{]}}}}
+\label{classAccountTable_k0}
+
+
+Definition at line 175 of file account\-Table.cpp.
+
+References db, and Database::update\-Account().
+
+Referenced by Account\-Table().
+
+\footnotesize\begin{verbatim}176 {
+177     QString id = text(row, 0);
+178     QString key = ((AccountEditItem*)(item(row, 0)))->getKey();
+179     QString desc = text(row, 1);
+180     db->updateAccount(key, id, desc);
+181 
+182     setColumnReadOnly(0, true);
+183     setCurrentCell(row, 1);
+184 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classAccountTable_r0}{
+\index{AccountTable@{Account\-Table}!db@{db}}
+\index{db@{db}!AccountTable@{Account\-Table}}
+\subsubsection[db]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classDatabase}{Database}$\ast$ \hyperlink{classAccountTable_r0}{Account\-Table::db}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r0}
+
+
+Definition at line 34 of file account\-Table.h.
+
+Referenced by Account\-Table(), insert(), populate(), remove(), and update\-Db().\hypertarget{classAccountTable_r2}{
+\index{AccountTable@{Account\-Table}!editing@{editing}}
+\index{editing@{editing}!AccountTable@{Account\-Table}}
+\subsubsection[editing]{\setlength{\rightskip}{0pt plus 5cm}bool \hyperlink{classAccountTable_r2}{Account\-Table::editing}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r2}
+
+
+Definition at line 37 of file account\-Table.h.
+
+Referenced by Account\-Table(), insert(), and key\-Press\-Event().\hypertarget{classAccountTable_r4}{
+\index{AccountTable@{Account\-Table}!editingCol@{editingCol}}
+\index{editingCol@{editingCol}!AccountTable@{Account\-Table}}
+\subsubsection[editingCol]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classAccountTable_r4}{Account\-Table::editing\-Col}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r4}
+
+
+Definition at line 39 of file account\-Table.h.
+
+Referenced by editing\-Changed(), insert(), key\-Press\-Event(), and populate().\hypertarget{classAccountTable_r3}{
+\index{AccountTable@{Account\-Table}!editingRow@{editingRow}}
+\index{editingRow@{editingRow}!AccountTable@{Account\-Table}}
+\subsubsection[editingRow]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{classAccountTable_r3}{Account\-Table::editing\-Row}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r3}
+
+
+Definition at line 38 of file account\-Table.h.
+
+Referenced by editing\-Changed(), insert(), key\-Press\-Event(), and populate().\hypertarget{classAccountTable_r5}{
+\index{AccountTable@{Account\-Table}!inserting@{inserting}}
+\index{inserting@{inserting}!AccountTable@{Account\-Table}}
+\subsubsection[inserting]{\setlength{\rightskip}{0pt plus 5cm}bool \hyperlink{classAccountTable_r5}{Account\-Table::inserting}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r5}
+
+
+Definition at line 41 of file account\-Table.h.
+
+Referenced by Account\-Table(), insert(), and key\-Press\-Event().\hypertarget{classAccountTable_r1}{
+\index{AccountTable@{Account\-Table}!settings@{settings}}
+\index{settings@{settings}!AccountTable@{Account\-Table}}
+\subsubsection[settings]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{classSettings}{Settings}$\ast$ \hyperlink{classAccountTable_r1}{Account\-Table::settings}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classAccountTable_r1}
+
+
+Definition at line 35 of file account\-Table.h.
+
+Referenced by Account\-Table().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{accountTable_8h}{account\-Table.h}\item 
+\hyperlink{accountTable_8cpp}{account\-Table.cpp}\end{CompactItemize}

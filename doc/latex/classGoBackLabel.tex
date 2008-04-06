@@ -1,0 +1,108 @@
+\hypertarget{classGoBackLabel}{
+\section{Go\-Back\-Label Class Reference}
+\label{classGoBackLabel}\index{GoBackLabel@{GoBackLabel}}
+}
+{\tt \#include $<$go\-Back\-Label.h$>$}
+
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classGoBackLabel_l0}{go\-Back} ()
+\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{classGoBackLabel_a0}{Go\-Back\-Label} (QWidget $\ast$parent=0, const char $\ast$name=0)
+\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{classGoBackLabel_b0}{mouse\-Press\-Event} (QMouse\-Event $\ast$)
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+QLabel $\ast$ \hyperlink{classGoBackLabel_r0}{label}
+\item 
+QLabel $\ast$ \hyperlink{classGoBackLabel_r1}{icon}
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGoBackLabel_a0}{
+\index{GoBackLabel@{Go\-Back\-Label}!GoBackLabel@{GoBackLabel}}
+\index{GoBackLabel@{GoBackLabel}!GoBackLabel@{Go\-Back\-Label}}
+\subsubsection[GoBackLabel]{\setlength{\rightskip}{0pt plus 5cm}Go\-Back\-Label::Go\-Back\-Label (QWidget $\ast$ {\em parent} = {\tt 0}, const char $\ast$ {\em name} = {\tt 0})}}
+\label{classGoBackLabel_a0}
+
+
+Definition at line 9 of file go\-Back\-Label.cpp.
+
+References icon, and label.
+
+\footnotesize\begin{verbatim}10     : QHBox(parent,name)
+11 {
+12     icon = new QLabel(this);
+13     icon->setPixmap( QPixmap::fromMimeSource(ICON_PATH + "/back.png") );
+14     label = new QLabel(" Back (ESC)", this);
+15     setCursor(Qt::PointingHandCursor);
+16 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGoBackLabel_l0}{
+\index{GoBackLabel@{Go\-Back\-Label}!goBack@{goBack}}
+\index{goBack@{goBack}!GoBackLabel@{Go\-Back\-Label}}
+\subsubsection[goBack]{\setlength{\rightskip}{0pt plus 5cm}void Go\-Back\-Label::go\-Back ()\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{classGoBackLabel_l0}
+
+
+
+
+Referenced by mouse\-Press\-Event().\hypertarget{classGoBackLabel_b0}{
+\index{GoBackLabel@{Go\-Back\-Label}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!GoBackLabel@{Go\-Back\-Label}}
+\subsubsection[mousePressEvent]{\setlength{\rightskip}{0pt plus 5cm}void Go\-Back\-Label::mouse\-Press\-Event (QMouse\-Event $\ast$)\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{classGoBackLabel_b0}
+
+
+Definition at line 18 of file go\-Back\-Label.cpp.
+
+References go\-Back().
+
+\footnotesize\begin{verbatim}19 {
+20     emit goBack();
+21 }
+\end{verbatim}\normalsize 
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGoBackLabel_r1}{
+\index{GoBackLabel@{Go\-Back\-Label}!icon@{icon}}
+\index{icon@{icon}!GoBackLabel@{Go\-Back\-Label}}
+\subsubsection[icon]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classGoBackLabel_r1}{Go\-Back\-Label::icon}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classGoBackLabel_r1}
+
+
+Definition at line 20 of file go\-Back\-Label.h.
+
+Referenced by Go\-Back\-Label().\hypertarget{classGoBackLabel_r0}{
+\index{GoBackLabel@{Go\-Back\-Label}!label@{label}}
+\index{label@{label}!GoBackLabel@{Go\-Back\-Label}}
+\subsubsection[label]{\setlength{\rightskip}{0pt plus 5cm}QLabel$\ast$ \hyperlink{classGoBackLabel_r0}{Go\-Back\-Label::label}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{classGoBackLabel_r0}
+
+
+Definition at line 19 of file go\-Back\-Label.h.
+
+Referenced by Go\-Back\-Label().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+\hyperlink{goBackLabel_8h}{go\-Back\-Label.h}\item 
+\hyperlink{goBackLabel_8cpp}{go\-Back\-Label.cpp}\end{CompactItemize}

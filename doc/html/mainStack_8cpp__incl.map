@@ -1,0 +1,5 @@
+base referer
+rect $mainStack_8h.html 173,106 269,130
+rect $closeDialog_8h.html 170,445 272,469
+rect $database_8h.html 177,925 265,949
+rect $settings_8h.html 181,973 261,997
