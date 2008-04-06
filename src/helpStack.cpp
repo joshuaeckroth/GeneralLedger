@@ -9,10 +9,13 @@
 
 #include "helpStack.h"
 #include "goBackLabel.h"
+#include "settings.h"
 
 HelpStack::HelpStack(QWidget *parent, const char *name)
     : QWidget(parent,name)
 {
+    Settings *settings = Settings::instance();
+
     main.vBoxLayout = new QVBoxLayout(this);
     main.vBoxLayout->setMargin(5);
     main.vBoxLayout->setSpacing(5);
@@ -23,7 +26,7 @@ HelpStack::HelpStack(QWidget *parent, const char *name)
     connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     
     main.helpContentsButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/help.png") ),
+            QIconSet( QPixmap::fromMimeSource(settings->getIconPath() + "/help.png") ),
             "Help Contents (F8)", this);
     main.helpContentsButton->setFocusPolicy(QWidget::NoFocus);
     connect(main.helpContentsButton, SIGNAL(clicked()), this, SLOT(helpContents()));
@@ -34,7 +37,7 @@ HelpStack::HelpStack(QWidget *parent, const char *name)
     
     main.content = new QTextBrowser(this);
     main.content->setVScrollBarMode(QScrollView::AlwaysOn);
-    main.content->mimeSourceFactory()->addFilePath("/home/josh/projects/genledg/help");    
+    main.content->mimeSourceFactory()->addFilePath(settings->getHelpPath());    
     main.content->setSource("contents.html");
     main.content->installEventFilter(this);
     

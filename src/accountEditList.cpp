@@ -11,16 +11,23 @@ AccountEditList::AccountEditList(QWidget *parent, const char *name,
     : QComboBox(TRUE, parent, name), accounts(newAccounts), curText(newText)
 {
     list = new QListBox(this);
-    connect(list, SIGNAL(selected(const QString&)), this, SLOT(setText(const QString&)));
     setListBox(list);
+    list->setSelectionMode(QListBox::NoSelection);
+    list->setEnabled(false);
 
-    list->insertStringList(accounts);    // even though this is cleared on focusInEvent,
-                                         // it's necessary to create a listbox that's the full size
+    editor = new QLineEdit(curText, this);
+    setLineEdit(editor);
+
     setSizeLimit(10);
+
+    insertStringList(accounts);    // even though this is cleared on focusInEvent,
+                                   // it's necessary to create a listbox that's the full size
+
+    editor->setText(curText);
     
     setInsertionPolicy(QComboBox::NoInsertion);
-    
-    connect(this, SIGNAL(textChanged(const QString &)), this, SLOT(changed(const QString &)));
+
+    connect(editor, SIGNAL(textChanged(const QString&)), this, SLOT(changed(const QString&)));
     
 }
 
@@ -31,25 +38,18 @@ void AccountEditList::updateAccounts(const QStringList &newAccounts)
     list->insertStringList(accounts);
 }
 
-void AccountEditList::setText(const QString &newText)
-{
-    curText = newText.left(4);
-    lineEdit()->setText(curText);
-}
-
 void AccountEditList::changed(const QString &newText)
 {
     curText = newText;
+
     list->clear();
-    
+
     for(QStringList::Iterator it = accounts.begin(); it != accounts.end(); it++)
     {
         if((*it).startsWith(curText))
             list->insertItem(*it);
     }
-    
-    popup();
-    lineEdit()->setFocus();
+
 }
 
 QString AccountEditList::currentText() const
@@ -60,7 +60,8 @@ QString AccountEditList::currentText() const
 void AccountEditList::focusInEvent(QFocusEvent *event)
 {
     QComboBox::focusInEvent(event);
-    changed("");
+    popup();
+    changed(curText);
 }
 
 void AccountEditList::focusOutEvent(QFocusEvent *event)

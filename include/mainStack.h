@@ -10,6 +10,7 @@ class QVGroupBox;
 class QPushButton;
 
 class Database;
+class Settings;
 
 class MainStack : public QWidgetStack
 {
@@ -44,6 +45,11 @@ class MainStack : public QWidgetStack
         bool eventFilter(QObject *target, QEvent *event);
         
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
+        QString exportPath;
+        QString importPath;
         
         int active;
         

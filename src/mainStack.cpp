@@ -15,14 +15,21 @@
 #include <qfiledialog.h>
 #include <qevent.h>
 #include <qregexp.h>
+#include <qfile.h>
 
 #include "database.h"
+#include "settings.h"
 #include "mainStack.h"
 
 MainStack::MainStack(QWidget *parent, const char *name)
     : QWidgetStack(parent,name)
 {
     db = Database::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
+    exportPath = settings->getExportPath();
+    importPath = settings->getImportPath();
     
     main.widget = new QWidget(this);
     
@@ -40,10 +47,10 @@ MainStack::MainStack(QWidget *parent, const char *name)
     
     main.vBoxLayout->add(main.mainGroup);
     
-    if(db->getCurClient() != "")
+    if(db->getCurClient() != "" && db->curClientExists())
     {
         main.openDefaultButton = new QPushButton(
-                QIconSet( QPixmap::fromMimeSource("icons/openDefButton.png") ),
+                QIconSet( QPixmap::fromMimeSource(iconPath + "/openDefButton.png") ),
                 "Open " + db->getCurClient(), main.mainGroup);
         connect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
         main.openDefaultButton->setDefault(true);
@@ -53,19 +60,19 @@ MainStack::MainStack(QWidget *parent, const char *name)
     else
     {
         main.openDefaultButton = new QPushButton(
-                QIconSet( QPixmap::fromMimeSource("icons/openDefButton.png") ),
+                QIconSet( QPixmap::fromMimeSource(iconPath + "/openDefButton.png") ),
                 "Open ...", main.mainGroup);
         main.openDefaultButton->setEnabled(false);
     }
     
     main.openNewButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/openNewButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/openNewButton.png") ),
             "Open a Different Client", main.mainGroup);
     connect(main.openNewButton, SIGNAL(clicked()), this, SLOT(openNewDialog()));
     main.openNewButton->installEventFilter(this);
     
     main.createNewButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/createNewButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/createNewButton.png") ),
             "Create a New Client", main.mainGroup);
     connect(main.createNewButton, SIGNAL(clicked()), this, SLOT(createNewDialog()));
     main.createNewButton->installEventFilter(this);
@@ -79,13 +86,13 @@ MainStack::MainStack(QWidget *parent, const char *name)
     main.vBoxLayout->add(main.otherGroup);
     
     main.importButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/importButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/importButton.png") ),
             "Import a Database File", main.otherGroup);
     connect(main.importButton, SIGNAL(clicked()), this, SLOT(import()));
     main.importButton->installEventFilter(this);
     
     main.quitButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/quitButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/quitButton.png") ),
             "Quit General Ledger", main.otherGroup);
     connect(main.quitButton, SIGNAL(clicked()), this, SLOT(prepareQuit()));
     main.quitButton->installEventFilter(this);
@@ -106,6 +113,8 @@ void MainStack::clientOpened()
 {
     main.openDefaultButton->setText("Open " + db->getCurClient());
     main.openDefaultButton->setEnabled(true);
+    main.openDefaultButton->installEventFilter(this);
+    connect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
     
     if(widget(1))
     {
@@ -134,7 +143,7 @@ void MainStack::clientOpened()
     tasks.hBoxLabel->setMargin(5);
     
     tasks.closeButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/closeClient.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/closeClient.png") ),
             "Close Client (F8)", tasks.widget);
     tasks.closeButton->setFocusPolicy(QWidget::NoFocus);
     connect(tasks.closeButton, SIGNAL(clicked()), this, SLOT(closeClient()));
@@ -157,7 +166,7 @@ void MainStack::clientOpened()
     tasks.vBoxLayout->add(tasks.clientGroup);
     
     tasks.accountsButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/accountsTab.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/accountsTab.png") ),
             "Accounts", tasks.clientGroup);
     connect(tasks.accountsButton, SIGNAL(clicked()), this, SIGNAL(switchToAccounts()));
     tasks.accountsButton->setDefault(true);
@@ -166,13 +175,13 @@ void MainStack::clientOpened()
     tasks.accountsButton->installEventFilter(this);
     
     tasks.journalButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/journalTab.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/journalTab.png") ),
             "Journal Entry", tasks.clientGroup);
     connect(tasks.journalButton, SIGNAL(clicked()), this, SIGNAL(switchToJournal()));
     tasks.journalButton->installEventFilter(this);
     
     tasks.reportButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/reportTab.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/reportTab.png") ),
             "Reports", tasks.clientGroup);
     connect(tasks.reportButton, SIGNAL(clicked()), this, SIGNAL(switchToReports()));
     tasks.reportButton->installEventFilter(this);
@@ -186,19 +195,19 @@ void MainStack::clientOpened()
     tasks.vBoxLayout->add(tasks.adminGroup);
     
     tasks.editNameButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/editNameButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/editNameButton.png") ),
             "Edit Client Name", tasks.adminGroup);
     connect(tasks.editNameButton, SIGNAL(clicked()), this, SLOT(editName()));
     tasks.editNameButton->installEventFilter(this);
     
     tasks.copyDatabaseButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/copyDatabaseButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/copyDatabaseButton.png") ),
             "Copy Client Database to File", tasks.adminGroup);
     connect(tasks.copyDatabaseButton, SIGNAL(clicked()), this, SLOT(copyClient()));
     tasks.copyDatabaseButton->installEventFilter(this);
     
     tasks.cryptButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/encryptButton.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/encryptButton.png") ),
             "Encrypt Database with Password", tasks.adminGroup);
     connect(tasks.cryptButton, SIGNAL(clicked()), this, SLOT(encrypt()));
     tasks.cryptButton->installEventFilter(this);
@@ -224,6 +233,7 @@ void MainStack::switchWidget()
     {
         raiseWidget(0);
         active = 0;
+        main.openDefaultButton->setFocus();
     }
 }
 
@@ -263,10 +273,60 @@ bool MainStack::eventFilter(QObject *target, QEvent *event)
 
 void MainStack::openDefault()
 {
-    if(db->openDefault())
+    QString file = db->getCurDb();
+
+    bool encrypted = false;
+
+    if(file.right(4) == ".dbx")
+    {
+        file.remove(".dbx");
+        encrypted = true;
+    }
+    if(file.right(3) == ".db")
+        file.remove(".db");
+
+    QString password(QString::null);
+
+    if(encrypted)
+    {
+        QDialog dialog2;
+        dialog2.setCaption("Enter Password");
+    
+        QVBoxLayout vBoxLayout2(&dialog2);
+        vBoxLayout2.setMargin(5);
+        vBoxLayout2.setSpacing(5);
+    
+        QLabel label2("<nobr>This database is encrypted</nobr><br><nobr>Enter the password:</nobr>", &dialog2);
+        QLineEdit password2(&dialog2);
+        password2.setMaxLength(20);
+        password2.setEchoMode(QLineEdit::Password);
+        vBoxLayout2.addStretch();
+        vBoxLayout2.addWidget(&label2);
+        vBoxLayout2.addWidget(&password2);
+    
+        QHBoxLayout hBoxLayout2(&vBoxLayout2);
+        hBoxLayout2.setSpacing(5);
+    
+        QPushButton decryptButton2(QIconSet( QPixmap::fromMimeSource(iconPath + "/decryptButton.png") ),
+                                   "Open", &dialog2);
+        connect(&decryptButton2, SIGNAL(clicked()), &dialog2, SLOT(accept()));
+    
+        QPushButton cancelButton2(QIconSet( QPixmap::fromMimeSource(iconPath + "/cancelButton.png") ),
+                                  "Cancel", &dialog2);
+        connect(&cancelButton2, SIGNAL(clicked()), &dialog2, SLOT(reject()));
+    
+        hBoxLayout2.addStretch();
+        hBoxLayout2.addWidget(&decryptButton2);
+        hBoxLayout2.addWidget(&cancelButton2);
+
+        if(dialog2.exec())
+            password = password2.text();
+    }
+
+    if(db->openNew(file, password))
     {
         clientOpened();
-        emit dbOpened();  
+        emit dbOpened();
     }
 }
 
@@ -293,11 +353,11 @@ void MainStack::openNewDialog()
     QHBoxLayout hBoxLayout(&vBoxLayout);
     hBoxLayout.setSpacing(5);
     
-    QPushButton okButton(QIconSet(QPixmap::fromMimeSource("icons/openNewButton.png")), "Open", &dialog);
+    QPushButton okButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/openNewButton.png")), "Open", &dialog);
     okButton.setDefault(true);
     connect(&okButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
     
-    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource("icons/cancelButton.png")), "Cancel", &dialog);
+    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/cancelButton.png")), "Cancel", &dialog);
     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
     
     hBoxLayout.addWidget(&okButton);
@@ -307,8 +367,56 @@ void MainStack::openNewDialog()
     {
         QString file = listBox.selectedItem()->text();
         file.remove(QRegExp(".+\\("));
-        file.remove(".db)");
-        if(db->openNew(file))
+
+        bool encrypted = false;
+
+        if(file.right(5) == ".dbx)")
+        {
+            file.remove(".dbx)");
+            encrypted = true;
+        }
+        if(file.right(4) == ".db)")
+            file.remove(".db)");
+
+        QString password(QString::null);
+
+        if(encrypted)
+        {
+            QDialog dialog2;
+            dialog2.setCaption("Enter Password");
+    
+            QVBoxLayout vBoxLayout2(&dialog2);
+            vBoxLayout2.setMargin(5);
+            vBoxLayout2.setSpacing(5);
+    
+            QLabel label2("<nobr>This database is encrypted</nobr><br><nobr>Enter the password:</nobr>", &dialog2);
+            QLineEdit password2(&dialog2);
+            password2.setMaxLength(20);
+            password2.setEchoMode(QLineEdit::Password);
+            vBoxLayout2.addStretch();
+            vBoxLayout2.addWidget(&label2);
+            vBoxLayout2.addWidget(&password2);
+    
+            QHBoxLayout hBoxLayout2(&vBoxLayout2);
+            hBoxLayout2.setSpacing(5);
+    
+            QPushButton decryptButton2(QIconSet( QPixmap::fromMimeSource(iconPath + "/decryptButton.png") ),
+                                      "Open", &dialog2);
+            connect(&decryptButton2, SIGNAL(clicked()), &dialog2, SLOT(accept()));
+    
+            QPushButton cancelButton2(QIconSet( QPixmap::fromMimeSource(iconPath + "/cancelButton.png") ),
+                                     "Cancel", &dialog2);
+            connect(&cancelButton2, SIGNAL(clicked()), &dialog2, SLOT(reject()));
+    
+            hBoxLayout2.addStretch();
+            hBoxLayout2.addWidget(&decryptButton2);
+            hBoxLayout2.addWidget(&cancelButton2);
+
+            if(dialog2.exec())
+                password = password2.text();
+        }
+
+        if(db->openNew(file, password))
         {
             clientOpened();
             emit dbOpened();
@@ -350,11 +458,11 @@ void MainStack::createNewDialog()
     QHBoxLayout hBoxButtons(&vBoxLayout);
     hBoxButtons.setSpacing(5);
     
-    QPushButton createButton(QIconSet(QPixmap::fromMimeSource("icons/createNewButton.png")), "Create", &dialog);
+    QPushButton createButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/createNewButton.png")), "Create", &dialog);
     createButton.setDefault(true);
     connect(&createButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
     
-    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource("icons/cancelButton.png")), "Cancel", &dialog);
+    QPushButton cancelButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/cancelButton.png")), "Cancel", &dialog);
     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
     
     hBoxButtons.addStretch();
@@ -387,8 +495,8 @@ void MainStack::editName()
 void MainStack::copyClient()
 {
     QString file = QFileDialog::getSaveFileName(
-            ".",
-            "Client Database (*.db)",
+            exportPath,
+            "Client Database (*.db *.dbx)",
             this,
             0,
             "Copy Client Database to File");
@@ -398,7 +506,17 @@ void MainStack::copyClient()
 }
 
 void MainStack::import()
-{}
+{
+    QString file = QFileDialog::getOpenFileName(
+            importPath,
+            "Client Database (*.db *.dbx)",
+            this,
+            0,
+            "Import a Database File");
+
+    if(!file.isEmpty())
+        db->importDb(file);
+}
 
 void MainStack::encrypt()
 {
@@ -434,11 +552,11 @@ void MainStack::encrypt()
     QHBoxLayout hBoxBottom(&vBoxLayout);
     hBoxBottom.setSpacing(5);
     
-    QPushButton encryptButton(QIconSet( QPixmap::fromMimeSource("icons/encryptButton.png") ),
+    QPushButton encryptButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/encryptButton.png") ),
                               "Encrypt", &dialog);
     connect(&encryptButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
     
-    QPushButton cancelButton(QIconSet( QPixmap::fromMimeSource("icons/cancelButton.png") ),
+    QPushButton cancelButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/cancelButton.png") ),
                              "Cancel", &dialog);
     connect(&cancelButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
     
@@ -449,8 +567,7 @@ void MainStack::encrypt()
     if(dialog.exec())
     {
         if(password1.text() == password2.text())
-            ;
-//            db->encryptDb(password1.text());
+           db->encryptDb(password1.text());
     }
 }
 

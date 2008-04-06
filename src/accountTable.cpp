@@ -2,19 +2,24 @@
 #include <qptrlist.h>
 #include <qstringlist.h>
 #include <qevent.h>
-#include <qmessagebox.h>
+#include <qdialog.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
 
 #include "database.h"
+#include "settings.h"
 #include "accountTable.h"
 #include "accountEditItem.h"
-#include "accountEditSimple.h"
 #include "accountEditType.h"
-#include "basicEdit.h"
 
 AccountTable::AccountTable(QWidget *parent, const char *name)
     : QTable(parent,name)  
 {
     db = Database::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
     
     setLeftMargin(0);
     setVScrollBarMode(QScrollView::AlwaysOn);
@@ -31,9 +36,8 @@ AccountTable::AccountTable(QWidget *parent, const char *name)
     
     populate();
     
+    inserting = false;
     editting = false;
-    
-    sortColumn(0, FALSE, TRUE);
     
     connect(this, SIGNAL(currentChanged(int, int)), this, SLOT(edittingChanged(int, int)));
     connect(this, SIGNAL(valueChanged(int, int)), this, SLOT(updateDb(int, int)));
@@ -45,7 +49,8 @@ AccountTable::~AccountTable()
 
 void AccountTable::populate()
 {
-    for(int row = 0; row < numRows(); row++)
+    int rows = numRows();
+    for(int row = 0; row < rows; row++)
         removeRow(0);
     
     QPtrList<QStringList> data = db->getAccountsData();
@@ -57,13 +62,15 @@ void AccountTable::populate()
         ++it;
         insertRows(0);
         setItem(0, 0, new AccountEditItem(this, stringList->operator[](1), stringList->operator[](0)));
-        setItem(0, 1, new BasicEdit(this, stringList->operator[](2)));
+        setItem(0, 1, new QTableItem(this, QTableItem::OnTyping, stringList->operator[](2)));
         setItem(0, 2, new AccountEditType(this, stringList->operator[](3)));
         delete stringList;
     }
     
     if(numRows())
     {
+        sortColumn(0, true, true);
+
         setCurrentCell(0,0);
         edittingRow = 0;
         edittingCol = 0;
@@ -72,41 +79,72 @@ void AccountTable::populate()
 
 void AccountTable::insert()
 {
+    inserting = true;
+
     int newRow = numRows();
     insertRows(newRow);
-    ensureCellVisible(newRow, 0);
-    setItem(newRow, 0, new AccountEditItem(this, "", db->nextAccountKey()));
-    setItem(newRow, 1, new BasicEdit(this, ""));
-    setItem(newRow, 2, new AccountEditType(this, "Normal"));
-    setCurrentCell(newRow,0);
+
     editting = true;
     edittingRow = newRow;
     edittingCol = 0;
-    editCell(newRow, 0);
+
+    ensureCellVisible(newRow, 0);
+    setItem(newRow, 0, new AccountEditItem(this, "", db->nextAccountKey()));
+    setItem(newRow, 1, new QTableItem(this, QTableItem::OnTyping, ""));
+    setItem(newRow, 2, new AccountEditType(this, "Normal"));
+    setCurrentCell(newRow,0);
+
+    beginEdit(newRow, 0, false);
 }
 
 void AccountTable::remove(int row)
 {
     QString key = ((AccountEditItem*)(item(row, 0)))->getKey();
     
-    if(!QMessageBox::question(
-        this,
-        "Delete Record",
-        "Are you sure you want to delete the selected record?",
-        "Delete", "Don't Delete",
-        QString::null, 1, 0))
+    QDialog dialog;
+    dialog.setCaption("Delete Record");
+
+    QVBoxLayout vBoxLayout(&dialog);
+    vBoxLayout.setMargin(5);
+    vBoxLayout.setSpacing(5);
+
+    QLabel label("Are you sure you want to delete the selected record?", &dialog);
+
+    vBoxLayout.addWidget(&label);
+
+    vBoxLayout.addSpacing(10);
+
+    QHBoxLayout hBoxLayout(&vBoxLayout);
+    hBoxLayout.setSpacing(5);
+
+    QPushButton buttonDelete(QIconSet(QPixmap::fromMimeSource(iconPath + "/deleteButton.png")),
+                             "Delete", &dialog);
+    connect(&buttonDelete, SIGNAL(clicked()), &dialog, SLOT(accept()));
+
+    QPushButton buttonDontDelete(QIconSet(QPixmap::fromMimeSource(iconPath + "/okButton.png")),
+                                 "Don't Delete", &dialog);
+    connect(&buttonDontDelete, SIGNAL(clicked()), &dialog, SLOT(reject()));
+
+    buttonDontDelete.setDefault(true);
+
+    hBoxLayout.addStretch();
+    hBoxLayout.addWidget(&buttonDelete);
+    hBoxLayout.addWidget(&buttonDontDelete);
+
+    if(dialog.exec())
     {
         db->deleteAccount(key);
         removeRow(row);
+
+        if(row > 0)
+            setCurrentCell(row - 1, 0);
     }
-    if(row > 0)
-        setCurrentCell(row - 1, 0);
 }
 
 void AccountTable::updateDb(int row, int)
 {
-    QString key = ((AccountEditItem*)(item(row, 0)))->getKey();
     QString id = text(row, 0);
+    QString key = ((AccountEditItem*)(item(row, 0)))->getKey();
     QString desc = text(row, 1);
     QString type = text(row, 2);
     db->updateAccount(key, id, desc, type);
@@ -131,16 +169,20 @@ void AccountTable::keyPressEvent(QKeyEvent *event)
         case Key_Enter:
         case Key_Return:
         case Key_Tab:
-            editting = true;
             if(editting)
             {
                 endEdit(edittingRow, edittingCol, true, true);
+
                 if(edittingCol == 2)
                 {
                     edittingCol = 0;
-                    if(edittingRow == numRows())
+                    if(edittingRow == (numRows() - 1))
                     {
-                        setCurrentCell(edittingRow, 0);
+                        inserting = false;
+                        editting = false;
+                        sortColumn(0, true, true);
+
+                        setCurrentCell(currentRow(), 0);
                         break;
                     }
                     edittingRow++;
@@ -150,7 +192,29 @@ void AccountTable::keyPressEvent(QKeyEvent *event)
                     edittingCol++;
                 }
             }
+            editting = true;
+
+            setCurrentCell(edittingRow, edittingCol);
             beginEdit(edittingRow, edittingCol, false);
+            break;
+        case Key_Escape:
+            if(editting)
+            {
+                endEdit(edittingRow, edittingCol, true, true);
+                editting = false;
+            }
+            else
+                emit goToMain();
+            break;
+        case Key_Up:
+        case Key_Left:
+        case Key_Down:
+        case Key_Right:
+            if(inserting)
+                sortColumn(0, true, true);
+            inserting = false;
+
+            QTable::keyPressEvent(event);
             break;
         case Key_F1:
             emit goToMain();

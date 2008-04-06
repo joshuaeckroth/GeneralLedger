@@ -56,61 +56,61 @@ void Printer::destroy()
 
 void Printer::printReport(const QString &header, const QString &data)
 {
-    QPainter painter(this);
-
-    QPaintDeviceMetrics metrics(this);
-    int headerGap = metrics.logicalDpiY() / 4;  // quarter inch
-
-    QFont defaultFont("Verdana", 9);
-    
-    QSimpleRichText headerText(header, defaultFont);
-    
-    headerText.setWidth(&painter, painter.window().width());
-
-    int pageHeight = painter.window().height() - headerText.height() - headerGap;
-
-    QSimpleRichText dataText(data, defaultFont, "", 0, 0, pageHeight);
-    dataText.setWidth(&painter, painter.window().width());
-
-    int numPages = (int)ceil((double)dataText.height() / pageHeight);
-
-    int index;
-
-    for(int i = 0; i < (int)numCopies(); ++i)
+    if(setup(0))
     {
-        for(int j = 0; j < numPages; ++j)
+
+        QPainter painter(this);
+
+        QPaintDeviceMetrics metrics(this);
+        int headerGap = metrics.logicalDpiY() / 4;  // quarter inch
+
+        QFont headerFont("Verdana", 8);
+        QFont dataFont("Verdana", 8);
+    
+        QSimpleRichText headerText(header, headerFont);
+    
+        headerText.setWidth(&painter, painter.window().width());
+
+        int pageHeight = painter.window().height() - headerText.height() - headerGap;
+
+        QSimpleRichText dataText(data, dataFont, "", 0, 0, pageHeight);
+        dataText.setWidth(&painter, painter.window().width());
+
+        int numPages = (int)ceil((double)dataText.height() / pageHeight);
+
+        int index;
+
+        for(int i = 0; i < (int)numCopies(); ++i)
         {
-            if(i > 0 || j > 0)
-                newPage();
+            for(int j = 0; j < numPages; ++j)
+            {
+                if(i > 0 || j > 0)
+                    newPage();
 
-            if(pageOrder() == QPrinter::LastPageFirst)
-                index = numPages - j - 1;
-            else
-                index = j;
+                if(pageOrder() == QPrinter::LastPageFirst)
+                    index = numPages - j - 1;
+                else
+                    index = j;
 
-            QRect headerRect(0, 0, headerText.width(), headerText.height());
+                QRect headerRect(0, 0, headerText.width(), headerText.height());
 
-            QRect dataRect(0, (index * pageHeight), dataText.width(), pageHeight);
+                QRect dataRect(0, (index * pageHeight), dataText.width(), pageHeight);
             
 
-            headerText.draw(&painter, 0, 0, headerRect, QColorGroup());
+                headerText.draw(&painter, 0, 0, headerRect, QColorGroup());
 
-            painter.save();
-            painter.translate(0, -dataRect.top() + headerText.height() + headerGap);
-            dataText.draw(&painter, 0, 0, dataRect, QColorGroup());
-            painter.restore();
+                painter.save();
+                painter.translate(0, -dataRect.top() + headerText.height());
+                dataText.draw(&painter, 0, 0, dataRect, QColorGroup());
+                painter.restore();
 
-            painter.setFont(defaultFont);
-            painter.drawText(painter.window(), Qt::AlignHCenter | Qt::AlignBottom,
-                             QString("Page " + QString::number(j + 1) + " of " + QString::number(numPages)));
+                painter.setFont(dataFont);
+                painter.drawText(painter.window(), Qt::AlignHCenter | Qt::AlignBottom,
+                                 QString("Page " + QString::number(j + 1) + " of " + QString::number(numPages)));
 
+            }
         }
     }
-}
-
-void Printer::printerSetup()
-{
-    setup(0);
 }
 
 Printer *Printer::printer = 0;

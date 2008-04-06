@@ -15,6 +15,8 @@ Tabs::Tabs(QApplication *parent, const char *name)
 {
     db = Database::instance();
     settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
     
     app = parent;
     
@@ -55,14 +57,14 @@ Tabs::Tabs(QApplication *parent, const char *name)
     helpStack = new HelpStack;
     connect(helpStack, SIGNAL(goToMain()), this, SLOT(switchToMain()));
     
-    addTab( mainStack, QIconSet( QPixmap::fromMimeSource("icons/mainTab.png") ), "Main (F1)" );
-    addTab( accountStack, QIconSet( QPixmap::fromMimeSource("icons/accountsTab.png") ), "Accounts (F2)" );
+    addTab( mainStack, QIconSet( QPixmap::fromMimeSource(iconPath + "/mainTab.png") ), "Main (F1)" );
+    addTab( accountStack, QIconSet( QPixmap::fromMimeSource(iconPath + "/accountsTab.png") ), "Accounts (F2)" );
     setTabEnabled(accountStack, 0);
-    addTab( journalStack, QIconSet( QPixmap::fromMimeSource("icons/journalTab.png") ), "Journal Entry (F3)" );
+    addTab( journalStack, QIconSet( QPixmap::fromMimeSource(iconPath + "/journalTab.png") ), "Journal Entry (F3)" );
     setTabEnabled(journalStack, 0);
-    addTab( reportStack, QIconSet( QPixmap::fromMimeSource("icons/reportTab.png") ), "Reports (F4)" );
+    addTab( reportStack, QIconSet( QPixmap::fromMimeSource(iconPath + "/reportTab.png") ), "Reports (F4)" );
     setTabEnabled(reportStack, 0);
-    addTab( helpStack, QIconSet( QPixmap::fromMimeSource("icons/help.png") ), "Help (F5)" );
+    addTab( helpStack, QIconSet( QPixmap::fromMimeSource(iconPath + "/help.png") ), "Help (F5)" );
     
 }
 

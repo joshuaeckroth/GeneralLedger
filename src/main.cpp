@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
     tabs.show();
     app.setMainWidget(&tabs);
     int retVal = app.exec();
-    settings->destroy();
     db->destroy();
     printer->destroy();
+    settings->destroy();
     return retVal;
 }

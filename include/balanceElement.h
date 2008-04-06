@@ -12,17 +12,18 @@ class QLabel;
 class QPushButton;
 
 class Database;
+class Settings;
 
 class BalanceElement : public QObject
 {
     Q_OBJECT
- public:
-     BalanceElement(Database::balanceCategory newCategory, QString newId, QString newType,
+    public:
+        BalanceElement(Database::balanceCategory newCategory, QString newId, QString newType,
                     QString newDesc, QString newAccountBegin, QString newAccountEnd);
      
-     ~BalanceElement();
+        ~BalanceElement();
      
-     QFrame* getFrame(QWidget *parent, void *section);
+        QFrame* getFrame(QWidget *parent, void *section);
      
     signals:
         void changed(void*);
@@ -37,20 +38,23 @@ class BalanceElement : public QObject
         void *section;
         
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
         
         QString id;
-     QString type;
-     QString desc;
-     QString accountBegin;
-     QString accountEnd;
+        QString type;
+        QString desc;
+        QString accountBegin;
+        QString accountEnd;
      
-     QFrame *frame;
-     QHBoxLayout *layout;
-     QLabel *descLabel;
-     QLabel *accountsLabel;
-     QPushButton *upButton;
-     QPushButton *downButton;
-     QPushButton *removeButton;
+        QFrame *frame;
+        QHBoxLayout *layout;
+        QLabel *descLabel;
+        QLabel *accountsLabel;
+        QPushButton *upButton;
+        QPushButton *downButton;
+        QPushButton *removeButton;
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include <qevent.h>
 
 #include "database.h"
+#include "settings.h"
 #include "accountStack.h"
 #include "accountTable.h"
 #include "goBackLabel.h"
@@ -18,6 +19,12 @@ AccountStack::AccountStack(QWidget *parent, const char *name)
     : QWidget(parent,name)
 {
     db = Database::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
+    exportPath = settings->getExportPath();
+    importPath = settings->getImportPath();
+
     active = false;
 }
 
@@ -74,13 +81,13 @@ void AccountStack::dbOpened()
     main.bottomRightBoxLayout->setSpacing(5);
     
     main.importButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/import.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/import.png") ),
             "Import from CSV (F11)", main.bottomRightFrame);
     main.importButton->setFocusPolicy(QWidget::NoFocus);
     connect(main.importButton, SIGNAL(clicked()), this, SLOT(importCSV()));
     
     main.exportButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/export.png") ),
             "Export to CSV (F12)", main.bottomRightFrame);
     main.exportButton->setFocusPolicy(QWidget::NoFocus);
     connect(main.exportButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
@@ -100,7 +107,7 @@ void AccountStack::dbOpened()
 void AccountStack::importCSV()
 {
     QString file = QFileDialog::getOpenFileName(
-            ".",
+            importPath,
             "Comma Separated Values (*.csv)",
             this,
             0,
@@ -116,7 +123,7 @@ void AccountStack::importCSV()
 void AccountStack::exportCSV()
 {
     QString file = QFileDialog::getSaveFileName(
-            ".",
+            exportPath,
             "Comma Separated Values (*.csv)",
             this,
             0,

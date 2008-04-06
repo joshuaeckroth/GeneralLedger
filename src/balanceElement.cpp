@@ -6,6 +6,7 @@
 #include <qstring.h>
 
 #include "database.h"
+#include "settings.h"
 #include "balanceElement.h"
 
 BalanceElement::BalanceElement(Database::balanceCategory newCategory, QString newId, QString newType,
@@ -14,6 +15,9 @@ BalanceElement::BalanceElement(Database::balanceCategory newCategory, QString ne
       accountBegin(newAccountBegin), accountEnd(newAccountEnd)
 {
     db = Database::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
 }
 
 BalanceElement::~BalanceElement()
@@ -33,17 +37,17 @@ QFrame* BalanceElement::getFrame(QWidget *parent, void *newSection)
         accountsLabel = new QLabel(accountBegin + " - " + accountEnd, frame);
     
     upButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/balanceElementUp.png") ), "", frame);
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/balanceElementUp.png") ), "", frame);
     upButton->setFixedSize(28, 28);
     connect(upButton, SIGNAL(clicked()), this, SLOT(elementUp()));
     
     downButton = new QPushButton(
-                QIconSet( QPixmap::fromMimeSource("icons/balanceElementDown.png") ), "", frame);
+                QIconSet( QPixmap::fromMimeSource(iconPath + "/balanceElementDown.png") ), "", frame);
     downButton->setFixedSize(28, 28);
     connect(downButton, SIGNAL(clicked()), this, SLOT(elementDown()));
     
     removeButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/balanceElementRemove.png") ), "", frame);
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/balanceElementRemove.png") ), "", frame);
     removeButton->setFixedSize(28, 28);
     connect(removeButton, SIGNAL(clicked()), this, SLOT(removeElement()));
     

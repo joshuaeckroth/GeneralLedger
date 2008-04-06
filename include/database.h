@@ -19,14 +19,16 @@ class Database : public QObject
   
   void destroy();
   
-  bool openDefault();
-  bool openNew(QString name);
+  bool openNew(QString name, QString password);
   bool createNew(QString name, QString yearEnd);
   void closeDb();
   void copyDb(QString file) const;
+  void encryptDb(QString password);
+  void importDb(QString file) const;
   void editName(QString name);
   QString getCurDb() const;
   QString getCurClient() const;
+  bool curClientExists() const;
   QStringList getClientList() const;
   void exportCSV(QString table, QString file) const;
   void importCSV(QString table, QString file);
@@ -46,6 +48,7 @@ class Database : public QObject
   Database* getGeneralTrialBalance(QString periodEnd, QString accountBegin, QString accountEnd);
   Database* getBalanceReport(QString periodEnd);
   Database* getChartAccounts();
+  Database* getJournalTmpReport();
   
   QString& reportHeader();
   QString& reportData();
@@ -53,6 +56,9 @@ class Database : public QObject
   QString& reportString();
   QString& reportCSV();
   QString& reportHTML();
+
+  QString& journalTmpReportHeader();
+  QString& journalTmpReportData();
   
   QStringList& getAccountsList();
   QPtrList<QStringList> getAccountsData();
@@ -73,6 +79,9 @@ class Database : public QObject
   
   QString nextAccountKey();
   QString nextJournalTmpKey();
+
+  QString getAccountDesc(QString account);
+  bool accountExists(QString account);
   
     signals:
         void accountsChanged();
@@ -85,6 +94,9 @@ class Database : public QObject
   static Database *db;
 
   Settings *settings;
+
+  QString clientPath;
+  QString aescryptExec;
      
   QSqlDatabase *connection;
   QString curClient;
@@ -98,6 +110,12 @@ class Database : public QObject
       QString html;
   };
   ReportStruct *report;
+
+  struct JournalTmpReport {
+      QString header;
+      QString data;
+  };
+  JournalTmpReport *journalTmpReport;
   
   QStringList *accountsList;
   

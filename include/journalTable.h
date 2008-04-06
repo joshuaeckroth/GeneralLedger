@@ -7,6 +7,7 @@ class QStringList;
 class QKeyEvent;
 
 class Database;
+class Settings;
 
 class JournalTable : public QTable
 {
@@ -14,6 +15,7 @@ class JournalTable : public QTable
     public:
         JournalTable(QWidget *parent = 0, const char *name = 0);
         ~JournalTable();
+        bool isInserting() const;
         int debitColWidth();
         int creditColWidth();
         void populate();
@@ -26,7 +28,8 @@ class JournalTable : public QTable
         void goToHelp();
     
     private slots:
-        void updateDb(int row, int);
+        void updateDb(int, int);
+        void edittingChanged(int, int);
         void updateAccounts();
         
     private:
@@ -35,6 +38,15 @@ class JournalTable : public QTable
         void keyPressEvent(QKeyEvent *event);
         
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
+
+        bool editting;
+        int edittingRow;
+        int edittingCol;
+
+        bool inserting;
         
         QStringList accounts;
 };

@@ -24,8 +24,9 @@ class QTextEdit;
 class QStringList;
 
 class BalanceSheetEditor;
-class AccountEditList;
+class AccountList;
 class Database;
+class Settings;
 class Printer;
 
 class ReportStack : public QWidgetStack
@@ -44,22 +45,29 @@ class ReportStack : public QWidgetStack
         void dbOpened();
         void updateAccounts();
         void viewReport(QString &text);
-        void exportHTML();
+        void exportPDF();
         void exportCSV();
         void switchWidget();
-        void switchToEditBalance();
         void generalDetailReport();
         void generalTrialReport();
         void chartAccountsReport();
         void balanceReport();
-        void printerOptions();
+        void switchToEditBalance();
+        void switchToEditIncome();
         void print();
         
     private:
         bool eventFilter(QObject *target, QEvent *event);
         
         Database *db;
+        Settings *settings;
         Printer *printer;
+
+        QString clientPath;
+        QString iconPath;
+        QString htmldocExec;
+        QString exportPath;
+        QString importPath;
         
         int active;
         QStringList accounts;
@@ -86,9 +94,9 @@ class ReportStack : public QWidgetStack
             QWidget *generalDetailAccountRangeWidget;
             QHBoxLayout *generalDetailAccountRangeHBoxLayout;
             QLabel *generalDetailAccountRangeLabel;
-            AccountEditList *generalDetailAccountRangeBegin;
+            AccountList *generalDetailAccountRangeBegin;
             QLabel *generalDetailAccountRangeLabelBetween;
-            AccountEditList *generalDetailAccountRangeEnd;
+            AccountList *generalDetailAccountRangeEnd;
             QCheckBox *generalDetailAccountRangeAll;
             QVBoxLayout *generalDetailButtonVBoxLayout;
             QPushButton *generalDetailButton;
@@ -101,9 +109,9 @@ class ReportStack : public QWidgetStack
             QWidget *generalTrialAccountRangeWidget;
             QHBoxLayout *generalTrialAccountRangeHBoxLayout;
             QLabel *generalTrialAccountRangeLabel;
-            AccountEditList *generalTrialAccountRangeBegin;
+            AccountList *generalTrialAccountRangeBegin;
             QLabel *generalTrialAccountRangeLabelBetween;
-            AccountEditList *generalTrialAccountRangeEnd;
+            AccountList *generalTrialAccountRangeEnd;
             QCheckBox *generalTrialAccountRangeAll;
             QVBoxLayout *generalTrialButtonVBoxLayout;
             QPushButton *generalTrialButton;
@@ -132,11 +140,6 @@ class ReportStack : public QWidgetStack
             
             QVBoxLayout *chartAccountsButtonVBoxLayout;
             QPushButton *chartAccountsButton;
-            
-            QVGroupBox *adminGroup;
-            QWidget *adminWidget;
-            QHBoxLayout *adminHBoxLayout;
-            QPushButton *printerOptionsButton;
         } main;
         
         struct {
@@ -151,7 +154,7 @@ class ReportStack : public QWidgetStack
             QLabel *bottomLabel;
             QFrame *bottomRightFrame;
             QBoxLayout *bottomRightBoxLayout;
-            QPushButton *exportHTMLButton;
+            QPushButton *exportPDFButton;
             QPushButton *exportCSVButton;
         } report;
         

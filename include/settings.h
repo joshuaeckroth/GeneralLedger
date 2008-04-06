@@ -13,11 +13,10 @@ class Settings
 
         QString getClientPath() const;
         void setClientPath(QString);
-
-        QString getDefaultImport() const;
-        void setDefaultImport(QString);
-        QString getDefaultExport() const;
-        void setDefaultExport(QString);
+        QString getExportPath() const;
+        void setExportPath(QString);
+        QString getImportPath() const;
+        void setImportPath(QString);
 
         QString getDefaultDb() const;
         void setDefaultDb(QString);
@@ -37,9 +36,9 @@ class Settings
 
         QString getIconPath() const;
 
-        QString getGhostscriptPath() const;
+        QString getHtmldocExec() const;
 
-        QString getAescryptPath() const;
+        QString getAescryptExec() const;
 
         QString getPrinterPrinterName() const;
         void setPrinterPrinterName(QString);
@@ -67,9 +66,8 @@ class Settings
         static Settings *settings;
 
         QString clientPath;
-
-        QString defaultImport;
-        QString defaultExport;
+        QString exportPath;
+        QString importPath;
 
         QString defaultDb;
         QString defaultClient;
@@ -83,9 +81,9 @@ class Settings
 
         QString iconPath;
 
-        QString ghostscriptPath;
+        QString htmldocExec;
 
-        QString aescryptPath;
+        QString aescryptExec;
 
         QString printerPrinterName;
         bool printerOutputToFile;

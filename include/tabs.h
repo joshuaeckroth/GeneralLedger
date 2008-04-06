@@ -39,6 +39,8 @@ class Tabs : public QTabWidget
         
         Database *db;
         Settings *settings;
+
+        QString iconPath;
         
         QApplication *app;
         MainStack *mainStack;

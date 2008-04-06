@@ -6,6 +6,7 @@
 class QKeyEvent;
 
 class Database;
+class Settings;
 
 class AccountTable : public QTable
 {
@@ -26,16 +27,21 @@ class AccountTable : public QTable
         void edittingChanged(int, int);
         
     private:
+        void keyPressEvent(QKeyEvent *event);
+        void insert();
+        void remove(int row);
+
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
         
         bool editting;
         int edittingRow;
         int edittingCol;
+
+        bool inserting;
         
-        void keyPressEvent(QKeyEvent *event);
-        void insert();
-        void remove(int row);
-       
 };
 
 #endif

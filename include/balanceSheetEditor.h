@@ -17,8 +17,9 @@ class QLineEdit;
 class QStringList;
 
 class BalanceElement;
-class AccountEditList;
+class AccountList;
 class Database;
+class Settings;
 
 class BalanceSheetEditor : public QScrollView
 {
@@ -39,6 +40,9 @@ class BalanceSheetEditor : public QScrollView
        
     private:
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
         
         QStringList accounts;
         
@@ -67,7 +71,7 @@ class BalanceSheetEditor : public QScrollView
             QFrame *oneAccountFrame;
             QHBoxLayout *oneAccountHBoxLayout;
             QLabel *oneAccountLabel;
-            AccountEditList *oneAccountEdit;
+            AccountList *oneAccountEdit;
             QRadioButton *rangeAccount;
             QFrame *rangeAccountFrame;
             QHBoxLayout *rangeAccountHBoxLayout;
@@ -76,9 +80,9 @@ class BalanceSheetEditor : public QScrollView
             QFrame *rangeBeginEndFrame;
             QHBoxLayout *rangeBeginEndHBoxLayout;
             QLabel *rangeBegin;
-            AccountEditList *rangeBeginEdit;
+            AccountList *rangeBeginEdit;
             QLabel *rangeBetween;
-            AccountEditList *rangeEndEdit;
+            AccountList *rangeEndEdit;
             QFrame *rangeDescFrame;
             QHBoxLayout *rangeDescFrameHBoxLayout;
             QLabel *rangeDesc;

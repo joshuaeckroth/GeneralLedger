@@ -6,6 +6,7 @@
 class QStringList;
 class QFocusEvent;
 class QListBox;
+class QLineEdit;
 class QEvent;
 
 class AccountEditList : public QComboBox
@@ -19,13 +20,13 @@ class AccountEditList : public QComboBox
         void focusOutEvent(QFocusEvent *event);
         
     private slots:
-        void setText(const QString &newText);
         void changed(const QString &);
         
     private:
         QStringList accounts;
         QString curText;
         QListBox *list;
+        QLineEdit *editor;
 };
 
 #endif

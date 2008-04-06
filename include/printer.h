@@ -13,7 +13,6 @@ class Printer : public QPrinter
         static Printer* instance();
         void destroy();
         void printReport(const QString &header, const QString &data);
-        void printerSetup();
 
     private:
         Printer();

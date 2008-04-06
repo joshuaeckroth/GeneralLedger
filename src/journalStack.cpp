@@ -6,8 +6,11 @@
 #include <qfiledialog.h>
 #include <qevent.h>
 #include <qframe.h>
+#include <qdialog.h>
 
 #include "database.h"
+#include "settings.h"
+#include "printer.h"
 #include "journalStack.h"
 #include "journalTable.h"
 #include "journalSummary.h"
@@ -17,8 +20,15 @@ JournalStack::JournalStack(QWidget *parent, const char *name)
     : QWidget(parent,name)
 {
     db = Database::instance();
+    printer = Printer::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
+    exportPath = settings->getExportPath();
+    importPath = settings->getImportPath();
     
     active = false;
+    printed = false;
 }
 
 JournalStack::~JournalStack()
@@ -54,14 +64,14 @@ void JournalStack::dbOpened()
     connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goToMain()));
     
     main.saveAndClose = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/saveAndClear.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/saveAndClear.png") ),
             "Save and Clear (F8)", this);
     main.saveAndClose->setFocusPolicy(QWidget::NoFocus);
     connect(main.saveAndClose, SIGNAL(clicked()), this, SLOT(saveAndClose()));
     
     main.print = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/print.png") ),
-            "Create Journal Entry Report (F9)", this);
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/print.png") ),
+            "Print Journal Entries (F9)", this);
     main.print->setFocusPolicy(QWidget::NoFocus);
     connect(main.print, SIGNAL(clicked()), this, SLOT(printJournal()));
     
@@ -102,13 +112,13 @@ void JournalStack::dbOpened()
     main.bottomRightBoxLayout->setSpacing(5);
     
     main.importButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/import.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/import.png") ),
             "Import from CSV (F11)", main.bottomRightFrame);
     main.importButton->setFocusPolicy(QWidget::NoFocus);
     connect(main.importButton, SIGNAL(clicked()), this, SLOT(importCSV()));
     
     main.exportButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/export.png") ),
             "Export to CSV (F12)", main.bottomRightFrame);
     main.exportButton->setFocusPolicy(QWidget::NoFocus);
     connect(main.exportButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
@@ -128,7 +138,7 @@ void JournalStack::dbOpened()
 void JournalStack::importCSV()
 {
     QString file = QFileDialog::getOpenFileName(
-            ".",
+            importPath,
             "Comma Separated Values (*.csv)",
             this,
             0,
@@ -144,7 +154,7 @@ void JournalStack::importCSV()
 void JournalStack::exportCSV()
 {
     QString file = QFileDialog::getSaveFileName(
-            ".",
+            exportPath,
             "Comma Separated Values (*.csv)",
             this,
             0,
@@ -159,6 +169,16 @@ bool JournalStack::eventFilter(QObject *target, QEvent *event)
     if(event->type() == QEvent::KeyPress)
     {
         QKeyEvent *keyEvent = (QKeyEvent*)event;
+        if(keyEvent->key() == Key_F8)
+        {
+            saveAndClose();
+            return true;
+        }
+        if(keyEvent->key() == Key_F9)
+        {
+            printJournal();
+            return true;
+        }
         if(keyEvent->key() == Key_F11)
         {
             importCSV();
@@ -176,13 +196,50 @@ bool JournalStack::eventFilter(QObject *target, QEvent *event)
 
 void JournalStack::saveAndClose()
 {
+    if(!printed)
+    {
+        QDialog dialog;
+        dialog.setCaption("Print Before Closing");
+
+        QVBoxLayout vBoxLayout(&dialog);
+        vBoxLayout.setMargin(5);
+        vBoxLayout.setSpacing(5);
+
+        QLabel label("<nobr>You have not printed the Journal Entries.</nobr><br>"
+                "<nobr>Would you like to print them now?</nobr>", &dialog);
+        vBoxLayout.addWidget(&label);
+
+        vBoxLayout.addSpacing(10);
+
+        QHBoxLayout hBoxLayout(&vBoxLayout);
+        hBoxLayout.setSpacing(5);
+
+        QPushButton noPrintButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/saveAndClear.png")),
+                                  "Save Without Printing", &dialog);
+        connect(&noPrintButton, SIGNAL(clicked()), &dialog, SLOT(reject()));
+        noPrintButton.setDefault(false);
+
+        QPushButton printButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/print.png")),
+                                "Print and Save", &dialog);
+        connect(&printButton, SIGNAL(clicked()), &dialog, SLOT(accept()));
+        printButton.setDefault(true);
+
+        hBoxLayout.addStretch();
+        hBoxLayout.addWidget(&noPrintButton);
+        hBoxLayout.addWidget(&printButton);
+
+        if(dialog.exec())
+            printJournal();
+
+    }
     db->commitJournalTmp();
     main.dataTable->clearTable();
 }
 
 void JournalStack::printJournal()
 {
-    
+    db->getJournalTmpReport();
+    printer->printReport(db->journalTmpReportHeader(), db->journalTmpReportData());
 }
 
 void JournalStack::showEvent(QShowEvent*)

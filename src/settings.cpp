@@ -11,6 +11,8 @@ Settings::Settings()
     get.beginGroup("/GeneralLedger");
     
     clientPath = get.readEntry("/paths/clientPath", "");
+    exportPath = get.readEntry("/paths/exportPath", "");
+    importPath = get.readEntry("/paths/importPath", "");
 
     defaultDb = get.readEntry("/database/defaultDb", "");
     defaultClient = get.readEntry("/database/defaultClient", "");
@@ -22,8 +24,8 @@ Settings::Settings()
 
     helpPath = get.readEntry("/paths/helpPath", "");    
     iconPath = get.readEntry("/paths/iconPath", "");
-    ghostscriptPath = get.readEntry("/paths/ghostscriptPath", "");
-    aescryptPath = get.readEntry("/paths/aescryptPath", "");
+    htmldocExec = get.readEntry("/paths/htmldocExec", "");
+    aescryptExec = get.readEntry("/paths/aescryptExec", "");
 
     printerPrinterName = get.readEntry("/printer/printerName", "");
     printerOutputToFile = (bool)get.readNumEntry("/printer/outputToFile", 0);
@@ -47,6 +49,8 @@ Settings::~Settings()
     put.beginGroup("/GeneralLedger");
 
     put.writeEntry("/paths/clientPath", clientPath);
+    put.writeEntry("/paths/exportPath", exportPath);
+    put.writeEntry("/paths/importPath", importPath);
 
     put.writeEntry("/database/defaultDb", defaultDb);
     put.writeEntry("/database/defaultClient", defaultClient);
@@ -58,8 +62,8 @@ Settings::~Settings()
 
     put.writeEntry("/paths/helpPath", helpPath);
     put.writeEntry("/paths/iconPath", iconPath);
-    put.writeEntry("/paths/ghostscriptPath", ghostscriptPath);
-    put.writeEntry("/paths/aescryptPath", aescryptPath);
+    put.writeEntry("/paths/htmldocExec", htmldocExec);
+    put.writeEntry("/paths/aescryptExec", aescryptExec);
 
     put.writeEntry("/printer/printerName", printerPrinterName);
     put.writeEntry("/printer/outputToFile", (int)printerOutputToFile);
@@ -97,24 +101,24 @@ void Settings::setClientPath(QString newClientPath)
     clientPath = newClientPath;
 }
 
-QString Settings::getDefaultImport() const
+QString Settings::getExportPath() const
 {
-    return defaultImport;
+    return exportPath;
 }
 
-void Settings::setDefaultImport(QString newDefaultImport)
+void Settings::setExportPath(QString newExportPath)
 {
-    defaultImport = newDefaultImport;
+    exportPath = newExportPath;
 }
 
-QString Settings::getDefaultExport() const
+QString Settings::getImportPath() const
 {
-    return defaultExport;
+    return importPath;
 }
 
-void Settings::setDefaultExport(QString newDefaultExport)
+void Settings::setImportPath(QString newImportPath)
 {
-    defaultExport = newDefaultExport;
+    importPath = newImportPath;
 }
 
 QString Settings::getDefaultDb() const
@@ -187,14 +191,14 @@ QString Settings::getIconPath() const
     return iconPath;
 }
 
-QString Settings::getGhostscriptPath() const
+QString Settings::getHtmldocExec() const
 {
-    return ghostscriptPath;
+    return htmldocExec;
 }
 
-QString Settings::getAescryptPath() const
+QString Settings::getAescryptExec() const
 {
-    return aescryptPath;
+    return aescryptExec;
 }
 
 QString Settings::getPrinterPrinterName() const

@@ -10,14 +10,18 @@
 #include <qstringlist.h>
 
 #include "database.h"
+#include "settings.h"
 #include "balanceSheetEditor.h"
 #include "balanceElement.h"
-#include "accountEditList.h"
+#include "accountList.h"
 
 BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     : QScrollView(parent,name)
 {
     db = Database::instance();
+    settings = Settings::instance();
+
+    iconPath = settings->getIconPath();
     
     setResizePolicy(QScrollView::AutoOneFit);
     setMargins(5,5,5,5);
@@ -34,7 +38,7 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     
     assets.label = new QLabel("<b>Assets:</b>", assets.topFrame);
     assets.addButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/addBalanceElement.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/addBalanceElement.png") ),
             "Add to Assets", assets.topFrame);
     connect(assets.addButton, SIGNAL(clicked()), this, SLOT(addAssets()));
 
@@ -61,7 +65,7 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     
     liabilities.label = new QLabel("<b>Liabilities:</b>", liabilities.topFrame);
     liabilities.addButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/addBalanceElement.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/addBalanceElement.png") ),
             "Add to Liabilities", liabilities.topFrame);
     connect(liabilities.addButton, SIGNAL(clicked()), this, SLOT(addLiabilities()));
     
@@ -86,7 +90,7 @@ BalanceSheetEditor::BalanceSheetEditor(QWidget *parent, const char *name)
     
     equities.label = new QLabel("<b>Equities:</b>", equities.topFrame);
     equities.addButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/addBalanceElement.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/addBalanceElement.png") ),
             "Add to Equities", equities.topFrame);
     connect(equities.addButton, SIGNAL(clicked()), this, SLOT(addEquities()));
     
@@ -219,7 +223,7 @@ void BalanceSheetEditor::addElement(int category)
     dialog.oneAccountHBoxLayout->addSpacing(5);
     dialog.oneAccountLabel = new QLabel("Account:", dialog.oneAccountFrame);
     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountLabel);
-    dialog.oneAccountEdit = new AccountEditList(dialog.oneAccountFrame, 0, accounts, "");
+    dialog.oneAccountEdit = new AccountList(dialog.oneAccountFrame, 0, accounts);
     dialog.oneAccountHBoxLayout->addWidget(dialog.oneAccountEdit);
     dialog.oneAccountHBoxLayout->addStretch();
        
@@ -240,11 +244,11 @@ void BalanceSheetEditor::addElement(int category)
     
     dialog.rangeBegin = new QLabel("Begin:", dialog.rangeBeginEndFrame);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBegin);
-    dialog.rangeBeginEdit = new AccountEditList(dialog.rangeBeginEndFrame, 0, accounts, "");
+    dialog.rangeBeginEdit = new AccountList(dialog.rangeBeginEndFrame, 0, accounts);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBeginEdit);
     dialog.rangeBetween = new QLabel("to", dialog.rangeBeginEndFrame);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeBetween);
-    dialog.rangeEndEdit = new AccountEditList(dialog.rangeBeginEndFrame, 0, accounts, "");
+    dialog.rangeEndEdit = new AccountList(dialog.rangeBeginEndFrame, 0, accounts);
     dialog.rangeBeginEndHBoxLayout->addWidget(dialog.rangeEndEdit);
     dialog.rangeBeginEndHBoxLayout->addStretch();
     
@@ -256,7 +260,6 @@ void BalanceSheetEditor::addElement(int category)
     dialog.rangeDescFrameHBoxLayout->addWidget(dialog.rangeDesc);
     dialog.rangeDescEdit = new QLineEdit(dialog.rangeDescFrame);
     dialog.rangeDescFrameHBoxLayout->addWidget(dialog.rangeDescEdit);
-    dialog.rangeDescFrameHBoxLayout->addStretch();
     
     dialog.rangeAccountFrameListVBoxLayout->addWidget(dialog.rangeBeginEndFrame);
     dialog.rangeAccountFrameListVBoxLayout->addWidget(dialog.rangeDescFrame);
@@ -269,11 +272,13 @@ void BalanceSheetEditor::addElement(int category)
     dialog.buttonFrameHBoxLayout->setSpacing(5);
     dialog.buttonFrameHBoxLayout->addStretch();
     
-    dialog.ok = new QPushButton("OK", dialog.buttonFrame);
+    dialog.ok = new QPushButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/addBalanceElement.png")),
+            "Add", dialog.buttonFrame);
     connect(dialog.ok, SIGNAL(clicked()), dialog.main, SLOT(accept()));
     dialog.buttonFrameHBoxLayout->addWidget(dialog.ok);
     
-    dialog.cancel = new QPushButton("Cancel", dialog.buttonFrame);
+    dialog.cancel = new QPushButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/cancelButton.png")),
+            "Cancel", dialog.buttonFrame);
     connect(dialog.cancel, SIGNAL(clicked()), dialog.main, SLOT(reject()));
     dialog.buttonFrameHBoxLayout->addWidget(dialog.cancel);
     
@@ -291,11 +296,11 @@ void BalanceSheetEditor::addElement(int category)
     {
         if(dialog.oneAccount->isChecked())
             db->createBalanceElement((Database::balanceCategory)category,
-                                      "0", "", dialog.oneAccountEdit->currentText(), "");
+                                      "0", "", dialog.oneAccountEdit->accountNumber(), "");
         else
             db->createBalanceElement((Database::balanceCategory)category,
                                       "1", dialog.rangeDescEdit->text(),
-                                      dialog.rangeBeginEdit->currentText(), dialog.rangeEndEdit->currentText());
+                                      dialog.rangeBeginEdit->accountNumber(), dialog.rangeEndEdit->accountNumber());
     }
     
     delete dialog.main;

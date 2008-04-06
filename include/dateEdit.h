@@ -7,6 +7,7 @@ class DateEdit : public QTableItem
 {
     public:
         DateEdit(QTable *table, const QString &contents);
+        QWidget* createEditor() const;
 };
 
 #endif

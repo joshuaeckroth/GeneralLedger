@@ -15,6 +15,7 @@ class QBoxLayout;
 class GoBackLabel;
 class AccountTable;
 class Database;
+class Settings;
 
 class AccountStack : public QWidget
 {
@@ -39,6 +40,12 @@ class AccountStack : public QWidget
         void showEvent(QShowEvent*);
         
         Database *db;
+        Settings *settings;
+
+        QString iconPath;
+        QString exportPath;
+        QString importPath;
+
         bool active;
         
         struct {

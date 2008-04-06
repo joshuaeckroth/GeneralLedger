@@ -16,6 +16,8 @@ class GoBackLabel;
 class JournalTable;
 class JournalSummary;
 class Database;
+class Settings;
+class Printer;
 
 class JournalStack : public QWidget
 {
@@ -42,8 +44,16 @@ class JournalStack : public QWidget
         void showEvent(QShowEvent*);
         
         Database *db;
+        Settings *settings;
+        Printer *printer;
+
+        QString iconPath;
+        QString exportPath;
+        QString importPath;
         
         bool active;
+
+        bool printed;
         
         struct {
             QVBoxLayout *vBoxLayout;

@@ -1,3 +1,9 @@
+#include <cstdlib>
+using std::system;
+
+#include <cstdio>
+using std::remove;
+
 #include <qwidgetstack.h>
 #include <qvgroupbox.h>
 #include <qlayout.h>
@@ -17,17 +23,25 @@
 #include <qstringlist.h>
 
 #include "database.h"
+#include "settings.h"
 #include "printer.h"
 #include "reportStack.h"
 #include "goBackLabel.h"
 #include "balanceSheetEditor.h"
-#include "accountEditList.h"
+#include "accountList.h"
 
 ReportStack::ReportStack(QWidget *parent, const char *name)
     : QWidgetStack(parent,name)
 {
     db = Database::instance();
+    settings = Settings::instance();
     printer = Printer::instance();
+
+    clientPath = settings->getClientPath();
+    iconPath = settings->getIconPath();
+    htmldocExec = settings->getHtmldocExec();
+    exportPath = settings->getExportPath();
+    importPath = settings->getImportPath();
     
     connect(db, SIGNAL(accountsChanged()), this, SLOT(updateAccounts()));
     accounts = QStringList("                    ");  // set a placeholder width
@@ -96,11 +110,11 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.generalDetailAccountRangeAll = new QCheckBox("All", main.generalDetailAccountRangeWidget);
     main.generalDetailAccountRangeAll->setChecked(true);
     connect(main.generalDetailAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(detailAccountsAllChanged(bool)));
-    main.generalDetailAccountRangeBegin = new AccountEditList(main.generalDetailAccountRangeWidget, 0, accounts, "");
+    main.generalDetailAccountRangeBegin = new AccountList(main.generalDetailAccountRangeWidget, 0, accounts);
     main.generalDetailAccountRangeBegin->setEnabled(false);
     main.generalDetailAccountRangeLabelBetween = new QLabel("to", main.generalDetailAccountRangeWidget);
     main.generalDetailAccountRangeLabelBetween->setEnabled(false);
-    main.generalDetailAccountRangeEnd = new AccountEditList(main.generalDetailAccountRangeWidget, 0, accounts, "");
+    main.generalDetailAccountRangeEnd = new AccountList(main.generalDetailAccountRangeWidget, 0, accounts);
     main.generalDetailAccountRangeEnd->setEnabled(false);
 
     main.generalDetailAccountRangeHBoxLayout->addWidget(main.generalDetailAccountRangeLabel);    
@@ -111,7 +125,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.generalDetailAccountRangeHBoxLayout->addStretch();
     
     main.generalDetailButtonVBoxLayout = new QVBoxLayout();
-    main.generalDetailButton = new QPushButton(QIconSet(QPixmap::fromMimeSource("icons/generalDetailReport.png")),
+    main.generalDetailButton = new QPushButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/generalDetailReport.png")),
                                                "General Ledger Detail", main.reportsWidget);
     connect(main.generalDetailButton, SIGNAL(clicked()), this, SLOT(generalDetailReport()));
     main.generalDetailButton->installEventFilter(this);
@@ -144,11 +158,11 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.generalTrialAccountRangeAll = new QCheckBox("All", main.generalTrialAccountRangeWidget);
     main.generalTrialAccountRangeAll->setChecked(true);
     connect(main.generalTrialAccountRangeAll, SIGNAL(toggled(bool)), this, SLOT(trialAccountsAllChanged(bool)));
-    main.generalTrialAccountRangeBegin = new AccountEditList(main.generalTrialAccountRangeWidget, 0, accounts, "");
+    main.generalTrialAccountRangeBegin = new AccountList(main.generalTrialAccountRangeWidget, 0, accounts);
     main.generalTrialAccountRangeBegin->setEnabled(false);
     main.generalTrialAccountRangeLabelBetween = new QLabel("to", main.generalTrialAccountRangeWidget);
     main.generalTrialAccountRangeLabelBetween->setEnabled(false);
-    main.generalTrialAccountRangeEnd = new AccountEditList(main.generalTrialAccountRangeWidget, 0, accounts, "");
+    main.generalTrialAccountRangeEnd = new AccountList(main.generalTrialAccountRangeWidget, 0, accounts);
     main.generalTrialAccountRangeEnd->setEnabled(false);
     
     main.generalTrialAccountRangeHBoxLayout->addWidget(main.generalTrialAccountRangeLabel);
@@ -159,7 +173,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.generalTrialAccountRangeHBoxLayout->addStretch();
     
     main.generalTrialButtonVBoxLayout = new QVBoxLayout();
-    main.generalTrialButton = new QPushButton(QIconSet(QPixmap::fromMimeSource("icons/generalTrialReport.png")),
+    main.generalTrialButton = new QPushButton(QIconSet(QPixmap::fromMimeSource(iconPath + "/generalTrialReport.png")),
                                               "General Trial Balance", main.reportsWidget);
     connect(main.generalTrialButton, SIGNAL(clicked()), this, SLOT(generalTrialReport()));
     main.generalTrialButton->installEventFilter(this);
@@ -187,7 +201,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.balanceModifyWidget = new QWidget(main.balanceVGroupBox);
     main.balanceModifyHBoxLayout = new QHBoxLayout(main.balanceModifyWidget);
     
-    main.balanceModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/balanceModify.png") ),
+    main.balanceModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/balanceModify.png") ),
                                                "Modify Balance Sheet", main.balanceModifyWidget);
     connect(main.balanceModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditBalance()));
     main.balanceModifyButton->installEventFilter(this);
@@ -196,7 +210,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.balanceModifyHBoxLayout->addStretch();
     
     main.balanceReportButtonVBoxLayout = new QVBoxLayout();
-    main.balanceReportButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/balanceReport.png") ),
+    main.balanceReportButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/balanceReport.png") ),
                                                "Balance Sheet Report", main.reportsWidget);
     connect(main.balanceReportButton, SIGNAL(clicked()), this, SLOT(balanceReport()));
     main.balanceReportButton->installEventFilter(this);
@@ -225,7 +239,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.incomeModifyWidget = new QWidget(main.incomeVGroupBox);
     main.incomeModifyHBoxLayout = new QHBoxLayout(main.incomeModifyWidget);
     
-    main.incomeModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/incomeModify.png") ),
+    main.incomeModifyButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/incomeModify.png") ),
                                                "Modify Income Statement", main.incomeModifyWidget);
     connect(main.incomeModifyButton, SIGNAL(clicked()), this, SLOT(switchToEditIncome()));
     main.incomeModifyButton->installEventFilter(this);
@@ -234,7 +248,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     main.incomeModifyHBoxLayout->addStretch();
     
     main.incomeButtonVBoxLayout = new QVBoxLayout();
-    main.incomeButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/incomeReport.png") ),
+    main.incomeButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/incomeReport.png") ),
                                         "Income Statement", main.reportsWidget);
     main.incomeButton->installEventFilter(this);
     main.incomeButtonVBoxLayout->addWidget(main.incomeButton);
@@ -245,7 +259,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     
     
     main.chartAccountsButtonVBoxLayout = new QVBoxLayout();
-    main.chartAccountsButton = new QPushButton(QIconSet( QPixmap::fromMimeSource("icons/chartOfAccounts.png") ),
+    main.chartAccountsButton = new QPushButton(QIconSet( QPixmap::fromMimeSource(iconPath + "/chartOfAccounts.png") ),
                                                "Chart of Accounts", main.reportsWidget);
     connect(main.chartAccountsButton, SIGNAL(clicked()), this, SLOT(chartAccountsReport()));
     main.chartAccountsButton->installEventFilter(this);
@@ -254,27 +268,6 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     
     main.reportsGridLayout->addLayout(main.chartAccountsButtonVBoxLayout, 4, 1);
     
-    
-    
-    main.adminGroup = new QVGroupBox("Administrative Options", main.widget);
-    main.adminGroup->setInsideMargin(30);
-    
-    main.vBoxLayout->add(main.adminGroup);
-    
-    main.adminWidget = new QWidget(main.adminGroup);
-    
-    main.adminHBoxLayout = new QHBoxLayout(main.adminWidget);
-    
-    main.printerOptionsButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/printerOptionsButton.png") ),
-            "Printer Options", main.adminWidget);
-    connect(main.printerOptionsButton, SIGNAL(clicked()), this, SLOT(printerOptions()));
-    main.printerOptionsButton->installEventFilter(this);
-    
-    main.adminHBoxLayout->addStretch(1);
-    main.adminHBoxLayout->addWidget(main.printerOptionsButton);
-    main.adminHBoxLayout->setStretchFactor(main.printerOptionsButton, 2);
-    main.adminHBoxLayout->addStretch(1);
     
     main.vBoxLayout->addStretch();
     
@@ -296,8 +289,8 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     connect(report.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
     
     report.print = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/print.png") ),
-    "Print Report (F8)", report.widget);
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/print.png") ),
+            "Print Report (F8)", report.widget);
     report.print->setFocusPolicy(QWidget::NoFocus);
     connect(report.print, SIGNAL(clicked()), this, SLOT(print()));
     
@@ -309,6 +302,7 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     report.view->setTextFormat(QTextEdit::RichText);
     report.view->setReadOnly(true);
     report.view->setVScrollBarMode(QScrollView::AlwaysOn);
+    report.view->installEventFilter(this);
     
     report.vBoxLayout->addWidget(report.view);
     
@@ -324,17 +318,17 @@ ReportStack::ReportStack(QWidget *parent, const char *name)
     report.bottomRightBoxLayout = new QBoxLayout(report.bottomRightFrame, QBoxLayout::LeftToRight);
     report.bottomRightBoxLayout->setSpacing(5);
     
-    report.exportHTMLButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
-            "Export to HTML (F11)", report.bottomRightFrame);
-    connect(report.exportHTMLButton, SIGNAL(clicked()), this, SLOT(exportHTML()));
+    report.exportPDFButton = new QPushButton(
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/exportpdf.png") ),
+            "Export to PDF (F11)", report.bottomRightFrame);
+    connect(report.exportPDFButton, SIGNAL(clicked()), this, SLOT(exportPDF()));
     
     report.exportCSVButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
+            QIconSet( QPixmap::fromMimeSource(iconPath + "/export.png") ),
             "Export to CSV (F12)", report.bottomRightFrame);
     connect(report.exportCSVButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
     
-    report.bottomRightBoxLayout->addWidget(report.exportHTMLButton, 0, Qt::AlignLeft | Qt::AlignTop);
+    report.bottomRightBoxLayout->addWidget(report.exportPDFButton, 0, Qt::AlignLeft | Qt::AlignTop);
     report.bottomRightBoxLayout->addWidget(report.exportCSVButton, 0, Qt::AlignLeft | Qt::AlignTop);
     
     report.bottomHBoxLayout->addWidget(report.bottomLabel);
@@ -421,6 +415,9 @@ void ReportStack::dbOpened()
     balance.vBoxLayout->addWidget(balance.editor);
     
     addWidget(balance.widget, 2);
+
+    raiseWidget(0);
+    active = 0;
 }
 
 void ReportStack::updateAccounts()
@@ -460,13 +457,13 @@ void ReportStack::generalDetailReport()
         viewReport(db->getGeneralDetail(
                 main.generalDetailDateRangeBegin->currentText(),
                 main.generalDetailDateRangeEnd->currentText(),
-    "", "")->reportString());
+                "", "")->reportString());
     else
         viewReport(db->getGeneralDetail(
                 main.generalDetailDateRangeBegin->currentText(),
                 main.generalDetailDateRangeEnd->currentText(),
-    main.generalDetailAccountRangeBegin->currentText(),
-    main.generalDetailAccountRangeEnd->currentText())->reportString());
+                main.generalDetailAccountRangeBegin->accountNumber(),
+                main.generalDetailAccountRangeEnd->accountNumber())->reportString());
 }
 
 void ReportStack::generalTrialReport()
@@ -478,8 +475,8 @@ void ReportStack::generalTrialReport()
     else
         viewReport(db->getGeneralTrialBalance(
             main.generalTrialMonthEndList->currentText(),
-            main.generalTrialAccountRangeBegin->currentText(),
-            main.generalTrialAccountRangeEnd->currentText())->reportString());
+            main.generalTrialAccountRangeBegin->accountNumber(),
+            main.generalTrialAccountRangeEnd->accountNumber())->reportString());
 }
 
 void ReportStack::balanceReport()
@@ -492,42 +489,49 @@ void ReportStack::chartAccountsReport()
     viewReport(db->getChartAccounts()->reportString());
 }
 
-void ReportStack::printerOptions()
-{
-    printer->printerSetup();
-}
-
 void ReportStack::print()
 {
     printer->printReport(db->reportHeader(), db->reportData());
 }
 
-void ReportStack::exportHTML()
+void ReportStack::exportPDF()
 {
     QString file = QFileDialog::getSaveFileName(
-            ".",
-            "HTML Files (*.html)",
+            exportPath,
+            "PDF Files (*.pdf)",
             this,
             0,
-            "Export Report to HTML");
+            "Export Report to PDF");
     
     if(file != "")
     {
-        QFile destFile(file);
-    
-        if(destFile.open(IO_WriteOnly))
-        {
-            QTextStream destStream(&destFile);
-            destStream << db->reportHTML();
-        }
-        destFile.close();
+        QFile tmpHTML(clientPath + "/tmp.html");
+        if(!tmpHTML.open( IO_WriteOnly ))
+            return;
+
+        QTextStream tmpStream(&tmpHTML);
+
+        QString html = db->reportHTML();
+        html.replace("<tr><td> </td></tr>", "<tr><td>&nbsp;<br></td></tr>");
+
+        tmpStream << html;
+
+        tmpStream.unsetDevice();
+        tmpHTML.close();
+
+        system(QString(htmldocExec + " --footer ./. --fontsize 9.0 "
+                "--right .5in --left .5in --top .2in "
+                "--textfont helvetica --no-toc --no-title --quiet -f \""
+                + file + "\" \"" + clientPath + "/tmp.html\""));
+
+        remove(clientPath + "/tmp.html");
     }
 }
 
 void ReportStack::exportCSV()
 {
     QString file = QFileDialog::getSaveFileName(
-            ".",
+            importPath,
             "Comma Separated Values (*.csv)",
             this,
             0,
@@ -552,6 +556,12 @@ void ReportStack::switchToEditBalance()
     active = 2;
 }
 
+void ReportStack::switchToEditIncome()
+{
+//    raiseWidget(3);
+//    active = 3;
+}
+
 bool ReportStack::eventFilter(QObject *target, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress)
@@ -560,6 +570,21 @@ bool ReportStack::eventFilter(QObject *target, QEvent *event)
         if(keyEvent->key() == Key_Escape)
         {
             emit goToMain();
+            return true;
+        }
+        if(keyEvent->key() == Key_F8 && active == 1)
+        {
+            print();
+            return true;
+        }
+        if(keyEvent->key() == Key_F11 && active == 1)
+        {
+            exportPDF();
+            return true;
+        }
+        if(keyEvent->key() == Key_F12 && active == 1)
+        {
+            exportCSV();
             return true;
         }
     }

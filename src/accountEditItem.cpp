@@ -1,9 +1,11 @@
 #include <qtable.h>
 #include <qstringlist.h>
+#include <qlineedit.h>
+#include <qvalidator.h>
+#include <qregexp.h>
 
 #include "accountEditItem.h"
 #include "accountEditList.h"
-#include "accountEditSimple.h"
 
 AccountEditItem::AccountEditItem(QTable *table, QStringList &newAccounts, const QString &newText, const QString &newKey)
     : QTableItem(table, QTableItem::OnTyping), accounts(newAccounts), itemText(newText), itemKey(newKey)
@@ -24,7 +26,8 @@ QWidget* AccountEditItem::createEditor() const
     }
     else
     {
-        AccountEditSimple *editor = new AccountEditSimple(table()->viewport(), 0, itemText);
+        QLineEdit *editor = new QLineEdit(itemText, table()->viewport());
+        editor->setValidator(new QRegExpValidator(QRegExp("\\d+-?\\d*"), editor));
         return editor;
     }
 }
@@ -34,7 +37,7 @@ void AccountEditItem::setContentFromEditor(QWidget *widget)
     if(widget->inherits("QComboBox"))
         itemText = ((AccountEditList*)widget)->currentText();
     else
-        itemText = ((AccountEditSimple*)widget)->text();
+        itemText = ((QLineEdit*)widget)->text();
 }
 
 QString AccountEditItem::text() const
