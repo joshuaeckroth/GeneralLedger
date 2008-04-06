@@ -1,12 +1,9 @@
 #ifndef JOURNAL_TABLE_H
 #define JOURNAL_TABLE_H
 
-#include <qdatatable.h>
+#include <qtable.h>
 
-class QSqlCursor;
-class EditorFactory;
-
-class JournalTable : public QDataTable
+class JournalTable : public QTable
 {
     public:
         JournalTable(QWidget *parent = 0, const char *name = 0);
@@ -14,9 +11,7 @@ class JournalTable : public QDataTable
         int creditColWidth();
         
     private:
-        QSqlCursor *cursor;
-        EditorFactory *editorFactory;
-       
+        
 };
 
 #endif

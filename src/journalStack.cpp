@@ -1,4 +1,3 @@
-#include <qwidgetstack.h>
 #include <qwidget.h>
 #include <qvgroupbox.h>
 #include <qlayout.h>
@@ -6,121 +5,136 @@
 #include <qlabel.h>
 #include <qfiledialog.h>
 #include <qevent.h>
+#include <qframe.h>
 
 #include "journalStack.h"
 #include "journalTable.h"
 #include "journalSummary.h"
 #include "goBackLabel.h"
+#include "database.h"
 
 JournalStack::JournalStack(QWidget *parent, const char *name)
-    : QWidgetStack(parent,name)
+    : QWidget(parent,name)
 {
-    main.widget = new QWidget(this);
-    
-    main.vBoxLabel = new QVBoxLayout(main.widget);
-    
-    main.hBoxLabel = new QHBoxLayout(main.vBoxLabel);
-    main.hBoxLabel->setMargin(5);
-    
-    main.topLabel = new GoBackLabel(main.widget);
-    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
-    
-    main.hBoxLabel->addWidget(main.topLabel);
-    main.hBoxLabel->addStretch();
-    
-    main.hBoxLayout = new QHBoxLayout(main.vBoxLabel);
-    
-    main.hBoxLayout->addStretch();
-    
-    main.vBoxLayout = new QVBoxLayout(main.hBoxLayout);
-    
-    main.vBoxLayout->addStretch();
-    
-    main.taskGroup = new QVGroupBox("Journal Entry Tasks", main.widget);
-    main.taskGroup->setInsideMargin(30);
-    main.taskGroup->setInsideSpacing(20);
-    
-    main.vBoxLayout->add(main.taskGroup);
-    
-    main.editButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/editJournalButton.png") ),
-            "Edit / View Journal Entries", main.taskGroup);
-    connect(main.editButton, SIGNAL(clicked()), this, SLOT(switchWidget()));
-    main.editButton->setDefault(true);
-    main.editButton->setFocus();
-    main.editButton->installEventFilter(this);
-    
-    main.vBoxLayout->addSpacing(30);
-    
-    main.adminGroup = new QVGroupBox("Administrative Options", main.widget);
-    main.adminGroup->setInsideMargin(30);
-    main.adminGroup->setInsideSpacing(20);
-    
-    main.vBoxLayout->add(main.adminGroup);
-    
-    main.importButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/importJournalButton.png") ),
-            "Import Journal Entries (CSV format)", main.adminGroup);
-    connect(main.importButton, SIGNAL(clicked()), this, SLOT(importCSV()));
-    main.importButton->installEventFilter(this);
-    
-    main.exportButton = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/exportJournalButton.png") ),
-            "Export Journal Entries (CSV format)", main.adminGroup);
-    connect(main.exportButton, SIGNAL(clicked()), this, SLOT(exportCSV()));
-    main.exportButton->installEventFilter(this);
-    
-    main.vBoxLayout->addStretch();
-    
-    main.hBoxLayout->addStretch();
-    
-    addWidget(main.widget, 0);
-    
-    active = 0;
+    db = new Database;
+    active = false;
+}
+
+JournalStack::~JournalStack()
+{
+    delete db;
+    /*
+    if(active)
+    {
+        delete main.exportButton;
+        delete main.importButton;
+        delete main.bottomRightBoxLayout;
+        delete main.bottomRightFrame;
+        delete main.bottomLabel;
+        delete main.bottomHBoxLayout;
+        delete main.bottomWidget;
+        delete main.summary;
+        delete main.hr;
+        delete main.dataTable;
+        delete main.saveAndClose;
+        delete main.print;
+        delete main.topLabel;
+        delete main.labelLayout;
+        delete main.vBoxLayout;
+    }
+    */
 }
 
 void JournalStack::dbOpened()
 {
-    if(id(table.widget) == 1)
+    if(active)
     {
-        removeWidget(table.widget);
-        delete table.summary;
-        delete table.dataTable;
-        delete table.closePeriod;
-        delete table.topLabel;
-        delete table.labelLayout;
-        delete table.vBoxLayout;
-        delete table.widget;
+        delete main.exportButton;
+        delete main.importButton;
+        delete main.bottomRightBoxLayout;
+        delete main.bottomRightFrame;
+        delete main.bottomLabel;
+        delete main.bottomHBoxLayout;
+        delete main.bottomWidget;
+        delete main.hr;
+        delete main.summary;
+        delete main.dataTable;
+        delete main.saveAndClose;
+        delete main.print;
+        delete main.topLabel;
+        delete main.labelLayout;
+        delete main.vBoxLayout;
     }
     
-    table.widget = new QWidget(this);
-    table.vBoxLayout = new QVBoxLayout(table.widget);
-    table.vBoxLayout->setMargin(5);
-    table.vBoxLayout->setSpacing(5);
+    main.vBoxLayout = new QVBoxLayout(this);
+    main.vBoxLayout->setMargin(5);
     
-    table.labelLayout = new QBoxLayout(table.vBoxLayout, QBoxLayout::LeftToRight);
+    main.labelLayout = new QBoxLayout(main.vBoxLayout, QBoxLayout::LeftToRight);
     
-    table.topLabel = new GoBackLabel(table.widget);
-    connect(table.topLabel, SIGNAL(goBack()), this, SLOT(switchWidget()));
+    main.topLabel = new GoBackLabel(this);
+    connect(main.topLabel, SIGNAL(goBack()), this, SIGNAL(goBack()));
     
-    table.closePeriod = new QPushButton(
-            QIconSet( QPixmap::fromMimeSource("icons/closePeriod.png") ),
-            "Close Period (F8)", table.widget);
-    table.closePeriod->setFocusPolicy(QWidget::NoFocus);
+    main.saveAndClose = new QPushButton(
+            QIconSet( QPixmap::fromMimeSource("icons/saveAndClear.png") ),
+            "Save and Clear (F8)", this);
+    main.saveAndClose->setFocusPolicy(QWidget::NoFocus);
+    connect(main.saveAndClose, SIGNAL(clicked()), this, SLOT(saveAndClose()));
     
-    table.labelLayout->addWidget(table.topLabel, 0, Qt::AlignLeft | Qt::AlignTop);
-    table.labelLayout->addStretch();
-    table.labelLayout->addWidget(table.closePeriod);
+    main.print = new QPushButton(
+            QIconSet( QPixmap::fromMimeSource("icons/print.png") ),
+            "Print Journal Entries (F9)", this);
+    main.print->setFocusPolicy(QWidget::NoFocus);
+    connect(main.print, SIGNAL(clicked()), this, SLOT(printJournal()));
     
-    table.dataTable = new JournalTable(table.widget);
-    table.dataTable->setFocus();
+    main.labelLayout->addWidget(main.topLabel, 0, Qt::AlignLeft | Qt::AlignTop);
+    main.labelLayout->addStretch();
+    main.labelLayout->addWidget(main.saveAndClose);
+    main.labelLayout->addWidget(main.print);
     
-    table.vBoxLayout->addWidget(table.dataTable);
+    main.dataTable = new JournalTable(this);
+    main.dataTable->setFocus();
     
-    table.summary = new JournalSummary(table.widget, 0, table.dataTable);
-    table.vBoxLayout->addWidget(table.summary);
+    main.vBoxLayout->addSpacing(5);
+    main.vBoxLayout->addWidget(main.dataTable);
     
-    addWidget(table.widget, 1);
+    main.summary = new JournalSummary(this, 0, main.dataTable);
+    main.vBoxLayout->addWidget(main.summary);
+    
+    main.hr = new QLabel("<hr>", this);
+    main.vBoxLayout->addWidget(main.hr);
+    
+    
+    main.bottomWidget = new QWidget(this);
+    main.bottomHBoxLayout = new QHBoxLayout(main.bottomWidget);
+    
+    main.bottomLabel = new QLabel(
+            "<nobr><b>Keyboard Control:</b></nobr><br>"
+            "<nobr> &nbsp; &nbsp; <b>Enter</b>: Edit current field, move to next field</nobr><br>"
+            "<nobr> &nbsp; &nbsp; <b>Insert</b> / <b>Delete</b>: Create new entry / Delete selected entry</nobr>",
+    main.bottomWidget);
+    
+    main.bottomRightFrame = new QFrame(main.bottomWidget);
+    main.bottomRightBoxLayout = new QBoxLayout(main.bottomRightFrame, QBoxLayout::LeftToRight);
+    main.bottomRightBoxLayout->setSpacing(5);
+    
+    main.importButton = new QPushButton(
+            QIconSet( QPixmap::fromMimeSource("icons/import.png") ),
+            "Import from CSV (F11)", main.bottomRightFrame);
+    
+    main.exportButton = new QPushButton(
+            QIconSet( QPixmap::fromMimeSource("icons/export.png") ),
+            "Export to CSV (F12)", main.bottomRightFrame);
+    
+    main.bottomRightBoxLayout->addWidget(main.importButton, 0, Qt::AlignLeft | Qt::AlignTop);
+    main.bottomRightBoxLayout->addWidget(main.exportButton, 0, Qt::AlignLeft | Qt::AlignTop);
+    
+    main.bottomHBoxLayout->addWidget(main.bottomLabel);
+    main.bottomHBoxLayout->addStretch();
+    main.bottomHBoxLayout->addWidget(main.bottomRightFrame);
+    
+    main.vBoxLayout->addWidget(main.bottomWidget);
+    
+    active = true;
 }
 
 void JournalStack::importCSV()
@@ -131,6 +145,8 @@ void JournalStack::importCSV()
             this,
             0,
             "Import Journal Entries");
+    
+    db->importCSV("journal", file);
 }
 
 void JournalStack::exportCSV()
@@ -141,20 +157,8 @@ void JournalStack::exportCSV()
             this,
             0,
             "Export Journal Entries");
-    
-    qDebug(file);
-}
 
-void JournalStack::switchWidget()
-{
-    if(active == 0) {
-            raiseWidget(1);
-            active = 1;
-    }
-    else {
-        raiseWidget(0);
-        active = 0;
-    }
+    db->exportCSV("journal", file);    
 }
 
 bool JournalStack::eventFilter(QObject *target, QEvent *event)
@@ -168,6 +172,17 @@ bool JournalStack::eventFilter(QObject *target, QEvent *event)
             return true;
         }
     }
-    return QWidgetStack::eventFilter(target,event);
+    
+    return QWidget::eventFilter(target,event);
+}
+
+void JournalStack::saveAndClose()
+{
+    
+}
+
+void JournalStack::printJournal()
+{
+    
 }
 

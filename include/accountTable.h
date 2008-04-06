@@ -9,6 +9,8 @@ class AccountTable : public QDataTable
 {
     public:
         AccountTable(QWidget *parent = 0, const char *name = 0);
+        ~AccountTable();
+        
     private:
         QSqlCursor *cursor;
        

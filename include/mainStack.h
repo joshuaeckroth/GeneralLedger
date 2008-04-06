@@ -4,50 +4,50 @@
 #include <vector>
 #include <qwidgetstack.h>
 
-class QKeyEvent;
-class QSqlDatabase;
+class QEvent;
 class QHBoxLayout;
 class QVBoxLayout;
 class QVGroupBox;
 class QPushButton;
 
+class Database;
+
 class MainStack : public QWidgetStack
 {
     Q_OBJECT
     public:
-        MainStack( QString curClient, QWidget *parent = 0, const char *name = 0 );
-        bool focusNextPrevChild(bool next);
-        void dbClosed();
+        MainStack(QWidget *parent = 0, const char *name = 0);
+        ~MainStack();
         
     signals:
-        void openDefault();
-        void openNew(QString);
-        void createNew(QString);
-        void prepareQuit();
         void switchToAccounts();
         void switchToJournal();
         void switchToReports();
-        void closeDb();
-        void copyDb(QString);
+        void dbOpened();
+        void dbClosed();
+        void nameChanged();
+        void quit();
         
     private slots:
-        void dbOpened();
+        void openDefault();
         void openNewDialog();
         void createNewDialog();
         void editName();
         void copyClient();
+        void import();
+        void encrypt();
+        void closeClient();
+        void prepareQuit();
          
     private:
+        void clientOpened();
         void switchWidget();
-        void keyPressEvent(QKeyEvent *event);
+        bool eventFilter(QObject *target, QEvent *event);
         
         int active;
-        
-        QSqlDatabase *db;
+        Database *db;
         
         struct {
-            std::vector<QWidget*> widgetVect;
-            std::vector<QWidget*>::iterator widgetIter;
             QWidget *widget;
             QHBoxLayout *hBoxLayout;
             QVBoxLayout *vBoxLayout;
@@ -61,8 +61,7 @@ class MainStack : public QWidgetStack
         } main;
             
         struct {
-            std::vector<QWidget*> widgetVect;
-            std::vector<QWidget*>::iterator widgetIter;
+            QPushButton *focusedButton;
             QWidget *widget;
             QVBoxLayout *vBoxLabel;
             QHBoxLayout *hBoxLabel;

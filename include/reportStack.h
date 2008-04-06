@@ -20,11 +20,15 @@ class QRadioButton;
 class QBoxLayout;
 class QTextEdit;
 
+class BalanceSheetEditor;
+class Database;
+
 class ReportStack : public QWidgetStack
 {
     Q_OBJECT
     public:
         ReportStack( QWidget *parent = 0, const char *name = 0 );
+        ~ReportStack();
         
     signals:
         void goBack();
@@ -33,13 +37,22 @@ class ReportStack : public QWidgetStack
         void rangeToggled();
         void allToggled();
         void dbOpened();
-        void viewReport();
+        void viewReport(QString &text);
+        void exportHTML();
+        void exportCSV();
         void switchWidget();
+        void switchToEditBalance();
+        void generalReport();
+        void chartAccountsReport();
+        void balanceReport();
+        void printerOptions();
         
     private:
+        void switchToGeneralReport();
         bool eventFilter(QObject *target, QEvent *event);
         
         int active;
+        Database *db;
         
         struct {
             QWidget *widget;
@@ -49,29 +62,11 @@ class ReportStack : public QWidgetStack
             QHBoxLayout *hBoxLayout;
             QVBoxLayout *vBoxLayout;
             QVGroupBox *generalGroup;
-            QLabel *monthRangeLabel;
-            QVBox *monthRangeVBox;
-            QFrame *monthRangeFrame;
-            QHBoxLayout *monthRangeLayout;
-            QComboBox *monthRangeFirst;
-            QLabel *monthRangeMiddleLabel;
-            QComboBox *monthRangeLast;
-            QLabel *accountRangeLabel;
-            QVBox *accountRangeVBox;
-            QFrame *accountRangeFrame;
-            QHBoxLayout *accountRangeLayout;
-            QRadioButton *accountRangeRadio;
-            QLineEdit *accountRangeFirst;
-            QLabel *accountRangeMiddleLabel;
-            QLineEdit *accountRangeLast;
-            QFrame *accountRangeAllFrame;
-            QHBoxLayout *accountRangeAllLayout;
-            QRadioButton *accountRangeAllRadio;
-            QLabel *accountRangeAllLabel;
-            QPushButton *generalDetailButton;
-            QPushButton *generalTrialButton;
-            QVGroupBox *chartGroup;
+            QPushButton *generalButton;
             QPushButton *chartAccountsButton;
+            QVGroupBox *balanceGroup;
+            QPushButton *balanceModifyButton;
+            QPushButton *balanceReportButton;
             QVGroupBox *adminGroup;
             QPushButton *printerOptionsButton;
         } main;
@@ -83,7 +78,22 @@ class ReportStack : public QWidgetStack
             GoBackLabel *topLabel;
             QPushButton *print;
             QTextEdit *view;
+            QWidget *bottomWidget;
+            QHBoxLayout *bottomHBoxLayout;
+            QLabel *bottomLabel;
+            QFrame *bottomRightFrame;
+            QBoxLayout *bottomRightBoxLayout;
+            QPushButton *exportHTMLButton;
+            QPushButton *exportCSVButton;
         } report;
+        
+        struct {
+            QWidget *widget;
+            QVBoxLayout *vBoxLayout;
+            QBoxLayout *labelLayout;
+            GoBackLabel *topLabel;
+            BalanceSheetEditor *editor;
+        } balance;
         
 };
 

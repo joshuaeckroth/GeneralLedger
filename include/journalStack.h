@@ -1,7 +1,7 @@
 #ifndef JOURNAL_STACK_H
 #define JOURNAL_STACK_H
 
-#include <qwidgetstack.h>
+#include <qwidget.h>
 
 class QEvent;
 class QVBoxLayout;
@@ -9,16 +9,20 @@ class QHBoxLayout;
 class QBoxLayout;
 class QVGroupBox;
 class QPushButton;
+class QFrame;
+class QLabel;
 
 class GoBackLabel;
 class JournalTable;
 class JournalSummary;
+class Database;
 
-class JournalStack : public QWidgetStack
+class JournalStack : public QWidget
 {
     Q_OBJECT
     public:
         JournalStack( QWidget *parent = 0, const char *name = 0 );
+        ~JournalStack();
         
     signals:
         void goBack();
@@ -27,36 +31,32 @@ class JournalStack : public QWidgetStack
         void dbOpened();
         void importCSV();
         void exportCSV();
-        void switchWidget();
+        void saveAndClose();
+        void printJournal();
         
     private:
         bool eventFilter(QObject *target, QEvent *event);
         
-        int active;
+        bool active;
+        Database *db;
         
         struct {
-            QWidget *widget;
-            QVBoxLayout *vBoxLabel;
-            QHBoxLayout *hBoxLabel;
-            GoBackLabel *topLabel;
-            QHBoxLayout *hBoxLayout;
-            QVBoxLayout *vBoxLayout;
-            QVGroupBox *taskGroup;
-            QPushButton *editButton;
-            QVGroupBox *adminGroup;
-            QPushButton *importButton;
-            QPushButton *exportButton;
-        } main;
-        
-        struct {
-            QWidget *widget;
             QVBoxLayout *vBoxLayout;
             QBoxLayout *labelLayout;
             GoBackLabel *topLabel;
-            QPushButton *closePeriod;
+            QPushButton *saveAndClose;
+            QPushButton *print;
             JournalTable *dataTable;
             JournalSummary *summary;
-        } table;
+            QLabel *hr;
+            QWidget *bottomWidget;
+            QHBoxLayout *bottomHBoxLayout;
+            QLabel *bottomLabel;
+            QFrame *bottomRightFrame;
+            QBoxLayout *bottomRightBoxLayout;
+            QPushButton *importButton;
+            QPushButton *exportButton;
+        } main;
         
 };
 

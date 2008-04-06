@@ -3,7 +3,7 @@ using std::vector;
 #include <typeinfo>
 
 #include <qwidgetstack.h>
-#include <qhbox.h>
+#include <qlayout.h>
 #include <qvgroupbox.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
@@ -13,16 +13,14 @@ using std::vector;
 #include <qinputdialog.h>
 #include <qlabel.h>
 #include <qlistbox.h>
-#include <qsqlquery.h>
-#include <qdir.h>
-#include <qsqldatabase.h>
 #include <qfiledialog.h>
 #include <qevent.h>
+#include <qregexp.h>
 
 #include "mainStack.h"
-#include "generalLedger.h"
+#include "database.h"
 
-MainStack::MainStack(QString curClient, QWidget *parent, const char *name)
+MainStack::MainStack(QWidget *parent, const char *name)
     : QWidgetStack(parent,name)
 {   
     main.widget = new QWidget(this);
@@ -41,14 +39,16 @@ MainStack::MainStack(QString curClient, QWidget *parent, const char *name)
     
     main.vBoxLayout->add(main.mainGroup);
     
-    if(curClient != "")
+    db = new Database();
+    if(db->getCurClient() != "")
     {
         main.openDefaultButton = new QPushButton(
                 QIconSet( QPixmap::fromMimeSource("icons/openDefButton.png") ),
-                QString("Open ").append(curClient), main.mainGroup);
-        connect(main.openDefaultButton, SIGNAL(clicked()), this, SIGNAL(openDefault()));
+                "Open " + db->getCurClient(), main.mainGroup);
+        connect(main.openDefaultButton, SIGNAL(clicked()), this, SLOT(openDefault()));
         main.openDefaultButton->setDefault(true);
         main.openDefaultButton->setFocus();
+        main.openDefaultButton->installEventFilter(this);
     }
     else
     {
@@ -58,21 +58,17 @@ MainStack::MainStack(QString curClient, QWidget *parent, const char *name)
         main.openDefaultButton->setEnabled(false);
     }
     
-    main.widgetVect.push_back(main.openDefaultButton);
-    
     main.openNewButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/openNewButton.png") ),
             "Open a Different Client", main.mainGroup);
     connect(main.openNewButton, SIGNAL(clicked()), this, SLOT(openNewDialog()));
-    
-    main.widgetVect.push_back(main.openNewButton);
+    main.openNewButton->installEventFilter(this);
     
     main.createNewButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/createNewButton.png") ),
             "Create a New Client", main.mainGroup);
     connect(main.createNewButton, SIGNAL(clicked()), this, SLOT(createNewDialog()));
-    
-    main.widgetVect.push_back(main.createNewButton);
+    main.createNewButton->installEventFilter(this);
     
     main.vBoxLayout->addSpacing(30);
     
@@ -84,18 +80,15 @@ MainStack::MainStack(QString curClient, QWidget *parent, const char *name)
     
     main.importButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/importButton.png") ),
-            "Import / Merge a Database File", main.otherGroup);
-//     connect(...
-    
-    main.widgetVect.push_back(main.importButton);
+            "Import a Database File", main.otherGroup);
+    connect(main.importButton, SIGNAL(clicked()), this, SLOT(import()));
+    main.importButton->installEventFilter(this);
     
     main.quitButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/quitButton.png") ),
             "Quit General Ledger", main.otherGroup);
-    connect(main.quitButton, SIGNAL(clicked()), this, SIGNAL(prepareQuit()));
-    
-    main.widgetVect.push_back(main.quitButton);
-    main.widgetIter = main.widgetVect.begin();
+    connect(main.quitButton, SIGNAL(clicked()), this, SLOT(prepareQuit()));
+    main.quitButton->installEventFilter(this);
     
     main.vBoxLayout->addStretch();
     
@@ -106,96 +99,50 @@ MainStack::MainStack(QString curClient, QWidget *parent, const char *name)
     active = 0;
 }
 
-bool MainStack::focusNextPrevChild(bool next)
+MainStack::~MainStack()
 {
-    QWidget *prev;
-    if(active == 0)
-    {
-        if(next)
-        {
-            if(main.widgetIter == (main.widgetVect.end() - 1))
-            {
-                prev = *main.widgetIter;
-                main.widgetIter = main.widgetVect.begin();
-            }
-            else
-            {
-                prev = *main.widgetIter;
-                main.widgetIter++;
-            }
-        }    
-        else
-        {
-            if(main.widgetIter == main.widgetVect.begin())
-            {
-                prev = *main.widgetIter;
-                main.widgetIter = (main.widgetVect.end() - 1);
-            }
-            else
-            {
-                prev = *main.widgetIter;
-                main.widgetIter--;
-            }
-        }
-    
-        (*main.widgetIter)->setFocus();
-        if(typeid(**main.widgetIter) == typeid(QPushButton))
-            dynamic_cast<QPushButton*>(*main.widgetIter)->setDefault(true);
-        if(typeid(*prev) == typeid(QPushButton))
-            dynamic_cast<QPushButton*>(prev)->setDefault(false);
-    }
-    else
-    {
-        if(next)
-        {
-            if(tasks.widgetIter == (tasks.widgetVect.end() - 1))
-            {
-                prev = *tasks.widgetIter;
-                tasks.widgetIter = tasks.widgetVect.begin();
-            }
-            else
-            {
-                prev = *tasks.widgetIter;
-                tasks.widgetIter++;
-            }
-        }    
-        else
-        {
-            if(tasks.widgetIter == tasks.widgetVect.begin())
-            {
-                prev = *tasks.widgetIter;
-                tasks.widgetIter = (tasks.widgetVect.end() - 1);
-            }
-            else
-            {
-                prev = *tasks.widgetIter;
-                tasks.widgetIter--;
-            }
-        }
-    
-        (*tasks.widgetIter)->setFocus();
-        if(typeid(**tasks.widgetIter) == typeid(QPushButton))
-            dynamic_cast<QPushButton*>(*tasks.widgetIter)->setDefault(true);
-        if(typeid(*prev) == typeid(QPushButton))
-            dynamic_cast<QPushButton*>(prev)->setDefault(false);
-    }
-    
-    return true;
-}
-
-void MainStack::dbOpened()
-{
-    QSqlQuery query("SELECT name FROM main");
-    if(query.next())
-    {
-        main.openDefaultButton->setText(QString("Open ").append(query.value(0).toString()));
-        main.openDefaultButton->setEnabled(true);
-    }
-    
-    if(id(tasks.widget) == 1)
+    delete db;
+    /*
+    if(widget(1))
     {
         removeWidget(tasks.widget);
-        tasks.widgetVect.clear();
+        delete tasks.cryptButton;
+        delete tasks.copyDatabaseButton;
+        delete tasks.editNameButton;
+        delete tasks.adminGroup;
+        delete tasks.reportButton;
+        delete tasks.journalButton;
+        delete tasks.accountsButton;
+        delete tasks.clientGroup;
+        delete tasks.vBoxLayout;
+        delete tasks.hBoxLayout;
+        delete tasks.closeButton;
+        delete tasks.hBoxLabel;
+        delete tasks.vBoxLabel;
+        delete tasks.widget;
+    }
+    removeWidget(main.widget);
+    delete main.quitButton;
+    delete main.importButton;
+    delete main.otherGroup;
+    delete main.createNewButton;
+    delete main.openNewButton;
+    delete main.openDefaultButton;
+    delete main.mainGroup;
+    delete main.vBoxLayout;
+    delete main.hBoxLayout;
+    delete main.widget;
+    */
+}
+
+void MainStack::clientOpened()
+{
+    main.openDefaultButton->setText("Open " + db->getCurClient());
+    main.openDefaultButton->setEnabled(true);
+    
+    if(widget(1))
+    {
+        removeWidget(tasks.widget);
         delete tasks.cryptButton;
         delete tasks.copyDatabaseButton;
         delete tasks.editNameButton;
@@ -223,7 +170,7 @@ void MainStack::dbOpened()
             QIconSet( QPixmap::fromMimeSource("icons/closeClient.png") ),
             "Close Client (F8)", tasks.widget);
     tasks.closeButton->setFocusPolicy(QWidget::NoFocus);
-    connect(tasks.closeButton, SIGNAL(clicked()), this, SIGNAL(closeDb()));
+    connect(tasks.closeButton, SIGNAL(clicked()), this, SLOT(closeClient()));
     
     tasks.hBoxLabel->addStretch();
     tasks.hBoxLabel->addWidget(tasks.closeButton);
@@ -248,22 +195,20 @@ void MainStack::dbOpened()
     connect(tasks.accountsButton, SIGNAL(clicked()), this, SIGNAL(switchToAccounts()));
     tasks.accountsButton->setDefault(true);
     tasks.accountsButton->setFocus();
-    
-    tasks.widgetVect.push_back(tasks.accountsButton);
+    tasks.focusedButton = tasks.accountsButton;
+    tasks.accountsButton->installEventFilter(this);
     
     tasks.journalButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/journalTab.png") ),
             "Journal Entry", tasks.clientGroup);
     connect(tasks.journalButton, SIGNAL(clicked()), this, SIGNAL(switchToJournal()));
-    
-    tasks.widgetVect.push_back(tasks.journalButton);
+    tasks.journalButton->installEventFilter(this);
     
     tasks.reportButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/reportTab.png") ),
             "Reports", tasks.clientGroup);
     connect(tasks.reportButton, SIGNAL(clicked()), this, SIGNAL(switchToReports()));
-    
-    tasks.widgetVect.push_back(tasks.reportButton);
+    tasks.reportButton->installEventFilter(this);
     
     tasks.vBoxLayout->addSpacing(30);
     
@@ -277,23 +222,19 @@ void MainStack::dbOpened()
             QIconSet( QPixmap::fromMimeSource("icons/editNameButton.png") ),
             "Edit Client Name", tasks.adminGroup);
     connect(tasks.editNameButton, SIGNAL(clicked()), this, SLOT(editName()));
-    
-    tasks.widgetVect.push_back(tasks.editNameButton);
+    tasks.editNameButton->installEventFilter(this);
     
     tasks.copyDatabaseButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/copyDatabaseButton.png") ),
             "Copy Client Database to File", tasks.adminGroup);
     connect(tasks.copyDatabaseButton, SIGNAL(clicked()), this, SLOT(copyClient()));
-    
-    tasks.widgetVect.push_back(tasks.copyDatabaseButton);
+    tasks.copyDatabaseButton->installEventFilter(this);
     
     tasks.cryptButton = new QPushButton(
             QIconSet( QPixmap::fromMimeSource("icons/encryptButton.png") ),
             "Encrypt Database with Password", tasks.adminGroup);
-//     connect(...
-    
-    tasks.widgetVect.push_back(tasks.cryptButton);
-    tasks.widgetIter = tasks.widgetVect.begin();
+    connect(tasks.cryptButton, SIGNAL(clicked()), this, SLOT(encrypt()));
+    tasks.cryptButton->installEventFilter(this);
     
     tasks.vBoxLayout->addStretch();
     
@@ -308,25 +249,58 @@ void MainStack::switchWidget()
 {
     if(active == 0)
     {
-        (*tasks.widgetIter)->setFocus();
         raiseWidget(1);
         active = 1;
+        tasks.focusedButton->setFocus();
     }
     else
     {
-        (*main.widgetIter)->setFocus();
         raiseWidget(0);
         active = 0;
     }
 }
 
-void MainStack::keyPressEvent(QKeyEvent *event)
+bool MainStack::eventFilter(QObject *target, QEvent *event)
 {
-    if(event->key() == Key_F8)
-        emit closeDb();
-    else
-        QWidgetStack::keyPressEvent(event);   
+    if(event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = (QKeyEvent *)event;
+        if(keyEvent->key() == Key_F8 && active == 0)
+        {
+            closeClient();
+            return true;
+        }
+    }
+    if(event->type() == QEvent::FocusIn)
+    {
+        if(typeid(*target) == typeid(QPushButton))
+        {
+            ((QPushButton*)target)->setDefault(true);
+            if(active == 1)
+                tasks.focusedButton = (QPushButton*)target;
+        }
+    }
+    if(event->type() == QEvent::FocusOut)
+    {
+        if(typeid(*target) == typeid(QPushButton))
+            ((QPushButton*)target)->setDefault(false);
+    }
+    if(event->type() == QEvent::Show)
+    {
+        if(active == 1)
+            tasks.focusedButton->setFocus();
+    }
     
+    return QWidgetStack::eventFilter(target,event);
+}
+
+void MainStack::openDefault()
+{
+    if(db->openDefault())
+    {
+        clientOpened();
+        emit dbOpened();  
+    }
 }
 
 void MainStack::openNewDialog()
@@ -344,27 +318,7 @@ void MainStack::openNewDialog()
     QListBox listBox(&dialog);
     listBox.setFocus();
     
-#ifdef Q_WS_WIN
-    db = QSqlDatabase::addDatabase("QSQLITEX", "temp");
-#else 
-    db = QSqlDatabase::addDatabase("QSQLITE", "temp");
-#endif 
-    QDir dir("data");
-    QStringList::Iterator it;
-    QStringList files = dir.entryList("*.db", QDir::Files);
-    it = files.begin();
-    while(it != files.end())
-    {
-        db->setDatabaseName(QString("data/").append(*it));
-        if(db->open())
-        {
-            QSqlQuery query("SELECT name FROM main", db);
-            if(query.next())
-                listBox.insertItem(query.value(0).toString());
-            db->close();
-        }
-        ++it;
-    }
+    listBox.insertStringList(db->getClientList());
     
     vBoxLayout.addWidget(&listBox);
     
@@ -381,7 +335,16 @@ void MainStack::openNewDialog()
     
     dialog.exec();
     if(dialog.result() == QDialog::Accepted)
-        emit openNew(listBox.selectedItem()->text());
+    {
+        QString file = listBox.selectedItem()->text();
+        file.remove(QRegExp(".+\\("));
+        file.remove(".db)");
+        if(db->openNew(file))
+        {
+            clientOpened();
+            emit dbOpened();
+        }
+    }
 }
 
 void MainStack::createNewDialog()
@@ -391,8 +354,14 @@ void MainStack::createNewDialog()
                                          "Input the Client's Name:",
                                          QLineEdit::Normal,
                                          QString::null, &ok, this);
-   if( ok && !name.isEmpty() )
-       emit createNew(name);
+    if( ok && !name.isEmpty() )
+    {
+        if(db->createNew(name))
+        {
+            clientOpened();
+            emit dbOpened();
+        }
+    }
 }
 
 void MainStack::editName()
@@ -403,7 +372,9 @@ void MainStack::editName()
                                          QLineEdit::Normal,
                                          QString::null, &ok, this);
     if( ok && !name.isEmpty() )
-        qDebug(name);
+        db->editName(name);
+    main.openDefaultButton->setText("Open " + db->getCurClient());
+    emit nameChanged();
 }
 
 void MainStack::copyClient()
@@ -416,13 +387,26 @@ void MainStack::copyClient()
             "Copy Client Database to File");
     
     if(!file.isEmpty())
-        emit copyDb(file);
+        db->copyDb(file);
 }
 
-void MainStack::dbClosed()
+void MainStack::import()
+{}
+
+void MainStack::encrypt()
+{}
+
+void MainStack::closeClient()
 {
+    db->closeDb();
     switchWidget();
+    emit dbClosed();
 }
 
-
+void MainStack::prepareQuit()
+{
+    if(active == 1)
+        closeClient();
+    emit quit();
+}
 

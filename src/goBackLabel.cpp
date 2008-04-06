@@ -10,7 +10,7 @@ GoBackLabel::GoBackLabel(QWidget *parent, const char *name)
 {
     icon = new QLabel(this);
     icon->setPixmap( QPixmap::fromMimeSource("icons/back.png") );
-    label = new QLabel(tr("<nobr><font color=\"blue\"><u>Go Back</u></font> (ESC)</nobr>"), this);
+    label = new QLabel(" Back (ESC)", this);
     setCursor(Qt::PointingHandCursor);
 }
 

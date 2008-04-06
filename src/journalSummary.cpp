@@ -18,16 +18,14 @@ JournalSummary::JournalSummary(QWidget *parent, const char *name, JournalTable *
     debitLabel->setAlignment(Qt::AlignRight);
     
     debitValue = new QLabel(tr("<tt>37263.34</tt>"), this);
-    debitValue->setMaximumWidth(debitColWidth);
-    debitValue->setMinimumWidth(debitColWidth);
+    debitValue->setFixedWidth(debitColWidth);
     debitValue->setAlignment(Qt::AlignRight);
     
     creditLabel = new QLabel("Credit:", this);
     creditLabel->setAlignment(Qt::AlignRight);
     
     creditValue = new QLabel(tr("<tt>111.31</tt>"), this);
-    creditValue->setMaximumWidth(creditColWidth);
-    creditValue->setMinimumWidth(creditColWidth);
+    creditValue->setFixedWidth(creditColWidth);
     creditValue->setAlignment(Qt::AlignRight);
     
     balanceLabel = new QLabel(tr("<b>Balance:</b>"), this);

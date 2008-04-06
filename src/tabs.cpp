@@ -1,65 +1,56 @@
-
 #include <qtabwidget.h>
 #include <qapplication.h>
 #include <qsettings.h>
 
 #include "tabs.h"
+#include "database.h"
 #include "mainStack.h"
 #include "accountStack.h"
 #include "journalStack.h"
 #include "reportStack.h"
-#include "generalLedger.h"
+#include "helpStack.h"
 
 Tabs::Tabs(QApplication *parent, const char *name)
     : QTabWidget(0,name)
 {
+    app = parent;
+    
     setFocusPolicy(QWidget::NoFocus);
     
+    db = new Database();
+ 
     QSettings settings;
     settings.setPath("eckroth.net", "GeneralLedger");
     settings.beginGroup("/GeneralLedger");
-    move(settings.readNumEntry("/geometry/x", 0),
-         settings.readNumEntry("/geometry/y", 0));
-                 
-    resize(settings.readNumEntry("/geometry/width", 600),
-           settings.readNumEntry("/geometry/height", 500));
+    move(settings.readNumEntry("/geometry/x", 0), settings.readNumEntry("/geometry/y", 0));
+    resize(settings.readNumEntry("/geometry/width", 550), settings.readNumEntry("/geometry/height", 700));
+    settings.endGroup();
     
-    QString curClient(settings.readEntry("/database/defaultClient", ""));
+    setCaption("General Ledger");
     
-    mainStack = new MainStack(curClient);
-    connect(mainStack, SIGNAL(openDefault()), parent, SLOT(openDefault()));
-    connect(mainStack, SIGNAL(openDefault()), this, SLOT(dbOpened()));
-        
-    connect(mainStack, SIGNAL(openNew(QString)), parent, SLOT(openNew(QString)));
-    connect(mainStack, SIGNAL(openNew(QString)), this, SLOT(dbOpened()));
-    
-    connect(mainStack, SIGNAL(createNew(QString)), parent, SLOT(createNew(QString)));
-    connect(mainStack, SIGNAL(createNew(QString)), this, SLOT(dbOpened()));
-    
-    connect(parent, SIGNAL(dbOpened()), mainStack, SLOT(dbOpened()));
-    
-    connect(mainStack, SIGNAL(prepareQuit()), parent, SLOT(prepareQuit()));
-    
+    mainStack = new MainStack;
+    connect(mainStack, SIGNAL(dbOpened()), this, SLOT(dbOpened()));
     connect(mainStack, SIGNAL(switchToAccounts()), this, SLOT(switchToAccounts()));
     connect(mainStack, SIGNAL(switchToJournal()), this, SLOT(switchToJournal()));
     connect(mainStack, SIGNAL(switchToReports()), this, SLOT(switchToReports()));
-    
-    connect(mainStack, SIGNAL(closeDb()), this, SIGNAL(closeDb()));
-    connect(parent, SIGNAL(dbClosed()), this, SLOT(dbClosed()));
-    
-    connect(mainStack, SIGNAL(copyDb(QString)), this, SIGNAL(copyDb(QString)));
+    connect(mainStack, SIGNAL(dbClosed()), this, SLOT(dbClosed()));
+    connect(mainStack, SIGNAL(nameChanged()), this, SLOT(nameChanged()));
+    connect(mainStack, SIGNAL(quit()), this, SLOT(quit()));
     
     accountStack = new AccountStack;
-    connect(parent, SIGNAL(dbOpened()), accountStack, SLOT(dbOpened()));
+    connect(mainStack, SIGNAL(dbOpened()), accountStack, SLOT(dbOpened()));
     connect(accountStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
     
     journalStack = new JournalStack;
-    connect(parent, SIGNAL(dbOpened()), journalStack, SLOT(dbOpened()));
+    connect(mainStack, SIGNAL(dbOpened()), journalStack, SLOT(dbOpened()));
     connect(journalStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
     
     reportStack = new ReportStack;
-    connect(parent, SIGNAL(dbOpened()), reportStack, SLOT(dbOpened()));
+    connect(mainStack, SIGNAL(dbOpened()), reportStack, SLOT(dbOpened()));
     connect(reportStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
+    
+    helpStack = new HelpStack;
+    connect(helpStack, SIGNAL(goBack()), this, SLOT(switchToMain()));
     
     addTab( mainStack, QIconSet( QPixmap::fromMimeSource("icons/mainTab.png") ), "Main (F1)" );
     addTab( accountStack, QIconSet( QPixmap::fromMimeSource("icons/accountsTab.png") ), "Accounts (F2)" );
@@ -68,11 +59,26 @@ Tabs::Tabs(QApplication *parent, const char *name)
     setTabEnabled(journalStack, 0);
     addTab( reportStack, QIconSet( QPixmap::fromMimeSource("icons/reportTab.png") ), "Reports (F4)" );
     setTabEnabled(reportStack, 0);
+    addTab( helpStack, QIconSet( QPixmap::fromMimeSource("icons/help.png") ), "Help (F5)" );
     
+}
+
+Tabs::~Tabs()
+{
+    delete db;
+    /*
+    delete mainStack;
+    delete accountStack;
+    delete journalStack;
+    delete reportStack;
+    delete helpStack;
+    */
 }
 
 void Tabs::dbOpened()
 {
+    setCaption("General Ledger - " + db->getCurClient());
+    
     setTabEnabled(accountStack, true);
     setTabEnabled(journalStack, true);
     setTabEnabled(reportStack, true);
@@ -80,10 +86,16 @@ void Tabs::dbOpened()
 
 void Tabs::dbClosed()
 {
+    setCaption("General Ledger");
+    
     setTabEnabled(accountStack, false);
     setTabEnabled(journalStack, false);
     setTabEnabled(reportStack, false);
-    mainStack->dbClosed();
+}
+
+void Tabs::nameChanged()
+{
+    setCaption("General Ledger - " + db->getCurClient());
 }
 
 void Tabs::keyPressEvent(QKeyEvent *event)
@@ -105,12 +117,15 @@ void Tabs::keyPressEvent(QKeyEvent *event)
             if(isTabEnabled(reportStack))
                 showPage(reportStack);
             break;
+        case Key_F5:
+            showPage(helpStack);
+            break;
     }
 }
 
 void Tabs::closeEvent(QCloseEvent *event)
 {
-    emit writeSettings();
+    quit();
     event->accept();   
 }
 
@@ -132,5 +147,21 @@ void Tabs::switchToJournal()
 void Tabs::switchToReports()
 {
     setCurrentPage(3);
+}
+
+void Tabs::quit()
+{
+    QSettings settings;
+    settings.setPath("eckroth.net", "GeneralLedger");
+    settings.beginGroup("/GeneralLedger");
+    settings.writeEntry("/geometry/x", x());
+    settings.writeEntry("/geometry/y", y());
+    settings.writeEntry("/geometry/width", width());
+    settings.writeEntry("/geometry/height", height());
+    settings.writeEntry("/database/defaultDb", db->getCurDb());
+    settings.writeEntry("/database/defaultClient", db->getCurClient());
+    settings.endGroup();
+    
+    app->quit();
 }
 

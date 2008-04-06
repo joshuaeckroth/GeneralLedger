@@ -7,11 +7,14 @@ AccountTable::AccountTable(QWidget *parent, const char *name)
     : QDataTable(parent,name)  
 {
     setLeftMargin(0);
+    setVScrollBarMode(QScrollView::AlwaysOn);
     
     cursor = new QSqlCursor("accounts");
     setSqlCursor(cursor);
     addColumn("id", "ID");
     addColumn("name", "Name");
+    
+    sortColumn(0);
     
     setColumnStretchable(1, true);
     
@@ -20,3 +23,7 @@ AccountTable::AccountTable(QWidget *parent, const char *name)
     
 }
 
+AccountTable::~AccountTable()
+{
+    delete cursor;
+}

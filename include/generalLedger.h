@@ -2,39 +2,35 @@
 #define GENERAL_LEDGER_H
 
 #include <qapplication.h>
-#include <qstring.h>
+#include <qsqldatabase.h>
+#include <qtabwidget.h>
 
-class QSqlDatabase;
-class Tabs;
+#include "mainStack.h"
+#include "accountStack.h"
+#include "journalStack.h"
+#include "reportStack.h"
 
 class GeneralLedger : public QApplication
 {
     Q_OBJECT
     public:
         GeneralLedger(int argc, char *argv[]);
-        QString* getCurClient();
-        QString* getCurDb();
         
     signals:
         void dbOpened();
-        void dbClosed();
         
-    public slots:
+    private slots:
         void openDefault();
         void openNew(QString name);
         void createNew(QString name);
-        void writeSettings();
-        void closeDb();
-        void copyDb(QString file);
-        void prepareQuit();
         
     private:
-        void readDefaults();
-        
-        QString *curDb;
-        QString *curClient;
         QSqlDatabase *db;
-        Tabs *tabs;
+        QTabWidget *tabs;
+        MainStack *mainStack;
+        AccountStack *accountStack;
+        JournalStack *journalStack;
+        ReportStack *reportStack;
 };
 
 #endif

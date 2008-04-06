@@ -1,24 +1,27 @@
 #ifndef ACCOUNT_STACK_H
 #define ACCOUNT_STACK_H
 
-#include <vector>
-#include <qwidgetstack.h>
+#include <qwidget.h>
 
 class QEvent;
 class QVBoxLayout;
 class QHBoxLayout;
 class QVGroupBox;
 class QPushButton;
+class QLabel;
+class QFrame;
+class QBoxLayout;
 
 class GoBackLabel;
 class AccountTable;
+class Database;
 
-class AccountStack : public QWidgetStack
+class AccountStack : public QWidget
 {
     Q_OBJECT
     public:
         AccountStack( QWidget *parent = 0, const char *name = 0 );
-        bool focusNextPrevChild(bool next);
+        ~AccountStack();
         
     signals:
         void goBack();
@@ -27,36 +30,26 @@ class AccountStack : public QWidgetStack
         void dbOpened();
         void importCSV();
         void exportCSV();
-        void switchWidget();
         
     private:
         bool eventFilter(QObject *target, QEvent *event);
         
-        int active;
+        bool active;
+        Database *db;
         
         struct {
-            std::vector<QWidget*> widgetVect;
-            std::vector<QWidget*>::iterator widgetIter;
-            QWidget *widget;
-            QVBoxLayout *vBoxLabel;
-            QHBoxLayout *hBoxLabel;
-            GoBackLabel *topLabel;
-            QHBoxLayout *hBoxLayout;
-            QVBoxLayout *vBoxLayout;
-            QVGroupBox *taskGroup;
-            QPushButton *editButton;
-            QVGroupBox *adminGroup;
-            QPushButton *importButton;
-            QPushButton *exportButton;
-        } main;
-        
-        struct {
-            QWidget *widget;
             QVBoxLayout *vBoxLayout;
             QHBoxLayout *labelLayout;
             GoBackLabel *topLabel;
             AccountTable *dataTable;
-        } table;
+            QWidget *bottomWidget;
+            QHBoxLayout *bottomHBoxLayout;
+            QLabel *bottomLabel;
+            QFrame *bottomRightFrame;
+            QBoxLayout *bottomRightBoxLayout;
+            QPushButton *importButton;
+            QPushButton *exportButton;
+        } main;
         
 };
 

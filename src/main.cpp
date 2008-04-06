@@ -1,8 +1,12 @@
+#include <qapplication.h>
 
-#include "generalLedger.h"
+#include "tabs.h"
 
 int main(int argc, char *argv[])
 {
-    GeneralLedger *app = new GeneralLedger(argc,argv);
-    return app->exec();
+    QApplication app(argc,argv);
+    Tabs tabs(&app);
+    tabs.show();
+    app.setMainWidget(&tabs);
+    return app.exec();
 }
