@@ -2,26 +2,43 @@
 #define TABS_H
 
 #include <qtabwidget.h>
-#include <qsqldatabase.h>
+
+class QApplication;
+class QKeyEvent;
+
+class MainStack;
+class AccountStack;
+class JournalStack;
+class ReportStack;
 
 class Tabs : public QTabWidget
 {
     Q_OBJECT
     public:
-        Tabs( QWidget* parent = 0, const char* name = 0, WFlags f = 0 );
-        QString getClient() const;
+        Tabs(QApplication *parent = 0, const char *name = 0);
         
     signals:
-        void appQuit();
-    
+        void writeSettings();
+        void closeDb();
+        void copyDb(QString);
+        
     private slots:
-        void openDefault();
-        void openNew(QString name);
-        void createNew(QString name);
-        void quit();
+        void dbOpened();
+        void dbClosed();
+        void switchToMain();
+        void switchToAccounts();
+        void switchToJournal();
+        void switchToReports();
         
     private:
-        QSqlDatabase *db;
+        void keyPressEvent(QKeyEvent *event);
+        void closeEvent(QCloseEvent *event);
+        
+        MainStack *mainStack;
+        AccountStack *accountStack;        
+        JournalStack *journalStack;
+        ReportStack *reportStack;
+    
 };
 
 #endif

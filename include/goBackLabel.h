@@ -1,9 +1,12 @@
 #ifndef GO_BACK_LABEL_H
 #define GO_BACK_LABEL_H
 
-#include <qlabel.h>
+#include <qhbox.h>
 
-class GoBackLabel : public QLabel
+class QLabel;
+class QEvent;
+
+class GoBackLabel : public QHBox
 {
     Q_OBJECT
     public:
@@ -11,7 +14,10 @@ class GoBackLabel : public QLabel
     signals:
         void goBack();
     protected:
-        void mousePressEvent(QMouseEvent *event);
+        void mousePressEvent(QMouseEvent*);
+    private:
+        QLabel *label;
+        QLabel *icon;
 };
 
 #endif

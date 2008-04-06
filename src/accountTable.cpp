@@ -12,6 +12,11 @@ AccountTable::AccountTable(QWidget *parent, const char *name)
     setSqlCursor(cursor);
     addColumn("id", "ID");
     addColumn("name", "Name");
+    
+    setColumnStretchable(1, true);
+    
     refresh();
+    
+    
 }
-   
+

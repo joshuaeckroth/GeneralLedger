@@ -2,7 +2,8 @@
 #define ACCOUNT_TABLE_H
 
 #include <qdatatable.h>
-#include <qsqlcursor.h>
+
+class QSqlCursor;
 
 class AccountTable : public QDataTable
 {
@@ -13,4 +14,4 @@ class AccountTable : public QDataTable
        
 };
 
-#endif  
+#endif
